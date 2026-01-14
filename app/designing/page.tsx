@@ -36,7 +36,7 @@ export default function DesigningPage() {
       <section className="section-lg gradient-radial">
         <div className="container-content text-center">
           <RevealOnScroll>
-            <span className="text-micro font-medium text-ember uppercase tracking-wider">
+            <span className="text-micro font-medium text-signal uppercase tracking-wider">
               designing.withamplifier.com
             </span>
           </RevealOnScroll>
@@ -152,7 +152,7 @@ export default function DesigningPage() {
 
           <RevealOnScroll delay={300}>
             <div className="mt-12 text-center">
-              <Link href="/explore" className="link-ember link-underline">
+              <Link href="/explore" className="link-signal link-underline">
                 See all bundles
               </Link>
             </div>

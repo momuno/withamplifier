@@ -19,7 +19,7 @@ export default function Navigation() {
       <nav className="relative max-w-wide mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <Link 
           href="/" 
-          className="text-ink font-semibold tracking-tight hover:text-ember transition-colors duration-300"
+          className="text-ink font-semibold tracking-tight hover:text-signal transition-colors duration-300"
         >
           with amplifier
         </Link>
@@ -31,7 +31,7 @@ export default function Navigation() {
                 href={item.href}
                 className={`px-4 py-2 text-[15px] font-medium rounded-soft transition-all duration-300 ${
                   pathname === item.href
-                    ? 'text-ember bg-ember-soft'
+                    ? 'text-signal bg-signal-soft'
                     : 'text-ink-slate hover:text-ink hover:bg-canvas-stone'
                 }`}
               >

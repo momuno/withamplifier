@@ -28,14 +28,14 @@ export default function SupportPage() {
               href="https://github.com/microsoft/amplifier/discussions"
               className="card group"
             >
-              <h2 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h2 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Community Discussions
               </h2>
               <p className="mt-3 text-ink-slate">
                 Ask questions, share ideas, connect with other builders. 
                 The community is active and helpful.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Join the discussion →
               </span>
             </Link>
@@ -44,14 +44,14 @@ export default function SupportPage() {
               href="https://github.com/microsoft/amplifier/issues"
               className="card group"
             >
-              <h2 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h2 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Bug Reports
               </h2>
               <p className="mt-3 text-ink-slate">
                 Found something broken? Let us know. Good bug reports 
                 help us improve Amplifier for everyone.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Report an issue →
               </span>
             </Link>
@@ -60,14 +60,14 @@ export default function SupportPage() {
               href="https://github.com/microsoft/amplifier"
               className="card group"
             >
-              <h2 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h2 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Documentation
               </h2>
               <p className="mt-3 text-ink-slate">
                 Guides, examples, and API reference. Everything you need 
                 to understand and build with Amplifier.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Read the docs →
               </span>
             </Link>
@@ -76,14 +76,14 @@ export default function SupportPage() {
               href="https://github.com/microsoft/amplifier/blob/main/CONTRIBUTING.md"
               className="card group"
             >
-              <h2 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h2 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Contributing
               </h2>
               <p className="mt-3 text-ink-slate">
                 Help build Amplifier. Contribute bundles, tools, documentation, 
                 or improvements to the core.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Get involved →
               </span>
             </Link>

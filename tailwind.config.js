@@ -24,11 +24,13 @@ module.exports = {
           slate: '#4A4A46',     // Secondary text
           fog: '#8A8A86',       // Tertiary text
         },
-        // Signal - Accent & Emphasis
-        ember: {
-          DEFAULT: '#D4642A',   // Primary accent
-          soft: 'rgba(212, 100, 42, 0.08)',   // Backgrounds
-          glow: 'rgba(212, 100, 42, 0.18)',   // Hover states
+        // Signal - Accent & Emphasis (Deep Violet Blue)
+        signal: {
+          DEFAULT: '#5B4DE3',   // Primary accent
+          light: '#8578F0',     // Hover states
+          dark: '#4338B8',      // Active/pressed states
+          soft: 'rgba(91, 77, 227, 0.08)',    // Backgrounds
+          glow: 'rgba(91, 77, 227, 0.18)',    // Hover backgrounds
         },
         // Depth - Dark surfaces
         depth: {

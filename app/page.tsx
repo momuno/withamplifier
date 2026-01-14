@@ -66,52 +66,52 @@ export default function Home() {
           
           <RevealStagger className="grid md:grid-cols-2 gap-6">
             <Link href="/designing" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 I'm a designer
               </h3>
               <p className="mt-3 text-ink-slate">
                 Turn design thinking into working tools. Create presentations, 
                 document systems, analyze content.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="mt-4 inline-block text-signal text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 designing.withamplifier.com →
               </span>
             </Link>
 
             <Link href="/engineering" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 I'm an engineer
               </h3>
               <p className="mt-3 text-ink-slate">
                 Build with modular components. Swap providers, add tools, 
                 compose capabilities.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="mt-4 inline-block text-signal text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 engineering.withamplifier.com →
               </span>
             </Link>
 
             <Link href="/automating" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 I'm automating workflows
               </h3>
               <p className="mt-3 text-ink-slate">
                 Create repeatable recipes. Chain agents, add approval gates, 
                 run complex workflows.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="mt-4 inline-block text-signal text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 automating.withamplifier.com →
               </span>
             </Link>
 
             <Link href="/start" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 I'm curious
               </h3>
               <p className="mt-3 text-ink-slate">
                 Start here. See what Amplifier does and decide where you fit.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="mt-4 inline-block text-signal text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 Learn more →
               </span>
             </Link>
@@ -130,7 +130,7 @@ export default function Home() {
               </p>
               <Link 
                 href="/explore" 
-                className="mt-4 inline-block text-ember text-sm font-medium link-underline"
+                className="mt-4 inline-block text-signal text-sm font-medium link-underline"
               >
                 Open playground
               </Link>
@@ -153,7 +153,7 @@ export default function Home() {
               </p>
               <Link 
                 href="/build" 
-                className="mt-4 inline-block text-ember text-sm font-medium link-underline"
+                className="mt-4 inline-block text-signal text-sm font-medium link-underline"
               >
                 Download Forge
               </Link>
@@ -211,7 +211,7 @@ export default function Home() {
 
           <RevealOnScroll delay={300}>
             <div className="mt-12 text-center">
-              <Link href="/explore" className="link-ember link-underline">
+              <Link href="/explore" className="link-signal link-underline">
                 Explore more examples
               </Link>
             </div>

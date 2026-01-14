@@ -2,270 +2,299 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import PlaygroundSimulation from '@/components/PlaygroundSimulation'
+import { getTraceForBundle } from '@/lib/demo-traces'
 
 const bundles = [
   {
     id: 'documentation',
     name: 'Documentation',
-    description: 'Creates READMEs, API docs, user guides',
+    description: 'Creates comprehensive READMEs, API docs, and user guides.',
     defaultPrompt: 'Document the architecture of this codebase',
+    config: `bundle:
+  name: documentation
+  version: 1.0.0
+
+providers:
+  - anthropic
+
+tools:
+  - filesystem
+  - web-search
+  - grep
+
+behaviors:
+  - technical-writing
+  - structured-output`,
   },
   {
     id: 'code-reviewer',
     name: 'Code Reviewer',
-    description: 'Security analysis, best practices review',
+    description: 'Security analysis, SOLID principles, and best practices.',
     defaultPrompt: 'Review this code for security vulnerabilities',
+    config: `bundle:
+  name: code-reviewer
+  version: 1.0.0
+
+providers:
+  - anthropic
+
+tools:
+  - filesystem
+  - grep
+  - ast-analysis
+
+behaviors:
+  - security-focused
+  - constructive-feedback`,
   },
   {
     id: 'developer',
     name: 'Developer',
-    description: 'Full-stack development capabilities',
-    defaultPrompt: 'Create a script that analyzes log files',
-  },
-  {
-    id: 'presentation',
-    name: 'Presentation Creator',
-    description: 'Presentations with research and visuals',
-    defaultPrompt: 'Create a technical presentation on our architecture',
-  },
-]
-
-const bundleYaml: Record<string, string> = {
-  documentation: `# Documentation Bundle
-
-bundle:
-  name: documentation
-  version: 1.0.0
-
-includes:
-  - bundle: foundation
-
-tools:
-  - filesystem
-  - web_search
-  - grep
-  - glob
-
-behaviors:
-  - technical-writing
-  - research
-
-context:
-  include:
-    - docs/README-TEMPLATE.md`,
-  'code-reviewer': `# Code Reviewer Bundle
-
-bundle:
-  name: code-reviewer
-  version: 1.0.0
-
-includes:
-  - bundle: foundation
-
-tools:
-  - filesystem:read-only
-  - grep
-  - glob
-  - python_check
-
-behaviors:
-  - security-review
-  - best-practices`,
-  developer: `# Developer Bundle
-
-bundle:
+    description: 'Full-stack development with code generation and testing.',
+    defaultPrompt: 'Create a script that analyzes log files for errors',
+    config: `bundle:
   name: developer
   version: 1.0.0
 
-includes:
-  - bundle: foundation
+providers:
+  - anthropic
 
 tools:
   - filesystem
   - bash
   - grep
-  - glob
-  - web_search
+  - web-search
 
 behaviors:
-  - implementation
-  - testing`,
-  presentation: `# Presentation Creator
-
-bundle:
-  name: presentation-creator
+  - implementation-focused
+  - test-driven`,
+  },
+  {
+    id: 'presentation',
+    name: 'Presentation Creator',
+    description: 'Creates presentations with research and visual suggestions.',
+    defaultPrompt: 'Create a technical presentation on our architecture',
+    config: `bundle:
+  name: presentation
   version: 1.0.0
 
-includes:
-  - bundle: foundation
+providers:
+  - anthropic
 
 tools:
-  - web_search
   - filesystem
+  - web-search
 
 behaviors:
-  - research
-  - presentation-design
-  - visual-suggestions`,
-}
+  - visual-thinking
+  - narrative-structure`,
+  },
+]
 
 export default function PlaygroundPage() {
   const [selectedBundle, setSelectedBundle] = useState(bundles[0])
   const [prompt, setPrompt] = useState(bundles[0].defaultPrompt)
+  const [showSimulation, setShowSimulation] = useState(false)
+  const [activeTab, setActiveTab] = useState<'config' | 'simulation'>('simulation')
 
-  const handleBundleChange = (bundleId: string) => {
-    const bundle = bundles.find(b => b.id === bundleId)
-    if (bundle) {
-      setSelectedBundle(bundle)
-      setPrompt(bundle.defaultPrompt)
-    }
+  const handleBundleChange = (bundle: typeof bundles[0]) => {
+    setSelectedBundle(bundle)
+    setPrompt(bundle.defaultPrompt)
+    setShowSimulation(false)
+    setActiveTab('simulation')
   }
 
+  const handleRunClick = () => {
+    setShowSimulation(true)
+    setActiveTab('simulation')
+  }
+
+  const trace = getTraceForBundle(selectedBundle.id)
+
   return (
-    <div className="pt-16 min-h-screen bg-canvas">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
-        {/* Header */}
-        <div className="mb-12">
+    <div className="pt-16">
+      {/* Hero */}
+      <section className="section-sm gradient-radial">
+        <div className="container-content">
           <h1 className="text-display text-ink">Playground</h1>
           <p className="mt-4 text-body-lg text-ink-slate max-w-2xl">
-            Explore bundles that do real work. See the configuration. 
-            Understand how each one is built.
+            See how Amplifier works. Select a bundle, run it, and watch the agent think, 
+            use tools, and generate output.
           </p>
         </div>
+      </section>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left: Controls */}
-          <div className="space-y-8">
-            {/* Bundle selector */}
-            <div>
-              <label className="block text-micro font-medium text-ink-fog uppercase tracking-wider mb-4">
-                Select bundle
-              </label>
-              <div className="grid grid-cols-2 gap-3">
+      {/* Main playground area */}
+      <section className="section border-t border-canvas-mist">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-[300px_1fr] gap-8">
+            {/* Sidebar - Bundle selector */}
+            <div className="space-y-4">
+              <h2 className="text-heading text-ink">Select a bundle</h2>
+              <div className="space-y-2">
                 {bundles.map((bundle) => (
                   <button
                     key={bundle.id}
-                    onClick={() => handleBundleChange(bundle.id)}
-                    className={`p-4 text-left rounded-soft transition-all duration-300 ${
+                    onClick={() => handleBundleChange(bundle)}
+                    className={`w-full p-4 text-left rounded-soft transition-all duration-300 ${
                       selectedBundle.id === bundle.id
-                        ? 'bg-ember-soft border-2 border-ember'
+                        ? 'bg-signal-soft border-2 border-signal'
                         : 'bg-canvas-stone border-2 border-transparent hover:border-canvas-mist'
                     }`}
                   >
                     <span className={`block font-medium text-sm ${
-                      selectedBundle.id === bundle.id ? 'text-ember' : 'text-ink'
+                      selectedBundle.id === bundle.id ? 'text-signal' : 'text-ink'
                     }`}>
                       {bundle.name}
                     </span>
-                    <span className="block text-micro text-ink-fog mt-1">
+                    <span className="block mt-1 text-ink-slate text-micro">
                       {bundle.description}
                     </span>
                   </button>
                 ))}
               </div>
-            </div>
 
-            {/* Prompt input */}
-            <div>
-              <label className="block text-micro font-medium text-ink-fog uppercase tracking-wider mb-4">
-                Your prompt
-              </label>
-              <textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                rows={4}
-                className="w-full px-5 py-4 bg-canvas border-2 border-canvas-mist rounded-soft 
-                           focus:outline-none focus:border-ember transition-colors duration-300
-                           text-ink placeholder:text-ink-fog resize-none"
-                placeholder="What do you want to do?"
-              />
-            </div>
-
-            {/* Run button */}
-            <div className="flex items-center gap-6">
-              <button
-                className="btn-primary"
-                onClick={() => alert('In production, this connects to Amplifier')}
-              >
-                Run with Amplifier
-              </button>
-              <span className="text-micro text-ink-fog">
-                Requires CLI or Forge
-              </span>
-            </div>
-
-            {/* Note */}
-            <div className="p-6 bg-canvas-stone rounded-soft border border-canvas-mist">
-              <p className="text-sm text-ink-slate">
-                <strong className="text-ink">Note:</strong> This playground shows bundle 
-                structure and configuration. For full execution, install Amplifier locally 
-                or use Forge.
-              </p>
-              <Link
-                href="/build"
-                className="mt-4 inline-flex text-ember text-sm font-medium link-underline"
-              >
-                Get started
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: YAML view */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <label className="text-micro font-medium text-ink-fog uppercase tracking-wider">
-                Bundle configuration
-              </label>
-              <span className="text-micro text-ink-fog font-mono">
-                {selectedBundle.id}.md
-              </span>
-            </div>
-            <div className="bg-depth-charcoal rounded-soft overflow-hidden shadow-elevate">
-              <div className="px-5 py-3 bg-depth-obsidian border-b border-depth-iron flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-depth-iron" />
-                <div className="w-3 h-3 rounded-full bg-depth-iron" />
-                <div className="w-3 h-3 rounded-full bg-depth-iron" />
+              {/* What you're seeing */}
+              <div className="mt-8 p-4 bg-canvas-stone rounded-soft">
+                <h3 className="text-micro font-medium text-ink-fog uppercase tracking-wider">
+                  What you're seeing
+                </h3>
+                <p className="mt-2 text-sm text-ink-slate leading-relaxed">
+                  This is a simulation of real Amplifier execution traces. 
+                  You're watching the same thinking and tool usage patterns 
+                  that happen when you run Amplifier locally.
+                </p>
               </div>
-              <pre className="p-6 text-sm text-[#E8E8E6] font-mono overflow-x-auto leading-relaxed">
-                <code>{bundleYaml[selectedBundle.id]}</code>
-              </pre>
             </div>
-            <p className="mt-4 text-sm text-ink-slate">
-              Bundles are YAML + markdown. Combine providers, tools, and behaviors 
-              into reusable capabilities you can customize.
-            </p>
+
+            {/* Main content area */}
+            <div className="space-y-6">
+              {/* Prompt input */}
+              <div>
+                <label className="block text-sm font-medium text-ink mb-2">
+                  Your prompt
+                </label>
+                <div className="flex gap-3">
+                  <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder="What would you like to do?"
+                    rows={2}
+                    className="flex-1 p-4 bg-canvas-stone border border-canvas-mist rounded-soft 
+                               text-ink placeholder:text-ink-fog resize-none
+                               focus:outline-none focus:border-signal transition-colors duration-300"
+                  />
+                  <button
+                    onClick={handleRunClick}
+                    className="btn-primary self-end"
+                  >
+                    Run Demo
+                  </button>
+                </div>
+              </div>
+
+              {/* Tabs */}
+              <div className="flex gap-1 border-b border-canvas-mist">
+                <button
+                  onClick={() => setActiveTab('simulation')}
+                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                    activeTab === 'simulation'
+                      ? 'border-signal text-signal'
+                      : 'border-transparent text-ink-slate hover:text-ink'
+                  }`}
+                >
+                  Execution
+                </button>
+                <button
+                  onClick={() => setActiveTab('config')}
+                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                    activeTab === 'config'
+                      ? 'border-signal text-signal'
+                      : 'border-transparent text-ink-slate hover:text-ink'
+                  }`}
+                >
+                  Bundle Config
+                </button>
+              </div>
+
+              {/* Tab content */}
+              {activeTab === 'simulation' ? (
+                <div>
+                  {showSimulation && trace ? (
+                    <PlaygroundSimulation 
+                      trace={trace} 
+                      onComplete={() => {
+                        // Could add analytics or next action prompts here
+                      }}
+                    />
+                  ) : (
+                    <div className="terminal min-h-[400px]">
+                      <div className="terminal-header">
+                        <div className="terminal-dots">
+                          <div className="terminal-dot" />
+                          <div className="terminal-dot" />
+                          <div className="terminal-dot" />
+                        </div>
+                        <span className="terminal-label">Ready</span>
+                      </div>
+                      <div className="terminal-body flex items-center justify-center h-[350px]">
+                        <div className="text-center">
+                          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-signal-soft flex items-center justify-center">
+                            <svg className="w-8 h-8 text-signal" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                          <p className="text-ink-slate mb-2">Click "Run Demo" to see {selectedBundle.name} in action</p>
+                          <p className="text-ink-fog text-sm">Watch the agent think, use tools, and generate output</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="code-block">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-micro font-medium text-ink-fog uppercase tracking-wider">
+                      {selectedBundle.name} Configuration
+                    </span>
+                    <span className="text-micro text-ink-fog">bundle.yaml</span>
+                  </div>
+                  <pre className="text-sm text-[#E8E8E6] whitespace-pre font-mono">
+                    {selectedBundle.config}
+                  </pre>
+                </div>
+              )}
+
+              {/* Call to action */}
+              <div className="flex items-center justify-between p-6 bg-canvas-stone rounded-gentle">
+                <div>
+                  <h3 className="text-heading text-ink">Ready to try it yourself?</h3>
+                  <p className="mt-1 text-ink-slate text-sm">
+                    Install Amplifier and run real bundles on your own projects.
+                  </p>
+                </div>
+                <Link
+                  href="/build"
+                  className="btn-primary"
+                >
+                  Get Started
+                </Link>
+              </div>
+
+              {/* Learn more */}
+              <div className="text-center pt-4">
+                <Link
+                  href="/start"
+                  className="text-signal text-sm font-medium link-underline"
+                >
+                  Learn how Amplifier works →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* What you're seeing */}
-        <section className="mt-24 pt-16 border-t border-canvas-mist">
-          <h2 className="text-title text-ink mb-12">What you're seeing</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-heading text-ink">Bundle selection</h3>
-              <p className="mt-3 text-ink-slate">
-                Each bundle is a complete capability. Switch between them to see 
-                different configurations and use cases.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-heading text-ink">Transparent configuration</h3>
-              <p className="mt-3 text-ink-slate">
-                The YAML shows exactly what the bundle includes. No black box. 
-                You can read, modify, and create your own.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-heading text-ink">Real work</h3>
-              <p className="mt-3 text-ink-slate">
-                These bundles do actual work—create documentation, review code, 
-                build presentations. Not toy demos.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
+      </section>
     </div>
   )
 }

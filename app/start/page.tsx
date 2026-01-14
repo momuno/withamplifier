@@ -137,26 +137,26 @@ export default function StartPage() {
 
           <RevealStagger className="grid md:grid-cols-2 gap-6">
             <Link href="/explore" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Explore
               </h3>
               <p className="mt-3 text-ink-slate">
                 Try bundles in the playground. See what's possible before committing 
                 to anything.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Open playground →
               </span>
             </Link>
 
             <Link href="/build" className="card group">
-              <h3 className="text-heading text-ink group-hover:text-ember transition-colors duration-300">
+              <h3 className="text-heading text-ink group-hover:text-signal transition-colors duration-300">
                 Build
               </h3>
               <p className="mt-3 text-ink-slate">
                 Install Forge or CLI. Start creating with Amplifier.
               </p>
-              <span className="mt-4 inline-block text-ember text-sm font-medium">
+              <span className="mt-4 inline-block text-signal text-sm font-medium">
                 Get started →
               </span>
             </Link>

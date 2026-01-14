@@ -58,7 +58,7 @@ export default function ExplorePage() {
         <div className="container-content">
           <RevealOnScroll>
             <div className="max-w-3xl">
-              <span className="text-micro font-medium text-ember uppercase tracking-wider">
+              <span className="text-micro font-medium text-signal uppercase tracking-wider">
                 Interactive
               </span>
               <h2 className="mt-4 text-title text-ink">The Playground</h2>
