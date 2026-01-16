@@ -226,31 +226,31 @@ export default function Home() {
             </h2>
           </div>
           
-          <div className="reveal-stagger grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div>
-              <h3 className="text-lg font-semibold text-on-dark mb-2">Debug with confidence</h3>
-              <p className="text-on-dark-secondary text-sm leading-relaxed">
+          <div className="reveal-stagger grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
+            <div className="benefit-card">
+              <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Debug with confidence</h3>
+              <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
                 See every prompt, every tool call, every decision. When something goes wrong, you can trace exactly why.
               </p>
             </div>
             
-            <div>
-              <h3 className="text-lg font-semibold text-on-dark mb-2">Iterate without limits</h3>
-              <p className="text-on-dark-secondary text-sm leading-relaxed">
+            <div className="benefit-card">
+              <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Iterate without limits</h3>
+              <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
                 New model comes out? Swap it in. Need a custom tool? Write one. Your investment in learning compounds.
               </p>
             </div>
             
-            <div>
-              <h3 className="text-lg font-semibold text-on-dark mb-2">Share what works</h3>
-              <p className="text-on-dark-secondary text-sm leading-relaxed">
+            <div className="benefit-card">
+              <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Share what works</h3>
+              <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
                 Package your setup as a bundle. Share it with your team. Publish it for others. No vendor lock-in.
               </p>
             </div>
             
-            <div>
-              <h3 className="text-lg font-semibold text-on-dark mb-2">Security you control</h3>
-              <p className="text-on-dark-secondary text-sm leading-relaxed">
+            <div className="benefit-card">
+              <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Security you control</h3>
+              <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
                 Run models locally. Inspect every API call. Add approval gates for sensitive operations. Your data, your rules.
               </p>
             </div>
