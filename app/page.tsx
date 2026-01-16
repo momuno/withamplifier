@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
 
@@ -19,7 +19,7 @@ export default function Home() {
         })
       },
       { 
-        rootMargin: '0px 0px -15% 0px',
+        rootMargin: '0px 0px -10% 0px',
         threshold: 0.1 
       }
     )
@@ -34,8 +34,7 @@ export default function Home() {
   return (
     <div className="pt-16">
       {/* ============================================
-          SECTION 1: HERO
-          Apple pattern: 70% whitespace, ONE idea
+          HERO - The Promise
           ============================================ */}
       <section className="section-hero">
         <div className="text-center container-default">
@@ -43,115 +42,139 @@ export default function Home() {
             Yours for the making.
           </h1>
           
-          <p className="reveal mt-6 md:mt-8 text-body-large text-ink-slate max-w-xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
-            A modular AI agent framework you can see through, take apart, and make your own.
+          <p className="reveal mt-6 md:mt-8 text-body-large text-ink-slate max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
+            An AI agent framework where every piece is visible, swappable, and yours to control. 
+            See exactly how it thinks. Change what doesn't fit. Build something that works the way you do.
           </p>
+          
+          <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
+            <CodeBlock code="pip install amplifier" className="max-w-xs mx-auto" />
+          </div>
         </div>
       </section>
 
       {/* ============================================
-          SECTION 2: THE PROBLEM (Dark, dramatic)
-          Apple pattern: Dark background, emotional impact
+          THE PROBLEM - Why This Matters
           ============================================ */}
       <section className="section-feature section-dark">
-        <div className="container-narrow text-center">
-          <p className="reveal text-eyebrow mb-4">The problem</p>
-          
-          <h2 className="reveal text-display text-on-dark" style={{transitionDelay: '0.1s'}}>
-            Black boxes everywhere.
-          </h2>
-          
-          <p className="reveal mt-8 text-body-large text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.2s'}}>
-            Most AI tools hide how they work. You can't see inside, can't change what matters, can't make it yours.
-          </p>
-        </div>
-      </section>
-
-      {/* ============================================
-          SECTION 3: THE SOLUTION (Light, breathing room)
-          Apple pattern: Contrast from dark, simple statement
-          ============================================ */}
-      <section className="section-feature section-light">
-        <div className="container-narrow text-center">
-          <p className="reveal text-eyebrow mb-4">Amplifier</p>
-          
-          <h2 className="reveal text-display text-ink" style={{transitionDelay: '0.1s'}}>
-            See everything. Change anything.
-          </h2>
-          
-          <p className="reveal mt-8 text-body-large text-ink-slate max-w-lg mx-auto" style={{transitionDelay: '0.2s'}}>
-            Swap the model. Add a tool. Rewrite the behavior. Every piece is visible, every piece is yours.
-          </p>
-        </div>
-      </section>
-
-      {/* ============================================
-          SECTION 4: HOW IT WORKS (Dark, technical depth)
-          Apple pattern: Dark for "power" sections
-          ============================================ */}
-      <section className="section-feature section-dark-gradient">
         <div className="container-default">
-          <div className="text-center mb-8 md:mb-16">
-            <p className="reveal text-eyebrow mb-3 md:mb-4">How it works</p>
-            <h2 className="reveal text-headline text-on-dark" style={{transitionDelay: '0.1s'}}>
-              Three pieces. Infinite combinations.
+          <div className="text-center mb-12 md:mb-16">
+            <p className="reveal text-eyebrow mb-4">The problem with AI tools today</p>
+            <h2 className="reveal text-display text-on-dark" style={{transitionDelay: '0.1s'}}>
+              You can't see inside.
             </h2>
           </div>
           
-          {/* Feature tiles - NO borders, NO shadows */}
-          <div className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
-            <div className="feature-tile feature-tile-dark">
-              <div className="feature-tile-content text-center">
-                <div className="text-4xl mb-6">⚡</div>
-                <h3 className="text-subtitle text-on-dark mb-3">Providers</h3>
-                <p className="text-on-dark-secondary">
-                  Claude, GPT-4, Ollama, or your own. Switch without rewriting.
-                </p>
-              </div>
+          <div className="reveal-stagger grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+            <div className="text-center md:text-left">
+              <div className="text-3xl mb-4">🔒</div>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">Opaque behavior</h3>
+              <p className="text-on-dark-secondary text-sm leading-relaxed">
+                When it does something unexpected, you can't see why. You're left guessing at a black box.
+              </p>
             </div>
             
-            <div className="feature-tile feature-tile-dark">
-              <div className="feature-tile-content text-center">
-                <div className="text-4xl mb-6">🔧</div>
-                <h3 className="text-subtitle text-on-dark mb-3">Tools</h3>
-                <p className="text-on-dark-secondary">
-                  Filesystem, bash, web search. Add what you need.
-                </p>
-              </div>
+            <div className="text-center md:text-left">
+              <div className="text-3xl mb-4">🚫</div>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">Locked-in choices</h3>
+              <p className="text-on-dark-secondary text-sm leading-relaxed">
+                Want a different model? Different tools? You're stuck with what they decided to give you.
+              </p>
             </div>
             
-            <div className="feature-tile feature-tile-dark">
-              <div className="feature-tile-content text-center">
-                <div className="text-4xl mb-6">🎯</div>
-                <h3 className="text-subtitle text-on-dark mb-3">Behaviors</h3>
-                <p className="text-on-dark-secondary">
-                  Instructions that shape how it works. Your expertise, encoded.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          {/* The bundle - result */}
-          <div className="reveal mt-12 text-center" style={{transitionDelay: '0.4s'}}>
-            <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-signal/10 border border-signal/30">
-              <span className="text-2xl">📦</span>
-              <span className="text-on-dark font-medium">Bundle = A complete capability you can share</span>
+            <div className="text-center md:text-left">
+              <div className="text-3xl mb-4">📦</div>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">One-size-fits-none</h3>
+              <p className="text-on-dark-secondary text-sm leading-relaxed">
+                Generic instructions. Generic personality. No way to encode how you actually work.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================
-          SECTION 5: SEE IT RUN (Light, proof)
-          Apple pattern: Light for "show" sections
+          THE ARCHITECTURE - How It Works
+          ============================================ */}
+      <section className="section-feature section-light">
+        <div className="container-default">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="reveal text-eyebrow mb-4">The Amplifier approach</p>
+            <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
+              Three building blocks. Infinite combinations.
+            </h2>
+            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.15s'}}>
+              Everything is modular. Mix and match to create exactly the AI assistant you need.
+            </p>
+          </div>
+          
+          <div className="reveal-stagger grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+            {/* Provider */}
+            <div className="feature-tile feature-tile-light p-6 md:p-8">
+              <div className="text-3xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold text-ink mb-3">Providers</h3>
+              <p className="text-ink-slate text-sm mb-4">
+                The brain. Claude, GPT-4, Ollama, or run your own local model. Switch between them without changing anything else.
+              </p>
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+                providers: [anthropic, ollama]
+              </code>
+            </div>
+            
+            {/* Tools */}
+            <div className="feature-tile feature-tile-light p-6 md:p-8">
+              <div className="text-3xl mb-4">🔧</div>
+              <h3 className="text-xl font-semibold text-ink mb-3">Tools</h3>
+              <p className="text-ink-slate text-sm mb-4">
+                The hands. Filesystem access, bash commands, web search, GitHub integration. Add only what you need.
+              </p>
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+                tools: [filesystem, bash, grep]
+              </code>
+            </div>
+            
+            {/* Behaviors */}
+            <div className="feature-tile feature-tile-light p-6 md:p-8">
+              <div className="text-3xl mb-4">🎯</div>
+              <h3 className="text-xl font-semibold text-ink mb-3">Behaviors</h3>
+              <p className="text-ink-slate text-sm mb-4">
+                The personality. Instructions, expertise, and guardrails that shape how it works. Your workflow, encoded.
+              </p>
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+                behaviors: [security-focused]
+              </code>
+            </div>
+          </div>
+          
+          {/* Bundle = Result */}
+          <div className="reveal mt-10 md:mt-14 text-center" style={{transitionDelay: '0.4s'}}>
+            <div className="inline-block p-6 md:p-8 rounded-2xl bg-signal-soft border border-signal/20">
+              <div className="flex items-center justify-center gap-4 mb-3">
+                <span className="text-2xl">📦</span>
+                <span className="text-xl font-semibold text-ink">Bundle</span>
+              </div>
+              <p className="text-ink-slate text-sm max-w-md">
+                Combine providers + tools + behaviors into a shareable package. 
+                Install someone else's bundle, or publish your own.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          SEE IT RUN - Proof It Works
           ============================================ */}
       <section className="section-feature section-stone">
         <div className="container-narrow">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 md:mb-12">
             <p className="reveal text-eyebrow mb-4">In action</p>
             <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
-              Real work, real results.
+              Watch it work.
             </h2>
+            <p className="reveal mt-4 text-ink-slate" style={{transitionDelay: '0.15s'}}>
+              One command loads a bundle, connects to a model, and gets to work.
+            </p>
           </div>
           
           <div className="reveal" style={{transitionDelay: '0.2s'}}>
@@ -163,49 +186,121 @@ export default function Home() {
                   <span className="terminal-dot active" />
                 </div>
               </div>
-              <div className="terminal-body terminal-responsive whitespace-pre overflow-x-auto">
-{`$ amplifier run "Document this codebase"
+              <div className="terminal-body terminal-responsive whitespace-pre overflow-x-auto text-sm">
+{`$ amplifier run "Review this PR for security issues"
 
-→ Loading bundle: documentation-writer
+→ Loading bundle: security-reviewer
 → Provider: claude-sonnet-4-20250514
+→ Tools: filesystem, grep, ast-analysis
 
-◐ Reading project structure...
-✓ Found 47 source files
-◐ Writing documentation...
-✓ README.md created
-✓ API.md created
-✓ ARCHITECTURE.md created
+◐ Analyzing changes in src/auth.py...
+◐ Checking for common vulnerabilities...
 
-✓ Complete (3 files, 2,847 words)`}
+⚠ Found 2 issues:
+
+1. SQL Injection Risk (Line 47)
+   user_query = f"SELECT * FROM users WHERE id = {user_id}"
+   → Use parameterized queries instead
+
+2. Missing Input Validation (Line 23)
+   password field accepts any length
+   → Add length limits to prevent DoS
+
+✓ Review complete. 2 issues found, 0 false positives.`}
               </div>
             </div>
           </div>
           
-          <div className="reveal mt-10 text-center" style={{transitionDelay: '0.3s'}}>
+          <div className="reveal mt-8 text-center" style={{transitionDelay: '0.3s'}}>
             <Link href="/explore" className="link-apple">
-              See more examples
+              Try more examples →
             </Link>
           </div>
         </div>
       </section>
 
       {/* ============================================
-          SECTION 6: THE ECOSYSTEM (Dark, community)
-          Apple pattern: Dark for "scale" messaging
+          WHY IT MATTERS - The Real Benefits
           ============================================ */}
-      <section className="section-feature section-dark">
+      <section className="section-feature section-dark-gradient">
+        <div className="container-default">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="reveal text-eyebrow mb-4">Why this matters</p>
+            <h2 className="reveal text-headline text-on-dark" style={{transitionDelay: '0.1s'}}>
+              Control that compounds.
+            </h2>
+          </div>
+          
+          <div className="reveal-stagger grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="flex gap-4">
+              <div className="text-2xl">🔍</div>
+              <div>
+                <h3 className="text-lg font-semibold text-on-dark mb-2">Debug with confidence</h3>
+                <p className="text-on-dark-secondary text-sm leading-relaxed">
+                  See every prompt, every tool call, every decision. When something goes wrong, you can trace exactly why.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="text-2xl">🔄</div>
+              <div>
+                <h3 className="text-lg font-semibold text-on-dark mb-2">Iterate without limits</h3>
+                <p className="text-on-dark-secondary text-sm leading-relaxed">
+                  New model comes out? Swap it in. Need a custom tool? Write one. Your investment in learning compounds.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="text-2xl">🤝</div>
+              <div>
+                <h3 className="text-lg font-semibold text-on-dark mb-2">Share what works</h3>
+                <p className="text-on-dark-secondary text-sm leading-relaxed">
+                  Package your setup as a bundle. Share it with your team. Publish it for others. No vendor lock-in.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="text-2xl">🛡️</div>
+              <div>
+                <h3 className="text-lg font-semibold text-on-dark mb-2">Security you control</h3>
+                <p className="text-on-dark-secondary text-sm leading-relaxed">
+                  Run models locally. Inspect every API call. Add approval gates for sensitive operations. Your data, your rules.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          ECOSYSTEM - Built By Many
+          ============================================ */}
+      <section className="section-feature section-light">
         <div className="container-default text-center">
           <p className="reveal text-eyebrow mb-4">The ecosystem</p>
           
-          <h2 className="reveal text-display text-on-dark" style={{transitionDelay: '0.1s'}}>
-            Built by many.
+          <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
+            Built by many. Better for everyone.
           </h2>
           
-          <p className="reveal mt-8 text-body-large text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.2s'}}>
-            People build bundles for their own needs, then share them back. More perspectives, better tools.
+          <p className="reveal mt-6 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.2s'}}>
+            A developer builds a code reviewer bundle for their team. A researcher creates one for paper analysis. 
+            A startup packages their internal tools. Each contribution makes the whole ecosystem richer.
           </p>
           
-          <div className="reveal mt-12" style={{transitionDelay: '0.3s'}}>
+          {/* Example bundles */}
+          <div className="reveal-stagger mt-10 flex flex-wrap justify-center gap-3" style={{transitionDelay: '0.3s'}}>
+            {['documentation-writer', 'security-reviewer', 'code-explorer', 'test-generator', 'api-designer', 'data-analyst'].map((bundle) => (
+              <span key={bundle} className="px-4 py-2 rounded-full bg-canvas-stone text-ink-slate text-sm">
+                {bundle}
+              </span>
+            ))}
+          </div>
+          
+          <div className="reveal mt-10" style={{transitionDelay: '0.4s'}}>
             <Link href="/explore" className="btn-apple">
               Explore bundles
             </Link>
@@ -214,38 +309,38 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          SECTION 7: GET STARTED (Light, action)
-          Apple pattern: Clear, simple CTA
+          GET STARTED - Clear Action
           ============================================ */}
-      <section className="section-feature section-light">
+      <section className="section-feature section-dark">
         <div className="container-narrow text-center">
-          <h2 className="reveal text-headline text-ink">
-            Start building.
+          <h2 className="reveal text-headline text-on-dark">
+            Ready to build?
           </h2>
           
-          <div className="reveal mt-10" style={{transitionDelay: '0.1s'}}>
-            <CodeBlock code="pip install amplifier" className="max-w-sm mx-auto" />
+          <p className="reveal mt-4 text-on-dark-secondary" style={{transitionDelay: '0.1s'}}>
+            Install Amplifier and run your first bundle in under a minute.
+          </p>
+          
+          <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
+            <CodeBlock code="pip install amplifier" className="max-w-xs mx-auto" />
           </div>
           
-          <div className="reveal mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4" style={{transitionDelay: '0.2s'}}>
+          <div className="reveal mt-8 flex flex-col sm:flex-row gap-3 justify-center px-4" style={{transitionDelay: '0.2s'}}>
             <Link href="/build" className="btn-apple w-full sm:w-auto">
               Quick Start Guide
             </Link>
-            <Link 
+            <a 
               href="https://github.com/microsoft/amplifier" 
               className="btn-apple-secondary w-full sm:w-auto"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Documentation
-            </Link>
+              View on GitHub
+            </a>
           </div>
           
-          <p className="reveal mt-10 text-sm text-ink-fog" style={{transitionDelay: '0.3s'}}>
-            Questions?{' '}
-            <Link href="/support" className="link-apple text-sm">
-              Get support
-            </Link>
+          <p className="reveal mt-8 text-sm text-on-dark-tertiary" style={{transitionDelay: '0.3s'}}>
+            Questions? <Link href="/support" className="text-link-blue hover:underline">Get support</Link>
           </p>
         </div>
       </section>
