@@ -15,46 +15,57 @@
 
 :root {
   /* ============================================
-     APPLE-QUALITY DESIGN TOKENS
-     Based on detailed analysis of Apple product pages
+     GEMINI-INSPIRED DESIGN TOKENS
+     Warm, soft, directional - "energy transfer"
      ============================================ */
   
-  /* Canvas - Light backgrounds */
-  --canvas: #FAFAF8;
-  --canvas-stone: #F5F5F3;
-  --canvas-mist: #EAEAE6;
+  /* Canvas - Warmer light backgrounds */
+  --canvas: #FDFCFA;          /* Warmer white */
+  --canvas-warm: #FAF8F5;     /* Cream undertone */
+  --canvas-stone: #F5F3F0;    /* Warm stone */
+  --canvas-mist: #EEEAE5;     /* Warm mist */
   
-  /* Ink - Text colors with Apple-like hierarchy */
-  --ink: #1d1d1f;           /* Primary text - Apple's exact shade */
-  --ink-slate: #6e6e73;     /* Secondary text */
-  --ink-fog: #86868b;       /* Tertiary text */
-  --ink-subtle: #a1a1a6;    /* Quaternary text */
+  /* Ink - Text colors with warmth */
+  --ink: #1a1a1a;             /* Softer black */
+  --ink-slate: #5c5c5c;       /* Warmer secondary */
+  --ink-fog: #7a7a7a;         /* Warmer tertiary */
+  --ink-subtle: #9a9a9a;      /* Warmer quaternary */
   
-  /* Signal - Accent */
-  --signal: #5B4DE3;
-  --signal-light: #8578F0;
-  --signal-dark: #4338B8;
-  --signal-soft: rgba(91, 77, 227, 0.08);
-  --signal-glow: rgba(91, 77, 227, 0.18);
+  /* Signal - Warmer purple accent */
+  --signal: #6366F1;          /* Indigo - warmer than pure purple */
+  --signal-light: #818CF8;
+  --signal-dark: #4F46E5;
+  --signal-soft: rgba(99, 102, 241, 0.06);
+  --signal-glow: rgba(99, 102, 241, 0.15);
   
-  /* Depth - Dark backgrounds (Apple uses pure black) */
-  --depth-obsidian: #000000;  /* Pure black like Apple */
-  --depth-charcoal: #1d1d1f;  /* Near-black */
-  --depth-iron: #2d2d2d;      /* Elevated dark */
-  --depth-separator: rgba(66, 66, 69, 0.6);
+  /* Gradient colors - Gemini-style energy */
+  --gradient-start: rgba(99, 102, 241, 0.12);   /* Sharp leading edge */
+  --gradient-mid: rgba(139, 92, 246, 0.06);     /* Purple transition */
+  --gradient-end: rgba(236, 72, 153, 0.03);     /* Pink diffused tail */
+  --gradient-warm: rgba(251, 146, 60, 0.04);    /* Warm accent */
   
-  /* Text on dark - Apple's exact light text colors */
-  --text-on-dark: #f5f5f7;
-  --text-on-dark-secondary: #a1a1a6;
-  --text-on-dark-tertiary: #6e6e73;
+  /* Depth - Softer dark backgrounds */
+  --depth-obsidian: #0a0a0a;  /* Softer than pure black */
+  --depth-charcoal: #171717;  /* Warm charcoal */
+  --depth-iron: #262626;      /* Elevated dark */
+  --depth-separator: rgba(82, 82, 82, 0.5);
   
-  /* Apple Link Blue */
-  --link-blue: #2997ff;
-  --link-blue-hover: #0077ed;
+  /* Text on dark - Softer, warmer */
+  --text-on-dark: #fafafa;
+  --text-on-dark-secondary: #a3a3a3;
+  --text-on-dark-tertiary: #737373;
+  
+  /* Link Blue - Slightly warmer */
+  --link-blue: #3b82f6;
+  --link-blue-hover: #2563eb;
   
   /* Status */
-  --success: #34c759;
-  --error: #ff375f;
+  --success: #22c55e;
+  --error: #ef4444;
+  
+  /* Blur values - Gemini softness */
+  --blur-soft: 20px;
+  --blur-strong: 40px;
   
   /* ============================================
      APPLE MOTION SYSTEM
@@ -131,15 +142,16 @@
   --leading-body: 1.47;
   
   /* ============================================
-     APPLE BORDER RADII
-     Specific values, not arbitrary
+     GEMINI BORDER RADII
+     More generous, softer - circles as foundation
      ============================================ */
   
-  --radius-pill: 980px;    /* Buttons, pills */
-  --radius-tile: 28px;     /* Feature tiles */
-  --radius-card: 20px;     /* Standard cards */
-  --radius-button: 12px;   /* Square buttons */
-  --radius-input: 8px;     /* Form inputs */
+  --radius-pill: 980px;    /* Buttons, pills - full round */
+  --radius-tile: 32px;     /* Feature tiles - more generous */
+  --radius-card: 24px;     /* Standard cards - softer */
+  --radius-button: 14px;   /* Square buttons */
+  --radius-input: 12px;    /* Form inputs - softer */
+  --radius-soft: 20px;     /* General soft corners */
 }
 
 /* ============================================
@@ -352,7 +364,7 @@ p {
   margin: 0 auto;
 }
 
-/* Dark dramatic section - Apple's signature */
+/* Dark section - softer than pure black */
 .section-dark {
   background: var(--depth-obsidian);
   color: var(--text-on-dark);
@@ -368,25 +380,39 @@ p {
   color: var(--text-on-dark-secondary);
 }
 
-/* Dark with gradient depth */
+/* Dark with Gemini-style gradient - directional energy */
 .section-dark-gradient {
-  background: linear-gradient(
-    180deg,
-    var(--depth-charcoal) 0%,
-    var(--depth-obsidian) 100%
-  );
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, var(--depth-charcoal) 0%, var(--depth-obsidian) 100%);
   color: var(--text-on-dark);
 }
 
-/* Light section */
+/* Light section with subtle warmth */
 .section-light {
   background: var(--canvas);
   color: var(--ink);
 }
 
-/* Stone section - subtle contrast */
+/* Light with Gemini-style gradient glow */
+.section-light-glow {
+  background: 
+    radial-gradient(ellipse 60% 40% at 50% 100%, var(--gradient-start) 0%, transparent 70%),
+    var(--canvas);
+  color: var(--ink);
+}
+
+/* Stone section - warm subtle contrast */
 .section-stone {
   background: var(--canvas-stone);
+}
+
+/* Gradient flow section - Gemini's signature directional energy */
+.section-gradient-flow {
+  background: 
+    linear-gradient(135deg, var(--gradient-start) 0%, transparent 40%),
+    linear-gradient(225deg, var(--gradient-end) 0%, transparent 40%),
+    var(--canvas);
 }
 
 /* ============================================
@@ -470,30 +496,53 @@ p {
 }
 
 /* ============================================
-   APPLE-STYLE FEATURE TILES
-   NO borders, NO shadows on containers
+   GEMINI-STYLE FEATURE TILES
+   Soft, warm, with subtle depth and blur
    ============================================ */
 
-/* Feature tile - the "floating" card Apple uses */
+/* Feature tile - soft, rounded, with warmth */
 .feature-tile {
   position: relative;
   border-radius: var(--radius-tile);
   overflow: hidden;
-  /* NO border - EVER */
-  /* NO box-shadow on container - EVER */
+  transition: transform 0.4s var(--ease-apple-out), box-shadow 0.4s var(--ease-apple-out);
+}
+
+.feature-tile:hover {
+  transform: translateY(-2px);
 }
 
 .feature-tile-dark {
-  background: linear-gradient(
-    180deg,
-    var(--depth-charcoal) 0%,
-    var(--depth-obsidian) 100%
-  );
+  background: 
+    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, var(--depth-charcoal) 0%, var(--depth-obsidian) 100%);
   color: var(--text-on-dark);
 }
 
 .feature-tile-light {
-  background: var(--canvas-stone);
+  background: var(--canvas-warm);
+  color: var(--ink);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+}
+
+.feature-tile-light:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* Glass tile - Gemini's frosted glass effect */
+.feature-tile-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(var(--blur-soft));
+  -webkit-backdrop-filter: blur(var(--blur-soft));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+}
+
+/* Gradient tile - subtle directional energy */
+.feature-tile-gradient {
+  background: 
+    linear-gradient(135deg, var(--gradient-start) 0%, transparent 60%),
+    var(--canvas-warm);
   color: var(--ink);
 }
 
@@ -1520,4 +1569,148 @@ a {
     display: none;
   }
 }
-/* Cache bust: 1768539440 */
+
+/* ============================================
+   GEMINI-INSPIRED VISUAL EFFECTS
+   Soft gradients, blur, warmth, energy
+   ============================================ */
+
+/* Gradient orb - the signature Gemini "thinking" element */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(var(--blur-strong));
+  opacity: 0.6;
+  pointer-events: none;
+  animation: orb-pulse 8s ease-in-out infinite;
+}
+
+.gradient-orb-primary {
+  background: radial-gradient(circle, var(--signal) 0%, transparent 70%);
+}
+
+.gradient-orb-warm {
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.4) 0%, transparent 70%);
+}
+
+.gradient-orb-cool {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, transparent 70%);
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+/* Directional gradient - Gemini's "energy transfer" */
+.gradient-directional {
+  background: linear-gradient(
+    180deg,
+    var(--gradient-start) 0%,
+    var(--gradient-mid) 30%,
+    transparent 60%
+  );
+}
+
+/* Soft glow behind elements */
+.soft-glow {
+  position: relative;
+}
+
+.soft-glow::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse at center, var(--signal-soft) 0%, transparent 70%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-apple-out);
+}
+
+.soft-glow:hover::before {
+  opacity: 1;
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(var(--blur-soft));
+  -webkit-backdrop-filter: blur(var(--blur-soft));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-card);
+}
+
+/* Warm highlight */
+.warm-highlight {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.08) 0%,
+    rgba(251, 146, 60, 0.04) 50%,
+    transparent 100%
+  );
+}
+
+/* Floating animation - subtle movement */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* Shimmer effect for loading/thinking states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Soft shadow system */
+.shadow-soft-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-soft-lg {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Rounded pill tags */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pill-soft {
+  background: var(--signal-soft);
+  color: var(--signal);
+}
+
+.pill-warm {
+  background: rgba(251, 146, 60, 0.1);
+  color: #ea580c;
+}
+
+.pill-neutral {
+  background: var(--canvas-stone);
+  color: var(--ink-slate);
+}

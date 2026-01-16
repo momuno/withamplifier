@@ -34,10 +34,14 @@ export default function Home() {
   return (
     <div className="pt-16">
       {/* ============================================
-          HERO - The Promise
+          HERO - The Promise (with Gemini-style gradient)
           ============================================ */}
-      <section className="section-hero">
-        <div className="text-center container-default">
+      <section className="section-hero relative overflow-hidden">
+        {/* Subtle gradient orbs for depth */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-orb gradient-orb-primary opacity-30" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 gradient-orb gradient-orb-warm opacity-20" />
+        
+        <div className="text-center container-default relative z-10">
           <h1 className="reveal text-display-xl text-ink font-heading px-2">
             Yours for the making.
           </h1>
@@ -91,9 +95,9 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          THE ARCHITECTURE - How It Works
+          THE ARCHITECTURE - How It Works (with gradient flow)
           ============================================ */}
-      <section className="section-feature section-light">
+      <section className="section-feature section-gradient-flow">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <p className="reveal text-eyebrow mb-4">The Amplifier approach</p>
@@ -107,34 +111,34 @@ export default function Home() {
           
           <div className="reveal-stagger grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
             {/* Provider */}
-            <div className="feature-tile feature-tile-light p-6 md:p-8">
+            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
               <h3 className="text-xl font-semibold text-ink mb-3">Providers</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The brain. Claude, GPT-4, Ollama, or run your own local model. Switch between them without changing anything else.
               </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
                 providers: [anthropic, ollama]
               </code>
             </div>
             
             {/* Tools */}
-            <div className="feature-tile feature-tile-light p-6 md:p-8">
+            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
               <h3 className="text-xl font-semibold text-ink mb-3">Tools</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The hands. Filesystem access, bash commands, web search, GitHub integration. Add only what you need.
               </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
                 tools: [filesystem, bash, grep]
               </code>
             </div>
             
             {/* Behaviors */}
-            <div className="feature-tile feature-tile-light p-6 md:p-8">
+            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
               <h3 className="text-xl font-semibold text-ink mb-3">Behaviors</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The personality. Instructions, expertise, and guardrails that shape how it works. Your workflow, encoded.
               </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded font-mono text-ink-slate">
+              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
                 behaviors: [security-focused]
               </code>
             </div>
@@ -142,7 +146,7 @@ export default function Home() {
           
           {/* Bundle = Result */}
           <div className="reveal mt-10 md:mt-14 text-center" style={{transitionDelay: '0.4s'}}>
-            <div className="inline-block p-6 md:p-8 rounded-2xl bg-signal-soft border border-signal/20">
+            <div className="inline-block p-6 md:p-8 rounded-3xl glass-card shadow-soft">
               <h3 className="text-xl font-semibold text-ink mb-3">Bundle</h3>
               <p className="text-ink-slate text-sm max-w-md">
                 Combine providers + tools + behaviors into a shareable package. 
@@ -255,9 +259,9 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          ECOSYSTEM - Built By Many
+          ECOSYSTEM - Built By Many (with subtle warmth)
           ============================================ */}
-      <section className="section-feature section-light">
+      <section className="section-feature section-light-glow">
         <div className="container-default text-center">
           <p className="reveal text-eyebrow mb-4">The ecosystem</p>
           
