@@ -39,11 +39,11 @@ export default function Home() {
           ============================================ */}
       <section className="section-hero">
         <div className="text-center container-default">
-          <h1 className="reveal text-display-xl text-ink font-heading">
+          <h1 className="reveal text-display-xl text-ink font-heading px-2">
             Yours for the making.
           </h1>
           
-          <p className="reveal mt-8 text-body-large text-ink-slate max-w-xl mx-auto" style={{transitionDelay: '0.1s'}}>
+          <p className="reveal mt-6 md:mt-8 text-body-large text-ink-slate max-w-xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
             A modular AI agent framework you can see through, take apart, and make your own.
           </p>
         </div>
@@ -91,15 +91,15 @@ export default function Home() {
           ============================================ */}
       <section className="section-feature section-dark-gradient">
         <div className="container-default">
-          <div className="text-center mb-16">
-            <p className="reveal text-eyebrow mb-4">How it works</p>
+          <div className="text-center mb-8 md:mb-16">
+            <p className="reveal text-eyebrow mb-3 md:mb-4">How it works</p>
             <h2 className="reveal text-headline text-on-dark" style={{transitionDelay: '0.1s'}}>
               Three pieces. Infinite combinations.
             </h2>
           </div>
           
           {/* Feature tiles - NO borders, NO shadows */}
-          <div className="reveal-stagger grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
             <div className="feature-tile feature-tile-dark">
               <div className="feature-tile-content text-center">
                 <div className="text-4xl mb-6">⚡</div>
@@ -227,13 +227,13 @@ export default function Home() {
             <CodeBlock code="pip install amplifier" className="max-w-sm mx-auto" />
           </div>
           
-          <div className="reveal mt-10 flex flex-col sm:flex-row gap-4 justify-center" style={{transitionDelay: '0.2s'}}>
-            <Link href="/build" className="btn-apple">
+          <div className="reveal mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4" style={{transitionDelay: '0.2s'}}>
+            <Link href="/build" className="btn-apple w-full sm:w-auto">
               Quick Start Guide
             </Link>
             <Link 
               href="https://github.com/microsoft/amplifier" 
-              className="btn-apple-secondary"
+              className="btn-apple-secondary w-full sm:w-auto"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -91,31 +91,31 @@
   --container-hero: 1440px;    /* Full-width heroes */
   
   /* Body gutters - scale with viewport */
-  --gutter-sm: 24px;
-  --gutter-md: 40px;
-  --gutter-lg: 70px;
-  --gutter-xl: 90px;
+  --gutter-sm: 20px;
+  --gutter-md: 24px;
+  --gutter-lg: 40px;
+  --gutter-xl: 70px;
   
-  /* Section padding - MASSIVE per Apple */
-  --section-padding-sm: 80px;
-  --section-padding-md: 120px;
-  --section-padding-lg: 160px;
+  /* Section padding - responsive */
+  --section-padding-sm: 60px;
+  --section-padding-md: 80px;
+  --section-padding-lg: 120px;
   
   /* ============================================
      APPLE TYPOGRAPHY SCALE
      Extreme contrast, precise tracking
      ============================================ */
   
-  /* Font sizes with clamp for fluid scaling */
-  --text-display-xl: clamp(56px, 8vw, 96px);
-  --text-display: clamp(48px, 6vw, 80px);
-  --text-display-sm: clamp(40px, 5vw, 64px);
-  --text-headline: clamp(32px, 4vw, 48px);
-  --text-title: clamp(28px, 3vw, 40px);
-  --text-subtitle: clamp(24px, 2.5vw, 32px);
-  --text-body-lg: clamp(19px, 1.8vw, 24px);
-  --text-body: clamp(17px, 1.5vw, 21px);
-  --text-body-sm: 17px;
+  /* Font sizes with clamp for fluid scaling - mobile-first */
+  --text-display-xl: clamp(36px, 10vw, 96px);
+  --text-display: clamp(32px, 8vw, 80px);
+  --text-display-sm: clamp(28px, 6vw, 64px);
+  --text-headline: clamp(24px, 5vw, 48px);
+  --text-title: clamp(22px, 4vw, 40px);
+  --text-subtitle: clamp(20px, 3vw, 32px);
+  --text-body-lg: clamp(17px, 2vw, 21px);
+  --text-body: clamp(16px, 1.5vw, 19px);
+  --text-body-sm: 16px;
   --text-caption: 14px;
   --text-micro: 12px;
   
@@ -324,15 +324,27 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(80px, 12vh, 160px) var(--gutter-md);
+  padding: 60px var(--gutter-sm);
   position: relative;
   overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .section-hero {
+    padding: clamp(80px, 12vh, 160px) var(--gutter-md);
+  }
+}
+
 /* Feature section - generous padding, contained width */
 .section-feature {
-  padding: clamp(80px, 12vw, 160px) var(--gutter-md);
+  padding: 48px var(--gutter-sm);
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .section-feature {
+    padding: clamp(80px, 10vw, 140px) var(--gutter-md);
+  }
 }
 
 .section-feature > .container {
@@ -385,19 +397,27 @@ p {
 .container-narrow {
   max-width: var(--container-narrow);
   margin: 0 auto;
-  padding: 0 var(--gutter-md);
+  padding: 0 var(--gutter-sm);
 }
 
 .container-default {
   max-width: var(--container-default);
   margin: 0 auto;
-  padding: 0 var(--gutter-md);
+  padding: 0 var(--gutter-sm);
 }
 
 .container-wide {
   max-width: var(--container-wide);
   margin: 0 auto;
-  padding: 0 var(--gutter-md);
+  padding: 0 var(--gutter-sm);
+}
+
+@media (min-width: 768px) {
+  .container-narrow,
+  .container-default,
+  .container-wide {
+    padding: 0 var(--gutter-md);
+  }
 }
 
 /* ============================================
@@ -478,7 +498,13 @@ p {
 }
 
 .feature-tile-content {
-  padding: clamp(32px, 5vw, 48px);
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  .feature-tile-content {
+    padding: clamp(32px, 5vw, 48px);
+  }
 }
 
 .feature-tile-eyebrow {
