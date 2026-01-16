@@ -133,14 +133,14 @@ export default function ExplorePage() {
         <div className="container-content">
           <RevealOnScroll>
             <h1 className="text-display text-ink max-w-3xl">
-              The infinite Lego box.
+              Browse. Use. Customize.
             </h1>
           </RevealOnScroll>
           
           <RevealOnScroll delay={100}>
             <p className="mt-6 text-body-lg text-ink-slate max-w-2xl">
-              Browse bundles built by the team and community. See how they work. 
-              Use them, customize them, contribute your own.
+              Bundles built by the team and community. Pick one that fits, 
+              customize it for your workflow, or build your own from scratch.
             </p>
           </RevealOnScroll>
         </div>
@@ -232,6 +232,7 @@ export default function ExplorePage() {
                 <div>
                   {/* Bundle header */}
                   <div className="mb-6">
+                    <p className="text-micro font-medium text-ink-fog uppercase tracking-wider mb-2">Bundle</p>
                     <h2 className="text-title text-ink">{selectedBundle.name}</h2>
                     <p className="mt-2 text-ink-slate">{selectedBundle.description}</p>
                   </div>
@@ -334,7 +335,9 @@ export default function ExplorePage() {
                 <div className="flex items-center justify-center min-h-[500px] bg-canvas-stone rounded-gentle">
                   <div className="text-center p-8">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-signal-soft flex items-center justify-center">
-                      <span className="text-2xl">📦</span>
+                      <svg className="w-8 h-8 text-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                      </svg>
                     </div>
                     <h3 className="text-heading text-ink">Select a bundle</h3>
                     <p className="mt-2 text-ink-slate max-w-sm">
@@ -353,10 +356,10 @@ export default function ExplorePage() {
       <section className="section border-t border-canvas-mist bg-canvas-stone">
         <div className="container-content">
           <RevealOnScroll>
+            <p className="text-micro font-medium text-ink-fog uppercase tracking-wider mb-2">Showcase</p>
             <h2 className="text-title text-ink">Built with Amplifier</h2>
             <p className="mt-4 text-ink-slate max-w-2xl">
-              Real projects using Amplifier. See what's possible when bundles 
-              do real work.
+              Real projects using Amplifier. See what's possible.
             </p>
           </RevealOnScroll>
 

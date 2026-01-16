@@ -8,10 +8,13 @@ export default function BuildPage() {
       <section className="section gradient-radial">
         <div className="container-reading">
           <RevealOnScroll>
-            <h1 className="text-display text-ink">Install Amplifier</h1>
+            <h1 className="text-display text-ink">Get started</h1>
           </RevealOnScroll>
           
           <RevealOnScroll delay={100}>
+            <p className="mt-4 text-body-lg text-ink-slate max-w-xl">
+              Install Amplifier, add a provider, and run your first command.
+            </p>
             <div className="mt-8">
               <code className="code-block block text-lg px-6 py-4">
                 pip install amplifier
@@ -28,7 +31,7 @@ export default function BuildPage() {
       <section className="section border-t border-canvas-mist">
         <div className="container-reading">
           <RevealOnScroll>
-            <h2 className="text-title text-ink">Get running in 60 seconds</h2>
+            <h2 className="text-title text-ink">Three steps. Under a minute.</h2>
           </RevealOnScroll>
 
           <RevealOnScroll delay={100}>
@@ -115,16 +118,16 @@ export default function BuildPage() {
       <section className="section">
         <div className="container-content">
           <RevealOnScroll>
-            <h2 className="text-title text-ink">Supported providers</h2>
+            <h2 className="text-title text-ink">Swap providers anytime</h2>
             <p className="mt-4 text-ink-slate max-w-2xl">
-              Swap providers without changing your bundles. Each provider is a plug.
+              Change your model without touching your bundles. Each provider is a plug.
             </p>
           </RevealOnScroll>
 
-          <RevealStagger className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <RevealStagger className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-canvas-stone p-6 rounded-gentle">
               <h3 className="text-heading text-ink">Anthropic</h3>
-              <p className="mt-2 text-ink-slate text-sm">Claude 3.5 Sonnet, Opus, Haiku</p>
+              <p className="mt-2 text-ink-slate text-sm">Claude Sonnet 4, Opus 4, Haiku</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
                 amplifier provider add anthropic
               </code>
@@ -132,9 +135,17 @@ export default function BuildPage() {
 
             <div className="bg-canvas-stone p-6 rounded-gentle">
               <h3 className="text-heading text-ink">OpenAI</h3>
-              <p className="mt-2 text-ink-slate text-sm">GPT-4, GPT-4 Turbo, GPT-3.5</p>
+              <p className="mt-2 text-ink-slate text-sm">GPT-4o, GPT-4 Turbo, o1</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
                 amplifier provider add openai
+              </code>
+            </div>
+
+            <div className="bg-canvas-stone p-6 rounded-gentle">
+              <h3 className="text-heading text-ink">Google Gemini</h3>
+              <p className="mt-2 text-ink-slate text-sm">Gemini Pro, Gemini Flash</p>
+              <code className="mt-4 block text-micro text-ink-fog font-mono">
+                amplifier provider add gemini
               </code>
             </div>
 
@@ -143,6 +154,14 @@ export default function BuildPage() {
               <p className="mt-2 text-ink-slate text-sm">Enterprise Azure deployments</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
                 amplifier provider add azure
+              </code>
+            </div>
+
+            <div className="bg-canvas-stone p-6 rounded-gentle">
+              <h3 className="text-heading text-ink">AWS Bedrock</h3>
+              <p className="mt-2 text-ink-slate text-sm">Claude, Llama, Titan on AWS</p>
+              <code className="mt-4 block text-micro text-ink-fog font-mono">
+                amplifier provider add bedrock
               </code>
             </div>
 
@@ -190,7 +209,7 @@ export default function BuildPage() {
           <RevealOnScroll>
             <h2 className="text-title text-ink">Go deeper</h2>
             <p className="mt-4 text-ink-slate max-w-xl mx-auto">
-              Full documentation, API reference, and examples on GitHub.
+              Full documentation, API reference, and examples.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
