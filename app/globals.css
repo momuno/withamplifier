@@ -455,6 +455,192 @@ p {
 }
 
 /* ============================================
+   HORIZONTAL SCROLL (Apple-inspired)
+   Mobile-first horizontal galleries with scroll-snap
+   ============================================ */
+
+.scroll-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 0.5rem 0;
+  margin: 0 -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.scroll-container > * {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* Scroll card sizing */
+.scroll-card {
+  width: 280px;
+  min-width: 280px;
+}
+
+.scroll-card-wide {
+  width: 320px;
+  min-width: 320px;
+}
+
+/* On larger screens, convert to grid */
+@media (min-width: 768px) {
+  .scroll-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    overflow-x: visible;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .scroll-container-grid > * {
+    width: auto;
+    min-width: auto;
+  }
+}
+
+/* Horizontal scroll indicators (dots) */
+.scroll-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.scroll-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--canvas-mist);
+  transition: all 0.3s ease;
+}
+
+.scroll-indicator.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--signal);
+}
+
+/* Hide indicators on desktop */
+@media (min-width: 768px) {
+  .scroll-indicators {
+    display: none;
+  }
+}
+
+/* ============================================
+   ACCORDION (Apple-style expandable sections)
+   ============================================ */
+
+.accordion {
+  border-top: 1px solid var(--canvas-mist);
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--canvas-mist);
+}
+
+.accordion-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.accordion-trigger:hover {
+  color: var(--signal);
+}
+
+.accordion-trigger svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+  color: var(--ink-slate);
+}
+
+.accordion-item[data-state="open"] .accordion-trigger svg {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-item[data-state="open"] .accordion-content {
+  max-height: 500px;
+  padding-bottom: 1.25rem;
+}
+
+.accordion-content p {
+  color: var(--ink-slate);
+  line-height: 1.7;
+}
+
+/* Dark mode accordion */
+.section-dark .accordion,
+.section-dark .accordion-item {
+  border-color: var(--depth-separator);
+}
+
+.section-dark .accordion-trigger {
+  color: var(--text-on-dark);
+}
+
+.section-dark .accordion-content p {
+  color: var(--text-on-dark-secondary);
+}
+
+/* ============================================
+   START-FRAME PATTERN (Video placeholder)
+   ============================================ */
+
+.media-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.start-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.start-frame.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.media-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
    APPLE-STYLE CONTAINERS
    Centered, width-constrained, generous gutters
    ============================================ */

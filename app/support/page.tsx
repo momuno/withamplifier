@@ -1,5 +1,31 @@
+'use client'
+
 import Link from 'next/link'
 import RevealOnScroll, { RevealStagger } from '@/components/RevealOnScroll'
+import Accordion from '@/components/Accordion'
+
+const faqItems = [
+  {
+    question: 'What providers does Amplifier support?',
+    answer: 'Anthropic (Claude), OpenAI (GPT-4), Azure OpenAI, and local models via Ollama. The provider is swappable—change it without rewriting your bundles.'
+  },
+  {
+    question: 'Is Amplifier free?',
+    answer: 'Amplifier is open source and free. You pay only for the AI providers you use (like Claude or GPT-4 API costs).'
+  },
+  {
+    question: 'What\'s the difference between Forge and CLI?',
+    answer: 'Same capabilities, different interface. Forge is visual with guided learning and workspace management. CLI is terminal-based, scriptable, and fast. Choose what fits your workflow.'
+  },
+  {
+    question: 'Can I create my own bundles?',
+    answer: 'Yes. Bundles are YAML + markdown. Combine providers, tools, and behaviors to create capabilities specific to your work. Share them back to the community if you like.'
+  },
+  {
+    question: 'How is this different from other AI tools?',
+    answer: 'Most AI tools are monolithic—one interface, one capability. Amplifier is modular. Swap providers without rewriting. Add tools without permission. Build exactly what you need.'
+  }
+]
 
 export default function SupportPage() {
   return (
@@ -91,7 +117,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ - Apple-style accordion */}
       <section className="section bg-canvas-stone">
         <div className="container-reading">
           <RevealOnScroll>
@@ -99,49 +125,8 @@ export default function SupportPage() {
           </RevealOnScroll>
           
           <RevealOnScroll delay={100}>
-            <div className="mt-12 space-y-8">
-              <div className="pb-8 border-b border-canvas-mist">
-                <h3 className="text-heading text-ink">What providers does Amplifier support?</h3>
-                <p className="mt-3 text-ink-slate leading-relaxed">
-                  Anthropic (Claude), OpenAI (GPT-4), Azure OpenAI, and local models via Ollama. 
-                  The provider is swappable—change it without rewriting your bundles.
-                </p>
-              </div>
-
-              <div className="pb-8 border-b border-canvas-mist">
-                <h3 className="text-heading text-ink">Is Amplifier free?</h3>
-                <p className="mt-3 text-ink-slate leading-relaxed">
-                  Amplifier is open source and free. You pay only for the AI providers 
-                  you use (like Claude or GPT-4 API costs).
-                </p>
-              </div>
-
-              <div className="pb-8 border-b border-canvas-mist">
-                <h3 className="text-heading text-ink">What's the difference between Forge and CLI?</h3>
-                <p className="mt-3 text-ink-slate leading-relaxed">
-                  Same capabilities, different interface. Forge is visual with guided learning 
-                  and workspace management. CLI is terminal-based, scriptable, and fast. 
-                  Choose what fits your workflow.
-                </p>
-              </div>
-
-              <div className="pb-8 border-b border-canvas-mist">
-                <h3 className="text-heading text-ink">Can I create my own bundles?</h3>
-                <p className="mt-3 text-ink-slate leading-relaxed">
-                  Yes. Bundles are YAML + markdown. Combine providers, tools, and behaviors 
-                  to create capabilities specific to your work. Share them back to the 
-                  community if you like.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-heading text-ink">How is this different from other AI tools?</h3>
-                <p className="mt-3 text-ink-slate leading-relaxed">
-                  Most AI tools are monolithic—one interface, one capability. Amplifier is 
-                  modular. Swap providers without rewriting. Add tools without permission. 
-                  Build exactly what you need.
-                </p>
-              </div>
+            <div className="mt-12">
+              <Accordion items={faqItems} />
             </div>
           </RevealOnScroll>
         </div>

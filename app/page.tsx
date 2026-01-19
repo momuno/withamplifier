@@ -112,9 +112,10 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="reveal-stagger grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+          {/* Horizontal scroll on mobile, grid on desktop */}
+          <div className="reveal-stagger scroll-container scroll-container-grid max-w-5xl mx-auto">
             {/* Provider */}
-            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
+            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
               <h3 className="text-xl font-semibold text-ink mb-3">Providers</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The brain. Claude, GPT-4, Ollama, or run your own local model. Switch between them without changing anything else.
@@ -125,7 +126,7 @@ export default function Home() {
             </div>
             
             {/* Tools */}
-            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
+            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
               <h3 className="text-xl font-semibold text-ink mb-3">Tools</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The hands. Filesystem access, bash commands, web search, GitHub integration. Add only what you need.
@@ -136,7 +137,7 @@ export default function Home() {
             </div>
             
             {/* Behaviors */}
-            <div className="feature-tile feature-tile-gradient p-6 md:p-8 soft-glow">
+            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
               <h3 className="text-xl font-semibold text-ink mb-3">Behaviors</h3>
               <p className="text-ink-slate text-sm mb-4">
                 The personality. Instructions, expertise, and guardrails that shape how it works. Your workflow, encoded.

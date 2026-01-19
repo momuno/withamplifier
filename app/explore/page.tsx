@@ -153,12 +153,13 @@ export default function ExplorePage() {
             {/* Sidebar - Bundle browser */}
             <div>
               <h2 className="text-heading text-ink mb-6">Official Bundles</h2>
-              <div className="space-y-3">
+              {/* Horizontal scroll on mobile, vertical list on desktop */}
+              <div className="scroll-container lg:flex-col lg:overflow-visible lg:gap-3 lg:mx-0 lg:px-0">
                 {bundles.map((bundle) => (
                   <button
                     key={bundle.id}
                     onClick={() => handleTryBundle(bundle)}
-                    className={`w-full p-4 text-left rounded-soft transition-all duration-300 ${
+                    className={`scroll-card-wide lg:w-full lg:min-w-full p-4 text-left rounded-soft transition-all duration-300 ${
                       selectedBundle?.id === bundle.id
                         ? 'bg-signal-soft border-2 border-signal'
                         : 'bg-canvas-stone border-2 border-transparent hover:border-canvas-mist'
