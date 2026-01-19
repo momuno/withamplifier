@@ -13,13 +13,94 @@ Synthesis of learnings from site analyses: Stripe, Linear, Anthropic, Vercel, am
 
 | Question | Current State | Required State |
 |----------|---------------|----------------|
-| What IS Amplifier? | Never explicitly stated | "Amplifier is an open-source CLI framework for building AI agents" |
+| What IS Amplifier? | Never explicitly stated | See "What Amplifier IS" section below |
 | Who is it for? | Unclear | "Developers who want visibility and control over AI agents" |
 | What can I build? | Vague examples | 3 specific real-world outcomes with proof |
 | Why trust it? | No proof | Social proof, testimonials, real usage |
 | How do I start? | pip install → then what? | Clear guided path |
 
 **See full review:** `research/SITE-REVIEW-2026-01-19.md`
+
+---
+
+## What Amplifier IS (Critical Nuance)
+
+**Amplifier is NOT a CLI.** It's a **modular kernel** for AI agents. The CLI is just one application built on the kernel.
+
+### The Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ KERNEL (amplifier-core)                                         │
+│ • Module loading          • Event system                        │
+│ • Session lifecycle       • Coordinator                         │
+│ • Minimal dependencies    • Stable contracts                    │
+│                                                                 │
+│ Philosophy: "Mechanism, not policy"                             │
+│ The kernel provides capabilities. Modules decide behavior.      │
+└─────────────────────────────────────┬───────────────────────────┘
+                                      │ protocols
+                                      ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ MODULES (Swappable)                                             │
+│ • Providers: LLM backends (Anthropic, OpenAI, Ollama)          │
+│ • Tools: Capabilities (filesystem, bash, web)                   │
+│ • Orchestrators: Execution loops                                │
+│ • Hooks: Observability (logging, approval)                      │
+└─────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ APPLICATIONS (Interfaces to the kernel)                         │
+│ • CLI (terminal) ← what most people use today                   │
+│ • Desktop (Electron GUI)                                        │
+│ • Forge (coming - visual workspace)                             │
+│ • Vision app, Voice app, Blog creator                           │
+│ • YOUR APP (build whatever interface you want)                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Why This Matters for Messaging
+
+**Wrong:** "Amplifier is an open-source CLI for building AI agents"
+**Right:** "Amplifier is an open-source kernel for AI agents. The CLI is one way to use it."
+
+### Messaging by Audience
+
+| Audience | Description |
+|----------|-------------|
+| **Technical** | "A modular kernel for AI agents. The CLI is one interface. Build your own." |
+| **Semi-technical** | "The engine that powers AI agents. Use the terminal, the desktop app, or build something new." |
+| **Non-technical** | "The foundation that makes AI agents yours. Use it how you want." |
+
+### The Linux Analogy
+
+Just as:
+- Linux kernel → Ubuntu, Fedora, Android (different interfaces, same kernel)
+- Chromium engine → Chrome, Edge, Brave (different browsers, same engine)
+
+Amplifier kernel → CLI, Desktop, Forge, Vision app (different interfaces, same kernel)
+
+### Key Phrases That Communicate This
+
+- "The center stays still so the edges can move fast"
+- "The CLI is one interface. Forge is another. Build your own."
+- "Mechanism, not policy" (for technical audiences)
+- "You decide how it works, not us"
+
+### Homepage Subhead Options
+
+**Option A (Technical):**
+> "Amplifier is an open-source kernel for AI agents. See every decision. Swap any part. Build any interface."
+
+**Option B (Accessible):**
+> "An open-source engine for AI agents. The CLI is one way to use it. The desktop app is another. Or build your own."
+
+**Option C (Aspirational + Concrete):**
+> "The foundation for AI agents that work the way you do. Use the terminal. Use the desktop. Or build something entirely new."
+
+**Option D (Shortest):**
+> "Open-source AI agent infrastructure. See inside. Swap anything. Build any way."
 
 ---
 
