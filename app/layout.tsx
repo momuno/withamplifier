@@ -4,8 +4,8 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'With Amplifier',
-  description: 'Your ideas, amplified.',
+  title: 'Amplifier',
+  description: 'AI that\'s yours for the making.',
 }
 
 export default function RootLayout({
