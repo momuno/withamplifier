@@ -410,7 +410,21 @@ p {
 
 /* Higher contrast text for dark backgrounds */
 .text-on-dark-muted {
-  color: #d4d4d4; /* Brighter than #a3a3a3, better legibility */
+  color: #e5e5e5; /* High contrast for legibility */
+}
+
+/* Force high contrast on dark gradient sections */
+.section-dark-gradient h2,
+.section-dark-gradient h3 {
+  color: #ffffff;
+}
+
+.section-dark-gradient p {
+  color: #d4d4d4;
+}
+
+.section-dark-gradient .text-eyebrow {
+  color: #a1a1aa;
 }
 
 /* Light section with subtle warmth */
