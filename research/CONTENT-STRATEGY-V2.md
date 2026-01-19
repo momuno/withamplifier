@@ -88,6 +88,105 @@ Amplifier kernel → CLI, Desktop, Forge, Vision app (different interfaces, same
 - "Mechanism, not policy" (for technical audiences)
 - "You decide how it works, not us"
 
+---
+
+## AI as Collaborator (Key Differentiator)
+
+Most AI tools are **prompt-in, response-out** black boxes. Amplifier creates AI that works **with** you, not just **for** you.
+
+### Why Amplifier AI Becomes a Collaborator
+
+| Standard AI | Amplifier AI |
+|-------------|--------------|
+| You ask, it responds | It plans with you, tracks progress, validates work |
+| Black box decisions | You see every decision, can intervene |
+| One-shot generation | Iterative refinement with specs and docs |
+| Forgets context | Maintains accountability to its own commitments |
+| Single generalist | Coordinates specialized agents |
+
+### The Spec-First Pattern
+
+**How other AI works:**
+> "Write me a feature" → AI generates code → Hope it's right
+
+**How Amplifier works:**
+> zen-architect analyzes → creates specification → modular-builder implements to spec → zen-architect reviews
+
+The AI **thinks before it builds**. It creates docs. It follows specs. It reviews its own work. That's collaboration, not just generation.
+
+### Marketing Copy Options
+
+**Option A (Collaboration focus):**
+> "AI that works with you, not just for you. Amplifier agents plan, delegate, validate, and refine—like a senior engineer, not a code generator."
+
+**Option B (Partnership focus):**
+> "From tool to teammate. Amplifier agents track their own progress, create specifications before building, and coordinate with specialists. The AI becomes a collaborator."
+
+**Option C (Process focus):**
+> "Think first, build second. Amplifier agents design before they code, validate as they go, and build on each other's work. Real engineering process, not just generation."
+
+---
+
+## Metacognitive Features (Key Differentiator)
+
+**Metacognition = AI that thinks about how it thinks.**
+
+Most AI tools have no self-awareness. Amplifier agents can:
+- Track their own progress
+- Analyze their own sessions
+- Load knowledge on demand
+- Validate work continuously
+- Coordinate with specialists
+
+### The Metacognitive Stack
+
+| Capability | What It Means | Other AI Tools |
+|------------|---------------|----------------|
+| **Self-Accountability** | AI tracks its own todos, gets reminders | No memory of plan |
+| **Spec-First Design** | Think before build | Just generates code |
+| **On-Demand Knowledge** | Load expertise when relevant | Everything or nothing |
+| **Session Introspection** | Debug and analyze own history | Black box |
+| **Multi-Step Workflows** | Coordinated agent pipelines with approval gates | Single-shot |
+| **Agent Coordination** | Specialized team that delegates | One generalist |
+| **Incremental Validation** | Check every step (lint, types, tests) | Hope for the best |
+
+### Feature Descriptions for Website
+
+**1. Self-Tracking (Todo Tool)**
+> "AI that holds itself accountable. When tasks get complex, Amplifier agents create their own checklists and track progress—no wandering, no forgotten steps."
+
+**2. Spec-First Design (zen-architect → modular-builder)**
+> "AI that designs before it builds. The zen-architect agent creates specifications; the modular-builder implements them. Coherent architecture, not spaghetti code."
+
+**3. On-Demand Knowledge (Skills)**
+> "Knowledge when you need it. Amplifier agents load expertise on demand—Python patterns, security protocols, API guidelines. Right knowledge, right time."
+
+**4. Session Analysis**
+> "AI that can examine its own history. Search past conversations, diagnose failures, even rewind sessions to retry. Full introspection, full control."
+
+**5. Recipes (Multi-Step Workflows)**
+> "Repeatable AI workflows. Define once, run anywhere, resume anytime. Human approval gates where you need them."
+
+**6. Agent Coordination**
+> "Specialized agents, coordinated work. Delegates to specialists, builds on each other's work—like a well-organized engineering team."
+
+**7. Incremental Validation**
+> "Validate as you go. Amplifier agents check their work continuously—linters, type checkers, tests after each change. Problems caught early."
+
+### Headline Options for Metacognition
+
+**Technical:**
+> "Metacognitive AI infrastructure. Agents that plan, delegate, validate, and reflect."
+
+**Accessible:**
+> "AI that thinks about how it thinks. Track progress, coordinate specialists, validate continuously."
+
+**Punchy:**
+> "Not just generation. Orchestration."
+
+**Evocative:**
+> "The difference between a contractor and a team."
+
 ### Homepage Subhead Options
 
 **Option A (Technical):**
