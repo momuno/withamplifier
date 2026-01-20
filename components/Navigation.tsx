@@ -33,7 +33,18 @@ export default function Navigation() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Nav background */}
       <div className="absolute inset-0 bg-canvas/80 backdrop-blur-md border-b border-canvas-mist/50" />
+      
+      {/* Progressive blur fade beneath nav */}
+      <div className="absolute left-0 right-0 top-16 h-24 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(2.9px)', WebkitBackdropFilter: 'blur(2.9px)', maskImage: 'linear-gradient(to bottom, black 0%, black 16.7%, transparent 50%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 16.7%, transparent 50%)' }} />
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(5.1px)', WebkitBackdropFilter: 'blur(5.1px)', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16.7%, black 33.3%, transparent 66.7%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 16.7%, black 33.3%, transparent 66.7%)' }} />
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', maskImage: 'linear-gradient(to bottom, transparent 16.7%, black 33.3%, black 50%, transparent 83.3%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 16.7%, black 33.3%, black 50%, transparent 83.3%)' }} />
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(10.9px)', WebkitBackdropFilter: 'blur(10.9px)', maskImage: 'linear-gradient(to bottom, transparent 33.3%, black 50%, black 66.7%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 33.3%, black 50%, black 66.7%, transparent 100%)' }} />
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(13.1px)', WebkitBackdropFilter: 'blur(13.1px)', maskImage: 'linear-gradient(to bottom, transparent 50%, black 66.7%, black 83.3%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 50%, black 66.7%, black 83.3%, transparent 100%)' }} />
+        <div className="absolute inset-0" style={{ backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', maskImage: 'linear-gradient(to bottom, transparent 66.7%, black 83.3%, black 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 66.7%, black 83.3%, black 100%)' }} />
+      </div>
       <nav className="relative max-w-wide mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <Link 
           href="/" 
