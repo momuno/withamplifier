@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
+import { EmergenceField } from '@/components/EmergenceField'
 
 export default function Home() {
   useViewportHeight()
@@ -34,16 +35,17 @@ export default function Home() {
   return (
     <div className="pt-16">
       {/* ============================================
-          HERO - The Promise (with Gemini-style gradient)
+          HERO - The Promise (with animated emergence field)
           ============================================ */}
       <section className="section-hero relative overflow-hidden">
-        {/* AI-generated ambient background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{ backgroundImage: 'url(/assets/backgrounds/hero-ambient.png)' }}
+        {/* Animated mesh gradient background - "emerging technology" */}
+        <EmergenceField 
+          opacity={0.7}
+          blur={80}
+          speed={0.0004}
         />
         {/* Gradient overlay for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-canvas/60 via-canvas/40 to-canvas/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-canvas/40 via-transparent to-canvas/60" />
         
         <div className="text-center container-default relative z-10">
           <h1 className="reveal text-display-xl text-ink font-heading px-2">
