@@ -121,7 +121,12 @@ export default function Home() {
                 <div className="reveal-stagger mt-8 lg:mt-10 space-y-4" style={{transitionDelay: '0.2s'}}>
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-signal-soft flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-signal text-sm font-semibold">P</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-signal">
+                        <path d="M12 22v-5"></path>
+                        <path d="M9 8V2"></path>
+                        <path d="M15 8V2"></path>
+                        <path d="M18 8v4a6 6 0 01-12 0V8h12z"></path>
+                      </svg>
                     </div>
                     <div>
                       <h3 className="text-base font-semibold text-ink">Providers</h3>
@@ -131,7 +136,9 @@ export default function Home() {
                   
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-signal-soft flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-signal text-sm font-semibold">T</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-signal">
+                        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"></path>
+                      </svg>
                     </div>
                     <div>
                       <h3 className="text-base font-semibold text-ink">Tools</h3>
@@ -141,10 +148,18 @@ export default function Home() {
                   
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-signal-soft flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-signal text-sm font-semibold">I</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-signal">
+                        <circle cx="5" cy="6" r="2"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                        <circle cx="19" cy="6" r="2"></circle>
+                        <circle cx="12" cy="18" r="2"></circle>
+                        <path d="M6.5 7.5L10.5 10.5"></path>
+                        <path d="M17.5 7.5L13.5 10.5"></path>
+                        <path d="M12 14v2"></path>
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-base font-semibold text-ink">Instructions</h3>
+                      <h3 className="text-base font-semibold text-ink">Behaviors</h3>
                       <p className="text-ink-slate text-sm mt-0.5">Your expertise, your standards, your workflow. Written in plain text.</p>
                     </div>
                   </div>
