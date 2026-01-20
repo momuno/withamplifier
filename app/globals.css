@@ -357,6 +357,7 @@ p {
   justify-content: center;
   padding: 60px var(--gutter-sm);
   position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll bleed */
 }
 
 @media (min-width: 768px) {
