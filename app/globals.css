@@ -697,6 +697,7 @@ p {
   font-weight: 600;
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
+  text-wrap: balance; /* Prevents orphaned words */
 }
 
 .text-display-xl {
@@ -704,6 +705,7 @@ p {
   font-weight: 700;
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
+  text-wrap: balance; /* Prevents orphaned words */
 }
 
 /* Headlines */
@@ -712,6 +714,7 @@ p {
   font-weight: 600;
   letter-spacing: var(--tracking-headline);
   line-height: var(--leading-headline);
+  text-wrap: balance; /* Prevents orphaned words by balancing line lengths */
 }
 
 /* Eyebrow - the whisper above headlines */
