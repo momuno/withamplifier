@@ -53,7 +53,7 @@ export default function Home() {
           </h1>
           
           <p className="reveal mt-6 md:mt-8 text-body-large text-ink max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
-            Your AI agent is a file you can read, write, and share. Not a black box you rent—a tool you own.
+            Your AI agent is a file you can read, write, and share. Not a black box you rent. A tool you own.
           </p>
           
           <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
@@ -78,14 +78,14 @@ export default function Home() {
             <div className="text-center md:text-left">
               <h3 className="text-lg font-semibold text-on-dark mb-2">You can't read it</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                It hallucinates. It ignores your instructions. Why? You'll never know—the prompts are hidden.
+                It hallucinates. It ignores your instructions. Why? You'll never know. The prompts are hidden.
               </p>
             </div>
             
             <div className="text-center md:text-left">
               <h3 className="text-lg font-semibold text-on-dark mb-2">You can't change it</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                A better model comes out. A tool you need exists. Too bad—you're locked to their choices.
+                A better model comes out. A tool you need exists. Too bad. You're locked to their choices.
               </p>
             </div>
             
@@ -145,7 +145,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="text-base font-semibold text-ink">Instructions</h3>
-                      <p className="text-ink-slate text-sm mt-0.5">Your expertise, your standards, your workflow—written in plain text.</p>
+                      <p className="text-ink-slate text-sm mt-0.5">Your expertise, your standards, your workflow. Written in plain text.</p>
                     </div>
                   </div>
                 </div>
@@ -158,7 +158,7 @@ export default function Home() {
                 <div className="rounded-2xl overflow-hidden border border-canvas-mist shadow-soft">
                   <div className="bg-canvas-stone px-4 py-2 border-b border-canvas-mist flex items-center gap-2">
                     <span className="text-xs font-mono text-ink-slate">security-reviewer.md</span>
-                    <span className="text-xs text-ink-fog">— this is a bundle</span>
+                    <span className="text-xs text-ink-fog">// this is a bundle</span>
                   </div>
                   <div className="bg-canvas p-4 md:p-6 font-mono text-sm leading-relaxed overflow-x-auto">
                     <pre className="text-ink-slate"><code>{`---
@@ -312,7 +312,7 @@ You are a security expert reviewing code changes.
                 <div className="benefit-card">
                   <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Debug in minutes, not hours</h3>
                   <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    Every prompt, every tool call, every decision—logged. When it breaks, trace the exact line that failed.
+                    Every prompt, every tool call, every decision. Logged. When it breaks, trace the exact line that failed.
                   </p>
                 </div>
                 
@@ -326,7 +326,7 @@ You are a security expert reviewing code changes.
                 <div className="benefit-card">
                   <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Share it like code</h3>
                   <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    Your setup is a file. Commit it. Review it. Hand it to a teammate. No screenshots, no wikis—just code.
+                    Your setup is a file. Commit it. Review it. Hand it to a teammate. No screenshots, no wikis. Just code.
                   </p>
                 </div>
                 
@@ -358,7 +358,7 @@ You are a security expert reviewing code changes.
                 </h2>
                 
                 <p className="reveal mt-4 text-body-large text-ink-slate max-w-xl lg:max-w-none" style={{transitionDelay: '0.1s'}}>
-                  Start with someone else's setup. Make it yours. Share what works with your team—or the world.
+                  Start with someone else's setup. Make it yours. Share what works with your team, or the world.
                 </p>
                 
                 <div className="reveal mt-8" style={{transitionDelay: '0.2s'}}>
