@@ -61,36 +61,39 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          THE PROBLEM - Why This Matters
+          SECTION 2 - The wall you've hit
           ============================================ */}
       <section className="section-feature section-dark">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
-            <p className="reveal text-eyebrow mb-4">The problem</p>
-            <h2 className="reveal text-display text-on-dark" style={{transitionDelay: '0.1s'}}>
-              Most AI tools are black boxes.
+            <h2 className="reveal text-headline text-on-dark">
+              You've probably hit this wall.
             </h2>
+            <p className="reveal mt-4 text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
+              Something breaks and you can't see why. You want to swap the model but can't. 
+              The tool works fine for demos but won't bend to how you actually need it to work.
+            </p>
           </div>
           
           <div className="reveal-stagger grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't see why</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">No visibility</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                When something goes wrong, you're guessing. No visibility into decisions, prompts, or tool calls.
+                When it fails, you're guessing. No way to trace what it tried, what it saw, or why it chose wrong.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't change anything</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">No flexibility</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Want a different model? Different tools? You're stuck with what they decided to give you.
+                Locked into their model, their tools, their decisions. New model drops? Too bad.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't make it yours</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">No ownership</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Generic instructions. Generic personality. No way to encode how you actually work.
+                Generic prompts. Generic behavior. No way to encode your expertise, your standards, your workflow.
               </p>
             </div>
           </div>
@@ -98,17 +101,16 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          THE ARCHITECTURE - How It Works (with gradient flow)
+          SECTION 3 - The solution
           ============================================ */}
       <section className="section-feature section-gradient-flow">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
-            <p className="reveal text-eyebrow mb-4">The approach</p>
-            <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
-              Everything is a swappable piece.
+            <h2 className="reveal text-headline text-ink">
+              So we made everything a piece you can change.
             </h2>
-            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.15s'}}>
-              Providers, tools, and behaviors snap together into bundles. Change one piece without touching the rest.
+            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
+              Providers, tools, behaviors—they snap together like building blocks. Swap one without touching the rest. Combine them into bundles you can share.
             </p>
           </div>
           
@@ -162,17 +164,16 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          SEE IT RUN - Proof It Works
+          SECTION 4 - Demo
           ============================================ */}
       <section className="section-feature section-stone">
         <div className="container-narrow">
           <div className="text-center mb-10 md:mb-12">
-            <p className="reveal text-eyebrow mb-4">In action</p>
-            <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
-              One command. Real work.
+            <h2 className="reveal text-headline text-ink">
+              Here's what that looks like.
             </h2>
-            <p className="reveal mt-4 text-ink-slate" style={{transitionDelay: '0.15s'}}>
-              Load a bundle, connect to a model, get results.
+            <p className="reveal mt-4 text-ink-slate max-w-xl mx-auto" style={{transitionDelay: '0.1s'}}>
+              One command loads your bundle, connects to your model, and gets to work. You see everything it does.
             </p>
           </div>
           
@@ -219,15 +220,17 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          WHY IT MATTERS - The Real Benefits
+          SECTION 5 - Benefits
           ============================================ */}
       <section className="section-feature section-dark-gradient">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
-            <p className="reveal text-eyebrow mb-4">Why it matters</p>
-            <h2 className="reveal text-headline text-on-dark" style={{transitionDelay: '0.1s'}}>
-              Control that compounds.
+            <h2 className="reveal text-headline text-on-dark">
+              Small changes. Compounding returns.
             </h2>
+            <p className="reveal mt-4 text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
+              When you control the pieces, every improvement builds on the last. Your investment in learning pays off across every project.
+            </p>
           </div>
           
           <div className="reveal-stagger grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
@@ -263,19 +266,17 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          ECOSYSTEM - Built By Many (with subtle warmth)
+          SECTION 6 - Ecosystem
           ============================================ */}
       <section className="section-feature section-light-glow">
         <div className="container-default text-center">
-          <p className="reveal text-eyebrow mb-4">The ecosystem</p>
-          
-          <h2 className="reveal text-headline text-ink" style={{transitionDelay: '0.1s'}}>
-            Share what works. Use what others share.
+          <h2 className="reveal text-headline text-ink">
+            You're not building alone.
           </h2>
           
-          <p className="reveal mt-6 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.2s'}}>
-            Package your setup as a bundle. Share it with your team or the community. 
-            Use bundles others have built. The ecosystem grows because people contribute back.
+          <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
+            Package what works into a bundle. Share it with your team or publish it for everyone. 
+            Use what others have figured out. The ecosystem grows because people contribute back.
           </p>
           
           {/* Example bundles */}
@@ -296,16 +297,16 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          GET STARTED - Clear Action
+          SECTION 7 - CTA
           ============================================ */}
       <section className="section-feature section-dark">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
-            Start in under a minute.
+            Ready when you are.
           </h2>
           
-          <p className="reveal mt-4 text-on-dark-secondary" style={{transitionDelay: '0.1s'}}>
-            Install, add a provider, run your first command.
+          <p className="reveal mt-4 text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.1s'}}>
+            Install Amplifier, connect a model, and run your first command. The whole thing takes about a minute.
           </p>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
