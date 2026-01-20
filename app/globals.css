@@ -1493,7 +1493,219 @@ a {
 }
 
 /* ============================================
-   Scroll Snap System (Desktop only)
+   SLIDE-DECK SCROLL SNAP SYSTEM
+   Full-page sections that snap like a presentation
+   ============================================ */
+
+/* Main scroll container - the "slide deck" */
+.slide-deck {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  
+  /* Hide scrollbar for cleaner look */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slide-deck::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each section is a "slide" */
+.slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+}
+
+/* First slide accounts for fixed nav */
+.slide-first {
+  padding-top: 64px; /* nav height */
+}
+
+/* Mobile: Use proximity snapping for more forgiving UX */
+@media (max-width: 768px) {
+  .slide-deck {
+    scroll-snap-type: y proximity;
+  }
+  
+  .slide {
+    scroll-snap-stop: normal; /* Allow scrolling past on mobile */
+  }
+}
+
+/* Disable snap entirely on very short screens */
+@media (max-height: 500px) {
+  .slide-deck {
+    scroll-snap-type: none;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* ============================================
+   SEAMLESS BACKGROUND TRANSITIONS
+   Gradient overlays that blend section edges
+   ============================================ */
+
+/* Base transition class - sections get gradient blends at edges */
+.section-transition {
+  position: relative;
+  z-index: 1;
+}
+
+/* Transition overlays using pseudo-elements */
+.section-transition::before,
+.section-transition::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Top transition - blends from previous section */
+.section-transition::before {
+  top: 0;
+}
+
+/* Bottom transition - blends into next section */
+.section-transition::after {
+  bottom: 0;
+}
+
+/* ----------------------------------------
+   TRANSITION: Light → Dark
+   Used when going from hero/light into dark section
+   ---------------------------------------- */
+.transition-to-dark::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10, 10, 10, 0.3) 50%,
+    rgba(10, 10, 10, 0.7) 100%
+  );
+}
+
+.transition-from-light::before {
+  background: linear-gradient(
+    to bottom,
+    var(--canvas) 0%,
+    rgba(253, 252, 250, 0.5) 30%,
+    transparent 100%
+  );
+}
+
+/* ----------------------------------------
+   TRANSITION: Dark → Light
+   Used when going from dark into light/gradient section
+   ---------------------------------------- */
+.transition-to-light::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(253, 252, 250, 0.3) 50%,
+    rgba(253, 252, 250, 0.6) 100%
+  );
+}
+
+.transition-from-dark::before {
+  background: linear-gradient(
+    to bottom,
+    var(--depth-obsidian) 0%,
+    rgba(10, 10, 10, 0.6) 40%,
+    transparent 100%
+  );
+}
+
+/* ----------------------------------------
+   TRANSITION: Light → Light (subtle texture shift)
+   Used between gradient-flow and stone sections
+   ---------------------------------------- */
+.transition-light-blend::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--canvas-stone) 100%
+  );
+  height: 15vh;
+}
+
+.transition-from-stone::before {
+  background: linear-gradient(
+    to bottom,
+    var(--canvas-stone) 0%,
+    transparent 100%
+  );
+  height: 15vh;
+}
+
+/* ----------------------------------------
+   TRANSITION: Stone → Dark Gradient
+   Warm stone fading into deep purple-tinted dark
+   ---------------------------------------- */
+.transition-to-dark-gradient::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(23, 23, 23, 0.4) 40%,
+    rgba(23, 23, 23, 0.8) 80%,
+    var(--depth-charcoal) 100%
+  );
+}
+
+/* ----------------------------------------
+   TRANSITION: Dark Gradient → Light Glow
+   Purple-tinted dark flowing into warm light with glow
+   ---------------------------------------- */
+.transition-from-dark-gradient::before {
+  background: linear-gradient(
+    to bottom,
+    var(--depth-charcoal) 0%,
+    rgba(23, 23, 23, 0.7) 30%,
+    rgba(99, 102, 241, 0.08) 60%,
+    transparent 100%
+  );
+}
+
+.transition-to-light-glow::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(99, 102, 241, 0.06) 50%,
+    var(--canvas) 100%
+  );
+}
+
+/* ----------------------------------------
+   TRANSITION: Light Glow → Dark (final CTA)
+   Light with bottom glow fading into deep dark
+   ---------------------------------------- */
+.transition-from-light-glow::before {
+  background: linear-gradient(
+    to bottom,
+    var(--canvas) 0%,
+    rgba(253, 252, 250, 0.6) 40%,
+    transparent 100%
+  );
+}
+
+/* Ensure section backgrounds extend under transitions */
+.section-transition > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* ============================================
+   Scroll Snap Legacy (keeping for backward compat)
    ============================================ */
 
 .scroll-snap-container {

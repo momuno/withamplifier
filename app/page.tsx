@@ -32,11 +32,11 @@ export default function Home() {
   }, [])
   
   return (
-    <div className="pt-16">
+    <div className="slide-deck">
       {/* ============================================
           HERO - The Promise (with Gemini-style gradient)
           ============================================ */}
-      <section className="section-hero relative overflow-hidden">
+      <section className="slide slide-first section-hero section-transition transition-to-dark relative overflow-hidden">
         {/* AI-generated ambient background */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
@@ -63,7 +63,7 @@ export default function Home() {
       {/* ============================================
           SECTION 2 - The wall you've hit
           ============================================ */}
-      <section className="section-feature section-dark">
+      <section className="slide section-feature section-dark section-transition transition-from-dark transition-to-light">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
@@ -99,7 +99,7 @@ export default function Home() {
       {/* ============================================
           SECTION 3 - The solution
           ============================================ */}
-      <section className="section-feature section-gradient-flow">
+      <section className="slide section-feature section-gradient-flow section-transition transition-from-dark transition-light-blend">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
@@ -162,7 +162,7 @@ export default function Home() {
       {/* ============================================
           SECTION 4 - Demo
           ============================================ */}
-      <section className="section-feature section-stone">
+      <section className="slide section-feature section-stone section-transition transition-from-stone transition-to-dark-gradient">
         <div className="container-narrow">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="reveal text-headline text-ink">
@@ -218,7 +218,7 @@ export default function Home() {
       {/* ============================================
           SECTION 5 - Benefits
           ============================================ */}
-      <section className="section-feature section-dark-gradient">
+      <section className="slide section-feature section-dark-gradient section-transition transition-from-dark-gradient transition-to-light-glow">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
@@ -264,7 +264,7 @@ export default function Home() {
       {/* ============================================
           SECTION 6 - Ecosystem
           ============================================ */}
-      <section className="section-feature section-light-glow">
+      <section className="slide section-feature section-light-glow section-transition transition-from-light-glow transition-to-dark">
         <div className="container-default text-center">
           <h2 className="reveal text-headline text-ink">
             What you build can be shared and scaled—while staying personal for everyone who uses it.
@@ -295,7 +295,7 @@ export default function Home() {
       {/* ============================================
           SECTION 7 - CTA
           ============================================ */}
-      <section className="section-feature section-dark">
+      <section className="slide section-feature section-dark section-transition transition-from-dark">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
             Get started now.
