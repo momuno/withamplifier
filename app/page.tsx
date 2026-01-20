@@ -67,33 +67,29 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
-              You've probably hit this wall.
+              AI tools today are elaborate black boxes.
             </h2>
-            <p className="reveal mt-4 text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              Something breaks and you can't see why. You want to swap the model but can't. 
-              The tool works fine for demos but won't bend to how you actually need it to work.
-            </p>
           </div>
           
           <div className="reveal-stagger grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">No visibility</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't see inside</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                When it fails, you're guessing. No way to trace what it tried, what it saw, or why it chose wrong.
+                When something breaks, you're left guessing. No way to trace what it tried, what it saw, or why it went wrong.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">No flexibility</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't change anything</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Locked into their model, their tools, their decisions. New model drops? Too bad.
+                Locked into their model, their tools, their decisions. A better model comes out? Too bad.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">No ownership</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't make it yours</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Generic prompts. Generic behavior. No way to encode your expertise, your standards, your workflow.
+                Generic prompts. Generic behavior. No way to encode your expertise, your standards, your way of working.
               </p>
             </div>
           </div>
@@ -107,10 +103,10 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
-              So we made everything a piece you can change.
+              Amplifier lets you encode your perspective into AI that's visible, verifiable, and yours.
             </h2>
             <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              Providers, tools, behaviors—they snap together like building blocks. Swap one without touching the rest. Combine them into bundles you can share.
+              Providers, tools, and behaviors snap together like building blocks. Swap one without touching the rest. Combine them into bundles that work the way you think.
             </p>
           </div>
           
@@ -170,7 +166,7 @@ export default function Home() {
         <div className="container-narrow">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="reveal text-headline text-ink">
-              Here's what that looks like.
+              Here's how it works.
             </h2>
             <p className="reveal mt-4 text-ink-slate max-w-xl mx-auto" style={{transitionDelay: '0.1s'}}>
               One command loads your bundle, connects to your model, and gets to work. You see everything it does.
@@ -226,10 +222,10 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
-              Small changes. Compounding returns.
+              AI that plans before it acts, validates as it goes, and shows you why.
             </h2>
             <p className="reveal mt-4 text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              When you control the pieces, every improvement builds on the last. Your investment in learning pays off across every project.
+              Amplifier agents think before they build. They track their own progress, check their work continuously, and coordinate like a team. You see every decision, every step, every reason.
             </p>
           </div>
           
@@ -271,12 +267,12 @@ export default function Home() {
       <section className="section-feature section-light-glow">
         <div className="container-default text-center">
           <h2 className="reveal text-headline text-ink">
-            You're not building alone.
+            What you build can be shared and scaled—while staying personal for everyone who uses it.
           </h2>
           
           <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
             Package what works into a bundle. Share it with your team or publish it for everyone. 
-            Use what others have figured out. The ecosystem grows because people contribute back.
+            Each person gets the same foundation with room to make it their own. Infinitely scalable, individually yours.
           </p>
           
           {/* Example bundles */}
@@ -302,11 +298,11 @@ export default function Home() {
       <section className="section-feature section-dark">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
-            Ready when you are.
+            Get started now.
           </h2>
           
           <p className="reveal mt-4 text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.1s'}}>
-            Install Amplifier, connect a model, and run your first command. The whole thing takes about a minute.
+            Install Amplifier, connect a model, run your first command. Takes about a minute.
           </p>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
