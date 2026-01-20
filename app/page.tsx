@@ -53,7 +53,7 @@ export default function Home() {
           </h1>
           
           <p className="reveal mt-6 md:mt-8 text-body-large text-ink max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
-            Amplifier is the open-source framework for people who want full control over how their AI agents work. Clear, visible, and designed to grow with your vision.
+            Your AI agent is a file you can read, write, and share. Not a black box you rent—a tool you own.
           </p>
           
           <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
@@ -69,29 +69,29 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
-              AI tools today are elaborate black boxes.
+              Most AI tools don't let you see how they work.
             </h2>
           </div>
           
           <div className="reveal-stagger grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't see inside</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't read it</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                When something breaks, you're left guessing. No way to trace what it tried, what it saw, or why it went wrong.
+                The prompts, the logic, the rules it follows—hidden. When it breaks, you guess why.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't change anything</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't change it</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Locked into their model, their tools, their decisions. A better model comes out? Too bad.
+                Their model, their tools, their decisions. Want to swap the model or add a capability? You can't.
               </p>
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't make it yours</h3>
+              <h3 className="text-lg font-semibold text-on-dark mb-2">You can't share it</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Generic prompts. Generic behavior. No way to encode your expertise, your standards, your way of working.
+                Your setup, your learnings, your workflow—locked in their system. Can't hand it to a teammate as a file.
               </p>
             </div>
           </div>
@@ -99,62 +99,86 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          SECTION 3 - The solution
+          SECTION 3 - The solution: A bundle IS your perspective
           ============================================ */}
       <section className="section-feature section-gradient-flow">
         <div className="container-default">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-10 md:mb-14">
             <h2 className="reveal text-headline text-ink">
-              Amplifier lets you encode your perspective into AI that's visible, verifiable, and yours.
+              A bundle is your perspective, written down.
             </h2>
             <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              Providers, tools, and behaviors snap together like building blocks. Swap one without touching the rest. Combine them into bundles that work the way you think.
+              It's a file that defines how your AI agent thinks and works. You write it. You own it. You can share it.
             </p>
           </div>
           
-          {/* Horizontal scroll on mobile, grid on desktop */}
-          <div className="reveal-stagger scroll-container scroll-container-grid max-w-5xl mx-auto">
-            {/* Provider */}
-            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
-              <h3 className="text-xl font-semibold text-ink mb-3">Providers</h3>
-              <p className="text-ink-slate text-sm mb-4">
-                The brain. Claude, GPT-4, Ollama, or run your own local model. Switch between them without changing anything else.
-              </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
-                providers: [anthropic, ollama]
-              </code>
+          {/* Show actual bundle - THIS is encoding your perspective */}
+          <div className="reveal max-w-3xl mx-auto" style={{transitionDelay: '0.2s'}}>
+            <div className="rounded-2xl overflow-hidden border border-canvas-mist shadow-soft">
+              <div className="bg-canvas-stone px-4 py-2 border-b border-canvas-mist flex items-center gap-2">
+                <span className="text-xs font-mono text-ink-slate">security-reviewer.md</span>
+                <span className="text-xs text-ink-fog">— this is a bundle</span>
+              </div>
+              <div className="bg-canvas p-4 md:p-6 font-mono text-sm leading-relaxed overflow-x-auto">
+                <pre className="text-ink-slate"><code>{`---
+bundle:
+  name: security-reviewer
+  version: 1.0.0
+
+providers:
+  - anthropic           # Use Claude
+
+tools:
+  - filesystem          # Read code
+  - grep                # Search patterns
+  - ast-analysis        # Parse syntax
+
+behaviors:
+  - secure-by-default   # Security-first mindset
+---
+
+# Security Reviewer
+
+You are a security expert reviewing code changes.
+
+## Your perspective:
+- Assume all input is malicious
+- Flag SQL injection, XSS, auth bypasses
+- Check for secrets in code
+- Verify input validation exists
+
+## How you work:
+1. Read the changed files
+2. Identify attack surfaces
+3. Report issues with line numbers
+4. Suggest specific fixes`}</code></pre>
+              </div>
             </div>
-            
-            {/* Tools */}
-            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
-              <h3 className="text-xl font-semibold text-ink mb-3">Tools</h3>
-              <p className="text-ink-slate text-sm mb-4">
-                The hands. Filesystem access, bash commands, web search, GitHub integration. Add only what you need.
-              </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
-                tools: [filesystem, bash, grep]
-              </code>
-            </div>
-            
-            {/* Behaviors */}
-            <div className="scroll-card feature-tile feature-tile-gradient p-6 md:p-8 soft-glow md:w-auto">
-              <h3 className="text-xl font-semibold text-ink mb-3">Behaviors</h3>
-              <p className="text-ink-slate text-sm mb-4">
-                The personality. Instructions, expertise, and guardrails that shape how it works. Your workflow, encoded.
-              </p>
-              <code className="text-xs bg-canvas-mist px-2 py-1 rounded-lg font-mono text-ink-slate">
-                behaviors: [security-focused]
-              </code>
-            </div>
+            <p className="mt-4 text-center text-ink-fog text-sm">
+              This file IS the agent. Read it, change it, share it.
+            </p>
           </div>
           
-          {/* Bundle = Result */}
-          <div className="reveal mt-10 md:mt-14 text-center" style={{transitionDelay: '0.4s'}}>
-            <div className="inline-block p-6 md:p-8 rounded-3xl glass-card shadow-soft">
-              <h3 className="text-xl font-semibold text-ink mb-3">Bundle</h3>
-              <p className="text-ink-slate text-sm max-w-md">
-                Combine providers + tools + behaviors into a shareable package. 
-                Install someone else's bundle, or publish your own.
+          {/* What goes into a bundle */}
+          <div className="reveal-stagger mt-12 md:mt-16 grid md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+            <div className="text-center p-4">
+              <h3 className="text-lg font-semibold text-ink mb-2">Providers</h3>
+              <p className="text-ink-slate text-sm">
+                Which model to use. Claude, GPT-4, Ollama, or your own. Swap anytime.
+              </p>
+            </div>
+            
+            <div className="text-center p-4">
+              <h3 className="text-lg font-semibold text-ink mb-2">Tools</h3>
+              <p className="text-ink-slate text-sm">
+                What it can do. Read files, run commands, search the web. Add only what you need.
+              </p>
+            </div>
+            
+            <div className="text-center p-4">
+              <h3 className="text-lg font-semibold text-ink mb-2">Instructions</h3>
+              <p className="text-ink-slate text-sm">
+                How it thinks. Your expertise, your standards, your workflow—written in plain text.
               </p>
             </div>
           </div>
