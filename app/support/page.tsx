@@ -31,7 +31,7 @@ const faqItems = [
   },
   {
     question: 'How do I switch between models?',
-    answer: 'One command: amplifier config set provider openai. Or specify it per-run: amplifier run --provider anthropic "your prompt". Your bundles, tools, and behaviors work with any provider.'
+    answer: 'One command: amplifier provider use openai. Or specify it per-run: amplifier run --provider anthropic "your prompt". Your bundles, tools, and behaviors work with any provider.'
   },
   {
     question: 'Is my data private?',
@@ -154,15 +154,15 @@ export default function SupportPage() {
           <RevealStagger className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-5 bg-canvas-stone rounded-gentle">
               <h3 className="text-subheading text-ink">How do I install?</h3>
-              <code className="mt-3 block text-sm text-signal font-mono">
-                pip install amplifier
+              <code className="mt-3 block text-xs text-signal font-mono">
+                uv tool install git+https://github.com/microsoft/amplifier
               </code>
             </div>
 
             <div className="p-5 bg-canvas-stone rounded-gentle">
               <h3 className="text-subheading text-ink">How do I add a provider?</h3>
               <code className="mt-3 block text-sm text-signal font-mono">
-                amplifier provider add anthropic
+                amplifier provider use anthropic
               </code>
             </div>
 
@@ -176,7 +176,7 @@ export default function SupportPage() {
             <div className="p-5 bg-canvas-stone rounded-gentle">
               <h3 className="text-subheading text-ink">How do I switch models?</h3>
               <code className="mt-3 block text-sm text-signal font-mono">
-                amplifier config set provider openai
+                amplifier provider use openai
               </code>
             </div>
 
@@ -190,7 +190,7 @@ export default function SupportPage() {
             <div className="p-5 bg-canvas-stone rounded-gentle">
               <h3 className="text-subheading text-ink">How do I run locally?</h3>
               <code className="mt-3 block text-sm text-signal font-mono">
-                amplifier provider add ollama
+                amplifier provider use ollama
               </code>
             </div>
           </RevealStagger>

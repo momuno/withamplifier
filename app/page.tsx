@@ -55,7 +55,7 @@ export default function Home() {
           </p>
           
           <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
-            <CodeBlock code="pip install amplifier" className="max-w-xs mx-auto" />
+            <CodeBlock code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
           </div>
         </div>
       </section>
@@ -291,7 +291,7 @@ export default function Home() {
 
 ✓ Review complete. 2 issues, 0 false positives.
 
-$ amplifier config set provider openai  # Switch to GPT-4
+$ amplifier provider use openai  # Switch to GPT-4
 ✓ Provider updated. Next run will use gpt-4.`}
                   </div>
                 </div>
@@ -528,7 +528,7 @@ You review code for vulnerabilities.
           </p>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
-            <CodeBlock code="pip install amplifier" className="max-w-xs mx-auto" />
+            <CodeBlock code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
           </div>
           
           <div className="reveal mt-8 flex flex-col sm:flex-row gap-3 justify-center px-4" style={{transitionDelay: '0.2s'}}>

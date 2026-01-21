@@ -15,12 +15,12 @@ export default function BuildPage() {
             <p className="mt-4 text-body-lg text-ink-slate max-w-xl">
               Install Amplifier, connect any model, and run your first command.
             </p>
-            <div className="mt-8">
-              <code className="code-block block text-lg px-6 py-4">
-                pip install amplifier
+            <div className="mt-8 space-y-3">
+              <code className="code-block block text-base px-6 py-4">
+                uv tool install git+https://github.com/microsoft/amplifier
               </code>
               <p className="mt-4 text-ink-fog text-sm">
-                Requires Python 3.10+
+                Requires <a href="https://docs.astral.sh/uv/" className="text-signal hover:underline" target="_blank" rel="noopener noreferrer">uv</a> and Python 3.10+
               </p>
             </div>
           </RevealOnScroll>
@@ -44,7 +44,10 @@ export default function BuildPage() {
                   </span>
                   <span className="text-heading text-ink">Install</span>
                 </div>
-                <code className="code-block block">pip install amplifier</code>
+                <code className="code-block block text-sm">uv tool install git+https://github.com/microsoft/amplifier</code>
+                <p className="mt-4 text-ink-slate text-sm">
+                  Need uv? Run: <code className="text-signal">curl -LsSf https://astral.sh/uv/install.sh | sh</code>
+                </p>
               </div>
 
               {/* Step 2 */}
@@ -55,7 +58,7 @@ export default function BuildPage() {
                   </span>
                   <span className="text-heading text-ink">Add a provider</span>
                 </div>
-                <code className="code-block block">amplifier provider add anthropic</code>
+                <code className="code-block block">amplifier provider use anthropic</code>
                 <p className="mt-4 text-ink-slate text-sm">
                   You'll need an API key. Amplifier supports Claude, GPT-4, Gemini, 
                   Azure, AWS Bedrock, and local models via Ollama.
@@ -111,7 +114,7 @@ export default function BuildPage() {
               </div>
 
               <div className="bg-canvas p-5 rounded-gentle border border-canvas-mist">
-                <code className="text-signal text-sm font-mono">amplifier config set provider openai</code>
+                <code className="text-signal text-sm font-mono">amplifier provider use openai</code>
                 <p className="mt-2 text-ink-slate text-sm">Switch to a different model</p>
               </div>
             </div>
@@ -135,7 +138,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">Anthropic</h3>
               <p className="mt-2 text-ink-slate text-sm">Claude Sonnet 4, Opus 4, Haiku</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add anthropic
+                amplifier provider use anthropic
               </code>
             </div>
 
@@ -143,7 +146,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">OpenAI</h3>
               <p className="mt-2 text-ink-slate text-sm">GPT-4o, GPT-4 Turbo, o1</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add openai
+                amplifier provider use openai
               </code>
             </div>
 
@@ -151,7 +154,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">Google Gemini</h3>
               <p className="mt-2 text-ink-slate text-sm">Gemini Pro, Gemini Flash</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add gemini
+                amplifier provider use gemini
               </code>
             </div>
 
@@ -159,7 +162,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">Azure OpenAI</h3>
               <p className="mt-2 text-ink-slate text-sm">Enterprise Azure deployments</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add azure
+                amplifier provider use azure
               </code>
             </div>
 
@@ -167,7 +170,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">AWS Bedrock</h3>
               <p className="mt-2 text-ink-slate text-sm">Claude, Llama, Titan on AWS</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add bedrock
+                amplifier provider use bedrock
               </code>
             </div>
 
@@ -175,7 +178,7 @@ export default function BuildPage() {
               <h3 className="text-heading text-ink">Ollama</h3>
               <p className="mt-2 text-ink-slate text-sm">Local models, fully private</p>
               <code className="mt-4 block text-micro text-ink-fog font-mono">
-                amplifier provider add ollama
+                amplifier provider use ollama
               </code>
             </div>
           </RevealStagger>
