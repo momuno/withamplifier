@@ -60,8 +60,9 @@ export default function DualRowScrollingCards({ cards }: DualRowScrollingCardsPr
     }
   }, [])
   
-  // Duplicate cards multiple times for abundance
-  const expandedCards = [...cards, ...cards, ...cards]
+  // Duplicate cards many times to ensure no visible edges during scroll
+  // Need enough cards to cover viewport + full scroll range on both sides
+  const expandedCards = [...cards, ...cards, ...cards, ...cards, ...cards, ...cards]
   const midpoint = Math.ceil(expandedCards.length / 2)
   const topRowCards = expandedCards.slice(0, midpoint)
   const bottomRowCards = expandedCards.slice(midpoint)
