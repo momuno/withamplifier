@@ -49,8 +49,8 @@ export default function Home() {
             Build your way<br />with Amplifier
           </h1>
           
-          <p className="reveal mt-6 md:mt-8 text-body-large text-ink max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s'}}>
-            Your AI agent is a file you can read, write, and share. Not a black box you rent. A tool you own.
+          <p className="reveal mt-6 md:mt-8 text-body-large text-ink max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+            Your AI agent is a file you can read, write, and share. Not a black box you rent. A tool you&nbsp;own.
           </p>
           
           <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
@@ -69,11 +69,11 @@ export default function Home() {
           <h2 className="reveal text-headline text-on-dark">
             Most AI tools are black boxes.
           </h2>
-          <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-            They work. They respond. But you don't understand what's happening behind the scenes.
+          <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+            They work. They respond. But you don't understand what's happening behind the&nbsp;scenes.
           </p>
-          <p className="reveal mt-6 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.2s'}}>
-            They lock you to one model. Hide how they work. Keep your setup trapped in their system. When something breaks, you're guessing. When something better comes along, you start over.
+          <p className="reveal mt-6 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.2s', textWrap: 'balance'}}>
+            They lock you to one model. Hide how they work. Keep your setup trapped in their system. When something breaks, you're guessing. When something better comes along, you start&nbsp;over.
           </p>
         </div>
       </section>
@@ -92,8 +92,8 @@ export default function Home() {
             <p className="reveal mt-3 text-display-sm text-on-dark max-w-2xl mx-auto" style={{transitionDelay: '0.05s'}}>
               Open. Visible. Yours.
             </p>
-            <p className="reveal mt-4 text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              You see everything. You can change anything. And it works with whatever model you choose.
+            <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+              You see everything. You can change anything. And it works with whatever model you&nbsp;choose.
             </p>
           </div>
           
@@ -153,8 +153,8 @@ export default function Home() {
             <h2 className="reveal text-headline text-ink">
               Everything you need to build AI agents.
             </h2>
-            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              A complete platform, not just a wrapper. Providers, tools, agents, and workflows that work together.
+            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+              A complete platform, not just a wrapper. Providers, tools, agents, and workflows that work&nbsp;together.
             </p>
           </div>
           
@@ -254,8 +254,8 @@ export default function Home() {
                 <h2 className="reveal text-headline text-ink">
                   See it in action.
                 </h2>
-                <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s'}}>
-                  One command. Full visibility. Watch your agent think, decide, and act.
+                <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+                  One command. Full visibility. Watch your agent think, decide, and&nbsp;act.
                 </p>
                 
                 <div className="reveal mt-6 space-y-3" style={{transitionDelay: '0.2s'}}>
@@ -335,11 +335,11 @@ $ amplifier provider use openai  # Switch to GPT-4
                 <h2 className="reveal text-headline text-ink">
                   Package it as a bundle.
                 </h2>
-                <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s'}}>
-                  A bundle captures your entire setup. Providers, tools, behaviors, instructions. Everything in plain text.
+                <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+                  A bundle captures your entire setup. Providers, tools, behaviors, instructions. Everything in plain&nbsp;text.
                 </p>
-                <p className="reveal mt-3 text-body-large text-ink" style={{transitionDelay: '0.15s'}}>
-                  The more you use it, the more it becomes yours.
+                <p className="reveal mt-3 text-body-large text-ink" style={{transitionDelay: '0.15s', textWrap: 'balance'}}>
+                  The more you use it, the more it becomes&nbsp;yours.
                 </p>
               </div>
             </div>
@@ -567,8 +567,8 @@ You review code for vulnerabilities.
             Your first agent in 60 seconds.
           </h2>
           
-          <p className="reveal mt-4 text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.1s'}}>
-            Install. Connect a model. Run a command. You'll have a working agent before you finish your coffee.
+          <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+            Install. Connect a model. Run a command. You'll have a working agent before you finish your&nbsp;coffee.
           </p>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
