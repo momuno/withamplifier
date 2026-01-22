@@ -22,7 +22,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/start" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
+                <Link href="https://github.com/microsoft/amplifier" target="_blank" rel="noopener noreferrer" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
                   How it works
                 </Link>
               </li>
