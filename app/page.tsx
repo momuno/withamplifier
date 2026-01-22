@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import ScrollingCards from '@/components/ScrollingCards'
+import DualRowScrollingCards from '@/components/DualRowScrollingCards'
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
@@ -443,12 +443,13 @@ You review code for vulnerabilities.
           </div>
           
           <div className="reveal" style={{transitionDelay: '0.3s'}}>
-            <ScrollingCards cards={[
+            <DualRowScrollingCards cards={[
               {
                 name: 'security-reviewer',
                 type: 'agent',
                 description: 'Comprehensive security analysis for vulnerabilities, secrets, and common attack vectors',
                 author: 'microsoft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
                 stars: 847,
                 validated: true
               },
@@ -457,6 +458,7 @@ You review code for vulnerabilities.
                 type: 'agent',
                 description: 'Generate comprehensive documentation from code with examples and API references',
                 author: 'amplifier-community',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/97165289?s=80',
                 stars: 623,
                 validated: true
               },
@@ -465,6 +467,7 @@ You review code for vulnerabilities.
                 type: 'tool',
                 description: 'Navigate large codebases with semantic search and intelligent code understanding',
                 author: 'robotdad',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/1234567?s=80',
                 stars: 512,
                 validated: false
               },
@@ -473,6 +476,7 @@ You review code for vulnerabilities.
                 type: 'agent',
                 description: 'Write comprehensive test suites with edge cases and coverage analysis',
                 author: 'amplifier-labs',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/87654321?s=80',
                 stars: 489,
                 validated: true
               },
@@ -481,6 +485,7 @@ You review code for vulnerabilities.
                 type: 'bundle',
                 description: 'Design RESTful APIs with OpenAPI specs, validation, and best practices',
                 author: 'apicraft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/23456789?s=80',
                 stars: 356,
                 validated: false
               },
@@ -489,6 +494,7 @@ You review code for vulnerabilities.
                 type: 'agent',
                 description: 'Analyze datasets with statistical insights, visualizations, and recommendations',
                 author: 'dataflow',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/34567890?s=80',
                 stars: 298,
                 validated: true
               },
@@ -497,6 +503,7 @@ You review code for vulnerabilities.
                 type: 'agent',
                 description: 'Automated code reviews focusing on best practices, performance, and maintainability',
                 author: 'microsoft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
                 stars: 734,
                 validated: true
               },
@@ -505,6 +512,7 @@ You review code for vulnerabilities.
                 type: 'agent',
                 description: 'Intelligent refactoring suggestions with automated code transformations',
                 author: 'amplifier-community',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/97165289?s=80',
                 stars: 421,
                 validated: false
               },
@@ -513,6 +521,7 @@ You review code for vulnerabilities.
                 type: 'tool',
                 description: 'Analyze and optimize SQL queries for performance and best practices',
                 author: 'dbtools',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/45678901?s=80',
                 stars: 267,
                 validated: true
               },
@@ -521,6 +530,7 @@ You review code for vulnerabilities.
                 type: 'bundle',
                 description: 'Generate accessible, responsive UI components with modern frameworks',
                 author: 'frontend-guild',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/56789012?s=80',
                 stars: 543,
                 validated: false
               }
