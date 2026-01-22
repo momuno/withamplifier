@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
 import { EmergenceField } from '@/components/EmergenceField'
+import ChladniBackground from '@/components/ChladniBackground'
 
 export default function Home() {
   useViewportHeight()
@@ -34,10 +35,13 @@ export default function Home() {
   
   return (
     <div className="pt-16">
+      {/* Chladni pattern background - runs throughout site */}
+      <ChladniBackground />
+      
       {/* ============================================
           SECTION 1: HERO - The Promise
           ============================================ */}
-      <section className="section-hero relative overflow-hidden">
+      <section data-section="hero" className="section-hero relative overflow-hidden">
         <EmergenceField 
           opacity={0.7}
           blur={80}
@@ -64,7 +68,7 @@ export default function Home() {
           SECTION 2: DIFFERENTIATION - What makes it unique
           NOT problem-first. Lead with what's different.
           ============================================ */}
-      <section className="section-feature section-dark">
+      <section data-section="differentiation" className="section-feature section-dark">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
@@ -126,7 +130,7 @@ export default function Home() {
           SECTION 3: THE PLATFORM - Everything you get
           Shows breadth: Providers, Tools, Agents, Recipes
           ============================================ */}
-      <section className="section-feature section-gradient-flow">
+      <section data-section="platform" className="section-feature section-gradient-flow">
         <div className="container-wide">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
@@ -224,7 +228,7 @@ export default function Home() {
           SECTION 4: HOW IT WORKS - Demo
           Shows model flexibility and visibility
           ============================================ */}
-      <section className="section-feature section-stone">
+      <section data-section="demo" className="section-feature section-stone">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12 xl:gap-20">
             {/* Text column */}
@@ -305,7 +309,7 @@ $ amplifier provider use openai  # Switch to GPT-4
           SECTION 5: BUNDLES - One powerful pattern
           Demoted from star to feature
           ============================================ */}
-      <section className="section-feature section-light-glow">
+      <section data-section="bundles" className="section-feature section-light-glow">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12 xl:gap-20">
             {/* Text column */}
@@ -397,7 +401,7 @@ You review code for vulnerabilities.
       {/* ============================================
           SECTION 6: IMPACT - Control that compounds
           ============================================ */}
-      <section className="section-feature section-dark-gradient">
+      <section data-section="impact" className="section-feature section-dark-gradient">
         <div className="container-wide">
           <div className="lg:flex lg:gap-16 xl:gap-24">
             <div className="lg:w-[38%] xl:w-[35%] lg:flex-shrink-0">
@@ -450,7 +454,7 @@ You review code for vulnerabilities.
           SECTION 7: WHY THIS MATTERS - Brief contrast
           Not problem-first, but acknowledges the alternative
           ============================================ */}
-      <section className="section-feature section-stone">
+      <section data-section="contrast" className="section-feature section-stone">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-ink">
             Most AI tools weren't built this way.
@@ -467,7 +471,7 @@ You review code for vulnerabilities.
       {/* ============================================
           SECTION 8: ECOSYSTEM - Community bundles
           ============================================ */}
-      <section className="section-feature section-gradient-flow">
+      <section data-section="ecosystem" className="section-feature section-gradient-flow">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
             <div className="lg:w-[40%] xl:w-[38%] lg:flex-shrink-0">
@@ -517,7 +521,7 @@ You review code for vulnerabilities.
       {/* ============================================
           SECTION 9: CTA
           ============================================ */}
-      <section className="section-feature section-dark">
+      <section data-section="cta" className="section-feature section-dark">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
             Your first agent in 60 seconds.
