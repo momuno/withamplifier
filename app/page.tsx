@@ -87,13 +87,10 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
-              Here's how Amplifier is different.
+              Amplifier is open by design.
             </h2>
-            <p className="reveal mt-3 text-display-sm text-on-dark max-w-2xl mx-auto" style={{transitionDelay: '0.05s'}}>
-              Open. Visible. Yours.
-            </p>
             <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-              You see everything. You can change anything. And it works with whatever model you&nbsp;choose.
+              Most tools lock you into their model, their workflow, their vision. Amplifier gives you transparent components you can inspect, modify, and recombine. When the system is designed for builders instead of consumers, everything&nbsp;changes.
             </p>
           </div>
           
