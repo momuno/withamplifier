@@ -66,9 +66,15 @@ export default function DualRowScrollingCards({ cards }: DualRowScrollingCardsPr
   const topRowCards = expandedCards.slice(0, midpoint)
   const bottomRowCards = expandedCards.slice(midpoint)
   
-  const maxTranslation = 400
-  const topRowTransform = scrollProgress * maxTranslation
-  const bottomRowTransform = -scrollProgress * maxTranslation
+  // Start cards off-screen and bring them into view as user scrolls
+  // Top row: starts off-screen left (-800px), moves right to +400px
+  // Bottom row: starts off-screen right (+800px), moves left to -400px
+  const startOffset = -800
+  const endOffset = 400
+  const totalRange = endOffset - startOffset
+  
+  const topRowTransform = startOffset + (scrollProgress * totalRange)
+  const bottomRowTransform = -startOffset - (scrollProgress * totalRange)
   
   return (
     <div ref={sectionRef} className="space-y-3 lg:space-y-4">
