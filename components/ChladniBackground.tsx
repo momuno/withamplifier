@@ -56,6 +56,11 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
   const currentOpacityRef = useRef<number>(0.3)
   const isDarkRef = useRef<boolean>(false)
   
+  // Mobile optimization: track scroll state
+  const isScrollingRef = useRef<boolean>(false)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const batchIndexRef = useRef<number>(0)
+  
   const [isReducedMotion, setIsReducedMotion] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -68,7 +73,8 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
     setIsMobile(checkMobile())
     setIsReducedMotion(checkReducedMotion())
     
-    const particleCount = checkMobile() ? 400 : 1000
+    // Mobile: fewer particles for smoother performance
+    const particleCount = checkMobile() ? 200 : 800
     particlesRef.current = generateParticles(particleCount)
     
     const handleResize = () => {
@@ -78,6 +84,32 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+  
+  // Mobile optimization: detect scrolling to pause physics
+  useEffect(() => {
+    if (!isMobile) return
+    
+    const handleScroll = () => {
+      isScrollingRef.current = true
+      
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+      
+      // Resume animation 150ms after scroll stops
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false
+      }, 150)
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [isMobile])
 
   // Set up section observers
   useEffect(() => {
@@ -146,8 +178,8 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
     const ctx = canvas?.getContext('2d')
     if (!canvas || !ctx) return
 
-    // Throttle to 30fps on mobile
-    const targetFps = isMobile ? 30 : 60
+    // Mobile: lower FPS target and skip frames during scroll
+    const targetFps = isMobile ? 24 : 60
     const frameInterval = 1000 / targetFps
     
     if (timestamp - lastTimeRef.current < frameInterval) {
@@ -171,60 +203,80 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
     const target = targetPatternRef.current
     const t = transitionRef.current
     const mouse = mouseRef.current
+    const isScrolling = isScrollingRef.current
 
-    // Physics constants
-    const forceStrength = 2.5
-    const damping = 0.92
-    const cursorRadius = 0.12 // Normalized radius of cursor influence
+    // Physics constants - reduced on mobile for smoother feel
+    const forceStrength = isMobile ? 1.5 : 2.5
+    const damping = isMobile ? 0.95 : 0.92
+    const cursorRadius = 0.12
     const cursorForce = 0.015
+    
+    // Mobile optimization: batch processing
+    // Update only a subset of particles per frame during scroll
+    const batchSize = isMobile && isScrolling ? Math.ceil(particles.length / 3) : particles.length
+    const startIndex = isMobile && isScrolling 
+      ? (batchIndexRef.current * batchSize) % particles.length 
+      : 0
+    const endIndex = isMobile && isScrolling
+      ? Math.min(startIndex + batchSize, particles.length)
+      : particles.length
+    
+    if (isMobile && isScrolling) {
+      batchIndexRef.current = (batchIndexRef.current + 1) % 3
+    }
 
-    // Update and draw particles
-    for (const particle of particles) {
-      // Get Chladni force (interpolated during transition)
-      let [fx, fy] = interpolateForce(
-        particle.x, 
-        particle.y, 
-        current, 
-        target, 
-        t, 
-        forceStrength
-      )
+    // Draw all particles but only update physics for batch
+    for (let i = 0; i < particles.length; i++) {
+      const particle = particles[i]
+      const shouldUpdatePhysics = !isMobile || !isScrolling || (i >= startIndex && i < endIndex)
+      
+      if (shouldUpdatePhysics) {
+        // Get Chladni force (interpolated during transition)
+        let [fx, fy] = interpolateForce(
+          particle.x, 
+          particle.y, 
+          current, 
+          target, 
+          t, 
+          forceStrength
+        )
 
-      // Add cursor repulsion
-      if (mouse) {
-        const dx = particle.x - mouse.x
-        const dy = particle.y - mouse.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        
-        if (dist < cursorRadius && dist > 0.001) {
-          const repelStrength = (1 - dist / cursorRadius) * cursorForce
-          fx += (dx / dist) * repelStrength
-          fy += (dy / dist) * repelStrength
+        // Add cursor repulsion (skip on mobile during scroll)
+        if (mouse && !isScrolling) {
+          const dx = particle.x - mouse.x
+          const dy = particle.y - mouse.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          
+          if (dist < cursorRadius && dist > 0.001) {
+            const repelStrength = (1 - dist / cursorRadius) * cursorForce
+            fx += (dx / dist) * repelStrength
+            fy += (dy / dist) * repelStrength
+          }
         }
+
+        // Add slight chaos during transitions (reduced on mobile)
+        if (t < 0.3 && !isScrolling) {
+          const chaos = (0.3 - t) * 0.01
+          fx += (Math.random() - 0.5) * chaos
+          fy += (Math.random() - 0.5) * chaos
+        }
+
+        // Update velocity with damping
+        particle.vx = (particle.vx + fx * deltaTime) * damping
+        particle.vy = (particle.vy + fy * deltaTime) * damping
+
+        // Update position
+        particle.x += particle.vx
+        particle.y += particle.vy
+
+        // Wrap around edges
+        if (particle.x < 0) particle.x = 1
+        if (particle.x > 1) particle.x = 0
+        if (particle.y < 0) particle.y = 1
+        if (particle.y > 1) particle.y = 0
       }
 
-      // Add slight chaos during transitions
-      if (t < 0.3) {
-        const chaos = (0.3 - t) * 0.01
-        fx += (Math.random() - 0.5) * chaos
-        fy += (Math.random() - 0.5) * chaos
-      }
-
-      // Update velocity with damping
-      particle.vx = (particle.vx + fx * deltaTime) * damping
-      particle.vy = (particle.vy + fy * deltaTime) * damping
-
-      // Update position
-      particle.x += particle.vx
-      particle.y += particle.vy
-
-      // Wrap around edges
-      if (particle.x < 0) particle.x = 1
-      if (particle.x > 1) particle.x = 0
-      if (particle.y < 0) particle.y = 1
-      if (particle.y > 1) particle.y = 0
-
-      // Draw particle
+      // Always draw all particles
       const screenX = particle.x * canvas.width
       const screenY = particle.y * canvas.height
       
@@ -247,9 +299,12 @@ export default function ChladniBackground({ className = '' }: ChladniBackgroundP
     const canvas = canvasRef.current
     if (!canvas) return
 
-    // Set canvas size
+    // Set canvas size - lower resolution on mobile for performance
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const isMobileDevice = window.innerWidth < 768
+      // Mobile: use 1x resolution for smoother performance
+      // Desktop: cap at 2x for crisp rendering without excess
+      const dpr = isMobileDevice ? 1 : Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = window.innerWidth * dpr
       canvas.height = window.innerHeight * dpr
       canvas.style.width = `${window.innerWidth}px`
