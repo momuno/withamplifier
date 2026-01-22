@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
-import { EmergenceField } from '@/components/EmergenceField'
 import ChladniWebGL from '@/components/ChladniWebGL'
 
 export default function Home() {
@@ -42,11 +41,6 @@ export default function Home() {
           SECTION 1: HERO - The Promise
           ============================================ */}
       <section data-section="hero" className="section-hero relative overflow-hidden">
-        <EmergenceField 
-          opacity={0.7}
-          blur={80}
-          speed={0.0004}
-        />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas/40 via-transparent to-canvas/60" />
         
         <div className="text-center container-default relative z-10">
@@ -139,7 +133,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-on-dark mb-2">Own your setup</h3>
               <p className="text-on-dark-secondary text-sm leading-relaxed">
-                Your agent is a file. Version it, share it, hand it to a teammate. It's yours.
+                Take it anywhere. Modify anything. No vendor lock-in, no hidden dependencies.
               </p>
             </div>
           </div>
@@ -326,8 +320,7 @@ $ amplifier provider use openai  # Switch to GPT-4
       </section>
 
       {/* ============================================
-          SECTION 6: BUNDLES - One powerful pattern
-          Demoted from star to feature
+          SECTION 6: THE BUNDLE PATTERN - One file, compounding benefits
           ============================================ */}
       <section data-section="bundles" className="section-feature section-light-glow">
         <div className="container-wide">
@@ -339,45 +332,17 @@ $ amplifier provider use openai  # Switch to GPT-4
                   Package it as a bundle.
                 </h2>
                 <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s'}}>
-                  A bundle captures your entire setup in one file. Providers, tools, behaviors, instructions. Share it with your team or publish it for everyone.
+                  A bundle captures your entire setup. Providers, tools, behaviors, instructions. Everything in plain text.
                 </p>
-                
-                <div className="reveal-stagger mt-8 lg:mt-10 space-y-4" style={{transitionDelay: '0.2s'}}>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-signal-soft flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-signal">
-                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3z"></path>
-                        <path d="M12 12L20 7.5"></path>
-                        <path d="M12 12V21"></path>
-                        <path d="M12 12L4 7.5"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-ink">One file, complete agent</h3>
-                      <p className="text-ink-slate text-sm mt-0.5">Everything in plain text. Read it, change it, version it.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-signal-soft flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-signal">
-                        <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"></path>
-                        <polyline points="16,6 12,2 8,6"></polyline>
-                        <line x1="12" y1="2" x2="12" y2="15"></line>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-ink">Share like code</h3>
-                      <p className="text-ink-slate text-sm mt-0.5">Git push. PR review. npm publish. It's just a file.</p>
-                    </div>
-                  </div>
-                </div>
+                <p className="reveal mt-3 text-body-large text-ink" style={{transitionDelay: '0.15s'}}>
+                  The more you use it, the more it becomes yours.
+                </p>
               </div>
             </div>
             
             {/* Code column */}
             <div className="mt-10 lg:mt-0 lg:flex-1 lg:min-w-0">
-              <div className="reveal" style={{transitionDelay: '0.3s'}}>
+              <div className="reveal" style={{transitionDelay: '0.2s'}}>
                 <div className="rounded-2xl overflow-hidden border border-canvas-mist shadow-soft">
                   <div className="bg-canvas-stone px-4 py-2 border-b border-canvas-mist flex items-center gap-2">
                     <span className="text-xs font-mono text-ink-slate">security-reviewer.md</span>
@@ -415,55 +380,36 @@ You review code for vulnerabilities.
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ============================================
-          SECTION 7: IMPACT - Control that compounds
-          ============================================ */}
-      <section data-section="impact" className="section-feature section-dark-gradient">
-        <div className="container-wide">
-          <div className="lg:flex lg:gap-16 xl:gap-24">
-            <div className="lg:w-[38%] xl:w-[35%] lg:flex-shrink-0">
-              <div className="text-center lg:text-left mb-12 lg:mb-0">
-                <h2 className="reveal text-headline text-on-dark">
-                  Control that compounds.
-                </h2>
-                <p className="reveal mt-4 text-on-dark-secondary max-w-xl lg:max-w-none" style={{transitionDelay: '0.1s'}}>
-                  The more you use it, the more it becomes yours. Every tweak, every improvement, every lesson learned stays with you.
+          
+          {/* Benefits grid */}
+          <div className="mt-16 lg:mt-20">
+            <div className="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+              <div className="p-5 rounded-xl bg-canvas border border-canvas-mist">
+                <h3 className="text-lg font-semibold text-ink mb-2">Debug in minutes</h3>
+                <p className="text-ink-slate text-sm leading-relaxed">
+                  Every tool call logged. When it breaks, trace the exact line that failed.
                 </p>
               </div>
-            </div>
-            
-            <div className="lg:flex-1">
-              <div className="reveal-stagger grid sm:grid-cols-2 gap-4 md:gap-5 lg:gap-6">
-                <div className="benefit-card">
-                  <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Debug in minutes</h3>
-                  <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    Every prompt, every tool call, every decision. Logged. When it breaks, trace the exact line that failed.
-                  </p>
-                </div>
-                
-                <div className="benefit-card">
-                  <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Swap anything</h3>
-                  <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    New model? Change one line. Custom tool? Drop it in. Your setup evolves as fast as AI does.
-                  </p>
-                </div>
-                
-                <div className="benefit-card">
-                  <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Share like code</h3>
-                  <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    Your setup is a file. Commit it. Review it. Hand it to a teammate. No screenshots, no wikis.
-                  </p>
-                </div>
-                
-                <div className="benefit-card">
-                  <h3 className="text-xl md:text-[22px] font-semibold text-on-dark mb-3 tracking-tight">Your data stays yours</h3>
-                  <p className="text-on-dark-muted text-[15px] md:text-base leading-relaxed">
-                    Run models locally. Inspect every API call. Add approval gates. Nothing leaves without your say.
-                  </p>
-                </div>
+              
+              <div className="p-5 rounded-xl bg-canvas border border-canvas-mist">
+                <h3 className="text-lg font-semibold text-ink mb-2">Swap anything</h3>
+                <p className="text-ink-slate text-sm leading-relaxed">
+                  Change models, tools, providers. Your setup evolves as fast as AI does.
+                </p>
+              </div>
+              
+              <div className="p-5 rounded-xl bg-canvas border border-canvas-mist">
+                <h3 className="text-lg font-semibold text-ink mb-2">Share like code</h3>
+                <p className="text-ink-slate text-sm leading-relaxed">
+                  Git push. PR review. Hand it to a teammate. No screenshots, no wikis.
+                </p>
+              </div>
+              
+              <div className="p-5 rounded-xl bg-canvas border border-canvas-mist">
+                <h3 className="text-lg font-semibold text-ink mb-2">Your data stays yours</h3>
+                <p className="text-ink-slate text-sm leading-relaxed">
+                  Run locally. Inspect every call. Add approval gates. Nothing leaves without your say.
+                </p>
               </div>
             </div>
           </div>
@@ -471,25 +417,7 @@ You review code for vulnerabilities.
       </section>
 
       {/* ============================================
-          SECTION 8: WHY THIS MATTERS - Brief contrast
-          Not problem-first, but acknowledges the alternative
-          ============================================ */}
-      <section data-section="contrast" className="section-feature section-stone">
-        <div className="container-narrow text-center">
-          <h2 className="reveal text-headline text-ink">
-            Most AI tools weren't built this way.
-          </h2>
-          <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-            They lock you to one model. Hide how they work. Keep your setup trapped in their system. When something breaks, you guess why. When something better comes along, you start over.
-          </p>
-          <p className="reveal mt-6 text-body-large text-ink max-w-2xl mx-auto" style={{transitionDelay: '0.2s'}}>
-            Amplifier is different. Open. Visible. Yours.
-          </p>
-        </div>
-      </section>
-
-      {/* ============================================
-          SECTION 9: ECOSYSTEM - Community bundles
+          SECTION 7: ECOSYSTEM - Community bundles
           ============================================ */}
       <section data-section="ecosystem" className="section-feature section-gradient-flow">
         <div className="container-wide">

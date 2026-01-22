@@ -22,14 +22,34 @@ export interface PatternConfig {
   opacity: number
 }
 
+// Extended pattern config for WebGL shader control
+export interface ExtendedPatternConfig extends PatternConfig {
+  forceStrength: number
+  damping: number
+  chaos: number
+}
+
 // Section pattern configurations matching the design doc
-export const SECTION_PATTERNS: Record<string, PatternConfig> = {
+export const SECTION_PATTERNS: Record<string, ExtendedPatternConfig> = {
   hero: {
     id: 'hero',
     name: 'Emergence',
     params: { n: 1, m: 2 },
     color: '#6366F1',
-    opacity: 0.3
+    opacity: 0.3,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
+  },
+  problem: {
+    id: 'problem',
+    name: 'Scattered Chaos',
+    params: { n: 1, m: 1 },
+    color: '#999999',
+    opacity: 0.3,
+    forceStrength: 0.1,
+    damping: 0.85,
+    chaos: 1.5
   },
   differentiation: {
     id: 'differentiation', 
@@ -37,28 +57,40 @@ export const SECTION_PATTERNS: Record<string, PatternConfig> = {
     params: { n: 2, m: 3 },
     color: '#5B4DE3',
     glowColor: '#818CF8',
-    opacity: 0.6
+    opacity: 0.6,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   platform: {
     id: 'platform',
     name: 'Four Quadrants',
     params: { n: 3, m: 4 },
     color: '#6366F1',
-    opacity: 0.4
+    opacity: 0.4,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   demo: {
     id: 'demo',
     name: 'Dynamic Action',
     params: { n: 3, m: 5 },
     color: '#8B5CF6',
-    opacity: 0.35
+    opacity: 0.35,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   bundles: {
     id: 'bundles',
     name: 'Unified Package',
     params: { n: 4, m: 4 },
     color: '#6366F1',
-    opacity: 0.25
+    opacity: 0.25,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   impact: {
     id: 'impact',
@@ -66,21 +98,30 @@ export const SECTION_PATTERNS: Record<string, PatternConfig> = {
     params: { n: 4, m: 6 },
     color: '#F59E0B',
     glowColor: '#FBBF24',
-    opacity: 0.5
+    opacity: 0.5,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
-  contrast: {
-    id: 'contrast',
+  why: {
+    id: 'why',
     name: 'Simple Clarity',
     params: { n: 2, m: 2 },
     color: '#6366F1',
-    opacity: 0.3
+    opacity: 0.3,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   ecosystem: {
     id: 'ecosystem',
     name: 'Network',
     params: { n: 5, m: 6 },
     color: '#8B5CF6',
-    opacity: 0.4
+    opacity: 0.4,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   },
   cta: {
     id: 'cta',
@@ -88,7 +129,10 @@ export const SECTION_PATTERNS: Record<string, PatternConfig> = {
     params: { n: 6, m: 6 },
     color: '#5B4DE3',
     glowColor: '#818CF8',
-    opacity: 0.7
+    opacity: 0.7,
+    forceStrength: 0.8,
+    damping: 0.92,
+    chaos: 0
   }
 }
 
