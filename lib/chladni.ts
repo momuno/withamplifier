@@ -29,109 +29,112 @@ export interface ExtendedPatternConfig extends PatternConfig {
   chaos: number
 }
 
-// Section pattern configurations matching the design doc
+// Section pattern configurations - Story through resonance
+// Each pattern creates a distinctive visual that reinforces the section's meaning
 export const SECTION_PATTERNS: Record<string, ExtendedPatternConfig> = {
+  // HERO - "Open Invitation"
+  // Simple cross pattern - open, welcoming, clear
   hero: {
     id: 'hero',
-    name: 'Emergence',
+    name: 'Open Invitation',
     params: { n: 1, m: 2 },
     color: '#6366F1',
-    opacity: 0.3,
+    opacity: 0.4,
     forceStrength: 0.8,
     damping: 0.92,
     chaos: 0
   },
+  
+  // PROBLEM - "Scattered Chaos"
+  // No clear pattern - confusion, lack of structure
   problem: {
     id: 'problem',
     name: 'Scattered Chaos',
     params: { n: 1, m: 1 },
     color: '#999999',
-    opacity: 0.3,
+    opacity: 0.25,
     forceStrength: 0.1,
     damping: 0.85,
     chaos: 1.5
   },
+  
+  // DIFFERENTIATION - "Breaking Free" / "Three Pillars"
+  // Three distinct structures - liberation, clarity emerging
   differentiation: {
     id: 'differentiation', 
     name: 'Three Pillars',
-    params: { n: 2, m: 3 },
-    color: '#5B4DE3',
+    params: { n: 3, m: 3 },
+    color: '#6366F1',
     glowColor: '#818CF8',
-    opacity: 0.6,
-    forceStrength: 0.8,
-    damping: 0.92,
+    opacity: 0.5,
+    forceStrength: 1.2,  // Strong - particles "snap" into place
+    damping: 0.94,       // Very smooth
     chaos: 0
   },
+  
+  // PLATFORM - "Four Quadrants of Completeness"
+  // Grid showing 4 areas - complete, organized, comprehensive
   platform: {
     id: 'platform',
     name: 'Four Quadrants',
-    params: { n: 3, m: 4 },
+    params: { n: 4, m: 4 },
     color: '#6366F1',
-    opacity: 0.4,
-    forceStrength: 0.8,
-    damping: 0.92,
+    opacity: 0.35,
+    forceStrength: 0.9,
+    damping: 0.93,
     chaos: 0
   },
+  
+  // DEMO - "Active Patterns"
+  // Dynamic diagonal flow - action, motion, things happening
   demo: {
     id: 'demo',
     name: 'Dynamic Action',
     params: { n: 3, m: 5 },
     color: '#8B5CF6',
-    opacity: 0.35,
-    forceStrength: 0.8,
-    damping: 0.92,
-    chaos: 0
-  },
-  bundles: {
-    id: 'bundles',
-    name: 'Unified Package',
-    params: { n: 4, m: 4 },
-    color: '#6366F1',
-    opacity: 0.25,
-    forceStrength: 0.8,
-    damping: 0.92,
-    chaos: 0
-  },
-  impact: {
-    id: 'impact',
-    name: 'Compounding Growth',
-    params: { n: 4, m: 6 },
-    color: '#F59E0B',
-    glowColor: '#FBBF24',
-    opacity: 0.5,
-    forceStrength: 0.8,
-    damping: 0.92,
-    chaos: 0
-  },
-  why: {
-    id: 'why',
-    name: 'Simple Clarity',
-    params: { n: 2, m: 2 },
-    color: '#6366F1',
     opacity: 0.3,
     forceStrength: 0.8,
     damping: 0.92,
     chaos: 0
   },
+  
+  // BUNDLES - "Simple Unity"
+  // Perfect symmetry - elegant, unified, complete in simplicity
+  bundles: {
+    id: 'bundles',
+    name: 'Simple Unity',
+    params: { n: 5, m: 5 },
+    color: '#6366F1',
+    opacity: 0.35,
+    forceStrength: 0.85,
+    damping: 0.94,  // Very smooth
+    chaos: 0
+  },
+  
+  // ECOSYSTEM - "Network Resonance"
+  // Complex interconnected pattern - abundance, connectivity, community
   ecosystem: {
     id: 'ecosystem',
-    name: 'Network',
-    params: { n: 5, m: 6 },
+    name: 'Network Resonance',
+    params: { n: 6, m: 7 },
     color: '#8B5CF6',
     opacity: 0.4,
     forceStrength: 0.8,
     damping: 0.92,
     chaos: 0
   },
+  
+  // CTA - "Convergence"
+  // Central focus pattern - resolution, focus, decisive
   cta: {
     id: 'cta',
-    name: 'Resolution',
+    name: 'Convergence',
     params: { n: 6, m: 6 },
-    color: '#5B4DE3',
+    color: '#6366F1',
     glowColor: '#818CF8',
-    opacity: 0.7,
-    forceStrength: 0.8,
-    damping: 0.92,
+    opacity: 0.5,
+    forceStrength: 1.0,  // Strong
+    damping: 0.94,       // Smooth
     chaos: 0
   }
 }
