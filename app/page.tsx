@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import ScrollingCards from '@/components/ScrollingCards'
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
@@ -41,7 +42,7 @@ export default function Home() {
           SECTION 1: HERO - The Promise
           Light, open, welcoming
           ============================================ */}
-      <section data-section="hero" data-theme="light" className="section-light-glow relative overflow-hidden">
+      <section data-section="hero" data-theme="light" className="section-feature section-light-glow relative overflow-hidden">
         
         <div className="text-center container-default relative z-10">
           <h1 className="reveal text-display-xl text-ink font-heading px-2">
@@ -425,47 +426,105 @@ You review code for vulnerabilities.
           ============================================ */}
       <section data-section="ecosystem" data-theme="light" className="section-feature section-gradient-flow">
         <div className="container-wide">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
-            <div className="lg:w-[40%] xl:w-[38%] lg:flex-shrink-0">
-              <div className="text-center lg:text-left">
-                <h2 className="reveal text-headline text-ink">
-                  Start with what works.
-                </h2>
-                
-                <p className="reveal mt-4 text-body-large text-ink-slate max-w-xl lg:max-w-none" style={{transitionDelay: '0.1s'}}>
-                  Install a bundle from the community. Make it yours. Share what you build.
-                </p>
-                
-                <div className="reveal mt-8" style={{transitionDelay: '0.2s'}}>
-                  <Link href="/explore" className="btn-apple">
-                    Explore bundles
-                  </Link>
-                </div>
-              </div>
-            </div>
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="reveal text-headline text-ink">
+              Start with what works.
+            </h2>
             
-            <div className="mt-12 lg:mt-0 lg:flex-1">
-              <div className="reveal-stagger" style={{transitionDelay: '0.3s'}}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:gap-4">
-                  {[
-                    { name: 'security-reviewer', desc: 'Find vulnerabilities' },
-                    { name: 'documentation-writer', desc: 'Generate docs' },
-                    { name: 'code-explorer', desc: 'Navigate codebases' },
-                    { name: 'test-generator', desc: 'Write test suites' },
-                    { name: 'api-designer', desc: 'Design REST APIs' },
-                    { name: 'data-analyst', desc: 'Analyze datasets' },
-                  ].map((bundle, i) => (
-                    <div 
-                      key={bundle.name} 
-                      className={`p-4 lg:p-5 rounded-xl bg-canvas border border-canvas-mist shadow-soft-sm hover:shadow-soft hover:border-signal-glow transition-all duration-300 ${i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-                    >
-                      <div className="font-mono text-sm text-ink font-medium truncate">{bundle.name}</div>
-                      <div className="text-xs text-ink-fog mt-1">{bundle.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
+              Install a bundle from the community. Make it yours. Share what you build.
+            </p>
+            
+            <div className="reveal mt-8" style={{transitionDelay: '0.2s'}}>
+              <Link href="/explore" className="btn-apple">
+                Explore bundles
+              </Link>
             </div>
+          </div>
+          
+          <div className="reveal" style={{transitionDelay: '0.3s'}}>
+            <ScrollingCards cards={[
+              {
+                name: 'security-reviewer',
+                type: 'agent',
+                description: 'Comprehensive security analysis for vulnerabilities, secrets, and common attack vectors',
+                author: 'microsoft',
+                stars: 847,
+                validated: true
+              },
+              {
+                name: 'documentation-writer',
+                type: 'agent',
+                description: 'Generate comprehensive documentation from code with examples and API references',
+                author: 'amplifier-community',
+                stars: 623,
+                validated: true
+              },
+              {
+                name: 'code-explorer',
+                type: 'tool',
+                description: 'Navigate large codebases with semantic search and intelligent code understanding',
+                author: 'robotdad',
+                stars: 512,
+                validated: false
+              },
+              {
+                name: 'test-generator',
+                type: 'agent',
+                description: 'Write comprehensive test suites with edge cases and coverage analysis',
+                author: 'amplifier-labs',
+                stars: 489,
+                validated: true
+              },
+              {
+                name: 'api-designer',
+                type: 'bundle',
+                description: 'Design RESTful APIs with OpenAPI specs, validation, and best practices',
+                author: 'apicraft',
+                stars: 356,
+                validated: false
+              },
+              {
+                name: 'data-analyst',
+                type: 'agent',
+                description: 'Analyze datasets with statistical insights, visualizations, and recommendations',
+                author: 'dataflow',
+                stars: 298,
+                validated: true
+              },
+              {
+                name: 'code-reviewer',
+                type: 'agent',
+                description: 'Automated code reviews focusing on best practices, performance, and maintainability',
+                author: 'microsoft',
+                stars: 734,
+                validated: true
+              },
+              {
+                name: 'refactoring-assistant',
+                type: 'agent',
+                description: 'Intelligent refactoring suggestions with automated code transformations',
+                author: 'amplifier-community',
+                stars: 421,
+                validated: false
+              },
+              {
+                name: 'sql-optimizer',
+                type: 'tool',
+                description: 'Analyze and optimize SQL queries for performance and best practices',
+                author: 'dbtools',
+                stars: 267,
+                validated: true
+              },
+              {
+                name: 'ui-component-builder',
+                type: 'bundle',
+                description: 'Generate accessible, responsive UI components with modern frameworks',
+                author: 'frontend-guild',
+                stars: 543,
+                validated: false
+              }
+            ]} />
           </div>
         </div>
       </section>
