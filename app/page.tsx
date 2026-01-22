@@ -431,8 +431,8 @@ You review code for vulnerabilities.
               Start with what works.
             </h2>
             
-            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s'}}>
-              Install a bundle from the community. Make it yours. Share what you build.
+            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
+              Install a bundle from the community. Make it yours. Share what you&nbsp;build.
             </p>
             
             <div className="reveal mt-8" style={{transitionDelay: '0.2s'}}>
