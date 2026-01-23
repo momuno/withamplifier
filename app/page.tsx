@@ -64,7 +64,7 @@ export default function Home() {
           BLACK section - should feel constraining, unclear, dark
           Ends with the problem, not the solution
           ============================================ */}
-      <section id="problem" data-section="problem" data-theme="dark" className="section-feature bg-[#0A0A0A]">
+      <section id="problem" data-section="problem" data-theme="dark" className="section-feature bg-[rgba(10,10,10,0.85)]">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
             Most AI tools are black boxes.

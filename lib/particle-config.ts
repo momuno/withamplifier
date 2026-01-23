@@ -19,7 +19,7 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
     n: 3,
     m: 5,
     strength: 0.5,
-    color: '#00D67D', // Soft brand green
+    color: '#00B870', // Softer brand green (less neon)
     opacity: 0.4,
     particleSize: 2,
     transitionDuration: 0, // Entry state
@@ -31,61 +31,73 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
     n: 7,
     m: 9,
     strength: 0.7,
-    color: '#CC3333', // Muted red
-    opacity: 0.5,
+    color: '#8B8B8B', // Gray for "black boxes"
+    opacity: 0.6,
     particleSize: 2,
     transitionDuration: 800,
     transitionEasing: 'ease-in-out',
     prominence: 'medium',
-    label: 'Problem - Trapped in Chains',
+    label: 'Problem - Black Boxes',
   },
   differentiation: {
     n: 2,
     m: 5,
     strength: 0.6,
-    color: '#00C4E8', // Bright cyan - CLIMAX
-    opacity: 0.7,
-    particleSize: 2.5, // Emphasis at climax
-    transitionDuration: 400, // Distinct shift
+    color: '#8B5FD9', // Purple for "open by design"
+    opacity: 0.65,
+    particleSize: 2.5,
+    transitionDuration: 400,
     transitionEasing: 'ease-out',
     prominence: 'prominent',
-    label: 'Differentiation - Breaking Free',
+    label: 'Differentiation - Open By Design',
   },
   platform: {
     n: 4,
     m: 6,
     strength: 0.65,
-    color: '#6B2FC7', // Refined purple
-    opacity: 0.5,
+    color: '#7B4BBF', // Refined purple for "composable pieces"
+    opacity: 0.55,
     particleSize: 2,
     transitionDuration: 1000,
     transitionEasing: 'ease-in-out',
     prominence: 'medium',
-    label: 'Platform - Organized Power',
+    label: 'Platform - Composable Pieces',
   },
   demo: {
     n: 1,
     m: 3,
     strength: 0.5,
-    color: '#8B8B8B', // Neutral gray
-    opacity: 0.25, // Nearly invisible - code is hero
+    color: '#3B9EDB', // Blue matching button colors for "ready to build"
+    opacity: 0.5,
     particleSize: 2,
-    transitionDuration: 1200, // Deliberate retreat
+    transitionDuration: 1200,
     transitionEasing: 'ease-in',
     prominence: 'subtle',
-    label: 'Demo - Grounded Foundation',
+    label: 'Demo - Ready To Build',
   },
   bundles: {
     n: 5,
     m: 7,
     strength: 0.7,
-    color: '#A68BB5', // Muted mauve
-    opacity: 0.45,
+    color: '#9B7AB8', // Softer mauve (less neon)
+    opacity: 0.5,
     particleSize: 2,
     transitionDuration: 1000,
     transitionEasing: 'ease-out',
     prominence: 'subtle-medium',
-    label: 'Bundles - Refined Elegance',
+    label: 'Bundles - Built By Different Minds',
+  },
+  cta: {
+    n: 3,
+    m: 4,
+    strength: 0.6,
+    color: '#3B9EDB', // Blue matching button colors for "ready to build"
+    opacity: 0.55,
+    particleSize: 2,
+    transitionDuration: 800,
+    transitionEasing: 'ease-in-out',
+    prominence: 'medium',
+    label: 'CTA - Ready To Build',
   },
 }
 
@@ -110,6 +122,7 @@ export const SECTION_IDS = [
   'platform',
   'demo',
   'bundles',
+  'cta',
 ] as const
 
 export type SectionId = (typeof SECTION_IDS)[number]
