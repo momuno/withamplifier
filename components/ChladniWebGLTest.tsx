@@ -137,8 +137,13 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
       const dx = x === 0 ? 0 : (x > 0 ? 1 : -1)
       const dy = y === 0 ? 0 : (y > 0 ? 1 : -1)
 
-      velocities[i] += force * dx
-      velocities[i + 1] += force * dy
+      // Add subtle jitter to prevent harsh lines
+      const jitterStrength = 0.0003
+      const jitterX = (Math.random() - 0.5) * jitterStrength
+      const jitterY = (Math.random() - 0.5) * jitterStrength
+
+      velocities[i] += force * dx + jitterX
+      velocities[i + 1] += force * dy + jitterY
 
       velocities[i] *= damping
       velocities[i + 1] *= damping
