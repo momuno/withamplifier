@@ -16,9 +16,9 @@ export default function TestParticlesPage() {
       particleSize: 2,
     },
     problem: {
-      n: 9,
-      m: 13,
-      strength: 0.8,
+      n: 7,
+      m: 9,
+      strength: 0.7,
       color: '#ff4444',
       opacity: 0.7,
       particleSize: 2,

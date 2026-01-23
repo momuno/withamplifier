@@ -63,9 +63,9 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     container.appendChild(renderer.domElement)
     rendererRef.current = renderer
 
-    // Particles
+    // Particles - significantly increased for better density
     const isMobile = width < 768
-    const particleCount = isMobile ? 5000 : 10000
+    const particleCount = isMobile ? 20000 : 50000
     console.log('[ChladniWebGLTest] Creating', particleCount, 'particles')
 
     const geometry = new THREE.BufferGeometry()
@@ -102,6 +102,11 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     console.log('[ChladniWebGLTest] Scene initialized successfully')
   }
 
+  // Refs for smooth transitions
+  const targetParamsRef = useRef<PatternParams>(params)
+  const currentNRef = useRef(params.n)
+  const currentMRef = useRef(params.m)
+
   const animate = () => {
     animationFrameRef.current = requestAnimationFrame(animate)
 
@@ -112,9 +117,14 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     const positions = geometry.attributes.position.array as Float32Array
     const velocities = geometry.attributes.velocity.array as Float32Array
 
-    // Use current params from ref (always up to date)
-    const currentParams = paramsRef.current
-    const { n, m, strength } = currentParams
+    // Smooth interpolation (lerp) between current and target params
+    const lerpSpeed = 0.02 // Slow, pulsing transition
+    currentNRef.current += (targetParamsRef.current.n - currentNRef.current) * lerpSpeed
+    currentMRef.current += (targetParamsRef.current.m - currentMRef.current) * lerpSpeed
+
+    const { strength } = targetParamsRef.current
+    const n = currentNRef.current
+    const m = currentMRef.current
     const damping = 0.95
 
     for (let i = 0; i < positions.length; i += 3) {
@@ -183,13 +193,14 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     }
   }, [])
 
-  // Update params ref and material when props change
+  // Update target params and material when props change
   useEffect(() => {
     console.log('[ChladniWebGLTest] Params changed:', params)
-    paramsRef.current = params
+    targetParamsRef.current = params
     
     if (!materialRef.current) return
 
+    // Material properties change immediately (color, opacity, size)
     materialRef.current.color = new THREE.Color(params.color)
     materialRef.current.opacity = params.opacity
     materialRef.current.size = params.particleSize
