@@ -88,7 +88,7 @@ export default function DualRowScrollingCards({ cards }: DualRowScrollingCardsPr
         }}
       >
         <div 
-          className="flex gap-3 lg:gap-4 will-change-transform transition-transform duration-100 ease-linear"
+          className="flex gap-3 lg:gap-4 will-change-transform"
           style={{ transform: `translateX(${topRowTransform}px)` }}
         >
           {topRowCards.map((card, i) => (
@@ -106,7 +106,7 @@ export default function DualRowScrollingCards({ cards }: DualRowScrollingCardsPr
         }}
       >
         <div 
-          className="flex gap-3 lg:gap-4 will-change-transform transition-transform duration-100 ease-linear"
+          className="flex gap-3 lg:gap-4 will-change-transform"
           style={{ transform: `translateX(${bottomRowTransform}px)` }}
         >
           {bottomRowCards.map((card, i) => (
