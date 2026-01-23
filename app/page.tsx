@@ -90,7 +90,7 @@ export default function Home() {
               Amplifier is open by design.
             </h2>
             <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-              Most tools lock you into their model, their workflow, their vision. Amplifier gives you transparent components you can inspect, modify, and recombine. When the system is designed for builders instead of consumers, everything&nbsp;changes.
+              Transparent components you can inspect, modify, and recombine. When the system is designed for builders instead of consumers, you get tools that work the way you&nbsp;think.
             </p>
           </div>
           
