@@ -148,10 +148,10 @@ export default function Home() {
         <div className="container-wide">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
-              Everything you need to build AI agents.
+              Built from composable pieces.
             </h2>
             <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-              A complete platform, not just a wrapper. Providers, tools, agents, and workflows that work&nbsp;together.
+              Providers connect to any LLM. Tools give agents capabilities. Workflows orchestrate complex tasks. Each piece works independently, but they compose into something powerful. That's why it's a platform, not just a wrapper around someone else's&nbsp;API.
             </p>
           </div>
           
@@ -249,10 +249,10 @@ export default function Home() {
             <div className="lg:w-[32%] xl:w-[28%] lg:flex-shrink-0 lg:order-1">
               <div className="max-w-lg lg:max-w-none text-center lg:text-left">
                 <h2 className="reveal text-headline text-ink">
-                  See it in action.
+                  See how it works.
                 </h2>
                 <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-                  One command. Full visibility. Watch your agent think, decide, and&nbsp;act.
+                  Run one command and watch the entire flow. Every tool call is logged. Every decision is explained. You're not looking at a black box that gives you answers - you're watching a transparent system that shows you how it&nbsp;thinks.
                 </p>
                 
                 <div className="reveal mt-6 space-y-3" style={{transitionDelay: '0.2s'}}>
@@ -330,13 +330,10 @@ $ amplifier provider use openai  # Switch to GPT-4
             <div className="lg:w-[35%] xl:w-[32%] lg:flex-shrink-0">
               <div className="max-w-lg lg:max-w-none">
                 <h2 className="reveal text-headline text-ink">
-                  Package it as a bundle.
+                  Capture your workflow as code.
                 </h2>
                 <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-                  A bundle captures your entire setup. Providers, tools, behaviors, instructions. Everything in plain&nbsp;text.
-                </p>
-                <p className="reveal mt-3 text-body-large text-ink" style={{transitionDelay: '0.15s', textWrap: 'balance'}}>
-                  The more you use it, the more it becomes&nbsp;yours.
+                  A bundle is your entire setup in plain text. The providers you trust, the tools you need, the behaviors you've refined. As you work, you adapt it. As you share it, others adapt theirs. The more you use it, the more it becomes&nbsp;yours.
                 </p>
               </div>
             </div>
@@ -561,11 +558,11 @@ You review code for vulnerabilities.
       <section data-section="cta" data-theme="dark" className="section-feature section-dark">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
-            Your first agent in 60 seconds.
+            Ready to build?
           </h2>
           
           <p className="reveal mt-4 text-body-large text-on-dark-secondary max-w-lg mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-            Install. Connect a model. Run a command. You'll have a working agent before you finish your&nbsp;coffee.
+            Install Amplifier, connect to any model provider, and run your first command. You'll have a working agent faster than you'd expect. The hard part isn't getting started - it's deciding what to build&nbsp;first.
           </p>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.15s'}}>
