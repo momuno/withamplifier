@@ -30,6 +30,9 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
   const pointsRef = useRef<THREE.Points | null>(null)
   const materialRef = useRef<THREE.PointsMaterial | null>(null)
   const animationFrameRef = useRef<number | null>(null)
+  
+  // Use ref to store current params so animation loop always sees latest values
+  const paramsRef = useRef<PatternParams>(params)
 
   const initScene = () => {
     if (!containerRef.current) return
@@ -84,10 +87,10 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3))
 
     const material = new THREE.PointsMaterial({
-      size: params.particleSize,
-      color: new THREE.Color(params.color),
+      size: paramsRef.current.particleSize,
+      color: new THREE.Color(paramsRef.current.color),
       transparent: true,
-      opacity: params.opacity,
+      opacity: paramsRef.current.opacity,
       blending: THREE.AdditiveBlending,
     })
     materialRef.current = material
@@ -109,8 +112,9 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     const positions = geometry.attributes.position.array as Float32Array
     const velocities = geometry.attributes.velocity.array as Float32Array
 
-    // Update particle positions
-    const { n, m, strength } = params
+    // Use current params from ref (always up to date)
+    const currentParams = paramsRef.current
+    const { n, m, strength } = currentParams
     const damping = 0.95
 
     for (let i = 0; i < positions.length; i += 3) {
@@ -157,7 +161,7 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Initialize scene
+  // Initialize scene once
   useEffect(() => {
     console.log('[ChladniWebGLTest] Component mounted, initializing scene')
     initScene()
@@ -171,22 +175,26 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
         cancelAnimationFrame(animationFrameRef.current)
       }
       if (rendererRef.current && containerRef.current) {
-        containerRef.current.removeChild(rendererRef.current.domElement)
+        if (containerRef.current.contains(rendererRef.current.domElement)) {
+          containerRef.current.removeChild(rendererRef.current.domElement)
+        }
         rendererRef.current.dispose()
       }
     }
   }, [])
 
-  // Update visual properties when params change
+  // Update params ref and material when props change
   useEffect(() => {
     console.log('[ChladniWebGLTest] Params changed:', params)
+    paramsRef.current = params
+    
     if (!materialRef.current) return
 
     materialRef.current.color = new THREE.Color(params.color)
     materialRef.current.opacity = params.opacity
     materialRef.current.size = params.particleSize
     materialRef.current.needsUpdate = true
-  }, [params.color, params.opacity, params.particleSize, params.n, params.m, params.strength])
+  }, [params])
 
   return (
     <div 
