@@ -1042,6 +1042,16 @@ p {
     overflow-x: auto;
   }
   
+  /* Mobile: Allow wrapping for long commands */
+  @media (max-width: 640px) {
+    .code-block {
+      overflow-x: visible;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+  }
+  
   /* Inline code */
   .code-inline {
     @apply px-1.5 py-0.5 rounded text-sm font-mono;
