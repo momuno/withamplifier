@@ -5,7 +5,7 @@ import DualRowScrollingCards from '@/components/DualRowScrollingCards'
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
-import ChladniWebGL from '@/components/ChladniWebGL'
+import ScrollParticleBackground from '@/components/ScrollParticleBackground'
 
 export default function Home() {
   useViewportHeight()
@@ -35,14 +35,14 @@ export default function Home() {
   
   return (
     <div className="pt-16">
-      {/* Chladni pattern background - runs throughout site */}
-      <ChladniWebGL />
+      {/* Scroll-responsive particle background - transitions between sections */}
+      <ScrollParticleBackground />
       
       {/* ============================================
           SECTION 1: HERO - The Promise
           Light, open, welcoming
           ============================================ */}
-      <section data-section="hero" data-theme="light" className="section-feature section-light-glow relative overflow-hidden">
+      <section id="hero" data-section="hero" data-theme="light" className="section-feature section-light-glow relative overflow-hidden">
         
         <div className="text-center container-default relative z-10">
           <h1 className="reveal text-display-xl text-ink font-heading px-2">
@@ -64,7 +64,7 @@ export default function Home() {
           BLACK section - should feel constraining, unclear, dark
           Ends with the problem, not the solution
           ============================================ */}
-      <section data-section="problem" data-theme="dark" className="section-feature bg-[#0A0A0A]">
+      <section id="problem" data-section="problem" data-theme="dark" className="section-feature bg-[#0A0A0A]">
         <div className="container-narrow text-center">
           <h2 className="reveal text-headline text-on-dark">
             Most AI tools are black boxes.
@@ -83,7 +83,7 @@ export default function Home() {
           Light gradient - ray of light emerging from darkness
           Explicit callback to Problem section's "Open. Visible. Yours."
           ============================================ */}
-      <section data-section="differentiation" data-theme="light" className="section-feature section-gradient-flow">
+      <section id="differentiation" data-section="differentiation" data-theme="light" className="section-feature section-gradient-flow">
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-on-dark">
@@ -144,7 +144,7 @@ export default function Home() {
           SECTION 4: THE PLATFORM - Everything you get
           Light, clear, organized - shows breadth and completeness
           ============================================ */}
-      <section data-section="platform" data-theme="light" className="section-feature section-light-glow">
+      <section id="platform" data-section="platform" data-theme="light" className="section-feature section-light-glow">
         <div className="container-wide">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
@@ -242,7 +242,7 @@ export default function Home() {
           SECTION 5: HOW IT WORKS - Demo
           Neutral stone - grounded, practical, real
           ============================================ */}
-      <section data-section="demo" data-theme="light" className="section-feature section-stone">
+      <section id="demo" data-section="demo" data-theme="light" className="section-feature section-stone">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12 xl:gap-20">
             {/* Text column */}
@@ -418,7 +418,7 @@ You review code for vulnerabilities.
           SECTION 7: ECOSYSTEM - Community bundles
           Light gradient - abundant, connected, network
           ============================================ */}
-      <section data-section="ecosystem" data-theme="light" className="section-feature section-gradient-flow">
+      <section id="bundles" data-section="ecosystem" data-theme="light" className="section-feature section-gradient-flow">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="reveal text-headline text-ink">
