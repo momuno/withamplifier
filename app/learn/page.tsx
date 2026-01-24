@@ -225,21 +225,39 @@ export default function LearnPage() {
 
       {/* Filter bar */}
       <section className="border-b border-canvas-mist sticky top-16 bg-canvas/80 backdrop-blur-md z-40">
-        <div className="container-wide py-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 -mb-2">
-            {categoryFilters.map((filter) => (
-              <button
-                key={filter.value}
-                onClick={() => setActiveFilter(filter.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                  activeFilter === filter.value
-                    ? 'bg-signal text-white'
-                    : 'bg-canvas-stone text-ink-slate hover:bg-canvas-mist hover:text-ink'
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
+        <div className="container-wide py-3 sm:py-4">
+          {/* Gradient fade hints for horizontal scroll on mobile */}
+          <div className="relative">
+            {/* Left fade - hidden initially, shown via JS if needed */}
+            <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-canvas/80 to-transparent z-10 pointer-events-none hidden sm:hidden" aria-hidden="true" />
+            {/* Right fade - visible hint that more content exists */}
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-canvas/80 to-transparent z-10 pointer-events-none sm:hidden" aria-hidden="true" />
+            
+            <div 
+              className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 -mb-2 snap-x snap-mandatory sm:snap-none"
+              role="tablist"
+              aria-label="Filter decks by category"
+            >
+              {categoryFilters.map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => setActiveFilter(filter.value)}
+                  role="tab"
+                  aria-selected={activeFilter === filter.value}
+                  aria-controls="deck-grid"
+                  className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium whitespace-nowrap 
+                             transition-all duration-200 snap-start
+                             focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2
+                             active:scale-95 ${
+                    activeFilter === filter.value
+                      ? 'bg-signal text-white shadow-sm'
+                      : 'bg-canvas-stone text-ink-slate hover:bg-canvas-mist hover:text-ink active:bg-canvas-mist'
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -247,7 +265,12 @@ export default function LearnPage() {
       {/* Deck grid */}
       <section className="section">
         <div className="container-wide">
-          <RevealStagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <RevealStagger 
+            id="deck-grid"
+            role="tabpanel"
+            aria-label={`${activeFilter === 'all' ? 'All' : categoryFilters.find(f => f.value === activeFilter)?.label} decks`}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+          >
             {filteredDecks.map((deck) => (
               <LearnCard key={deck.id} deck={deck} />
             ))}
