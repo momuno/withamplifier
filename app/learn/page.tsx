@@ -3,37 +3,39 @@
 import { useState } from 'react'
 import RevealOnScroll, { RevealStagger } from '@/components/RevealOnScroll'
 import LearnCard, { Deck, DeckCategory } from '@/components/LearnCard'
+import ChladniWebGLTest from '@/components/ChladniWebGLTest'
+import { PARTICLE_SECTIONS } from '@/lib/particle-config'
 
 // Base URL for deck hosting (amplifier-stories GitHub Pages)
-const DECKS_BASE_URL = 'https://microsoft.github.io/amplifier-stories/docs'
+const DECKS_BASE_URL = '/learn/decks'
 
 const decks: Deck[] = [
   // Getting Started / Intro
   {
     id: 'what-is-amplifier',
     title: 'What is Amplifier?',
-    description: 'An introduction to Amplifier\'s core concepts, architecture, and what makes it different from other AI tools.',
+    description: 'An introduction to Amplifier\'s core concepts, architecture, and what makes it different from other AI&nbsp;tools.',
     category: 'intro',
     href: `${DECKS_BASE_URL}/what-is-amplifier.html`,
   },
   {
     id: 'getting-started',
     title: 'Getting Started Guide',
-    description: 'Step-by-step walkthrough to install Amplifier, configure your first provider, and run your first command.',
+    description: 'Step-by-step walkthrough to install Amplifier, configure your first provider, and run your first&nbsp;command.',
     category: 'intro',
     href: `${DECKS_BASE_URL}/getting-started-guide.html`,
   },
   {
     id: 'bundles-and-agents',
     title: 'Bundles & Agents',
-    description: 'Learn how bundles compose providers, tools, and behaviors into shareable agent configurations.',
+    description: 'Learn how bundles compose providers, tools, and behaviors into shareable agent&nbsp;configurations.',
     category: 'intro',
     href: `${DECKS_BASE_URL}/bundles-and-agents.html`,
   },
   {
     id: 'best-practices',
     title: 'Best Practices & Patterns',
-    description: 'Common patterns and best practices for building effective agents with Amplifier.',
+    description: 'Common patterns and best practices for building effective agents with&nbsp;Amplifier.',
     category: 'intro',
     href: `${DECKS_BASE_URL}/best-practices-patterns.html`,
   },
@@ -42,7 +44,7 @@ const decks: Deck[] = [
   {
     id: 'shadow-environments',
     title: 'Shadow Environments',
-    description: 'Isolated sandbox environments for testing changes safely before deployment.',
+    description: 'Isolated sandbox environments for testing changes safely before&nbsp;deployment.',
     category: 'platform',
     href: `${DECKS_BASE_URL}/shadow-environments-deck.html`,
     isNew: true,
@@ -205,8 +207,11 @@ export default function LearnPage() {
 
   return (
     <div className="pt-16">
+      {/* Particle Background */}
+      <ChladniWebGLTest params={PARTICLE_SECTIONS['learn-hero']} />
+      
       {/* Hero */}
-      <section className="section gradient-radial">
+      <section id="learn-hero" className="section gradient-radial">
         <div className="container-content">
           <RevealOnScroll>
             <h1 className="text-display text-ink max-w-3xl">
@@ -224,7 +229,7 @@ export default function LearnPage() {
       </section>
 
       {/* Filter bar */}
-      <section className="border-b border-canvas-mist sticky top-16 bg-canvas/80 backdrop-blur-md z-40">
+      <section className="sticky top-16 bg-canvas/80 backdrop-blur-md z-40">
         <div className="container-wide py-3 sm:py-4">
           {/* Gradient fade hints for horizontal scroll on mobile */}
           <div className="relative">
@@ -265,7 +270,7 @@ export default function LearnPage() {
       {/* Deck grid */}
       <section className="section">
         <div className="container-wide">
-          <RevealStagger 
+          <div 
             id="deck-grid"
             role="tabpanel"
             aria-label={`${activeFilter === 'all' ? 'All' : categoryFilters.find(f => f.value === activeFilter)?.label} decks`}
@@ -274,7 +279,7 @@ export default function LearnPage() {
             {filteredDecks.map((deck) => (
               <LearnCard key={deck.id} deck={deck} />
             ))}
-          </RevealStagger>
+          </div>
           
           {filteredDecks.length === 0 && (
             <div className="text-center py-16">

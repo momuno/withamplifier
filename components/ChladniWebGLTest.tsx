@@ -218,7 +218,7 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
       className="fixed inset-0 pointer-events-none"
       style={{ 
         backgroundColor: 'transparent',
-        zIndex: 1
+        zIndex: 0
       }}
     />
   )

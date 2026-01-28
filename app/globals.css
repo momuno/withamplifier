@@ -467,6 +467,23 @@ p {
   }
 }
 
+/* ============================================
+   TEXT-ON-DARK UTILITY CLASSES
+   For use on dark backgrounds
+   ============================================ */
+
+.text-on-dark {
+  color: var(--text-on-dark);
+}
+
+.text-on-dark-secondary {
+  color: var(--text-on-dark-secondary);
+}
+
+.text-on-dark-tertiary {
+  color: var(--text-on-dark-tertiary);
+}
+
 /* Higher contrast text for dark backgrounds */
 .text-on-dark-muted {
   color: #e5e5e5; /* High contrast for legibility */
@@ -2042,3 +2059,4 @@ a {
   background: var(--canvas-stone);
   color: var(--ink-slate);
 }
+

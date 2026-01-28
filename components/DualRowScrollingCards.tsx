@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useMemo } from 'react'
+import styles from './DualRowScrollingCards.module.css'
 
 interface BundleCard {
   name: string
@@ -17,100 +18,29 @@ interface DualRowScrollingCardsProps {
 }
 
 export default function DualRowScrollingCards({ cards }: DualRowScrollingCardsProps) {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
-      
-      const rect = sectionRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      const sectionTop = rect.top
-      const sectionHeight = rect.height
-      
-      // Only start tracking when section enters the viewport
-      // Progress = 0 when section top is at bottom of viewport
-      // Progress = 1 when section bottom reaches top of viewport
-      if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
-        // Start from 0 when section top hits 80% down the viewport
-        const triggerPoint = windowHeight * 0.8
-        
-        if (sectionTop < triggerPoint) {
-          // Calculate progress only after trigger point
-          const scrollDistance = triggerPoint - sectionTop
-          const totalDistance = sectionHeight + (windowHeight * 0.8)
-          const progress = scrollDistance / totalDistance
-          
-          setScrollProgress(Math.max(0, Math.min(1, progress)))
-        } else {
-          // Before trigger point, progress is 0
-          setScrollProgress(0)
-        }
-      }
-    }
-    
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll, { passive: true })
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-    }
-  }, [])
-  
-  // Duplicate cards many times to ensure no visible edges during scroll
-  // Need enough cards to cover viewport + full scroll range on both sides
-  const expandedCards = [...cards, ...cards, ...cards, ...cards, ...cards, ...cards]
-  const midpoint = Math.ceil(expandedCards.length / 2)
-  const topRowCards = expandedCards.slice(0, midpoint)
-  const bottomRowCards = expandedCards.slice(midpoint)
-  
-  // Start both rows off-screen left, scroll in opposite directions
-  // Top row: starts off-screen left (-800px), scrolls right to +400px
-  // Bottom row: starts off-screen left (-800px), scrolls left to -2000px
-  const startOffset = -800
-  const topEndOffset = 400
-  const bottomEndOffset = -2000
-  
-  const topRowTransform = startOffset + (scrollProgress * (topEndOffset - startOffset))
-  const bottomRowTransform = startOffset + (scrollProgress * (bottomEndOffset - startOffset))
+  // Split cards into two rows
+  const midpoint = Math.ceil(cards.length / 2)
+  const topRowCards = cards.slice(0, midpoint)
+  const bottomRowCards = cards.slice(midpoint)
   
   return (
-    <div ref={sectionRef} className="space-y-3 lg:space-y-4">
-      {/* Top Row - Scrolls Left to Right */}
-      <div 
-        className="relative overflow-hidden"
-        style={{ 
-          maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)'
-        }}
-      >
-        <div 
-          className="flex gap-3 lg:gap-4 will-change-transform"
-          style={{ transform: `translateX(${topRowTransform}px)` }}
-        >
-          {topRowCards.map((card, i) => (
-            <BundleCard key={`top-${card.name}-${i}`} card={card} />
+    <div className="space-y-3 lg:space-y-4">
+      {/* Top Row - Scrolls Right to Left */}
+      <div className={styles.scrollContainer}>
+        <div className={styles.scrollTrack}>
+          {/* Triple the cards for seamless loop */}
+          {[...topRowCards, ...topRowCards, ...topRowCards].map((card, i) => (
+            <BundleCard key={`top-${i}`} card={card} />
           ))}
         </div>
       </div>
       
-      {/* Bottom Row - Scrolls Right to Left */}
-      <div 
-        className="relative overflow-hidden"
-        style={{ 
-          maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)'
-        }}
-      >
-        <div 
-          className="flex gap-3 lg:gap-4 will-change-transform"
-          style={{ transform: `translateX(${bottomRowTransform}px)` }}
-        >
-          {bottomRowCards.map((card, i) => (
-            <BundleCard key={`bottom-${card.name}-${i}`} card={card} />
+      {/* Bottom Row - Scrolls Left to Right */}
+      <div className={styles.scrollContainer}>
+        <div className={`${styles.scrollTrack} ${styles.scrollReverse}`}>
+          {/* Triple the cards for seamless loop */}
+          {[...bottomRowCards, ...bottomRowCards, ...bottomRowCards].map((card, i) => (
+            <BundleCard key={`bottom-${i}`} card={card} />
           ))}
         </div>
       </div>

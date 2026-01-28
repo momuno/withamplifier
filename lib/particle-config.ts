@@ -28,16 +28,16 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
     label: 'Hero - Dynamic Potential',
   },
   problem: {
-    n: 7,
-    m: 9,
-    strength: 0.7,
-    color: '#8B8B8B', // Gray for "black boxes"
-    opacity: 0.6,
-    particleSize: 2,
+    n: 12,
+    m: 12,
+    strength: 0.9,
+    color: '#6B6B6B', // Darker gray for fence
+    opacity: 0.5,
+    particleSize: 1.5,
     transitionDuration: 800,
     transitionEasing: 'ease-in-out',
     prominence: 'medium',
-    label: 'Problem - Black Boxes',
+    label: 'Problem - Chainlink',
   },
   differentiation: {
     n: 2,
@@ -99,6 +99,18 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
     prominence: 'medium',
     label: 'CTA - Ready To Build',
   },
+  'learn-hero': {
+    n: 2,
+    m: 4,
+    strength: 0.3,
+    color: '#A8A8A8', // Neutral light gray - very subtle
+    opacity: 0.2,
+    particleSize: 1.5,
+    transitionDuration: 0,
+    transitionEasing: 'ease-in-out',
+    prominence: 'subtle',
+    label: 'Learn - Educational',
+  },
 }
 
 // Scroll trigger thresholds
@@ -123,6 +135,11 @@ export const SECTION_IDS = [
   'demo',
   'bundles',
   'cta',
+] as const
+
+// Learn page section IDs
+export const LEARN_SECTION_IDS = [
+  'learn-hero',
 ] as const
 
 export type SectionId = (typeof SECTION_IDS)[number]
