@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Superpowers Bundle - TDD-Driven Development for Amplifier</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100vw;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Typography */
+        .headline {
+            font-size: clamp(36px, 10vw, 72px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+
+        .subhead {
+            font-size: clamp(20px, 4vw, 32px);
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+        }
+
+        .section-label {
+            font-size: clamp(12px, 2vw, 14px);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FF9F0A;
+            margin-bottom: 16px;
+        }
+
+        .big-number {
+            font-size: clamp(80px, 25vw, 180px);
+            font-weight: 700;
+            letter-spacing: -8px;
+            background: linear-gradient(135deg, #FF9F0A, #FF2D55);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .medium-headline {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 600;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        /* Layout helpers */
+        .center {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(30px, 6vw, 80px);
+            align-items: center;
+        }
+
+        .thirds {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(20px, 4vw, 40px);
+            margin-top: clamp(24px, 4vw, 40px);
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: clamp(12px, 2vw, 16px);
+            padding: clamp(20px, 4vw, 32px);
+        }
+
+        .card-title {
+            font-size: clamp(18px, 2.5vw, 20px);
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FF9F0A;
+        }
+
+        .card-text {
+            font-size: clamp(14px, 2vw, 16px);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: clamp(16px, 3vw, 24px) clamp(20px, 4vw, 32px);
+            font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+            font-size: clamp(12px, 2.5vw, 18px);
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+            color: #98D4A0;
+            margin: 20px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .code-comment {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .code-keyword {
+            color: #FF7AC6;
+        }
+
+        .code-string {
+            color: #98D4A0;
+        }
+
+        /* Workflow diagram */
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(12px, 2vw, 16px);
+            margin: clamp(28px, 4vw, 40px) 0;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            background: rgba(255, 159, 10, 0.2);
+            border: 2px solid #FF9F0A;
+            border-radius: clamp(10px, 1.5vw, 12px);
+            padding: clamp(14px, 2.5vw, 20px) clamp(18px, 3vw, 28px);
+            text-align: center;
+            font-weight: 600;
+            min-width: min(140px, 40vw);
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .workflow-arrow {
+            font-size: clamp(18px, 3vw, 24px);
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            margin-top: clamp(18px, 3vw, 24px);
+        }
+
+        .feature-list li {
+            font-size: clamp(18px, 3vw, 24px);
+            padding: clamp(12px, 2vw, 16px) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 16px);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: #30D158;
+            font-size: clamp(20px, 3vw, 24px);
+        }
+
+        /* Agent table */
+        .agent-table {
+            width: 100%;
+            margin-top: 24px;
+            border-collapse: collapse;
+        }
+
+        .agent-table th,
+        .agent-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .agent-table th {
+            color: #FF9F0A;
+            font-weight: 600;
+            font-size: clamp(12px, 1.8vw, 14px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .agent-table td {
+            font-size: clamp(14px, 2vw, 16px);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .agent-table td:first-child {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: #98D4A0;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            min-width: 12px;
+            min-height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (hover: none) {
+            .nav-dot { min-width: 16px; min-height: 16px; }
+        }
+
+        @media (max-width: 600px) {
+            .split { grid-template-columns: 1fr; gap: 40px; }
+            .workflow { flex-direction: column; gap: 12px; }
+            .workflow-arrow { transform: rotate(90deg); }
+            .philosophy-grid { grid-template-columns: 1fr; }
+            .agent-table { font-size: 14px; }
+            .agent-table th, .agent-table td { padding: 12px 10px; }
+        }
+
+        .nav-dot.active {
+            background: #FF9F0A;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            font-size: clamp(12px, 1.8vw, 14px);
+            color: rgba(255,255,255,0.4);
+        }
+
+        .small-text {
+            font-size: clamp(14px, 2vw, 16px);
+            color: rgba(255,255,255,0.5);
+            margin-top: clamp(12px, 2vw, 16px);
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 159, 10, 0.2), rgba(255, 45, 85, 0.2));
+            border: 1px solid rgba(255, 159, 10, 0.3);
+            border-radius: clamp(12px, 2vw, 16px);
+            padding: clamp(20px, 4vw, 32px) clamp(24px, 5vw, 40px);
+            margin: clamp(18px, 3vw, 24px) 0;
+        }
+
+        /* Attribution */
+        .attribution {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: clamp(10px, 1.5vw, 12px);
+            padding: clamp(18px, 3vw, 24px) clamp(22px, 4vw, 32px);
+            margin-top: clamp(24px, 4vw, 32px);
+        }
+
+        .attribution-title {
+            font-size: clamp(12px, 1.8vw, 14px);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: clamp(10px, 1.5vw, 12px);
+        }
+
+        .attribution-name {
+            font-size: clamp(18px, 2.5vw, 20px);
+            font-weight: 600;
+            color: #FF9F0A;
+        }
+
+        .attribution-link {
+            font-size: clamp(14px, 2vw, 16px);
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        /* More stories link */
+        .more-stories {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(11px, 1.5vw, 12px);
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            z-index: 100;
+        }
+        .more-stories:hover {
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Utility classes */
+        .code-block-compact {
+            font-size: clamp(12px, 1.8vw, 14px);
+            margin-top: clamp(12px, 2vw, 16px);
+            padding: clamp(12px, 2vw, 16px);
+        }
+
+        /* Philosophy alignment */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+            gap: clamp(18px, 3vw, 24px);
+            margin-top: clamp(24px, 4vw, 32px);
+        }
+
+        .philosophy-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #FF9F0A;
+            padding: clamp(16px, 2.5vw, 20px) clamp(18px, 3vw, 24px);
+        }
+
+        .philosophy-label {
+            font-size: clamp(11px, 1.5vw, 12px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .philosophy-value {
+            font-size: clamp(16px, 2.2vw, 18px);
+            color: rgba(255,255,255,0.9);
+        }
+    </style>
+    <link rel="stylesheet" href="withamplifier-overrides.css">
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide active center">
+        <div class="section-label">Amplifier Bundle</div>
+        <h1 class="headline">Superpowers</h1>
+        <p class="subhead">TDD-driven development workflow for Amplifier.<br>Import and adapt, never duplicate.</p>
+        <div class="attribution">
+            <div class="attribution-title">Based on</div>
+            <div class="attribution-name">obra/superpowers by Jesse Vincent</div>
+            <div class="attribution-link">github.com/obra/superpowers</div>
+        </div>
+        <div class="small-text" style="margin-top: 40px;">January 2026</div>
+    </div>
+
+    <!-- Slide 2: What is Superpowers -->
+    <div class="slide">
+        <div class="section-label">The Origin</div>
+        <h2 class="headline">What is Superpowers?</h2>
+        <p class="subhead" style="max-width: 900px;">
+            An agentic skills framework and software development methodology created by Jesse Vincent (obra). 
+            A complete workflow built on composable "skills" that enforce TDD, design-first thinking, 
+            and subagent-driven development.
+        </p>
+        <div class="thirds" style="margin-top: 48px;">
+            <div class="card">
+                <div class="card-title">25k+ Stars</div>
+                <div class="card-text">One of the most popular AI development methodologies on GitHub.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Composable Skills</div>
+                <div class="card-text">Markdown-based process documentation that can be mixed and matched.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Battle-Tested</div>
+                <div class="card-text">Used across Claude Code, Codex, OpenCode, and now Amplifier.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Integration -->
+    <div class="slide center">
+        <div class="section-label">The Integration</div>
+        <h2 class="headline">Import, Don't Duplicate</h2>
+        <p class="subhead" style="max-width: 800px;">
+            This bundle wraps superpowers skills as Amplifier agents.<br>
+            Zero duplication. Automatic updates. Single source of truth.
+        </p>
+        <div class="highlight-box" style="margin-top: 40px; display: inline-block;">
+            <strong>~500 lines</strong> of wrapper code vs <strong>20,000+</strong> if we duplicated everything
+        </div>
+    </div>
+
+    <!-- Slide 4: How It Works -->
+    <div class="slide">
+        <div class="section-label">Architecture</div>
+        <h2 class="medium-headline">Git Submodule + Thin Wrappers</h2>
+        <div class="code-block">
+<span class="code-comment"># Superpowers is included as a git submodule</span>
+amplifier-bundle-superpowers/
+├── superpowers/              <span class="code-comment"># Git submodule (obra/superpowers)</span>
+│   └── skills/               <span class="code-comment"># Original superpowers skills</span>
+├── agents/                   <span class="code-comment"># Thin wrappers (~30 lines each)</span>
+│   ├── design-refiner/
+│   │   └── AGENT.md         <span class="code-comment"># References @superpowers/skills/...</span>
+│   └── ...
+└── bundle-dev.md            <span class="code-comment"># Main bundle composition</span>
+        </div>
+        <p class="subhead" style="margin-top: 24px;">
+            Wrappers reference skills via @mention, adapt for Amplifier tools, and stay synchronized.
+        </p>
+    </div>
+
+    <!-- Slide 5: The Workflow -->
+    <div class="slide center">
+        <div class="section-label">The Workflow</div>
+        <h2 class="medium-headline">Design to Deployment</h2>
+        <div class="workflow">
+            <div class="workflow-step">Design</div>
+            <div class="workflow-arrow">&#8594;</div>
+            <div class="workflow-step">Plan</div>
+            <div class="workflow-arrow">&#8594;</div>
+            <div class="workflow-step">TDD</div>
+            <div class="workflow-arrow">&#8594;</div>
+            <div class="workflow-step">Implement</div>
+            <div class="workflow-arrow">&#8594;</div>
+            <div class="workflow-step">Review</div>
+            <div class="workflow-arrow">&#8594;</div>
+            <div class="workflow-step">Finalize</div>
+        </div>
+        <div class="highlight-box">
+            <strong>Iron Law:</strong> NO CODE WITHOUT FAILING TEST FIRST
+        </div>
+    </div>
+
+    <!-- Slide 6: TDD Enforcement -->
+    <div class="slide center">
+        <div class="big-number">RED</div>
+        <h2 class="medium-headline" style="margin-top: 24px;">GREEN REFACTOR</h2>
+        <p class="subhead" style="max-width: 700px;">
+            The TDD enforcer agent ensures this cycle is never skipped.<br>
+            Write test. Watch it fail. Write minimal code. Watch it pass. Refactor.
+        </p>
+    </div>
+
+    <!-- Slide 7: Agent Mapping -->
+    <div class="slide">
+        <div class="section-label">Available Agents</div>
+        <h2 class="medium-headline">Superpowers Skills as Amplifier Agents</h2>
+        <table class="agent-table">
+            <tr>
+                <th>Agent</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>superpowers:design-refiner</td>
+                <td>Interactive design refinement using Socratic method</td>
+            </tr>
+            <tr>
+                <td>superpowers:plan-writer</td>
+                <td>Create detailed implementation plans with bite-sized tasks</td>
+            </tr>
+            <tr>
+                <td>superpowers:tdd-enforcer</td>
+                <td>Enforce RED-GREEN-REFACTOR cycle</td>
+            </tr>
+            <tr>
+                <td>superpowers:subagent-orchestrator</td>
+                <td>Execute plans with fresh subagent per task</td>
+            </tr>
+            <tr>
+                <td>superpowers:code-reviewer</td>
+                <td>Systematic code review focusing on correctness</td>
+            </tr>
+            <tr>
+                <td>superpowers:branch-finalizer</td>
+                <td>Verify tests, present merge/PR options</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Slide 8: Philosophy Alignment -->
+    <div class="slide">
+        <div class="section-label">Why It Works</div>
+        <h2 class="medium-headline">Philosophical Alignment</h2>
+        <p class="subhead">Both systems share the same core values</p>
+        <div class="philosophy-grid">
+            <div class="philosophy-item">
+                <div class="philosophy-label">Superpowers</div>
+                <div class="philosophy-value">YAGNI - Write only what's needed</div>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-label">Amplifier</div>
+                <div class="philosophy-value">Ruthless Simplicity - Minimize abstractions</div>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-label">Superpowers</div>
+                <div class="philosophy-value">Skills as composable units</div>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-label">Amplifier</div>
+                <div class="philosophy-value">Bricks and studs - modular composition</div>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-label">Superpowers</div>
+                <div class="philosophy-value">Fresh subagent per task</div>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-label">Amplifier</div>
+                <div class="philosophy-value">Task tool for agent delegation</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Bundle Options -->
+    <div class="slide">
+        <div class="section-label">Choose Your Level</div>
+        <h2 class="medium-headline">Three Bundle Options</h2>
+        <div class="thirds">
+            <div class="card">
+                <div class="card-title">bundle-dev.md</div>
+                <div class="card-text">Full workflow with all 9 agents. Design, plan, TDD, implement, review, finalize.</div>
+                <div class="code-block code-block-compact">--bundle superpowers:bundle-dev.md</div>
+            </div>
+            <div class="card">
+                <div class="card-title">bundle-minimal.md</div>
+                <div class="card-text">Core only: design refinement, plan creation, TDD enforcement.</div>
+                <div class="code-block code-block-compact">--bundle superpowers:bundle-minimal.md</div>
+            </div>
+            <div class="card">
+                <div class="card-title">bundle-tdd-only.md</div>
+                <div class="card-text">Just TDD enforcement. Add test discipline to any workflow.</div>
+                <div class="code-block code-block-compact">--bundle superpowers:bundle-tdd-only.md</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Quick Start -->
+    <div class="slide">
+        <div class="section-label">Getting Started</div>
+        <h2 class="medium-headline">Two commands to start</h2>
+        <div class="code-block">
+<span class="code-comment"># Option 1: Run directly from GitHub</span>
+amplifier run --bundle git+https://github.com/ramparte/amplifier-bundle-superpowers@main:bundle-dev.md <span class="code-string">"Build a feature"</span>
+
+<span class="code-comment"># Option 2: Clone for local use</span>
+git clone --recursive https://github.com/ramparte/amplifier-bundle-superpowers
+amplifier run --bundle ./amplifier-bundle-superpowers/bundle-dev.md <span class="code-string">"Build a feature"</span>
+        </div>
+        <div class="highlight-box" style="margin-top: 32px;">
+            <strong>Pro tip:</strong> Use <code>--recursive</code> when cloning to get the superpowers submodule
+        </div>
+    </div>
+
+    <!-- Slide 11: Staying Updated -->
+    <div class="slide center">
+        <div class="section-label">Maintenance</div>
+        <h2 class="headline">Always Current</h2>
+        <p class="subhead" style="max-width: 700px;">
+            One command syncs with the latest superpowers updates.<br>
+            Community improvements flow through automatically.
+        </p>
+        <div class="code-block" style="margin-top: 40px; text-align: left; display: inline-block;">
+<span class="code-comment"># Update to latest superpowers</span>
+./scripts/sync-superpowers.sh
+
+<span class="code-comment"># Or manually</span>
+git submodule update --remote superpowers
+        </div>
+    </div>
+
+    <!-- Slide 12: CTA -->
+    <div class="slide center">
+        <h2 class="headline">TDD discipline.<br>Proven workflow.</h2>
+        <p class="subhead" style="margin-top: 24px;">github.com/ramparte/amplifier-bundle-superpowers</p>
+        <div class="attribution" style="margin-top: 48px;">
+            <div class="attribution-title">Built on</div>
+            <div class="attribution-name">obra/superpowers by Jesse Vincent</div>
+            <div class="attribution-link">github.com/obra/superpowers</div>
+        </div>
+        <div class="small-text" style="margin-top: 40px;">
+            Community bundle for the Amplifier ecosystem<br>
+            github.com/microsoft/amplifier
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav" id="nav"></div>
+    <div class="slide-counter" id="counter"></div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            updateNav();
+        }
+
+        function updateNav() {
+            const nav = document.getElementById('nav');
+            const counter = document.getElementById('counter');
+            nav.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
+                dot.onclick = () => showSlide(i);
+                nav.appendChild(dot);
+            });
+            counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') showSlide(currentSlide + 1);
+            if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav') || e.target.closest('.more-stories')) return;
+            if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
+            else showSlide(currentSlide - 1);
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            if (e.target.closest('.nav') || e.target.closest('.more-stories')) return;
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? showSlide(currentSlide + 1) : showSlide(currentSlide - 1);
+        }, { passive: true });
+
+        updateNav();
+    </script>
+    <a href="index.html" class="more-stories">More Amplifier Stories</a>
+</body>
+</html>

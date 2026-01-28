@@ -1,0 +1,145 @@
+/**
+ * Amplifier Stories - Shared CSS Custom Properties
+ * 
+ * This file defines the responsive design system for all presentations.
+ * Import at the top of each deck's <style> block or link as external stylesheet.
+ * 
+ * Usage: Copy the :root block into each HTML file's <style> section.
+ */
+
+:root {
+    /* ═══════════════════════════════════════════════════════════════════
+       TYPOGRAPHY SCALE
+       Using clamp(mobile-min, fluid-scale, desktop-max)
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    /* Headlines */
+    --fs-hero: clamp(36px, 10vw, 72px);           /* Main title */
+    --fs-h1: clamp(28px, 6vw, 48px);              /* Section headlines */
+    --fs-h2: clamp(22px, 4vw, 32px);              /* Medium headlines */
+    --fs-h3: clamp(18px, 3vw, 24px);              /* Small headlines */
+    
+    /* Body text */
+    --fs-body: clamp(14px, 2vw, 16px);            /* Default body */
+    --fs-body-lg: clamp(16px, 2.5vw, 18px);       /* Large body */
+    --fs-subhead: clamp(18px, 3vw, 28px);         /* Subheadlines */
+    
+    /* Small text */
+    --fs-small: clamp(12px, 1.8vw, 14px);         /* Labels, captions */
+    --fs-tiny: clamp(11px, 1.5vw, 12px);          /* Footer, meta */
+    
+    /* Code */
+    --fs-code: clamp(12px, 2vw, 16px);            /* Code blocks */
+    --fs-code-sm: clamp(11px, 1.6vw, 13px);       /* Inline code */
+    
+    /* Special */
+    --fs-stat: clamp(36px, 8vw, 64px);            /* Big statistics */
+    --fs-stat-sm: clamp(32px, 6vw, 48px);         /* Medium statistics */
+    --fs-icon: clamp(20px, 3vw, 24px);            /* Icons, emojis */
+    --fs-icon-lg: clamp(36px, 8vw, 48px);         /* Large icons */
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       SPACING SCALE
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    --space-xs: clamp(4px, 0.5vw, 8px);           /* Tight spacing */
+    --space-sm: clamp(8px, 1.5vw, 12px);          /* Small gaps */
+    --space-md: clamp(12px, 2vw, 16px);           /* Default spacing */
+    --space-lg: clamp(16px, 3vw, 24px);           /* Section spacing */
+    --space-xl: clamp(24px, 4vw, 40px);           /* Large sections */
+    --space-2xl: clamp(32px, 6vw, 60px);          /* Major sections */
+    
+    /* Slide padding */
+    --padding-slide: clamp(24px, 6vw, 60px) clamp(20px, 5vw, 80px);
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       BORDER RADIUS
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    --radius-sm: clamp(6px, 1vw, 8px);            /* Small elements */
+    --radius-md: clamp(8px, 1.5vw, 12px);         /* Cards, buttons */
+    --radius-lg: clamp(12px, 2vw, 16px);          /* Large cards */
+    --radius-xl: clamp(16px, 2.5vw, 24px);        /* Modals, overlays */
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       GRID GAPS
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    --gap-grid: clamp(16px, 3vw, 32px);           /* Grid layouts */
+    --gap-cards: clamp(16px, 2.5vw, 24px);        /* Card grids */
+    --gap-flow: clamp(12px, 2vw, 20px);           /* Flow diagrams */
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       COLORS (can be overridden per-deck)
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    --color-accent: #0A84FF;                       /* Default blue */
+    --color-accent-dim: rgba(10, 132, 255, 0.2);
+    --color-success: #30D158;
+    --color-warning: #FF9F0A;
+    --color-error: #FF453A;
+    --color-purple: #BF5AF2;
+    --color-pink: #FF2D55;
+    
+    /* Text colors */
+    --color-text: #ffffff;
+    --color-text-dim: rgba(255, 255, 255, 0.7);
+    --color-text-muted: rgba(255, 255, 255, 0.5);
+    --color-text-subtle: rgba(255, 255, 255, 0.3);
+    
+    /* Surface colors */
+    --color-surface: rgba(255, 255, 255, 0.05);
+    --color-surface-hover: rgba(255, 255, 255, 0.08);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════ */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.big-stat-inline {
+    font-size: var(--fs-stat-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.code-block-compact {
+    font-size: var(--fs-code-sm);
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS (use sparingly - prefer intrinsic sizing)
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+    /* Stack grids that shouldn't auto-fit */
+    .force-stack-mobile {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Hide decorative arrows on mobile */
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (hover: none) {
+    /* Larger touch targets on touch devices */
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
