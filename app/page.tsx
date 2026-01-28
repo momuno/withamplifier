@@ -95,7 +95,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-ink mb-2">Use any model</h3>
               <p className="text-ink-slate text-sm leading-relaxed">
-                Claude, GPT-4, Gemini, Llama, or your own. Switch with one line. No lock-in, ever.
+                The model is a component, not a cage. Switch providers without rewriting anything. Your tools and workflows just work.
               </p>
             </div>
             
@@ -108,7 +108,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-ink mb-2">See everything</h3>
               <p className="text-ink-slate text-sm leading-relaxed">
-                Every prompt, every decision, every tool call. Nothing hidden. Debug in minutes, not hours.
+                Watch it think. Every decision logged, every tool call visible. When something breaks, you know exactly where and why.
               </p>
             </div>
             
@@ -121,7 +121,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-ink mb-2">Own your setup</h3>
               <p className="text-ink-slate text-sm leading-relaxed">
-                Take it anywhere. Modify anything. No vendor lock-in, no hidden dependencies.
+                Your agent is a file you can read, version, and share. Not a subscription. Not a black box. Yours.
               </p>
             </div>
           </div>
