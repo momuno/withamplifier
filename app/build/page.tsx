@@ -13,7 +13,8 @@ export default function BuildPage() {
           
           <RevealOnScroll delay={100}>
             <p className="mt-4 text-body-lg text-ink-slate max-w-xl">
-              Install Amplifier, connect any model, and run your first command.
+              Install Amplifier, connect any model, and run your first command. 
+              Switch providers anytime—your agents come with you.
             </p>
             <div className="mt-8 space-y-3">
               <code className="code-block block text-base px-6 py-4">

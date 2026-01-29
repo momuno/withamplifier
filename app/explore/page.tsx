@@ -139,8 +139,8 @@ export default function ExplorePage() {
           
           <RevealOnScroll delay={100}>
             <p className="mt-6 text-body-lg text-ink-slate max-w-2xl">
-              Browse bundles, tools, and agents built by the team and community. 
-              Use them as-is, customize them, or learn how they work.
+              Unlike closed platforms, everything here is inspectable and composable. 
+              Use bundles as-is, remix them, or learn how they work.
             </p>
           </RevealOnScroll>
         </div>

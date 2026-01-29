@@ -75,10 +75,10 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
-              Amplifier is open by design.
+              No black boxes. Ever.
             </h2>
             <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-              Transparent components you can inspect, modify, and recombine. When the system is designed for builders instead of consumers, you get tools that work the way you&nbsp;think.
+              Most AI tools hide how they work. Amplifier shows you everything. Inspect any component, swap any piece, own the whole&nbsp;stack.
             </p>
           </div>
           

@@ -229,8 +229,8 @@ export default function LearnPage() {
           
           <RevealOnScroll delay={100}>
             <p className="mt-6 text-body-lg text-ink-slate max-w-2xl">
-              Slide decks, guides, and deep dives. Learn the fundamentals, 
-              explore advanced features, or see what's new.
+              Amplifier isn't another AI chat. It's a platform for building agents 
+              that are observable, portable, and entirely yours. Start here.
             </p>
           </RevealOnScroll>
         </div>
