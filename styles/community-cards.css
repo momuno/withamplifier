@@ -6,12 +6,14 @@
   flex-shrink: 0;
   width: 280px;
   padding: 1rem;
-  background: var(--canvas);
+  background: #FDFCFA; /* Solid canvas color - ensures opacity over particles */
   border: 1px solid var(--canvas-mist);
   border-radius: 12px;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 10; /* Above particle background */
 }
 
 .community-card:hover {

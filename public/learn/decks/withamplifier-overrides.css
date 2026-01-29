@@ -1,20 +1,21 @@
 /* 
  * WithAmplifier Design System Overrides for Presentation Decks
- * Applies brand fonts, colors, and design system touches while preserving presentation functionality
+ * Applies brand fonts, colors, and design system touches
+ * 
+ * NOTE: This file is loaded AFTER shared-variables.css and deck-specific styles
+ * It applies the withamplifier brand on top of existing deck styling
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 :root {
-  /* Override accent colors to match brand */
-  --color-accent: #3B9EDB; /* Blue CTA color */
-  --color-accent-dim: rgba(59, 158, 219, 0.15);
-  --color-signal: #FF3B30; /* Signal red for emphasis */
-  --color-particle: #8B5FD9; /* Purple for subtle accents */
+  /* Brand colors - Signal purple */
+  --color-accent: #5B4DE3;
+  --color-accent-dim: rgba(91, 77, 227, 0.15);
+  --color-accent-glow: rgba(91, 77, 227, 0.25);
+  --color-signal: #5B4DE3; /* Use Signal purple, not red */
   
   /* Design system colors */
   --ink-black: #0A0A0B;
-  --ink-slate: #64748B;
+  --ink-slate: rgba(255, 255, 255, 0.6);
   --ink-ghost: #F8F9FA;
   
   /* Refined backgrounds */
@@ -23,37 +24,43 @@
   --border-card: rgba(248, 249, 250, 0.08);
 }
 
-/* Typography: Apply Inter for body, keep system fallback for display */
+/* Typography: Apply brand fonts */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-  background: var(--ink-black);
+  font-family: var(--font-body, 'Epilogue'), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  background: var(--color-bg, #0A0A0B);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headlines: Slightly refined */
+/* Headlines: Use Syne for brand voice */
+.headline,
+.medium-headline,
+.card-title {
+  font-family: var(--font-heading, 'Syne'), system-ui, sans-serif;
+}
+
 .headline {
-  letter-spacing: -0.02em;
-  font-weight: 700;
+  letter-spacing: var(--tracking-display, -0.03em);
+  font-weight: var(--weight-bold, 700);
 }
 
 .medium-headline {
-  letter-spacing: -0.015em;
-  font-weight: 600;
+  letter-spacing: var(--tracking-headline, -0.02em);
+  font-weight: var(--weight-semibold, 600);
 }
 
-/* Section labels: Use signal color for emphasis */
+/* Section labels: Use Signal purple for emphasis */
 .section-label {
-  color: var(--color-signal);
-  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-eyebrow, 0.06em);
 }
 
-/* Subheads: Use ink-slate for better hierarchy */
+/* Subheads: Use secondary text color */
 .subhead {
-  color: var(--ink-slate);
+  color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
 }
 
-/* Cards: More refined with design system colors */
+/* Cards: Refined with design system colors */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
@@ -68,11 +75,11 @@ body {
 }
 
 .card-title {
-  color: var(--ink-ghost);
+  color: var(--color-accent);
 }
 
 .card-text {
-  color: var(--ink-slate);
+  color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
 }
 
 /* Feature lists: Refined check marks */
@@ -95,22 +102,22 @@ body {
 /* Navigation dots: Match accent color */
 .nav-dot.active {
   background: var(--color-accent);
-  box-shadow: 0 0 12px rgba(59, 158, 219, 0.4);
+  box-shadow: 0 0 12px var(--color-accent-glow);
 }
 
-/* Close button: Signal color */
+/* Close button: Subtle with accent on hover */
 .close-btn {
   color: rgba(255, 255, 255, 0.6);
   transition: color 0.2s ease;
 }
 
 .close-btn:hover {
-  color: var(--color-signal);
+  color: var(--color-accent);
 }
 
-/* Code blocks: If they exist */
+/* Code blocks: Use mono font from design system */
 code, pre {
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono'), 'SF Mono', Monaco, Consolas, monospace;
   background: rgba(248, 249, 250, 0.05);
   border: 1px solid var(--border-card);
 }
@@ -123,7 +130,20 @@ a {
 }
 
 a:hover {
-  color: var(--color-signal);
+  color: var(--color-text);
+}
+
+/* Back link styling */
+.back-link,
+.more-stories {
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
+  font-size: var(--fs-caption, 14px);
+  transition: color 0.2s ease;
+}
+
+.back-link:hover,
+.more-stories:hover {
+  color: var(--color-accent);
 }
 
 /* Smooth scrolling for better UX */
@@ -135,10 +155,10 @@ html {
 .nav-dot,
 .close-btn,
 .card {
-  -webkit-tap-highlight-color: rgba(59, 158, 219, 0.2);
+  -webkit-tap-highlight-color: var(--color-accent-dim);
 }
 
-/* Subtle particle-inspired gradient overlay (optional, very subtle) */
+/* Subtle particle-inspired gradient overlay */
 .slide::before {
   content: '';
   position: fixed;
@@ -146,7 +166,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(139, 95, 217, 0.03) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 50%, var(--color-accent-dim) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -166,7 +186,8 @@ html {
 
 /* Accessibility: Focus states */
 .nav-dot:focus,
-.close-btn:focus {
+.close-btn:focus,
+a:focus {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }

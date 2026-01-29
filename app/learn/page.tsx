@@ -276,8 +276,10 @@ export default function LearnPage() {
       </section>
 
       {/* Deck grid */}
-      <section className="section">
-        <div className="container-wide">
+      <section className="section relative">
+        {/* Gradient fade to reduce particle intensity in content area */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-canvas/80 to-canvas pointer-events-none" style={{ zIndex: 1 }} />
+        <div className="container-wide relative" style={{ zIndex: 2 }}>
           <div 
             id="deck-grid"
             role="tabpanel"

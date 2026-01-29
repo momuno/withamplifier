@@ -102,10 +102,10 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
   'learn-hero': {
     n: 2,
     m: 4,
-    strength: 0.3,
+    strength: 0.25,
     color: '#A8A8A8', // Neutral light gray - very subtle
-    opacity: 0.2,
-    particleSize: 1.5,
+    opacity: 0.12, // Reduced for less intensity
+    particleSize: 1.2,
     transitionDuration: 0,
     transitionEasing: 'ease-in-out',
     prominence: 'subtle',
