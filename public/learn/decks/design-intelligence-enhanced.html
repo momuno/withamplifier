@@ -6,6 +6,9 @@
     <title>Design Intelligence Enhanced - Amplifier Stories</title>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -111,6 +114,16 @@
 
         .highlight { color: var(--color-accent); }
         .small-text { font-size: var(--font-small); color: rgba(255,255,255,0.5); }
+
+        /* Quote styling with headline font */
+        .quote {
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: var(--color-ink);
+        }
 
         /* Workflow steps */
         .workflow {
@@ -540,9 +553,16 @@
         </div>
     </div>
 
-    <!-- Slide 6: Use Case - Visual -->
+    <!-- Slide 6: Transition to Examples -->
+    <div class="slide center">
+        <div class="section-label">In Practice</div>
+        <h2 class="medium-headline">Three domains, one methodology</h2>
+        <p class="subhead">See how the same approach works across<br>visual design, engineering, and strategy.</p>
+    </div>
+
+    <!-- Slide 7: Use Case - Visual -->
     <div class="slide">
-        <div class="section-label">Visual Design</div>
+        <div class="section-label">Example: Visual Design</div>
         <h2 class="medium-headline">Monitoring Dashboard</h2>
         <div class="thirds">
             <div class="card">
@@ -560,9 +580,9 @@
         </div>
     </div>
 
-    <!-- Slide 7: Use Case - Engineering -->
+    <!-- Slide 8: Use Case - Engineering -->
     <div class="slide">
-        <div class="section-label">Engineering</div>
+        <div class="section-label">Example: Engineering</div>
         <h2 class="medium-headline">API Rate Limiting</h2>
         <div class="thirds">
             <div class="card">
@@ -580,9 +600,9 @@
         </div>
     </div>
 
-    <!-- Slide 8: Use Case - Strategy -->
+    <!-- Slide 9: Use Case - Strategy -->
     <div class="slide">
-        <div class="section-label">Strategy</div>
+        <div class="section-label">Example: Strategy</div>
         <h2 class="medium-headline">Code Review Bottleneck</h2>
         <div class="thirds">
             <div class="card">
@@ -600,7 +620,7 @@
         </div>
     </div>
 
-    <!-- Slide 9: Three Capabilities -->
+    <!-- Slide 10: Three Capabilities -->
     <div class="slide center">
         <div class="section-label">What's in the Bundle</div>
         <h2 class="medium-headline">Three integrated capabilities</h2>
@@ -620,14 +640,14 @@
         </div>
     </div>
 
-    <!-- Slide 10: Philosophy -->
+    <!-- Slide 11: Philosophy -->
     <div class="slide center">
         <div class="section-label">The Point</div>
-        <p class="subhead" style="max-width: 800px; font-size: clamp(22px, 5vw, 32px);">"Design is purpose, planning, and intention behind any action, system, or process."</p>
-        <p class="small-text" style="margin-top: 56px; font-size: clamp(15px, 3vw, 18px);">This methodology works wherever you need<br>to make thoughtful decisions.</p>
+        <p class="quote" style="max-width: 900px;">"Design is purpose, planning, and intention behind any action, system, or process."</p>
+        <p class="subhead" style="margin-top: 48px;">This methodology works wherever you need<br>to make thoughtful decisions.</p>
     </div>
 
-    <!-- Slide 11: Version -->
+    <!-- Slide 12: Version -->
     <div class="slide">
         <span class="version-badge">Version 2.2.0</span>
         <h2 class="medium-headline">Design Intelligence Enhanced</h2>
