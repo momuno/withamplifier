@@ -148,6 +148,14 @@ const decks: Deck[] = [
   
   // Showcase
   {
+    id: 'design-intelligence-enhanced',
+    title: 'Design Intelligence Enhanced',
+    description: 'Purpose-driven research methodology that finds solutions in unexpected domains. Works across visual, engineering, product, and&nbsp;strategy.',
+    category: 'showcase',
+    href: `${DECKS_BASE_URL}/design-intelligence-enhanced.html`,
+    isNew: true,
+  },
+  {
     id: 'cortex',
     title: 'Cortex',
     description: 'A showcase of Amplifier powering intelligent document processing workflows.',
