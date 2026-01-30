@@ -316,7 +316,12 @@ export default function LearnPage() {
               Take what you've learned and start building. Amplifier is ready when you are.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/build" className="btn-primary">
+              <a 
+                href="https://github.com/microsoft/amplifier#quick-start" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
                 Get started
               </a>
               <a 

@@ -259,9 +259,9 @@ export default function Home() {
                 </div>
                 
                 <div className="reveal mt-8" style={{transitionDelay: '0.3s'}}>
-                  <Link href="/build" className="link-apple">
+                  <a href="https://github.com/microsoft/amplifier#quick-start" target="_blank" rel="noopener noreferrer" className="link-apple">
                     Try it yourself
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -418,9 +418,9 @@ You review code for vulnerabilities.
             </p>
             
             <div className="reveal mt-8" style={{transitionDelay: '0.2s'}}>
-              <Link href="/explore" className="btn-apple">
-                Explore community
-              </Link>
+              <a href="https://github.com/microsoft/amplifier" target="_blank" rel="noopener noreferrer" className="btn-apple">
+                Explore on GitHub
+              </a>
             </div>
           </div>
           
@@ -554,17 +554,17 @@ You review code for vulnerabilities.
           </div>
           
           <div className="reveal mt-8 flex flex-col sm:flex-row gap-3 justify-center px-4" style={{transitionDelay: '0.2s'}}>
-            <Link href="/build" className="btn-apple w-full sm:w-auto">
-              Quick Start Guide
-            </Link>
             <a 
-              href="https://github.com/microsoft/amplifier" 
-              className="btn-apple-secondary w-full sm:w-auto"
+              href="https://github.com/microsoft/amplifier#quick-start" 
+              className="btn-apple w-full sm:w-auto"
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on GitHub
+              Quick Start Guide
             </a>
+            <Link href="/learn" className="btn-apple-secondary w-full sm:w-auto">
+              Learn more
+            </Link>
           </div>
           
           <p className="reveal mt-8 text-sm text-on-dark-tertiary" style={{transitionDelay: '0.3s'}}>
