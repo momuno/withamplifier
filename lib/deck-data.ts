@@ -5,11 +5,25 @@ import { Deck } from '@/components/LearnCard'
 
 export const decks: Deck[] = [
   {
+    id: 'amplifier-in-action',
+    title: 'Amplifier in Action | Productivity Multiplier',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/amplifier-in-action.html',
+  },
+  {
     id: 'amplifier-modes-deck',
     title: 'Amplifier Modes',
     description: '',
     category: 'platform',
     href: '/learn/decks/amplifier-modes-deck.html',
+  },
+  {
+    id: 'amplifier-swarm-deck',
+    title: 'Amplifier Swarm',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/amplifier-swarm-deck.html',
   },
   {
     id: 'attention-firewall-deck',
@@ -19,11 +33,25 @@ export const decks: Deck[] = [
     href: '/learn/decks/attention-firewall-deck.html',
   },
   {
+    id: 'bbs-agent-collaboration',
+    title: 'The BBS Experiment - Multi-Agent Collaboration',
+    description: '',
+    category: 'showcase',
+    href: '/learn/decks/bbs-agent-collaboration.html',
+  },
+  {
     id: 'best-practices-patterns',
     title: 'Best Practices & Patterns',
     description: '',
     category: 'intro',
     href: '/learn/decks/best-practices-patterns.html',
+  },
+  {
+    id: 'browser-bundles-announcement',
+    title: 'Browser Bundles Announcement | Amplifier',
+    description: '',
+    category: 'intro',
+    href: '/learn/decks/browser-bundles-announcement.html',
   },
   {
     id: 'bundles-and-agents',
@@ -75,11 +103,25 @@ export const decks: Deck[] = [
     href: '/learn/decks/diagrams-tool-deck.html',
   },
   {
+    id: 'distributed-ai-network-deck',
+    title: 'Building a Distributed AI Network While Gaming',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/distributed-ai-network-deck.html',
+  },
+  {
     id: 'ecosystem-audit-deck',
     title: 'Ecosystem Audit - 50 Repos, One Command',
     description: '',
     category: 'platform',
     href: '/learn/decks/ecosystem-audit-deck.html',
+  },
+  {
+    id: 'four-prompts-to-serverless-ai',
+    title: 'Four Prompts to Serverless AI | Amplifier Story',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/four-prompts-to-serverless-ai.html',
   },
   {
     id: 'getting-started-guide',
@@ -110,11 +152,25 @@ export const decks: Deck[] = [
     href: '/learn/decks/lazy-module-activation-deck.html',
   },
   {
+    id: 'longbuilder-deck',
+    title: 'LongBuilder: Long-Term Project Orchestration',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/longbuilder-deck.html',
+  },
+  {
     id: 'm365-enterprise-sandbox-deck',
     title: 'VibOps: Enterprise Vibe Coding | Amplifier Stories',
     description: '',
     category: 'enterprise',
     href: '/learn/decks/m365-enterprise-sandbox-deck.html',
+  },
+  {
+    id: 'm365-hackathon-deck',
+    title: 'M365 + Amplifier Hackathon: What We Learned',
+    description: '',
+    category: 'enterprise',
+    href: '/learn/decks/m365-hackathon-deck.html',
   },
   {
     id: 'notifications-deck',
@@ -143,6 +199,20 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/shadow-environments-deck.html',
+  },
+  {
+    id: 'smoke-test-bundle-deck',
+    title: 'Amplifier Smoke Test - Safety Check, Not Debugger',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/smoke-test-bundle-deck.html',
+  },
+  {
+    id: 'stories-bundle-overview',
+    title: 'Stories Bundle - Autonomous Storytelling Engine',
+    description: 'Autonomous Storytelling Engine for Amplifier',
+    category: 'platform',
+    href: '/learn/decks/stories-bundle-overview.html',
   },
   {
     id: 'superpowers-deck',
@@ -174,4 +244,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-01-30T01:04:12.504Z'
+export const lastSynced = '2026-01-30T06:36:15.624Z'
