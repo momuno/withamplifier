@@ -5,6 +5,13 @@ import { Deck } from '@/components/LearnCard'
 
 export const decks: Deck[] = [
   {
+    id: 'agents-behavior-capabilities',
+    title: 'AGENTS Behavior Bundle - New Capabilities',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/agents-behavior-capabilities.html',
+  },
+  {
     id: 'amplifier-in-action',
     title: 'Amplifier in Action | Productivity Multiplier',
     description: '',
@@ -251,4 +258,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-01-31T06:26:36.158Z'
+export const lastSynced = '2026-01-31T12:27:02.992Z'
