@@ -5,6 +5,8 @@ on:
     # Run every 6 hours
     - cron: '0 */6 * * *'
   workflow_dispatch: # Allow manual trigger
+  repository_dispatch:
+    types: [sync-decks]
 
 permissions:
   contents: write
@@ -19,13 +21,14 @@ jobs:
       - name: Checkout amplifier-stories
         uses: actions/checkout@v4
         with:
-          repository: ramparte/amplifier-stories
+          # Using samueljklee fork for testing - change to ramparte/amplifier-stories for production
+          repository: samueljklee/amplifier-stories
           path: amplifier-stories
           sparse-checkout: docs
 
-      - name: Sync deck files
+      - name: Sync deck files (copy from source)
         run: |
-          # Copy all HTML files except index.html
+          echo "=== Syncing deck files ==="
           for file in amplifier-stories/docs/*.html; do
             filename=$(basename "$file")
             if [ "$filename" != "index.html" ]; then
@@ -34,8 +37,55 @@ jobs:
             fi
           done
 
+      - name: Remove deleted decks (not in source)
+        run: |
+          echo "=== Checking for deleted decks ==="
+          for file in public/learn/decks/*.html; do
+            filename=$(basename "$file")
+            # Skip index.html and other non-deck files
+            if [ "$filename" = "index.html" ]; then
+              continue
+            fi
+            # Check if file exists in source
+            if [ ! -f "amplifier-stories/docs/$filename" ]; then
+              echo "Removing (not in source): $filename"
+              rm "$file"
+            fi
+          done
+
+      - name: Transform decks for withamplifier
+        run: |
+          echo "=== Transforming decks ==="
+          cd public/learn/decks
+          for file in *.html; do
+            # Skip index.html
+            if [ "$file" = "index.html" ]; then
+              continue
+            fi
+            
+            # Skip already-transformed files
+            if grep -q "withamplifier-overrides.css" "$file" 2>/dev/null; then
+              echo "Skipped (already transformed): $file"
+              continue
+            fi
+            
+            # Inject CSS links before </head>
+            sed -i 's|</head>|    <link rel="stylesheet" href="shared-variables.css">\n    <link rel="stylesheet" href="withamplifier-overrides.css">\n</head>|' "$file"
+            
+            # Fix back links from index.html to /learn
+            sed -i 's|href="index.html"|href="/learn"|g' "$file"
+            
+            echo "Transformed: $file"
+          done
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Generate deck metadata
         run: |
+          echo "=== Generating deck metadata ==="
           node scripts/generate-deck-metadata.js
 
       - name: Check for changes
@@ -44,8 +94,11 @@ jobs:
           git add -A
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git diff --staged --name-only
           fi
 
       - name: Commit and push
@@ -53,5 +106,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: sync decks from amplifier-stories"
+          git commit -m "chore: sync and transform decks from amplifier-stories
+
+          - Synced HTML files from source
+          - Applied CSS transformations
+          - Generated deck metadata with isNew detection
+          
+          Triggered by: ${{ github.event_name }}"
           git push
