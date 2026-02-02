@@ -13,7 +13,6 @@ export const decks: Deck[] = [
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
     category: 'platform',
     href: '/learn/decks/agents-behavior-capabilities.html',
-    isNew: true,
   },
   {
     id: 'amplifier-in-action',
@@ -21,7 +20,6 @@ export const decks: Deck[] = [
     description: 'How cross-session memory and agent coordination turn fragments into finished work',
     category: 'platform',
     href: '/learn/decks/amplifier-in-action.html',
-    isNew: true,
   },
   {
     id: 'amplifier-modes-deck',
@@ -29,7 +27,6 @@ export const decks: Deck[] = [
     description: 'Behavioral control through context, not just tool blocking',
     category: 'platform',
     href: '/learn/decks/amplifier-modes-deck.html',
-    isNew: true,
   },
   {
     id: 'amplifier-swarm-deck',
@@ -37,7 +34,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/amplifier-swarm-deck.html',
-    isNew: true,
   },
   {
     id: 'attention-firewall-deck',
@@ -45,7 +41,6 @@ export const decks: Deck[] = [
     description: 'AI-powered Windows notification filtering. Surfaces what matters. Blocks what doesn\'t.',
     category: 'platform',
     href: '/learn/decks/attention-firewall-deck.html',
-    isNew: true,
   },
   {
     id: 'bbs-agent-collaboration',
@@ -53,7 +48,6 @@ export const decks: Deck[] = [
     description: 'What happens when you give AI agents a shared bulletin board and let them collaborate like it\'s 1989?',
     category: 'showcase',
     href: '/learn/decks/bbs-agent-collaboration.html',
-    isNew: true,
   },
   {
     id: 'best-practices-patterns',
@@ -61,7 +55,6 @@ export const decks: Deck[] = [
     description: 'How to work effectively with Amplifier',
     category: 'intro',
     href: '/learn/decks/best-practices-patterns.html',
-    isNew: true,
   },
   {
     id: 'browser-bundles-announcement',
@@ -69,7 +62,6 @@ export const decks: Deck[] = [
     description: 'Introducing webruntime and webllm bundles for fully serverless AI',
     category: 'intro',
     href: '/learn/decks/browser-bundles-announcement.html',
-    isNew: true,
   },
   {
     id: 'bundles-and-agents',
@@ -77,7 +69,6 @@ export const decks: Deck[] = [
     description: 'Understanding the composition model',
     category: 'intro',
     href: '/learn/decks/bundles-and-agents.html',
-    isNew: true,
   },
   {
     id: 'context-inheritance-deck',
@@ -85,7 +76,6 @@ export const decks: Deck[] = [
     description: 'Smarter agent delegation through automatic conversation context sharing',
     category: 'platform',
     href: '/learn/decks/context-inheritance-deck.html',
-    isNew: true,
   },
   {
     id: 'cortex-amplifier-presentation',
@@ -93,7 +83,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'enterprise',
     href: '/learn/decks/cortex-amplifier-presentation.html',
-    isNew: true,
   },
   {
     id: 'cost-optimization-deck',
@@ -101,7 +90,6 @@ export const decks: Deck[] = [
     description: 'These optimizations shipped in one week',
     category: 'devex',
     href: '/learn/decks/cost-optimization-deck.html',
-    isNew: true,
   },
   {
     id: 'database-tool-deck',
@@ -109,7 +97,6 @@ export const decks: Deck[] = [
     description: 'Safe SQL queries for AI agents. Enterprise-grade data access without the risk.',
     category: 'tool',
     href: '/learn/decks/database-tool-deck.html',
-    isNew: true,
   },
   {
     id: 'deliberate-development-deck',
@@ -117,7 +104,6 @@ export const decks: Deck[] = [
     description: 'A mindful, decomposition-first approach to building software with AI assistance',
     category: 'devex',
     href: '/learn/decks/deliberate-development-deck.html',
-    isNew: true,
   },
   {
     id: 'diagrams-tool-deck',
@@ -125,7 +111,6 @@ export const decks: Deck[] = [
     description: 'Generate diagrams from natural language. Visual communication for AI agents.',
     category: 'tool',
     href: '/learn/decks/diagrams-tool-deck.html',
-    isNew: true,
   },
   {
     id: 'distributed-ai-network-deck',
@@ -133,7 +118,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/distributed-ai-network-deck.html',
-    isNew: true,
   },
   {
     id: 'ecosystem-audit-deck',
@@ -141,7 +125,6 @@ export const decks: Deck[] = [
     description: '50+ repos. Microsoft OSS compliance. One command.',
     category: 'platform',
     href: '/learn/decks/ecosystem-audit-deck.html',
-    isNew: true,
   },
   {
     id: 'four-prompts-to-serverless-ai',
@@ -149,7 +132,6 @@ export const decks: Deck[] = [
     description: 'How a casual question became a fully browser-based AI application',
     category: 'showcase',
     href: '/learn/decks/four-prompts-to-serverless-ai.html',
-    isNew: true,
   },
   {
     id: 'getting-started-guide',
@@ -157,7 +139,6 @@ export const decks: Deck[] = [
     description: 'From install to productive in 5 minutes',
     category: 'intro',
     href: '/learn/decks/getting-started-guide.html',
-    isNew: true,
   },
   {
     id: 'github-actions-tool-deck',
@@ -165,7 +146,6 @@ export const decks: Deck[] = [
     description: 'CI/CD integration for AI agents. Turn agents into DevOps partners.',
     category: 'tool',
     href: '/learn/decks/github-actions-tool-deck.html',
-    isNew: true,
   },
   {
     id: 'lazy-module-activation-deck',
@@ -173,7 +153,6 @@ export const decks: Deck[] = [
     description: 'Just-in-time tool provisioning for spawned agents',
     category: 'tool',
     href: '/learn/decks/lazy-module-activation-deck.html',
-    isNew: true,
   },
   {
     id: 'longbuilder-deck',
@@ -181,7 +160,6 @@ export const decks: Deck[] = [
     description: 'Phase-based orchestration for very large, complex, long-term software projects',
     category: 'platform',
     href: '/learn/decks/longbuilder-deck.html',
-    isNew: true,
   },
   {
     id: 'm365-enterprise-sandbox-deck',
@@ -189,7 +167,6 @@ export const decks: Deck[] = [
     description: 'The operational discipline for enterprise vibe coding. Like DevOps, but for AI-assisted development.',
     category: 'enterprise',
     href: '/learn/decks/m365-enterprise-sandbox-deck.html',
-    isNew: true,
   },
   {
     id: 'm365-hackathon-deck',
@@ -197,7 +174,6 @@ export const decks: Deck[] = [
     description: 'A story about discovery, surprise, and the future of human-AI collaboration',
     category: 'showcase',
     href: '/learn/decks/m365-hackathon-deck.html',
-    isNew: true,
   },
   {
     id: 'notifications-deck',
@@ -205,7 +181,6 @@ export const decks: Deck[] = [
     description: 'Desktop and push notifications when Amplifier is ready for input.',
     category: 'tool',
     href: '/learn/decks/notifications-deck.html',
-    isNew: true,
   },
   {
     id: 'recipe-efficiency-week',
@@ -213,7 +188,6 @@ export const decks: Deck[] = [
     description: 'From stakeholder feedback to 8 versions in one week',
     category: 'platform',
     href: '/learn/decks/recipe-efficiency-week.html',
-    isNew: true,
   },
   {
     id: 'recipes-workflows',
@@ -221,7 +195,6 @@ export const decks: Deck[] = [
     description: 'Declarative multi-step agent coordination',
     category: 'platform',
     href: '/learn/decks/recipes-workflows.html',
-    isNew: true,
   },
   {
     id: 'session-forking-deck',
@@ -229,7 +202,6 @@ export const decks: Deck[] = [
     description: 'Branch your conversations at any point. Explore alternate approaches without losing your place.',
     category: 'platform',
     href: '/learn/decks/session-forking-deck.html',
-    isNew: true,
   },
   {
     id: 'shadow-environments-deck',
@@ -237,7 +209,6 @@ export const decks: Deck[] = [
     description: 'OS-level isolated containers for safe testing. Test your changes before you push.',
     category: 'platform',
     href: '/learn/decks/shadow-environments-deck.html',
-    isNew: true,
   },
   {
     id: 'smoke-test-bundle-deck',
@@ -245,7 +216,6 @@ export const decks: Deck[] = [
     description: 'Safety check, not debugger. Pass means carry on. Fail means investigate.',
     category: 'platform',
     href: '/learn/decks/smoke-test-bundle-deck.html',
-    isNew: true,
   },
   {
     id: 'stories-bundle-overview',
@@ -253,7 +223,6 @@ export const decks: Deck[] = [
     description: 'Autonomous Storytelling Engine for Amplifier',
     category: 'showcase',
     href: '/learn/decks/stories-bundle-overview.html',
-    isNew: true,
   },
   {
     id: 'superpowers-deck',
@@ -261,7 +230,6 @@ export const decks: Deck[] = [
     description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
     category: 'platform',
     href: '/learn/decks/superpowers-deck.html',
-    isNew: true,
   },
   {
     id: 'vibecoding-deck',
@@ -269,7 +237,6 @@ export const decks: Deck[] = [
     description: 'Best practices for AI-assisted development. Extracted from practitioners who are building the future.',
     category: 'intro',
     href: '/learn/decks/vibecoding-deck.html',
-    isNew: true,
   },
   {
     id: 'vision-roadmap',
@@ -277,7 +244,6 @@ export const decks: Deck[] = [
     description: 'Where Amplifier is going',
     category: 'platform',
     href: '/learn/decks/vision-roadmap.html',
-    isNew: true,
   },
   {
     id: 'what-is-amplifier',
@@ -285,8 +251,7 @@ export const decks: Deck[] = [
     description: 'A modular AI agent framework. Open. Flexible. Built on kernel principles.',
     category: 'intro',
     href: '/learn/decks/what-is-amplifier.html',
-    isNew: true,
   }
 ]
 
-export const lastSynced = '2026-02-02T16:27:27.902Z'
+export const lastSynced = '2026-02-02T16:46:39.786Z'
