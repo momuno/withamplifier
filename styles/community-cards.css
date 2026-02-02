@@ -56,6 +56,16 @@
   color: white;
 }
 
+.community-card__icon--app {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.community-card__icon--provider {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+  color: white;
+}
+
 .community-card__badges {
   display: flex;
   gap: 0.5rem;
@@ -83,6 +93,11 @@
 .community-card__badge--popular {
   background: rgba(139, 92, 246, 0.1);
   color: #8b5cf6;
+}
+
+.community-card__badge--official {
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
 }
 
 /* Name */

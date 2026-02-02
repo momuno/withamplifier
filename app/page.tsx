@@ -426,114 +426,186 @@ You review code for vulnerabilities.
           
           <div className="reveal" style={{transitionDelay: '0.3s'}}>
             <DualRowScrollingCards cards={[
+              // === OFFICIAL BUNDLES (Microsoft) ===
               {
-                name: 'Security Reviewer',
-                type: 'agent',
-                description: 'Comprehensive security analysis for vulnerabilities, secrets, and common attack vectors',
+                name: 'Recipes',
+                type: 'bundle',
+                description: 'Multi-step AI agent orchestration for repeatable workflows',
                 author: 'microsoft',
                 authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
-                repoUrl: 'https://github.com/microsoft/amplifier-agent-security-reviewer',
-                badge: 'validated'
+                repoUrl: 'https://github.com/microsoft/amplifier-bundle-recipes',
+                badge: 'official'
               },
               {
-                name: 'Documentation Writer',
-                type: 'agent',
-                description: 'Generate comprehensive documentation from code with examples and API references',
-                author: 'amplifier-community',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/97165289?s=80',
-                repoUrl: 'https://github.com/amplifier-community/documentation-writer',
-                badge: 'validated'
+                name: 'Design Intelligence',
+                type: 'bundle',
+                description: 'Comprehensive design intelligence with specialized agents',
+                author: 'microsoft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
+                repoUrl: 'https://github.com/microsoft/amplifier-bundle-design-intelligence',
+                badge: 'official'
               },
               {
-                name: 'Code Explorer',
-                type: 'tool',
-                description: 'Navigate large codebases with semantic search and intelligent code understanding',
+                name: 'Toolkit',
+                type: 'bundle',
+                description: 'Building sophisticated CLI tools using metacognitive recipes',
+                author: 'microsoft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
+                repoUrl: 'https://github.com/microsoft/amplifier-bundle-toolkit',
+                badge: 'official'
+              },
+              {
+                name: 'Issues',
+                type: 'bundle',
+                description: 'Issue management workflows',
+                author: 'microsoft',
+                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
+                repoUrl: 'https://github.com/microsoft/amplifier-bundle-issues',
+                badge: 'official'
+              },
+              // === APPLICATIONS ===
+              {
+                name: 'Transcribe',
+                type: 'app',
+                description: 'Transform YouTube videos and audio files into searchable transcripts with AI-powered insights',
                 author: 'robotdad',
                 authorAvatar: 'https://github.com/robotdad.png?size=40',
-                repoUrl: 'https://github.com/robotdad/amplifier-tool-code-explorer',
-                badge: 'popular'
+                repoUrl: 'https://github.com/robotdad/app-transcribe',
               },
               {
-                name: 'Test Generator',
-                type: 'agent',
-                description: 'Write comprehensive test suites with edge cases and coverage analysis',
-                author: 'amplifier-labs',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/87654321?s=80',
-                repoUrl: 'https://github.com/amplifier-labs/test-generator',
-                badge: 'validated'
-              },
-              {
-                name: 'API Designer',
-                type: 'bundle',
-                description: 'Design RESTful APIs with OpenAPI specs, validation, and best practices',
-                author: 'apicraft',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/23456789?s=80',
-                repoUrl: 'https://github.com/apicraft/amplifier-bundle-api-designer',
-                badge: 'experimental'
-              },
-              {
-                name: 'Data Analyst',
-                type: 'agent',
-                description: 'Analyze datasets with statistical insights, visualizations, and recommendations',
-                author: 'dataflow',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/34567890?s=80',
-                repoUrl: 'https://github.com/dataflow/amplifier-agent-data-analyst',
-                badge: 'validated'
+                name: 'Blog Creator',
+                type: 'app',
+                description: 'AI-powered blog creation with style-aware generation and rich markdown editor',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/app-blog-creator',
               },
               {
                 name: 'Voice Assistant',
-                type: 'bundle',
+                type: 'app',
                 description: 'Desktop voice assistant with native speech-to-speech via OpenAI Realtime API',
                 author: 'robotdad',
                 authorAvatar: 'https://github.com/robotdad.png?size=40',
-                repoUrl: 'https://github.com/robotdad/amplifier-voice-assistant',
+                repoUrl: 'https://github.com/robotdad/app-voice',
                 badge: 'experimental'
               },
               {
-                name: 'Code Reviewer',
-                type: 'agent',
-                description: 'Automated code reviews focusing on best practices, performance, and maintainability',
-                author: 'microsoft',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/6154722?s=80',
-                repoUrl: 'https://github.com/microsoft/amplifier-agent-code-reviewer',
-                badge: 'validated'
+                name: 'Tool Generator',
+                type: 'app',
+                description: 'AI-powered tool generator for creating custom Amplifier tools',
+                author: 'samueljklee',
+                authorAvatar: 'https://github.com/samueljklee.png?size=40',
+                repoUrl: 'https://github.com/samueljklee/app-tool-generator',
               },
               {
-                name: 'Refactoring Assistant',
-                type: 'agent',
-                description: 'Intelligent refactoring suggestions with automated code transformations',
-                author: 'amplifier-community',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/97165289?s=80',
-                repoUrl: 'https://github.com/amplifier-community/refactoring-assistant',
-                badge: 'popular'
+                name: 'Playground',
+                type: 'app',
+                description: 'Interactive environment for building, configuring, and testing Amplifier AI agent sessions',
+                author: 'samueljklee',
+                authorAvatar: 'https://github.com/samueljklee.png?size=40',
+                repoUrl: 'https://github.com/samueljklee/amplifier-playground',
               },
               {
-                name: 'SQL Optimizer',
+                name: 'Benchmarks',
+                type: 'app',
+                description: 'Benchmarking and evaluation suite for Amplifier',
+                author: 'DavidKoleczek',
+                authorAvatar: 'https://github.com/DavidKoleczek.png?size=40',
+                repoUrl: 'https://github.com/DavidKoleczek/app-benchmarks',
+              },
+              // === PROVIDERS ===
+              {
+                name: 'AWS Bedrock',
+                type: 'provider',
+                description: 'AWS Bedrock integration with cross-region inference support for Claude models',
+                author: 'brycecutt-msft',
+                authorAvatar: 'https://github.com/brycecutt-msft.png?size=40',
+                repoUrl: 'https://github.com/brycecutt-msft/provider-bedrock',
+              },
+              {
+                name: 'OpenAI Realtime',
+                type: 'provider',
+                description: 'OpenAI Realtime API for native speech-to-speech with ultra-low latency',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/provider-openai-realtime',
+                badge: 'experimental'
+              },
+              // === TOOLS ===
+              {
+                name: 'MCP Integration',
                 type: 'tool',
-                description: 'Analyze and optimize SQL queries for performance and best practices',
-                author: 'dbtools',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/45678901?s=80',
-                repoUrl: 'https://github.com/dbtools/amplifier-tool-sql-optimizer',
-                badge: 'validated'
+                description: 'Model Context Protocol integration for MCP servers',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/tool-mcp',
               },
               {
-                name: 'UI Component Builder',
+                name: 'Skills',
+                type: 'tool',
+                description: 'Load domain knowledge with progressive disclosure',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/tool-skills',
+              },
+              {
+                name: 'YouTube Download',
+                type: 'tool',
+                description: 'Download audio/video from YouTube with metadata extraction',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/tool-youtube-dl',
+              },
+              {
+                name: 'Whisper',
+                type: 'tool',
+                description: 'Speech-to-text transcription using OpenAI Whisper',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/tool-whisper',
+              },
+              {
+                name: 'Image Generation',
+                type: 'tool',
+                description: 'Multi-provider AI image generation (DALL-E, Imagen, GPT-Image-1)',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/module-image-generation',
+              },
+              {
+                name: 'Style Extraction',
+                type: 'tool',
+                description: 'Extract and apply writing styles from text samples',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/module-style-extraction',
+              },
+              {
+                name: 'Markdown Utils',
+                type: 'tool',
+                description: 'Markdown parsing, injection, and metadata utilities',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/module-markdown-utils',
+              },
+              // === COMMUNITY BUNDLES ===
+              {
+                name: 'Document-Driven Development',
                 type: 'bundle',
-                description: 'Generate accessible, responsive UI components with modern frameworks',
-                author: 'frontend-guild',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/56789012?s=80',
-                repoUrl: 'https://github.com/frontend-guild/ui-component-builder',
-                badge: 'popular'
+                description: '5 specialized workflow agents for document-driven development',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/bundle-ddd',
               },
               {
-                name: 'Infrastructure Advisor',
-                type: 'agent',
-                description: 'Cloud architecture recommendations and infrastructure optimization strategies',
-                author: 'cloud-native',
-                authorAvatar: 'https://avatars.githubusercontent.com/u/12345678?s=80',
-                repoUrl: 'https://github.com/cloud-native/infrastructure-advisor',
-                badge: 'validated'
-              }
+                name: 'Spec Kit',
+                type: 'bundle',
+                description: 'Specification-Driven Development with 8 agents and constitutional governance',
+                author: 'robotdad',
+                authorAvatar: 'https://github.com/robotdad.png?size=40',
+                repoUrl: 'https://github.com/robotdad/bundle-spec-kit',
+                badge: 'experimental'
+              },
             ]} />
           </div>
         </div>

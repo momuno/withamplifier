@@ -10,7 +10,7 @@ interface BundleCard {
   author: string
   authorAvatar: string
   repoUrl: string
-  badge?: 'validated' | 'experimental' | 'popular'
+  badge?: 'validated' | 'experimental' | 'popular' | 'official'
 }
 
 interface DualRowScrollingCardsProps {
@@ -67,6 +67,26 @@ function BundleCard({ card }: { card: BundleCard }) {
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <line x1="8" y1="21" x2="16" y2="21" />
         <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+    app: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18" />
+        <path d="M9 21V9" />
+      </svg>
+    ),
+    provider: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 2v4" />
+        <path d="M12 18v4" />
+        <path d="m4.93 4.93 2.83 2.83" />
+        <path d="m16.24 16.24 2.83 2.83" />
+        <path d="M2 12h4" />
+        <path d="M18 12h4" />
+        <path d="m4.93 19.07 2.83-2.83" />
+        <path d="m16.24 7.76 2.83-2.83" />
+        <circle cx="12" cy="12" r="4" />
       </svg>
     )
   }
