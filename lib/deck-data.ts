@@ -243,6 +243,14 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
+    id: 'story-three-branches-one-recipe',
+    title: 'Three Branches, One Recipe',
+    description: 'Merging parallel development into unified v8.0.0',
+    category: 'platform',
+    href: '/learn/decks/story-three-branches-one-recipe.html',
+    isNew: true,
+  },
+  {
     id: 'superpowers-deck',
     title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
     description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
@@ -272,4 +280,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T17:15:42.218Z'
+export const lastSynced = '2026-02-02T17:19:58.054Z'
