@@ -208,6 +208,14 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
+    id: 'recipe-efficiency-week',
+    title: 'Recipe Efficiency Optimization - Week of Jan 27, 2026',
+    description: 'From stakeholder feedback to 8 versions in one week',
+    category: 'platform',
+    href: '/learn/decks/recipe-efficiency-week.html',
+    isNew: true,
+  },
+  {
     id: 'recipes-workflows',
     title: 'Recipes & Workflows',
     description: 'Declarative multi-step agent coordination',
@@ -281,4 +289,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T16:26:09.169Z'
+export const lastSynced = '2026-02-02T16:27:27.902Z'
