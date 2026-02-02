@@ -120,14 +120,6 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
-    id: 'design-intelligence-enhanced',
-    title: 'Design Intelligence Enhanced',
-    description: '"Where would you use this? Way beyond UX."',
-    category: 'showcase',
-    href: '/learn/decks/design-intelligence-enhanced.html',
-    isNew: true,
-  },
-  {
     id: 'diagrams-tool-deck',
     title: 'Diagrams Tool',
     description: 'Generate diagrams from natural language. Visual communication for AI agents.',
@@ -176,14 +168,6 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
-    id: 'how-amplifier-thinks',
-    title: 'How Amplifier Thinks',
-    description: 'The agent loop that powers everything',
-    category: 'intro',
-    href: '/learn/decks/how-amplifier-thinks.html',
-    isNew: true,
-  },
-  {
     id: 'lazy-module-activation-deck',
     title: 'Lazy Module Activation',
     description: 'Just-in-time tool provisioning for spawned agents',
@@ -221,14 +205,6 @@ export const decks: Deck[] = [
     description: 'Desktop and push notifications when Amplifier is ready for input.',
     category: 'tool',
     href: '/learn/decks/notifications-deck.html',
-    isNew: true,
-  },
-  {
-    id: 'recipe-efficiency-week',
-    title: 'Recipe Efficiency Optimization - Week of Jan 27, 2026',
-    description: 'From stakeholder feedback to 8 versions in one week',
-    category: 'platform',
-    href: '/learn/decks/recipe-efficiency-week.html',
     isNew: true,
   },
   {
@@ -272,30 +248,6 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
-    id: 'story-making-llms-reliable',
-    title: 'Making LLMs Reliable Through Code',
-    description: 'A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.',
-    category: 'platform',
-    href: '/learn/decks/story-making-llms-reliable.html',
-    isNew: true,
-  },
-  {
-    id: 'story-proving-parallel-execution',
-    title: 'Proving Parallel Execution with Timestamps',
-    description: 'How we verified concurrent agent execution through sub-second timestamp correlation',
-    category: 'platform',
-    href: '/learn/decks/story-proving-parallel-execution.html',
-    isNew: true,
-  },
-  {
-    id: 'story-three-branches-one-recipe',
-    title: 'Three Branches, One Recipe',
-    description: 'Merging parallel development into unified v8.0.0',
-    category: 'platform',
-    href: '/learn/decks/story-three-branches-one-recipe.html',
-    isNew: true,
-  },
-  {
     id: 'superpowers-deck',
     title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
     description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
@@ -329,4 +281,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T16:18:31.878Z'
+export const lastSynced = '2026-02-02T16:26:09.169Z'
