@@ -227,6 +227,14 @@ export const decks: Deck[] = [
     href: '/learn/decks/stories-bundle-overview.html',
   },
   {
+    id: 'story-making-llms-reliable',
+    title: 'Making LLMs Reliable Through Code',
+    description: 'A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.',
+    category: 'platform',
+    href: '/learn/decks/story-making-llms-reliable.html',
+    isNew: true,
+  },
+  {
     id: 'superpowers-deck',
     title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
     description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
@@ -256,4 +264,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T17:02:31.880Z'
+export const lastSynced = '2026-02-02T17:07:37.476Z'
