@@ -227,22 +227,6 @@ export const decks: Deck[] = [
     href: '/learn/decks/stories-bundle-overview.html',
   },
   {
-    id: 'story-making-llms-reliable',
-    title: 'Making LLMs Reliable Through Code',
-    description: 'A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.',
-    category: 'platform',
-    href: '/learn/decks/story-making-llms-reliable.html',
-    isNew: true,
-  },
-  {
-    id: 'story-proving-parallel-execution',
-    title: 'Proving Parallel Execution with Timestamps',
-    description: 'How we verified concurrent agent execution through sub-second timestamp correlation',
-    category: 'platform',
-    href: '/learn/decks/story-proving-parallel-execution.html',
-    isNew: true,
-  },
-  {
     id: 'story-three-branches-one-recipe',
     title: 'Three Branches, One Recipe',
     description: 'Merging parallel development into unified v8.0.0',
@@ -280,4 +264,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T17:24:26.501Z'
+export const lastSynced = '2026-02-02T17:46:35.301Z'
