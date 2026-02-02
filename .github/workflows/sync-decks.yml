@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # Using samueljklee fork for testing - change to ramparte/amplifier-stories for production
-          repository: samueljklee/amplifier-stories
+          repository: ramparte/amplifier-stories
           path: amplifier-stories
           sparse-checkout: docs
 
