@@ -75,6 +75,13 @@ jobs:
             # Fix back links from index.html to /learn
             sed -i 's|href="index.html"|href="/learn"|g' "$file"
             
+            # Inject "More Amplifier Stories" link if missing
+            if ! grep -q 'class="more-stories"' "$file" 2>/dev/null; then
+              # Insert before the first <script> tag
+              sed -i 's|<script>|    <a href="/learn" class="more-stories">More Amplifier Stories</a>\n\n    <script>|' "$file"
+              echo "  + Added 'More Stories' link"
+            fi
+            
             echo "Transformed: $file"
           done
 
