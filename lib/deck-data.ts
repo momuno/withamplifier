@@ -13,6 +13,7 @@ export const decks: Deck[] = [
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
     category: 'platform',
     href: '/learn/decks/agents-behavior-capabilities.html',
+    isNew: true,
   },
   {
     id: 'amplifier-in-action',
@@ -188,6 +189,7 @@ export const decks: Deck[] = [
     description: 'From stakeholder feedback to 8 versions in one week',
     category: 'platform',
     href: '/learn/decks/recipe-efficiency-week.html',
+    isNew: true,
   },
   {
     id: 'recipes-workflows',
@@ -254,4 +256,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T16:46:39.786Z'
+export const lastSynced = '2026-02-02T17:02:31.880Z'
