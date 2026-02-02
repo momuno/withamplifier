@@ -3,7 +3,7 @@ import '../styles/community-cards.css'
 import { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-import AmplifierChat from '@/components/AmplifierChat'
+// import AmplifierChat from '@/components/AmplifierChat' // Temporarily disabled
 import { getGitHubStats } from '@/lib/github'
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
-        <AmplifierChat />
+        {/* <AmplifierChat /> */}{/* Temporarily disabled */}
       </body>
     </html>
   )
