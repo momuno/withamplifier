@@ -235,6 +235,14 @@ export const decks: Deck[] = [
     isNew: true,
   },
   {
+    id: 'story-proving-parallel-execution',
+    title: 'Proving Parallel Execution with Timestamps',
+    description: 'How we verified concurrent agent execution through sub-second timestamp correlation',
+    category: 'platform',
+    href: '/learn/decks/story-proving-parallel-execution.html',
+    isNew: true,
+  },
+  {
     id: 'superpowers-deck',
     title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
     description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
@@ -264,4 +272,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-02T17:07:37.476Z'
+export const lastSynced = '2026-02-02T17:15:42.218Z'
