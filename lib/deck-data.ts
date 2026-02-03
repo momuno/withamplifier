@@ -99,6 +99,14 @@ export const decks: Deck[] = [
     href: '/learn/decks/attention-firewall-deck.html',
   },
   {
+    id: 'azure-zap-story',
+    title: 'Azure ZAP Bundle - Multi-Agent Deployment Orchestration',
+    description: 'Multi-Agent Deployment Orchestration',
+    category: 'platform',
+    href: '/learn/decks/azure-zap-story.html',
+    isNew: true,
+  },
+  {
     id: 'bbs-agent-collaboration',
     title: 'The BBS Experiment - Multi-Agent Collaboration',
     description: 'What happens when you give AI agents a shared bulletin board and let them collaborate like it\'s 1989?',
@@ -304,6 +312,14 @@ export const decks: Deck[] = [
     href: '/learn/decks/m365-hackathon-deck.html',
   },
   {
+    id: 'nexus-phase-0-story',
+    title: 'Amplifier Nexus Phase 0 - Desktop Application Foundation',
+    description: 'Desktop Application Foundation From Concept to Production-Ready',
+    category: 'platform',
+    href: '/learn/decks/nexus-phase-0-story.html',
+    isNew: true,
+  },
+  {
     id: 'notifications-deck',
     title: 'Amplifier Notifications',
     description: 'Desktop and push notifications when Amplifier is ready for input.',
@@ -433,6 +449,14 @@ export const decks: Deck[] = [
     href: '/learn/decks/superpowers-deck.html',
   },
   {
+    id: 'team-tracking-story',
+    title: 'Team Tracking Bundle: Recipe Engineering at Scale',
+    description: 'Recipe Engineering at Scale: From Crashes to 354 Sessions',
+    category: 'platform',
+    href: '/learn/decks/team-tracking-story.html',
+    isNew: true,
+  },
+  {
     id: 'tui-tester-innovation-story',
     title: 'The TUI Tester Story | When You Can\'t See, You Can\'t Fix',
     description: '',
@@ -471,4 +495,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-03T12:37:06.089Z'
+export const lastSynced = '2026-02-03T14:21:26.018Z'
