@@ -280,6 +280,18 @@
             margin-top: clamp(12px, 2vw, 16px);
         }
 
+        .more-stories {
+            position: fixed;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            z-index: 100;
+        }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
+
         @media (max-width: 600px) {
             .diagram-arrow { display: none; }
             .diagram { flex-direction: column; }

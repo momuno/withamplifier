@@ -58,6 +58,8 @@
         .nav-dot.active { background: #FF6B9D; transform: scale(1.2); }
         .nav-dot:hover { background: rgba(255,255,255,0.6); }
         .slide-counter { position: fixed; bottom: 40px; right: 40px; font-size: 14px; color: rgba(255,255,255,0.4); z-index: 100; }
+        .more-stories { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: clamp(11px, 1.5vw, 12px); color: rgba(255,255,255,0.3); text-decoration: none; z-index: 100; }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
         @media (max-height: 500px) and (orientation: landscape) { .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; } .slide.center { justify-content: flex-start; } }
         @media (prefers-reduced-motion: reduce) { .slide, .slide * { animation: none !important; transition: none !important; } }
         .outro-overlay { position: fixed; inset: 0; z-index: 200; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
