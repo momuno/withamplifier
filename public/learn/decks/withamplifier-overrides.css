@@ -37,6 +37,7 @@ body {
 .medium-headline,
 .card-title {
   font-family: var(--font-heading, 'Syne'), system-ui, sans-serif;
+  text-wrap: balance; /* Prevent awkward line breaks */
 }
 
 .headline {
@@ -133,42 +134,67 @@ a:hover {
   color: var(--color-text);
 }
 
-/* Back link styling - fixed top-left position */
+/* Close button - fixed top-right position */
 .back-link,
 .more-stories {
   position: fixed;
   top: 20px;
-  left: 24px;
+  right: 24px;
+  left: auto;
   color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
-  font-size: var(--fs-caption, 14px);
+  font-size: 0; /* Hide original text */
   font-weight: 500;
-  transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  transition: all 0.2s ease;
   z-index: 100;
   text-decoration: none;
-  /* Mobile: add background pill for visibility over content */
-  background: rgba(10, 10, 11, 0.8);
-  padding: 8px 12px;
-  border-radius: 20px;
+  background: rgba(10, 10, 11, 0.6);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* X icon via pseudo-element */
+.back-link::after,
+.more-stories::after {
+  content: '×';
+  font-size: 28px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
 }
 
 .back-link:hover,
 .more-stories:hover {
-  color: var(--color-accent);
-  transform: translateX(-2px);
-  background: rgba(10, 10, 11, 0.95);
+  transform: scale(1.05);
+  background: rgba(10, 10, 11, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-/* Mobile: reposition to bottom-left to avoid headline collision */
+.back-link:hover::after,
+.more-stories:hover::after {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Mobile: same position, slightly smaller */
 @media (max-width: 768px) {
   .back-link,
   .more-stories {
-    top: auto;
-    bottom: 80px; /* Above nav dots */
-    left: 16px;
-    font-size: 13px;
-    padding: 10px 14px;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .back-link::after,
+  .more-stories::after {
+    font-size: 24px;
   }
 }
 
