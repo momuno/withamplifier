@@ -29,7 +29,6 @@ export const decks: Deck[] = [
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
     category: 'platform',
     href: '/learn/decks/agents-behavior-capabilities.html',
-    isNew: true,
   },
   {
     id: 'amplifier-app-benchmarks-story',
@@ -472,4 +471,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-03T06:38:37.559Z'
+export const lastSynced = '2026-02-03T12:37:06.089Z'
