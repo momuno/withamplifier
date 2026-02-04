@@ -340,7 +340,6 @@ export const decks: Deck[] = [
     description: 'From stakeholder feedback to 8 versions in one week',
     category: 'platform',
     href: '/learn/decks/recipe-efficiency-week.html',
-    isNew: true,
   },
   {
     id: 'recipe-runner-mode-story',
@@ -495,4 +494,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-04T01:10:45.349Z'
+export const lastSynced = '2026-02-04T06:38:53.944Z'
