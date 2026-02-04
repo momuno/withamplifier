@@ -142,7 +142,12 @@ function isNewDeck(slug, history, overrides, expirationDays) {
     return overrides.decks[slug].isNew
   }
   
-  // 2. Check auto-detection based on firstSeen date
+  // 2. If expirationDays is 0 or negative, disable auto-isNew entirely
+  if (expirationDays <= 0) {
+    return false
+  }
+  
+  // 3. Check auto-detection based on firstSeen date
   const firstSeen = history.firstSeen[slug]
   if (!firstSeen) {
     // New deck - will be marked as new
@@ -159,7 +164,7 @@ function isNewDeck(slug, history, overrides, expirationDays) {
 function parseDecks() {
   const overrides = loadOverrides()
   const history = loadHistory()
-  const expirationDays = overrides.isNewExpirationDays || DEFAULT_IS_NEW_EXPIRATION_DAYS
+  const expirationDays = typeof overrides.isNewExpirationDays === 'number' ? overrides.isNewExpirationDays : DEFAULT_IS_NEW_EXPIRATION_DAYS
   
   const files = fs.readdirSync(DECKS_DIR)
     .filter(f => f.endsWith('.html') && !EXCLUDED_FILES.includes(f))

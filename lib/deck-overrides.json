@@ -4,7 +4,7 @@
     "isNew": "Set to true/false to manually control the 'new' badge",
     "category": "Override auto-detected category (intro, platform, tool, showcase, enterprise, devex)"
   },
-  "isNewExpirationDays": 3,
+  "isNewExpirationDays": 0,
   "decks": {
     "design-intelligence-enhanced": {
       "isNew": true,

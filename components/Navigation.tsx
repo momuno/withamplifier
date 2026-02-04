@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
 
 const navItems = [
-  { href: '/learn', label: 'Learn' },
+  { href: '/learn', label: 'Showcase' },
   // { href: '/explore', label: 'Explore' },  // Hidden for launch - still iterating
   // { href: '/build', label: 'Build' },      // Hidden for launch - still iterating
-  { href: '/support', label: 'Support' },
+  // { href: '/support', label: 'Support' },  // Hidden per Salil feedback - no active support yet
 ]
 
 function formatStarCount(count: number): string {

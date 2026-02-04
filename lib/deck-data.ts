@@ -13,7 +13,6 @@ export const decks: Deck[] = [
     description: 'Announcing the Amplifier SDK - TypeScript and Python client libraries that make building applications on top of Amplifier',
     category: 'platform',
     href: '/learn/decks/20260130-amplifier-sdk.html',
-    isNew: true,
   },
   {
     id: '20260130-source-driven-content-generation',
@@ -21,7 +20,6 @@ export const decks: Deck[] = [
     description: 'Building a system where website content is always accurate, always traceable, and always validated',
     category: 'platform',
     href: '/learn/decks/20260130-source-driven-content-generation.html',
-    isNew: true,
   },
   {
     id: 'agents-behavior-capabilities',
@@ -36,7 +34,6 @@ export const decks: Deck[] = [
     description: 'The amplifier-app-benchmarks Story',
     category: 'showcase',
     href: '/learn/decks/amplifier-app-benchmarks-story.html',
-    isNew: true,
   },
   {
     id: 'amplifier-forge-deck',
@@ -44,7 +41,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/amplifier-forge-deck.html',
-    isNew: true,
   },
   {
     id: 'amplifier-full-stack-deployed-app',
@@ -52,7 +48,6 @@ export const decks: Deck[] = [
     description: 'How a single developer built a production-ready application with AI assistance',
     category: 'platform',
     href: '/learn/decks/amplifier-full-stack-deployed-app.html',
-    isNew: true,
   },
   {
     id: 'amplifier-in-action',
@@ -81,7 +76,6 @@ export const decks: Deck[] = [
     description: 'Computer vision for UI testing and analysis. See interfaces the way humans do.',
     category: 'platform',
     href: '/learn/decks/amplifier-ux-analyzer.html',
-    isNew: true,
   },
   {
     id: 'amplifier-vscode-extension',
@@ -89,7 +83,6 @@ export const decks: Deck[] = [
     description: 'Native AI assistance in your IDE, powered by the modular Amplifier agent framework',
     category: 'platform',
     href: '/learn/decks/amplifier-vscode-extension.html',
-    isNew: true,
   },
   {
     id: 'attention-firewall-deck',
@@ -104,7 +97,6 @@ export const decks: Deck[] = [
     description: 'Multi-Agent Deployment Orchestration',
     category: 'platform',
     href: '/learn/decks/azure-zap-story.html',
-    isNew: true,
   },
   {
     id: 'bbs-agent-collaboration',
@@ -126,7 +118,6 @@ export const decks: Deck[] = [
     description: '"When fetch isn\'t enough"',
     category: 'platform',
     href: '/learn/decks/browser-automation-deck.html',
-    isNew: true,
   },
   {
     id: 'browser-bundles-announcement',
@@ -141,7 +132,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/bundle-orchestration-deck.html',
-    isNew: true,
   },
   {
     id: 'bundles-and-agents',
@@ -156,7 +146,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/cli-quality-collaboration.html',
-    isNew: true,
   },
   {
     id: 'context-inheritance-deck',
@@ -199,7 +188,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/design-intelligence-enhanced-deck.html',
-    isNew: true,
   },
   {
     id: 'design-intelligence-feedback',
@@ -207,7 +195,6 @@ export const decks: Deck[] = [
     description: 'Adding expert perspective to automated validation',
     category: 'platform',
     href: '/learn/decks/design-intelligence-feedback.html',
-    isNew: true,
   },
   {
     id: 'diagrams-tool-deck',
@@ -229,7 +216,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/distributed-amplifier-network-gaming.html',
-    isNew: true,
   },
   {
     id: 'ecosystem-audit-deck',
@@ -244,7 +230,6 @@ export const decks: Deck[] = [
     description: 'Comparison benchmarking, streamlined interfaces, and enhanced debugging capabilities',
     category: 'platform',
     href: '/learn/decks/eval-recipes-v0.0.28-v0.0.31-release-deck.html',
-    isNew: true,
   },
   {
     id: 'exo-protocol-deck',
@@ -252,7 +237,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/exo-protocol-deck.html',
-    isNew: true,
   },
   {
     id: 'four-prompts-to-serverless-ai',
@@ -295,7 +279,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'enterprise',
     href: '/learn/decks/m365-collaboration-journey.html',
-    isNew: true,
   },
   {
     id: 'm365-enterprise-sandbox-deck',
@@ -317,7 +300,6 @@ export const decks: Deck[] = [
     description: 'Desktop Application Foundation From Concept to Production-Ready',
     category: 'platform',
     href: '/learn/decks/nexus-phase-0-story.html',
-    isNew: true,
   },
   {
     id: 'notifications-deck',
@@ -332,7 +314,6 @@ export const decks: Deck[] = [
     description: 'Automating code quality with deterministic workflows',
     category: 'platform',
     href: '/learn/decks/pr-review-recipes.html',
-    isNew: true,
   },
   {
     id: 'recipe-efficiency-week',
@@ -347,7 +328,6 @@ export const decks: Deck[] = [
     description: 'A Story of Human-AI Collaboration',
     category: 'showcase',
     href: '/learn/decks/recipe-runner-mode-story.html',
-    isNew: true,
   },
   {
     id: 'recipes-workflows',
@@ -362,7 +342,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/runtime-sdk-tui-journey.html',
-    isNew: true,
   },
   {
     id: 'session-forking-deck',
@@ -391,7 +370,6 @@ export const decks: Deck[] = [
     description: 'Safety check, not debugger. Pass means carry on. Fail means investigate.',
     category: 'platform',
     href: '/learn/decks/smoke-test-bundle-presentation.html',
-    isNew: true,
   },
   {
     id: 'stories-bundle-overview',
@@ -406,7 +384,6 @@ export const decks: Deck[] = [
     description: 'A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.',
     category: 'platform',
     href: '/learn/decks/story-making-llms-reliable.html',
-    isNew: true,
   },
   {
     id: 'story-observers-bundle',
@@ -414,7 +391,6 @@ export const decks: Deck[] = [
     description: 'Real-time AI-powered code review that watches while you work',
     category: 'platform',
     href: '/learn/decks/story-observers-bundle.html',
-    isNew: true,
   },
   {
     id: 'story-proving-parallel-execution',
@@ -422,7 +398,6 @@ export const decks: Deck[] = [
     description: 'How we verified concurrent agent execution through sub-second timestamp correlation',
     category: 'platform',
     href: '/learn/decks/story-proving-parallel-execution.html',
-    isNew: true,
   },
   {
     id: 'story-three-branches-one-recipe',
@@ -430,7 +405,6 @@ export const decks: Deck[] = [
     description: 'Merging parallel development into unified v8.0.0',
     category: 'platform',
     href: '/learn/decks/story-three-branches-one-recipe.html',
-    isNew: true,
   },
   {
     id: 'submit-pr-story-deck',
@@ -438,7 +412,6 @@ export const decks: Deck[] = [
     description: 'One command replaces the entire PR workflow. Come back to a merged PR or a clear escalation.',
     category: 'platform',
     href: '/learn/decks/submit-pr-story-deck.html',
-    isNew: true,
   },
   {
     id: 'superpowers-deck',
@@ -453,7 +426,6 @@ export const decks: Deck[] = [
     description: 'Recipe Engineering at Scale: From Crashes to 354 Sessions',
     category: 'platform',
     href: '/learn/decks/team-tracking-story.html',
-    isNew: true,
   },
   {
     id: 'tui-tester-innovation-story',
@@ -461,7 +433,6 @@ export const decks: Deck[] = [
     description: '',
     category: 'showcase',
     href: '/learn/decks/tui-tester-innovation-story.html',
-    isNew: true,
   },
   {
     id: 'vibecoding-deck',
@@ -490,8 +461,7 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/learn/decks/withamplifier-site-deck.html',
-    isNew: true,
   }
 ]
 
-export const lastSynced = '2026-02-04T18:36:09.671Z'
+export const lastSynced = '2026-02-04T19:02:14.396Z'

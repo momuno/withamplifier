@@ -18,6 +18,7 @@ export interface Deck {
   category: DeckCategory
   href: string
   isNew?: boolean
+  publishedDate?: string // ISO date string for filtering/display
 }
 
 const categoryLabels: Record<DeckCategory, string> = {
@@ -49,15 +50,12 @@ export default function LearnCard({ deck }: { deck: Deck }) {
       style={{ width: 'auto', minWidth: '280px' }}
     >
       <div className="community-card__header">
-        <span className={`px-2.5 py-1 rounded text-micro font-medium ${categoryStyles[deck.category]}`}>
-          {categoryLabels[deck.category]}
-        </span>
-        {deck.isNew && (
-          <div className="community-card__badges">
-            <span className="community-card__badge community-card__badge--popular">
-              New
-            </span>
-          </div>
+        {deck.isNew ? (
+          <span className="community-card__badge community-card__badge--popular">
+            New
+          </span>
+        ) : (
+          <span></span>
         )}
       </div>
       
@@ -70,7 +68,9 @@ export default function LearnCard({ deck }: { deck: Deck }) {
       </p>
       
       <div className="community-card__footer">
-        <span className="text-xs text-ink-slate">Educational</span>
+        <span className={`px-2 py-0.5 rounded text-micro font-medium ${categoryStyles[deck.category]}`}>
+          {categoryLabels[deck.category]}
+        </span>
         <span className="community-card__action">View →</span>
       </div>
     </Link>
