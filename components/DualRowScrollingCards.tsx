@@ -88,6 +88,12 @@ function BundleCard({ card }: { card: BundleCard }) {
         <path d="m16.24 7.76 2.83-2.83" />
         <circle cx="12" cy="12" r="4" />
       </svg>
+    ),
+    hook: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 3v10c0 3-2 5-5 5s-5-2-5-5" strokeLinecap="round" />
+        <circle cx="12" cy="3" r="2" />
+      </svg>
     )
   }
   

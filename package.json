@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "sync-decks": "node scripts/generate-deck-metadata.js"
+    "sync-decks": "node scripts/generate-deck-metadata.js",
+    "validate:showcase": "npx tsx scripts/validate-showcase.ts"
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.80",
