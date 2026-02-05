@@ -182,7 +182,9 @@ export default function Home() {
                 <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">filesystem</span>
                 <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">bash</span>
                 <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">web</span>
-                <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">grep</span>
+                <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">search</span>
+                <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">task</span>
+                <span className="text-xs px-2 py-0.5 bg-canvas-stone rounded-full text-ink-slate">todo</span>
               </div>
             </div>
             
@@ -282,7 +284,7 @@ export default function Home() {
 {`$ amplifier run "Review this PR for security issues"
 
 → Provider: claude-sonnet-4 (anthropic)
-→ Tools: filesystem, grep, ast-analysis
+→ Tools: filesystem, search, bash
 
 ◐ Reading changed files...
 ◐ Analyzing src/auth.py for vulnerabilities...
@@ -345,7 +347,8 @@ providers:
 
 tools:
   - filesystem          # Read code
-  - grep                # Search patterns
+  - search              # Find patterns
+  - bash                # Run security tools
 
 behaviors:
   - secure-by-default   # Security-first mindset
