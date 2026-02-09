@@ -295,6 +295,13 @@ export const decks: Deck[] = [
     href: '/learn/decks/m365-hackathon-deck.html',
   },
   {
+    id: 'marathon-session-deck',
+    title: 'The Marathon Session',
+    description: '',
+    category: 'platform',
+    href: '/learn/decks/marathon-session-deck.html',
+  },
+  {
     id: 'nexus-phase-0-story',
     title: 'Amplifier Nexus Phase 0 - Desktop Application Foundation',
     description: 'Desktop Application Foundation From Concept to Production-Ready',
@@ -464,4 +471,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-09T18:44:32.199Z'
+export const lastSynced = '2026-02-09T19:36:02.818Z'
