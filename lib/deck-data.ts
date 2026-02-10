@@ -71,6 +71,13 @@ export const decks: Deck[] = [
     href: '/learn/decks/amplifier-swarm-deck.html',
   },
   {
+    id: 'amplifier-tui-showcase',
+    title: 'Amplifier TUI - Showcase',
+    description: '',
+    category: 'showcase',
+    href: '/learn/decks/amplifier-tui-showcase.html',
+  },
+  {
     id: 'amplifier-ux-analyzer',
     title: 'Amplifier UX Analyzer - Computer Vision for UI Testing',
     description: 'Computer vision for UI testing and analysis. See interfaces the way humans do.',
@@ -471,4 +478,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-10T12:51:22.886Z'
+export const lastSynced = '2026-02-10T17:51:20.344Z'

@@ -747,20 +747,124 @@
         </div>
     </div>
 
-    <!-- Slide 13: CTA -->
+    <!-- Slide 13: The Sequel -->
+    <div class="slide">
+        <div class="section-label">The Sequel</div>
+        <h2 class="medium-headline">Two weeks later, the same pattern&mdash;refined</h2>
+        <p class="subhead" style="margin-bottom: clamp(16px, 3vw, 24px);">The developer had learned from Session 1. This time: plan first, then launch.</p>
+
+        <div class="halves">
+            <div class="card">
+                <div class="card-title">Session 1: &ldquo;Be ambitious, go.&rdquo;</div>
+                <div class="card-text">Open-ended feature list. No specs. No test IDs. The agent decided what to build as it went. Brilliant improvisation&mdash;but duplication crept in after batch 5.</div>
+            </div>
+            <div class="card" style="border-color: var(--color-accent-border); background: var(--color-accent-dim);">
+                <div class="card-title">Session 2: &ldquo;Here&rsquo;s exactly what to build.&rdquo;</div>
+                <div class="card-text">Full health audit first: all 356 tests passing. 16 features brainstormed across 5 waves, specced with acceptance criteria, pre-assigned test IDs. An orchestration context file. The deduplication problem was solved before the session started.</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>The preparation:</strong> FEATURE-BACKLOG.md with full specs and pre-assigned test IDs. build-session.md as the orchestration context. All 356 existing tests verified (263 unit + 93 interactive) before launch. Committed at 5745df1&mdash;then one prompt to go.
+        </div>
+    </div>
+
+    <!-- Slide 14: The Overnight Build -->
+    <div class="slide center">
+        <div class="section-label">Session 2 Results</div>
+        <h2 class="medium-headline">14 features. 659 new tests. One prompt.</h2>
+        <p class="subhead" style="margin-bottom: clamp(16px, 3vw, 24px);">&ldquo;Run the build session. Work through the feature backlog.&rdquo;</p>
+
+        <table class="metric-table">
+            <tr><td>Session Tags</td><td>44 tests</td></tr>
+            <tr><td>Clipboard Ring</td><td>52 tests</td></tr>
+            <tr><td>Inline Diff</td><td>45 tests</td></tr>
+            <tr><td>Agent Tree View</td><td>56 tests</td></tr>
+            <tr><td>Context Profiler</td><td>47 tests</td></tr>
+            <tr><td>Tool Introspection</td><td>50 tests</td></tr>
+            <tr><td>Recipe Pipeline Viz</td><td>49 tests</td></tr>
+            <tr><td>Smart /include</td><td>48 tests</td></tr>
+            <tr><td>Conversation Branching</td><td>57 tests</td></tr>
+            <tr><td>Model A/B Testing</td><td>52 tests</td></tr>
+            <tr><td>Session Replay</td><td>91 tests</td></tr>
+            <tr><td>Plugin System</td><td>53 tests</td></tr>
+            <tr><td>Heatmap Dashboard</td><td>65 tests</td></tr>
+        </table>
+
+        <div class="stat-row" style="margin-top: clamp(24px, 4vw, 40px);">
+            <div class="stat">
+                <div class="stat-number">263</div>
+                <div class="stat-label">Tests before</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">922</div>
+                <div class="stat-label">Tests after</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3.5&times;</div>
+                <div class="stat-label">Growth</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Commits pushed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 15: The Compounding Effect -->
+    <div class="slide">
+        <div class="section-label">The Pattern</div>
+        <h2 class="medium-headline">Each session makes the next one better</h2>
+
+        <div class="thirds">
+            <div class="card">
+                <div class="card-title">Session 1 Taught</div>
+                <div class="card-text">Orchestrator + disposable workers. Commit after each feature. External memory files. Open-ended permission works&mdash;but needs a deduplication gate.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Session 2 Applied</div>
+                <div class="card-text">Structured feature backlog with specs. Pre-assigned test IDs for every feature. Orchestration context file. The backlog <em>is</em> the deduplication gate.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">The Result</div>
+                <div class="card-text">14 features in one evening, zero duplication. Session 1&rsquo;s missing pattern&mdash;a deduplication gate&mdash;was solved by the feature backlog itself.</div>
+            </div>
+        </div>
+
+        <div class="halves" style="margin-top: clamp(16px, 3vw, 24px);">
+            <div class="card fitness-good">
+                <div class="fitness-label">Session 1</div>
+                <div class="card-text" style="color: rgba(255,255,255,0.8);">~50&ndash;60 unique features over 62 hours. 9 prompts. Creative but some duplication. Pioneered the architecture.</div>
+            </div>
+            <div class="card fitness-good">
+                <div class="fitness-label">Session 2</div>
+                <div class="card-text" style="color: rgba(255,255,255,0.8);">14 features in one evening. 1 prompt. Zero duplication. 659 new tests. Refined the architecture.</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>The compounding insight:</strong> Session 1 was exploration&mdash;discover what works. Session 2 was exploitation&mdash;apply what you learned. The human&rsquo;s role evolves from architect to systems designer.
+        </div>
+    </div>
+
+    <!-- Slide 16: CTA -->
     <div class="slide center">
         <div class="section-label">Try It Yourself</div>
         <h2 class="headline">Design the work.<br>Let the agent build.</h2>
-        <p class="subhead" style="max-width: 700px; margin-top: clamp(8px, 2vw, 16px);">The user&rsquo;s role is to design the agent&rsquo;s work architecture, not to do the work.</p>
+        <p class="subhead" style="max-width: 700px; margin-top: clamp(8px, 2vw, 16px);">Two sessions. One pattern refined. The human&rsquo;s role is to design the agent&rsquo;s work architecture, not to do the work.</p>
 
         <div class="stat-row" style="margin-top: clamp(32px, 6vw, 60px);">
             <div class="stat">
-                <div class="stat-number">62h</div>
-                <div class="stat-label">Autonomous runtime</div>
+                <div class="stat-number">2</div>
+                <div class="stat-label">Sessions</div>
             </div>
             <div class="stat">
-                <div class="stat-number">9</div>
-                <div class="stat-label">Human prompts</div>
+                <div class="stat-number">162</div>
+                <div class="stat-label">Commits</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">922</div>
+                <div class="stat-label">Tests</div>
             </div>
             <div class="stat">
                 <div class="stat-number">0</div>
