@@ -429,9 +429,9 @@ export const decks: Deck[] = [
   },
   {
     id: 'superpowers-deck',
-    title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
-    description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
-    category: 'platform',
+    title: 'Amplifier + Superpowers',
+    description: '',
+    category: 'devex',
     href: '/learn/decks/superpowers-deck.html',
   },
   {
@@ -478,4 +478,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-10T18:54:17.857Z'
+export const lastSynced = '2026-02-10T19:45:48.178Z'
