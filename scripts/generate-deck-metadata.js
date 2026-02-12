@@ -115,8 +115,8 @@ function extractDescription(html) {
   const desc = extractMetaContent(html, 'description')
   if (desc) return desc
   
-  // Try to find subtitle/subhead - handles <br> tags inside
-  const subtitleMatch = html.match(/<p class="[^"]*(?:subtitle|subhead)[^"]*">([\s\S]*?)<\/p>/i)
+  // Try to find subtitle/subhead - handles <br> tags inside, extra attrs, and <p>/<div>/<h2>/<h3>
+  const subtitleMatch = html.match(/<(?:p|div|h[2-3])\s+[^>]*class="[^"]*(?:subtitle|subhead)[^"]*"[^>]*>([\s\S]*?)<\/(?:p|div|h[2-3])>/i)
   if (subtitleMatch) {
     // Strip HTML tags (like <br>), normalize whitespace
     return subtitleMatch[1]

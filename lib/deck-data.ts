@@ -9,8 +9,8 @@ import { Deck } from '@/components/LearnCard'
 export const decks: Deck[] = [
   {
     id: '20260130-amplifier-sdk',
-    title: 'Building on Amplifier Just Got a Whole Lot Easier | Amplifier Blog',
-    description: 'Announcing the Amplifier SDK - TypeScript and Python client libraries that make building applications on top of Amplifier',
+    title: 'Amplifier SDK - Building Just Got Easier',
+    description: 'Building on Amplifier just got a whole lot easier. TypeScript & Python.',
     category: 'platform',
     href: '/stories/decks/20260130-amplifier-sdk.html',
   },
@@ -38,7 +38,7 @@ export const decks: Deck[] = [
   {
     id: 'amplifier-forge-deck',
     title: 'Amplifier Forge - Deep Dive',
-    description: '',
+    description: 'Two parallel tracks: restoration of what works and evolution toward what\'s next.',
     category: 'platform',
     href: '/stories/decks/amplifier-forge-deck.html',
   },
@@ -66,14 +66,14 @@ export const decks: Deck[] = [
   {
     id: 'amplifier-swarm-deck',
     title: 'Amplifier Swarm',
-    description: '',
+    description: 'Parallel task execution system with real-time monitoring and control',
     category: 'platform',
     href: '/stories/decks/amplifier-swarm-deck.html',
   },
   {
     id: 'amplifier-tui-showcase',
     title: 'Amplifier TUI - Showcase',
-    description: '',
+    description: 'A terminal interface that makes AI agent work visible, navigable, and beautiful.',
     category: 'showcase',
     href: '/stories/decks/amplifier-tui-showcase.html',
   },
@@ -136,8 +136,8 @@ export const decks: Deck[] = [
   {
     id: 'bundle-orchestration-deck',
     title: 'Bundle Orchestration - Deep Dive',
-    description: '',
-    category: 'platform',
+    description: 'wilMM—a personal demo of Amplifier\'s multi-bundle composition capabilities.',
+    category: 'showcase',
     href: '/stories/decks/bundle-orchestration-deck.html',
   },
   {
@@ -150,7 +150,7 @@ export const decks: Deck[] = [
   {
     id: 'cli-quality-collaboration',
     title: 'CLI Quality & Collaborative Debugging | Diego & Samuel',
-    description: '',
+    description: 'How Diego & Samuel used Amplifier to identify, debug, review, and fix CLI issues — improving the entire stack',
     category: 'platform',
     href: '/stories/decks/cli-quality-collaboration.html',
   },
@@ -164,14 +164,14 @@ export const decks: Deck[] = [
   {
     id: 'cortex-amplifier-presentation',
     title: 'Cortex · Built with Amplifier',
-    description: '',
+    description: 'A personal AI platform that protects your attention, learns your preferences, and amplifies your capabilities.',
     category: 'enterprise',
     href: '/stories/decks/cortex-amplifier-presentation.html',
   },
   {
     id: 'cost-optimization-deck',
     title: 'Amplifier Cost Optimization',
-    description: 'These optimizations shipped in one week',
+    description: 'Prompt caching, per-step model selection, and loop architecture. Real optimizations with measurable impact.',
     category: 'devex',
     href: '/stories/decks/cost-optimization-deck.html',
   },
@@ -192,8 +192,8 @@ export const decks: Deck[] = [
   {
     id: 'design-intelligence-enhanced-deck',
     title: 'Design Intelligence Enhanced - Deep Dive',
-    description: '',
-    category: 'platform',
+    description: 'AI-augmented design research that asks "what is the user\'s brain doing?" instead of "what category is this?"',
+    category: 'intro',
     href: '/stories/decks/design-intelligence-enhanced-deck.html',
   },
   {
@@ -213,14 +213,14 @@ export const decks: Deck[] = [
   {
     id: 'distributed-ai-network-deck',
     title: 'Building a Distributed AI Network While Gaming',
-    description: '',
+    description: 'While Gaming with My Kids',
     category: 'platform',
     href: '/stories/decks/distributed-ai-network-deck.html',
   },
   {
     id: 'distributed-amplifier-network-gaming',
     title: 'Building a Distributed AI Network While Gaming',
-    description: '',
+    description: 'While Gaming with My Kids',
     category: 'platform',
     href: '/stories/decks/distributed-amplifier-network-gaming.html',
   },
@@ -241,7 +241,7 @@ export const decks: Deck[] = [
   {
     id: 'exo-protocol-deck',
     title: 'EXO Protocol - Deep Dive',
-    description: '',
+    description: 'Expressed Ownership—reclaiming human expression in the age of AI.',
     category: 'platform',
     href: '/stories/decks/exo-protocol-deck.html',
   },
@@ -290,7 +290,7 @@ export const decks: Deck[] = [
   {
     id: 'm365-collaboration-journey',
     title: 'Building M365 Multi-Agent Collaboration | Diego Colombo',
-    description: '',
+    description: 'From vision to working system — with Amplifier as my co-developer',
     category: 'enterprise',
     href: '/stories/decks/m365-collaboration-journey.html',
   },
@@ -311,7 +311,7 @@ export const decks: Deck[] = [
   {
     id: 'marathon-session-deck',
     title: 'The Marathon Session',
-    description: '',
+    description: 'How an Amplifier session built an entire TUI application autonomously',
     category: 'platform',
     href: '/stories/decks/marathon-session-deck.html',
   },
@@ -360,7 +360,7 @@ export const decks: Deck[] = [
   {
     id: 'runtime-sdk-tui-journey',
     title: 'Runtime SDK & TUI | Building IDE Integration for Amplifier',
-    description: '',
+    description: 'Building IDE integration for Amplifier: ACP protocol, multiple transports, and a terminal interface — with AI-assisted visual testing',
     category: 'platform',
     href: '/stories/decks/runtime-sdk-tui-journey.html',
   },
@@ -437,7 +437,7 @@ export const decks: Deck[] = [
   {
     id: 'superpowers-deck',
     title: 'Amplifier + Superpowers',
-    description: '',
+    description: 'Structurally enforced disciplined development for AI coding agents',
     category: 'devex',
     href: '/stories/decks/superpowers-deck.html',
   },
@@ -451,7 +451,7 @@ export const decks: Deck[] = [
   {
     id: 'tui-tester-innovation-story',
     title: 'The TUI Tester Story | When You Can\'t See, You Can\'t Fix',
-    description: '',
+    description: 'How frustration with TUI debugging led to creating a bundle that enables Amplifier to see terminal interfaces — and fix its own TUI client.',
     category: 'showcase',
     href: '/stories/decks/tui-tester-innovation-story.html',
   },
@@ -479,10 +479,10 @@ export const decks: Deck[] = [
   {
     id: 'withamplifier-site-deck',
     title: 'withamplifier.com - Deep Dive',
-    description: '',
+    description: 'Not just a website—the communication layer for everything we do with Amplifier.',
     category: 'platform',
     href: '/stories/decks/withamplifier-site-deck.html',
   }
 ]
 
-export const lastSynced = '2026-02-12T18:49:09.237Z'
+export const lastSynced = '2026-02-12T23:17:53.251Z'
