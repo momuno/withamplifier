@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ChladniWebGLTest from '@/components/ChladniWebGLTest'
 import { PARTICLE_SECTIONS } from '@/lib/particle-config'
@@ -65,6 +65,14 @@ function Slider({
 }
 
 export default function ChladniTestPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <ChladniTestContent />
+    </Suspense>
+  )
+}
+
+function ChladniTestContent() {
   const searchParams = useSearchParams()
   
   // Start with the learn-hero defaults
