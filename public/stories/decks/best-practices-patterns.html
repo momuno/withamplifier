@@ -258,7 +258,7 @@
     </div>
 
     <!-- Slide 2: Deliberate Development -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Core Pattern</div>
         <h2 class="medium-headline">Deliberate Development</h2>
         <div class="diagram">
@@ -284,10 +284,10 @@
     </div>
 
     <!-- Slide 3: When to Delegate -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Sub-Agent Strategy</div>
         <h2 class="medium-headline">When to delegate to sub-agents</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">Specialized Tasks</div>
                 <div class="card-text">Bug hunting, security review, architecture design—delegate to agents with specialized context.</div>
@@ -304,10 +304,10 @@
     </div>
 
     <!-- Slide 4: Context Management -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Context Discipline</div>
         <h2 class="medium-headline">Don't load everything yourself</h2>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">✓</span> Use targeted reads—specific files, not entire directories</li>
             <li><span class="check">✓</span> Let sub-agents fetch what they need—don't pre-load</li>
             <li><span class="check">✓</span> Use grep and glob to find before reading</li>
@@ -317,10 +317,10 @@
     </div>
 
     <!-- Slide 5: Recipe Patterns -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Repeatable Workflows</div>
         <h2 class="medium-headline">When to use recipes</h2>
-        <div class="halves" style="text-align: left;">
+        <div class="halves">
             <div class="card">
                 <div class="card-title">Multi-Step Tasks</div>
                 <div class="card-text">Research → Design → Implement → Test? That's a recipe. Sequential agent handoffs with context accumulation.</div>
@@ -341,13 +341,13 @@
     </div>
 
     <!-- Slide 6: Multi-Agent Coordination -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Coordination Patterns</div>
         <h2 class="medium-headline">Multi-agent best practices</h2>
-        <div class="highlight-box" style="text-align: left; max-width: 800px; width: 100%;">
+        <div class="highlight-box">
             <strong>Coordinator + Specialists pattern:</strong> Parent agent coordinates, delegates specific work to specialized sub-agents. Avoids context explosion.
         </div>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">✓</span> Parent tracks high-level plan</li>
             <li><span class="check">✓</span> Sub-agents get minimal, focused context</li>
             <li><span class="check">✓</span> Results flow back up for integration</li>
@@ -356,10 +356,10 @@
     </div>
 
     <!-- Slide 7: Testing Strategy -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Safe Experimentation</div>
         <h2 class="medium-headline">Shadow environments for testing</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">Test Before Pushing</div>
                 <div class="card-text">Shadow environments let you test local changes in isolation. No polluted environments.</div>
@@ -376,10 +376,10 @@
     </div>
 
     <!-- Slide 8: Anti-Patterns -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">What NOT To Do</div>
         <h2 class="medium-headline">Common mistakes</h2>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">✗</span> <strong>Over-planning</strong> — Don't spec for 3 hours, code for 10 minutes</li>
             <li><span class="check">✗</span> <strong>Insufficient delegation</strong> — Trying to do everything yourself</li>
             <li><span class="check">✗</span> <strong>Ignoring errors</strong> — "Let's move on" when tools fail</li>
@@ -403,7 +403,7 @@
     <!-- Navigation -->
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
-    <a href="/learn" class="more-stories">Back to Learn</a>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');

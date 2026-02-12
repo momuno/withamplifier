@@ -9,8 +9,8 @@ import { Deck } from '@/components/LearnCard'
 export const decks: Deck[] = [
   {
     id: '20260130-amplifier-sdk',
-    title: 'Amplifier SDK - Building Just Got Easier',
-    description: 'Building on Amplifier just got a whole lot easier. TypeScript & Python.',
+    title: 'Building on Amplifier Just Got a Whole Lot Easier | Amplifier Blog',
+    description: 'Announcing the Amplifier SDK - TypeScript and Python client libraries that make building applications on top of Amplifier',
     category: 'platform',
     href: '/stories/decks/20260130-amplifier-sdk.html',
   },
@@ -260,6 +260,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/getting-started-guide.html',
   },
   {
+    id: 'getting-started',
+    title: 'Getting Started',
+    description: 'New to Amplifier? Start here. Learn the basics, understand the concepts, and get productive quickly.',
+    category: 'intro',
+    href: '/stories/decks/getting-started.html',
+  },
+  {
     id: 'github-actions-tool-deck',
     title: 'GitHub Actions Tool',
     description: 'CI/CD integration for AI agents. Turn agents into DevOps partners.',
@@ -429,9 +436,9 @@ export const decks: Deck[] = [
   },
   {
     id: 'superpowers-deck',
-    title: 'Superpowers Bundle - TDD-Driven Development for Amplifier',
-    description: 'TDD-driven development workflow for Amplifier. Import and adapt, never duplicate.',
-    category: 'platform',
+    title: 'Amplifier + Superpowers',
+    description: '',
+    category: 'devex',
     href: '/stories/decks/superpowers-deck.html',
   },
   {
@@ -478,4 +485,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-12T17:03:40.848Z'
+export const lastSynced = '2026-02-12T18:49:09.237Z'

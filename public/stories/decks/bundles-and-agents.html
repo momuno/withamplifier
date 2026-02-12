@@ -272,13 +272,13 @@
     </div>
 
     <!-- Slide 2: What is a Bundle? -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Bundles</div>
         <h2 class="medium-headline">Composable configuration packages</h2>
-        <div class="highlight-box" style="text-align: left; max-width: 800px; width: 100%;">
+        <div class="highlight-box">
             A bundle combines <strong>modules</strong> (providers, tools, hooks), <strong>context files</strong> (instructions, knowledge), and <strong>agent definitions</strong> into a reusable package.
         </div>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">→</span> Configuration, not code</li>
             <li><span class="check">→</span> Markdown + YAML frontmatter format</li>
             <li><span class="check">→</span> Can include other bundles</li>
@@ -287,10 +287,10 @@
     </div>
 
     <!-- Slide 3: The Thin Bundle Pattern -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Design Principle</div>
         <h2 class="medium-headline">Bundles compose, they don't implement</h2>
-        <div class="halves" style="text-align: left;">
+        <div class="halves">
             <div class="card">
                 <div class="card-title">✓ Good Bundle</div>
                 <div class="card-text">Includes foundation bundle, adds context files, defines agent personas. Pure composition.</div>
@@ -306,10 +306,10 @@
     </div>
 
     <!-- Slide 4: Bundle Structure -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Anatomy</div>
         <h2 class="medium-headline">What's inside a bundle?</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment">--- YAML frontmatter ---</span>
+        <div class="code-block"><span class="code-comment">--- YAML frontmatter ---</span>
 bundle:
   name: my-bundle
   version: 1.0.0
@@ -326,13 +326,13 @@ includes:
     </div>
 
     <!-- Slide 5: What is an Agent? -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Agents</div>
         <h2 class="medium-headline">Agents use bundle format</h2>
-        <div class="highlight-box" style="text-align: left; max-width: 800px; width: 100%;">
+        <div class="highlight-box">
             <strong>Key insight:</strong> Agents use the same file format (markdown + YAML) as bundles but are <strong>configuration overlays</strong> for specialized personas. Frontmatter uses <code>meta:</code> instead of <code>bundle:</code>
         </div>
-        <div class="code-block" style="text-align: left;"><span class="code-comment">--- Agent definition ---</span>
+        <div class="code-block"><span class="code-comment">--- Agent definition ---</span>
 meta:
   name: zen-architect
   description: Code planning and architecture specialist
@@ -343,7 +343,7 @@ You embody ruthless simplicity...</div>
     </div>
 
     <!-- Slide 6: How Agents Work -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Agent Mechanics</div>
         <h2 class="medium-headline">Session spawning</h2>
         <div class="diagram">
@@ -368,10 +368,10 @@ You embody ruthless simplicity...</div>
     </div>
 
     <!-- Slide 7: Foundation Bundles -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Examples</div>
         <h2 class="medium-headline">Foundation agent library</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">zen-architect</div>
                 <div class="card-text">Analysis-first development. Design before implementation. Reviews code quality.</div>
@@ -400,10 +400,10 @@ You embody ruthless simplicity...</div>
     </div>
 
     <!-- Slide 8: Creating Your Own -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Building Bundles</div>
         <h2 class="medium-headline">Bundle structure on disk</h2>
-        <div class="code-block" style="text-align: left;">my-bundle/
+        <div class="code-block">my-bundle/
 ├── bundle.md           <span class="code-comment"># Main bundle definition</span>
 ├── context/            <span class="code-comment"># Context files</span>
 │   ├── instructions.md
@@ -419,10 +419,10 @@ You embody ruthless simplicity...</div>
     </div>
 
     <!-- Slide 9: Example Bundle -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Real Example</div>
         <h2 class="medium-headline">A complete bundle</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment">--- code-review-bundle/bundle.md ---</span>
+        <div class="code-block"><span class="code-comment">--- code-review-bundle/bundle.md ---</span>
 bundle:
   name: code-review
   version: 1.0.0
@@ -455,7 +455,7 @@ includes:
     <!-- Navigation -->
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
-    <a href="/learn" class="more-stories">Back to Learn</a>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');

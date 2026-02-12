@@ -233,10 +233,10 @@
     </div>
 
     <!-- Slide 2: Prerequisites -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Before You Start</div>
         <h2 class="medium-headline">What you'll need</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">Python 3.11+</div>
                 <div class="card-text">Modern Python required. Check with <code>python --version</code></div>
@@ -253,10 +253,10 @@
     </div>
 
     <!-- Slide 3: Install -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Step 1: Install</div>
         <h2 class="medium-headline">Two simple commands</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># Install UV (Python package manager)</span>
+        <div class="code-block"><span class="code-comment"># Install UV (Python package manager)</span>
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 <span class="code-comment"># Install Amplifier</span>
@@ -267,10 +267,10 @@ uv tool install git+https://github.com/microsoft/amplifier</div>
     </div>
 
     <!-- Slide 4: Configure -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Step 2: Configure</div>
         <h2 class="medium-headline">Set up your AI provider</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># Interactive setup wizard</span>
+        <div class="code-block"><span class="code-comment"># Interactive setup wizard</span>
 amplifier init
 
 <span class="code-comment"># Follow prompts to:</span>
@@ -283,10 +283,10 @@ amplifier init
     </div>
 
     <!-- Slide 5: First Session -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Step 3: Start Chatting</div>
         <h2 class="medium-headline">Launch your first session</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># Start interactive session</span>
+        <div class="code-block"><span class="code-comment"># Start interactive session</span>
 amplifier
 
 <span class="code-comment"># You'll see the prompt:</span>
@@ -302,10 +302,10 @@ amplifier
     </div>
 
     <!-- Slide 6: Essential Commands -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Essential Commands</div>
         <h2 class="medium-headline">What you need to know</h2>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">/</span> <code>/help</code> — Show available commands</li>
             <li><span class="check">/</span> <code>/tools</code> — List available tools</li>
             <li><span class="check">/</span> <code>/agents</code> — Show available agents</li>
@@ -318,10 +318,10 @@ amplifier
     </div>
 
     <!-- Slide 7: Your First Task -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Try This</div>
         <h2 class="medium-headline">Your first productive task</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># Example: Analyze a file</span>
+        <div class="code-block"><span class="code-comment"># Example: Analyze a file</span>
 > Read the README.md file and summarize the key points
 
 <span class="code-comment"># Example: Create something</span>
@@ -336,10 +336,10 @@ amplifier
     </div>
 
     <!-- Slide 8: Common Questions -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">FAQ</div>
         <h2 class="medium-headline">Common first questions</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">How do I switch providers?</div>
                 <div class="card-text">Edit <code>~/.amplifier/settings.yaml</code> or run <code>amplifier init</code> again</div>
@@ -382,7 +382,7 @@ amplifier
     <!-- Navigation -->
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
-    <a href="/learn" class="more-stories">Back to Learn</a>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');

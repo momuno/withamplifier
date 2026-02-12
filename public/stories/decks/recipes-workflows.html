@@ -265,10 +265,10 @@
     </div>
 
     <!-- Slide 2: What Recipes Solve -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">The Problem</div>
         <h2 class="medium-headline">Why recipes exist</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">Multi-Step Tasks</div>
                 <div class="card-text">Complex workflows involve multiple agents in sequence. Orchestrating them manually is error-prone.</div>
@@ -285,10 +285,10 @@
     </div>
 
     <!-- Slide 3: When to Use -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Use Cases</div>
         <h2 class="medium-headline">Perfect for</h2>
-        <ul class="feature-list" style="text-align: left; max-width: 800px; width: 100%;">
+        <ul class="feature-list">
             <li><span class="check">✓</span> Multi-step tasks requiring different agents sequentially</li>
             <li><span class="check">✓</span> Workflows that will be repeated (worth encoding as YAML)</li>
             <li><span class="check">✓</span> Human approval checkpoints between phases</li>
@@ -301,10 +301,10 @@
     </div>
 
     <!-- Slide 4: Recipe Structure -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Anatomy</div>
         <h2 class="medium-headline">YAML workflow definition</h2>
-        <div class="code-block" style="text-align: left;">name: code-review-workflow
+        <div class="code-block">name: code-review-workflow
 description: Review and deploy code changes
 
 steps:
@@ -333,10 +333,10 @@ stages:
     </div>
 
     <!-- Slide 5: Key Features -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Capabilities</div>
         <h2 class="medium-headline">What you get</h2>
-        <div class="thirds" style="text-align: left;">
+        <div class="thirds">
             <div class="card">
                 <div class="card-title">Context Accumulation</div>
                 <div class="card-text">Use <code>output</code> field to create named variables (e.g., <code>output: analysis</code>) then reference directly: <code>{{analysis}}</code></div>
@@ -365,7 +365,7 @@ stages:
     </div>
 
     <!-- Slide 6: Approval Gates -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Human-in-Loop</div>
         <h2 class="medium-headline">Approval checkpoints</h2>
         <div class="diagram">
@@ -391,10 +391,10 @@ stages:
     </div>
 
     <!-- Slide 7: Resumability -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Fault Tolerance</div>
         <h2 class="medium-headline">Resume where you left off</h2>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># Recipe interrupted at step 3? No problem.</span>
+        <div class="code-block"><span class="code-comment"># Recipe interrupted at step 3? No problem.</span>
 amplifier run "resume recipe session recipe_20260121_abc123"
 
 <span class="code-comment"># Or via in-session command:</span>
@@ -409,10 +409,10 @@ amplifier run "resume recipe session recipe_20260121_abc123"
     </div>
 
     <!-- Slide 8: Example Recipe -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Real Example</div>
         <h2 class="medium-headline">Feature announcement workflow</h2>
-        <div class="code-block" style="text-align: left;">steps:
+        <div class="code-block">steps:
   - id: research
     agent: foundation:explorer
     model: claude-haiku  <span class="code-comment"># Fast & cheap</span>
@@ -433,13 +433,13 @@ amplifier run "resume recipe session recipe_20260121_abc123"
     </div>
 
     <!-- Slide 9: Creating Recipes -->
-    <div class="slide center">
+    <div class="slide">
         <div class="section-label">Authoring</div>
         <h2 class="medium-headline">Don't write YAML directly</h2>
-        <div class="highlight-box" style="text-align: left; max-width: 800px; width: 100%;">
+        <div class="highlight-box">
             <strong>Use the recipe-author agent.</strong> It knows the complete schema, asks clarifying questions, and helps design the workflow conversationally.
         </div>
-        <div class="code-block" style="text-align: left;"><span class="code-comment"># In Amplifier session:</span>
+        <div class="code-block"><span class="code-comment"># In Amplifier session:</span>
 > Use recipe-author to create a recipe that:
   1. Analyzes recent commits
   2. Generates release notes
@@ -464,7 +464,7 @@ amplifier run "resume recipe session recipe_20260121_abc123"
     <!-- Navigation -->
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
-    <a href="/learn" class="more-stories">Back to Learn</a>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');
