@@ -48,7 +48,7 @@ export default function Home() {
         
         <div className="text-center container-default relative z-10">
           <h1 className="reveal text-display-xl text-ink font-heading px-2">
-            AI From<br />Composable Pieces
+            Build AI Your Way<br />With Amplifier
           </h1>
           
           <p className="reveal mt-6 md:mt-8 text-body-large text-ink max-w-2xl mx-auto px-4" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
@@ -62,10 +62,10 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          SECTION 2: THE PROBLEM - Why this matters
+          SECTION 2: THE PROBLEM - Trapped in black boxes
           Scroll-captured cinematic experience
           ============================================ */}
-      {/* BlackBoxSection removed per Salil feedback - "Amplifier is a black box in its own right" */}
+      <BlackBoxSection />
 
       {/* ============================================
           SECTION 3: DIFFERENTIATION - The Answer / Breaking Free
@@ -76,10 +76,10 @@ export default function Home() {
         <div className="container-default">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="reveal text-headline text-ink">
-              See everything. Change anything.
+              Amplifier is open by design.
             </h2>
             <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-              Every tool call is logged. Every decision is traceable. Swap models mid-session, add new tools on the fly, and evolve your setup as fast as AI&nbsp;does.
+              Most AI tools hide how they work. Amplifier shows you everything. Inspect any component, swap any piece, own the whole&nbsp;stack.
             </p>
           </div>
           
@@ -122,7 +122,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-ink mb-2">Own your setup</h3>
               <p className="text-ink-slate text-sm leading-relaxed">
-                Your setup lives in plain text files you can read, version, and share. No vendor lock-in. Yours to keep.
+                Your agent is a file you can read, version, and share. Not a subscription. Not a black box. Yours.
               </p>
             </div>
           </div>
@@ -240,10 +240,10 @@ export default function Home() {
             <div className="lg:w-[32%] xl:w-[28%] lg:flex-shrink-0 lg:order-1">
               <div className="max-w-lg lg:max-w-none text-center lg:text-left">
                 <h2 className="reveal text-headline text-ink">
-                  Watch it work.
+                  See how it works.
                 </h2>
                 <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-                  Run one command and see the full flow. Which tools it uses, what decisions it makes, why it chose that approach. When something breaks, you know exactly where and&nbsp;why.
+                  Run one command and watch the entire flow. Every tool call is logged. Every decision is explained. You're not looking at a black box that gives you answers - you're watching a transparent system that shows you how it&nbsp;thinks.
                 </p>
                 
                 <div className="reveal mt-6 space-y-3" style={{transitionDelay: '0.2s'}}>
@@ -311,7 +311,7 @@ $ amplifier provider use openai  # Switch to GPT-4
       </section>
 
       {/* ============================================
-          SECTION 6: WORKFLOW AS CODE - Plain text configuration
+          SECTION 6: THE BUNDLE PATTERN - One file, compounding benefits
           Light - clean, elegant, simple beauty
           ============================================ */}
       <section data-section="bundles" data-theme="light" className="section-feature section-light-glow">
@@ -321,10 +321,10 @@ $ amplifier provider use openai  # Switch to GPT-4
             <div className="lg:w-[35%] xl:w-[32%] lg:flex-shrink-0">
               <div className="max-w-lg lg:max-w-none">
                 <h2 className="reveal text-headline text-ink">
-                  Your setup in plain text.
+                  Capture your workflow as code.
                 </h2>
                 <p className="reveal mt-4 text-body-large text-ink-slate" style={{transitionDelay: '0.1s', textWrap: 'balance'}}>
-                  Define which models to use, which tools to enable, and how they work together—all in a simple markdown file. Version it with git. Share it with your team. Fork someone else's and make it&nbsp;yours.
+                  A bundle is your entire setup in plain text. The providers you trust, the tools you need, the behaviors you've refined. As you work, you adapt it. As you share it, others adapt theirs. The more you use it, the more it becomes&nbsp;yours.
                 </p>
               </div>
             </div>
@@ -365,7 +365,7 @@ You review code for vulnerabilities.
                   </div>
                 </div>
                 <p className="mt-4 text-center lg:text-left text-ink-fog text-sm">
-                  42 lines. That's the entire setup.
+                  42 lines. That's the entire agent.
                 </p>
               </div>
             </div>
@@ -458,8 +458,8 @@ You review code for vulnerabilities.
             >
               Quick Start Guide
             </a>
-            <Link href="/learn" className="btn-apple-secondary w-full sm:w-auto">
-              See the Showcase
+            <Link href="/stories" className="btn-apple-secondary w-full sm:w-auto">
+              See the Stories
             </Link>
           </div>
           

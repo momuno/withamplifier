@@ -100,16 +100,16 @@ export const PARTICLE_SECTIONS: Record<string, ParticlePattern> = {
     label: 'CTA - Ready To Build',
   },
   'learn-hero': {
-    n: 2,
-    m: 4,
-    strength: 0.25,
-    color: '#A8A8A8', // Neutral light gray - very subtle
-    opacity: 0.12, // Reduced for less intensity
-    particleSize: 1.2,
+    n: 3,
+    m: 12,
+    strength: 0.1,
+    color: '#8f8f8f',
+    opacity: 0.6,
+    particleSize: 0.5,
     transitionDuration: 0,
     transitionEasing: 'ease-in-out',
     prominence: 'subtle',
-    label: 'Learn - Educational',
+    label: 'Stories - Flowing Pattern',
   },
 }
 

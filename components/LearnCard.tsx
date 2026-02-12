@@ -22,7 +22,7 @@ export interface Deck {
 }
 
 const categoryLabels: Record<DeckCategory, string> = {
-  intro: 'Getting Started',
+  intro: 'Introduction',
   showcase: 'Showcase',
   platform: 'Platform',
   tool: 'Tools',

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate deck metadata from HTML files in public/learn/decks/
+ * Generate deck metadata from HTML files in public/stories/decks/
  * 
  * Features:
  * - Extracts title, description, category from HTML
@@ -15,7 +15,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const DECKS_DIR = path.join(__dirname, '../public/learn/decks')
+const DECKS_DIR = path.join(__dirname, '../public/stories/decks')
 const OUTPUT_FILE = path.join(__dirname, '../lib/deck-data.ts')
 const OVERRIDES_FILE = path.join(__dirname, '../lib/deck-overrides.json')
 const HISTORY_FILE = path.join(__dirname, '../lib/deck-history.json')
@@ -27,7 +27,7 @@ const EXCLUDED_FILES = [
   'devex.html',
   'enterprise.html',
   'features.html',
-  'getting-started.html',
+  'learn.html',
   'showcase.html',
   'tools.html'
 ]
@@ -198,7 +198,7 @@ function parseDecks() {
       title,
       description,
       category,
-      href: `/learn/decks/${file}`,
+      href: `/stories/decks/${file}`,
       isNew,
     })
   }

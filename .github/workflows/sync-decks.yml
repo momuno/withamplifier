@@ -32,7 +32,7 @@ jobs:
           for file in amplifier-stories/docs/*.html; do
             filename=$(basename "$file")
             if [ "$filename" != "index.html" ]; then
-              cp "$file" public/learn/decks/
+              cp "$file" public/stories/decks/
               echo "Synced: $filename"
             fi
           done
@@ -40,7 +40,7 @@ jobs:
       - name: Remove deleted decks (not in source)
         run: |
           echo "=== Checking for deleted decks ==="
-          for file in public/learn/decks/*.html; do
+          for file in public/stories/decks/*.html; do
             filename=$(basename "$file")
             # Skip index.html and other non-deck files
             if [ "$filename" = "index.html" ]; then
@@ -56,7 +56,7 @@ jobs:
       - name: Transform decks for withamplifier
         run: |
           echo "=== Transforming decks ==="
-          cd public/learn/decks
+          cd public/stories/decks
           for file in *.html; do
             # Skip index.html
             if [ "$file" = "index.html" ]; then
@@ -73,12 +73,12 @@ jobs:
             sed -i 's|</head>|    <link rel="stylesheet" href="shared-variables.css">\n    <link rel="stylesheet" href="withamplifier-overrides.css">\n</head>|' "$file"
             
             # Fix back links from index.html to /learn
-            sed -i 's|href="index.html"|href="/learn"|g' "$file"
+            sed -i 's|href="index.html"|href="/stories"|g' "$file"
             
             # Inject "More Amplifier Stories" link if missing
             if ! grep -q 'class="more-stories"' "$file" 2>/dev/null; then
               # Insert before the first <script> tag
-              sed -i 's|<script>|    <a href="/learn" class="more-stories">More Amplifier Stories</a>\n\n    <script>|' "$file"
+              sed -i 's|<script>|    <a href="/stories" class="more-stories">More Amplifier Stories</a>\n\n    <script>|' "$file"
               echo "  + Added 'More Stories' link"
             fi
             

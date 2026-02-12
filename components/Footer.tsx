@@ -2,93 +2,36 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-canvas-mist mt-32 relative z-10">
+    <footer className="border-t border-canvas-mist relative z-10" style={{ backgroundColor: '#ffffffc4' }}>
       <div className="max-w-wide mx-auto px-6 md:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div>
             <Link href="/" className="text-ink font-semibold tracking-tight">
               Amplifier
             </Link>
-            <p className="mt-4 text-ink-fog text-sm leading-relaxed">
+            <p className="mt-2 text-ink-fog text-sm">
               Build AI Your Way.
             </p>
           </div>
 
-          {/* Learn */}
-          <div>
-            <h4 className="text-micro font-medium text-ink-fog uppercase tracking-wider mb-4">
+          {/* Links */}
+          <nav className="flex flex-col gap-3">
+            <Link href="/learn" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
               Learn
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/learn" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  How it works
-                </Link>
-              </li>
-              <li>
-                <Link href="https://github.com/microsoft/amplifier" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="/updates" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Updates
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* GitHub / Open Source */}
-          <div>
-            <h4 className="text-micro font-medium text-ink-fog uppercase tracking-wider mb-4">
-              Open Source
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="https://github.com/microsoft/amplifier" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  GitHub
-                </Link>
-              </li>
-              <li>
-                <Link href="https://github.com/microsoft/amplifier/blob/main/CONTRIBUTING.md" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Contributing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Community */}
-          <div>
-            <h4 className="text-micro font-medium text-ink-fog uppercase tracking-wider mb-4">
-              Community
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="https://github.com/microsoft/amplifier/discussions" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Discussions
-                </Link>
-              </li>
-              <li>
-                <Link href="https://github.com/microsoft/amplifier/issues" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Report an issue
-                </Link>
-              </li>
-              <li>
-                <Link href="/support" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
-                  Get help
-                </Link>
-              </li>
-            </ul>
-          </div>
+            </Link>
+            <Link href="/stories" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
+              Stories
+            </Link>
+            <Link href="https://github.com/microsoft/amplifier" className="text-ink-slate text-sm hover:text-ink transition-colors duration-200">
+              GitHub
+            </Link>
+          </nav>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-canvas-mist flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-12 pt-6 border-t border-canvas-mist text-center">
           <p className="text-micro text-ink-fog">
-            Microsoft Research · Open Source
-          </p>
-          <p className="text-micro text-ink-fog">
-            Built with Amplifier
+            Built with Amplifier &middot; Open Source
           </p>
         </div>
       </div>

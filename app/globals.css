@@ -32,11 +32,11 @@
   --ink-subtle: #9a9a9a;      /* Warmer quaternary */
   
   /* Signal - Warmer purple accent */
-  --signal: #6366F1;          /* Indigo - warmer than pure purple */
-  --signal-light: #818CF8;
-  --signal-dark: #4F46E5;
-  --signal-soft: rgba(99, 102, 241, 0.06);
-  --signal-glow: rgba(99, 102, 241, 0.15);
+  --signal: #5B4DE3;          /* Signal purple - unified with tailwind config + deck overrides */
+  --signal-light: #7B6FF0;
+  --signal-dark: #4338B8;
+  --signal-soft: rgba(91, 77, 227, 0.06);
+  --signal-glow: rgba(91, 77, 227, 0.15);
   
   /* Gradient colors - Gemini-style energy */
   --gradient-start: rgba(99, 102, 241, 0.12);   /* Sharp leading edge */

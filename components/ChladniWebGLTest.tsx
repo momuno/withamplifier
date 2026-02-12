@@ -12,8 +12,16 @@ interface PatternParams {
   particleSize: number
 }
 
+interface TuningParams {
+  damping?: number        // 0.85-0.99, default 0.95 - lower = more floaty motion
+  jitterStrength?: number // 0.0001-0.005, default 0.0003 - higher = softer patterns
+  lerpSpeed?: number      // 0.005-0.1, default 0.02 - transition smoothness
+  particleCount?: number  // 10000-100000, default 50000 desktop / 20000 mobile
+}
+
 interface ChladniWebGLTestProps {
   params: PatternParams
+  tuning?: TuningParams
 }
 
 function chladniValue(x: number, y: number, n: number, m: number): number {
@@ -22,7 +30,7 @@ function chladniValue(x: number, y: number, n: number, m: number): number {
          Math.cos(m * PI * x) * Math.cos(n * PI * y)
 }
 
-export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
+export default function ChladniWebGLTest({ params, tuning = {} }: ChladniWebGLTestProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<THREE.Scene | null>(null)
   const cameraRef = useRef<THREE.OrthographicCamera | null>(null)
@@ -31,8 +39,9 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
   const materialRef = useRef<THREE.PointsMaterial | null>(null)
   const animationFrameRef = useRef<number | null>(null)
   
-  // Use ref to store current params so animation loop always sees latest values
+  // Use refs to store current params so animation loop always sees latest values
   const paramsRef = useRef<PatternParams>(params)
+  const tuningRef = useRef<TuningParams>(tuning)
 
   const initScene = () => {
     if (!containerRef.current) return
@@ -65,7 +74,8 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
 
     // Particles - significantly increased for better density
     const isMobile = width < 768
-    const particleCount = isMobile ? 20000 : 50000
+    const defaultCount = isMobile ? 20000 : 50000
+    const particleCount = tuning.particleCount ?? defaultCount
     console.log('[ChladniWebGLTest] Creating', particleCount, 'particles')
 
     const geometry = new THREE.BufferGeometry()
@@ -118,14 +128,15 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     const velocities = geometry.attributes.velocity.array as Float32Array
 
     // Smooth interpolation (lerp) between current and target params
-    const lerpSpeed = 0.02 // Slow, pulsing transition
+    const currentTuning = tuningRef.current
+    const lerpSpeed = currentTuning.lerpSpeed ?? 0.02 // Slow, pulsing transition
     currentNRef.current += (targetParamsRef.current.n - currentNRef.current) * lerpSpeed
     currentMRef.current += (targetParamsRef.current.m - currentMRef.current) * lerpSpeed
 
     const { strength } = targetParamsRef.current
     const n = currentNRef.current
     const m = currentMRef.current
-    const damping = 0.95
+    const damping = currentTuning.damping ?? 0.95 // Lower = more floaty motion
 
     for (let i = 0; i < positions.length; i += 3) {
       const x = positions[i]
@@ -137,10 +148,10 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
       const dx = x === 0 ? 0 : (x > 0 ? 1 : -1)
       const dy = y === 0 ? 0 : (y > 0 ? 1 : -1)
 
-      // Add subtle jitter to prevent harsh lines
-      const jitterStrength = 0.0003
-      const jitterX = (Math.random() - 0.5) * jitterStrength
-      const jitterY = (Math.random() - 0.5) * jitterStrength
+      // Add subtle jitter to prevent harsh lines (higher = softer patterns)
+      const jitterAmount = currentTuning.jitterStrength ?? 0.0003
+      const jitterX = (Math.random() - 0.5) * jitterAmount
+      const jitterY = (Math.random() - 0.5) * jitterAmount
 
       velocities[i] += force * dx + jitterX
       velocities[i + 1] += force * dy + jitterY
@@ -211,6 +222,11 @@ export default function ChladniWebGLTest({ params }: ChladniWebGLTestProps) {
     materialRef.current.size = params.particleSize
     materialRef.current.needsUpdate = true
   }, [params])
+
+  // Update tuning ref when tuning props change (for real-time slider adjustments)
+  useEffect(() => {
+    tuningRef.current = tuning
+  }, [tuning])
 
   return (
     <div 

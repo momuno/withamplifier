@@ -14,7 +14,7 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
-const DECKS_DIR = path.join(__dirname, '../public/learn/decks')
+const DECKS_DIR = path.join(__dirname, '../public/stories/decks')
 const HISTORY_FILE = path.join(__dirname, '../lib/deck-history.json')
 
 // Files to exclude (category index pages, not presentation decks)
@@ -24,7 +24,7 @@ const EXCLUDED_FILES = [
   'devex.html',
   'enterprise.html',
   'features.html',
-  'getting-started.html',
+  'learn.html',
   'showcase.html',
   'tools.html'
 ]
