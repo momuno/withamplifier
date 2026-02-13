@@ -428,6 +428,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/runtime-sdk-tui-journey.html',
   },
   {
+    id: 'rust-code-intel-deck',
+    title: 'From Reading Code to Understanding It — Amplifier Gets Full Language Intelligence',
+    description: 'Amplifier gets full language intelligence. 17 LSP operations. First-class Rust support. Zero external dependencies.',
+    category: 'platform',
+    href: '/stories/decks/rust-code-intel-deck.html',
+  },
+  {
     id: 'self-improving-amplifier-deck',
     title: 'Self-Improving Amplifier — An AI That Builds What It Needs',
     description: 'An AI That Builds What It Needs',
@@ -562,4 +569,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-13T04:08:47.082Z'
+export const lastSynced = '2026-02-13T05:06:04.633Z'
