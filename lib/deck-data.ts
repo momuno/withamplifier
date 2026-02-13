@@ -36,6 +36,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-app-benchmarks-story.html',
   },
   {
+    id: 'amplifier-architecture-deck',
+    title: 'Amplifier Ecosystem Architecture',
+    description: 'A Linux kernel-inspired, modular AI agent framework',
+    category: 'platform',
+    href: '/stories/decks/amplifier-architecture-deck.html',
+  },
+  {
     id: 'amplifier-forge-deck',
     title: 'Amplifier Forge - Deep Dive',
     description: 'Two parallel tracks: restoration of what works and evolution toward what\'s next.',
@@ -83,6 +90,13 @@ export const decks: Deck[] = [
     description: 'Computer vision for UI testing and analysis. See interfaces the way humans do.',
     category: 'platform',
     href: '/stories/decks/amplifier-ux-analyzer.html',
+  },
+  {
+    id: 'amplifier-voice-deck',
+    title: 'Amplifier Voice: From Zero to Real-Time AI in Two Weeks',
+    description: 'A WebRTC voice assistant built on Amplifier. Three architectures. 18 commits. One developer.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-voice-deck.html',
   },
   {
     id: 'amplifier-vscode-extension',
@@ -174,6 +188,13 @@ export const decks: Deck[] = [
     description: 'Prompt caching, per-step model selection, and loop architecture. Real optimizations with measurable impact.',
     category: 'devex',
     href: '/stories/decks/cost-optimization-deck.html',
+  },
+  {
+    id: 'cross-session-intelligence-deck',
+    title: 'Cross-Session Intelligence — When Your TUI Remembers Everything',
+    description: 'When Your TUI Remembers Everything',
+    category: 'platform',
+    href: '/stories/decks/cross-session-intelligence-deck.html',
   },
   {
     id: 'database-tool-deck',
@@ -274,6 +295,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/github-actions-tool-deck.html',
   },
   {
+    id: 'kepler-refactor-deck',
+    title: 'The Kepler Refactor — 606 Lines of Dead Code & 104 New Tests',
+    description: '606 lines of dead code removed. 104 new tests added. A disciplined, AI-assisted 5-phase migration.',
+    category: 'platform',
+    href: '/stories/decks/kepler-refactor-deck.html',
+  },
+  {
     id: 'lazy-module-activation-deck',
     title: 'Lazy Module Activation',
     description: 'Just-in-time tool provisioning for spawned agents',
@@ -309,11 +337,25 @@ export const decks: Deck[] = [
     href: '/stories/decks/m365-hackathon-deck.html',
   },
   {
+    id: 'made-support-bundle-deck',
+    title: 'MADE Support Bundle',
+    description: 'Team support intake and automatic status tracking. One command to get help. Zero effort to stay visible.',
+    category: 'platform',
+    href: '/stories/decks/made-support-bundle-deck.html',
+  },
+  {
     id: 'marathon-session-deck',
     title: 'The Marathon Session',
     description: 'How an Amplifier session built an entire TUI application autonomously',
     category: 'platform',
     href: '/stories/decks/marathon-session-deck.html',
+  },
+  {
+    id: 'multi-provider-swarms-deck',
+    title: 'Multi-Provider Agent Swarms — Cross-Validating AI with AI',
+    description: 'Cross-Validating AI with AI',
+    category: 'platform',
+    href: '/stories/decks/multi-provider-swarms-deck.html',
   },
   {
     id: 'nexus-phase-0-story',
@@ -330,11 +372,32 @@ export const decks: Deck[] = [
     href: '/stories/decks/notifications-deck.html',
   },
   {
+    id: 'polyglot-amplifier-deck',
+    title: 'Polyglot Amplifier — From Python to Rust (and Beyond)',
+    description: 'How a language-agnostic LSP architecture turned a Python tool into a polyglot code intelligence platform.',
+    category: 'tool',
+    href: '/stories/decks/polyglot-amplifier-deck.html',
+  },
+  {
     id: 'pr-review-recipes',
     title: 'PR Review Recipes | Amplifier',
     description: 'Automating code quality with deterministic workflows',
     category: 'platform',
     href: '/stories/decks/pr-review-recipes.html',
+  },
+  {
+    id: 'presentation-internet-archive',
+    title: 'Taming the Internet Archive',
+    description: 'How robotdad & Amplifier built production-scale download infrastructure for 2.3 million historical documents',
+    category: 'platform',
+    href: '/stories/decks/presentation-internet-archive.html',
+  },
+  {
+    id: 'presentation-ocr-rust-performance',
+    title: '590 Million Corrections in 7 Hours: OCR Cleanup at Scale with Rust',
+    description: 'OCR Cleanup at Scale with Rust',
+    category: 'platform',
+    href: '/stories/decks/presentation-ocr-rust-performance.html',
   },
   {
     id: 'recipe-efficiency-week',
@@ -363,6 +426,13 @@ export const decks: Deck[] = [
     description: 'Building IDE integration for Amplifier: ACP protocol, multiple transports, and a terminal interface — with AI-assisted visual testing',
     category: 'platform',
     href: '/stories/decks/runtime-sdk-tui-journey.html',
+  },
+  {
+    id: 'self-improving-amplifier-deck',
+    title: 'Self-Improving Amplifier — An AI That Builds What It Needs',
+    description: 'An AI That Builds What It Needs',
+    category: 'platform',
+    href: '/stories/decks/self-improving-amplifier-deck.html',
   },
   {
     id: 'session-forking-deck',
@@ -398,6 +468,13 @@ export const decks: Deck[] = [
     description: 'Autonomous Storytelling Engine for Amplifier',
     category: 'showcase',
     href: '/stories/decks/stories-bundle-overview.html',
+  },
+  {
+    id: 'story-50-percent-rule',
+    title: 'The 50% Rule | Building AI Validators That Actually Work',
+    description: 'What we learned building validators with AI— and why half of what we built was wrong',
+    category: 'platform',
+    href: '/stories/decks/story-50-percent-rule.html',
   },
   {
     id: 'story-making-llms-reliable',
@@ -485,4 +562,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-12T23:17:53.251Z'
+export const lastSynced = '2026-02-13T00:50:15.818Z'
