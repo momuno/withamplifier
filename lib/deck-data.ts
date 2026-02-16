@@ -43,6 +43,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-architecture-deck.html',
   },
   {
+    id: 'amplifier-bundle-containers',
+    title: 'amplifier-bundle-containers — One Tool Call. Full Provisioning. Zero Friction.',
+    description: 'General-purpose container management for AI agents. Spin up isolated Docker/Podman environments complete with credential forwarding, smart language defaults, and dotfiles integration.',
+    category: 'tool',
+    href: '/stories/decks/amplifier-bundle-containers.html',
+  },
+  {
     id: 'amplifier-forge-deck',
     title: 'Amplifier Forge - Deep Dive',
     description: 'Two parallel tracks: restoration of what works and evolution toward what\'s next.',
@@ -569,4 +576,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-16T18:30:24.347Z'
+export const lastSynced = '2026-02-16T23:32:42.891Z'
