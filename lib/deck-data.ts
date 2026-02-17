@@ -309,6 +309,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/kepler-refactor-deck.html',
   },
   {
+    id: 'language-dev-bundles-deck',
+    title: 'Language Dev Bundles — Amplifier',
+    description: 'Unified quality + LSP tooling for Python, Rust, and TypeScript. Agents don\'t just navigate code now — they check their own work as they go.',
+    category: 'intro',
+    href: '/stories/decks/language-dev-bundles-deck.html',
+  },
+  {
     id: 'lazy-module-activation-deck',
     title: 'Lazy Module Activation',
     description: 'Just-in-time tool provisioning for spawned agents',
@@ -440,6 +447,13 @@ export const decks: Deck[] = [
     description: 'Amplifier gets full language intelligence. 17 LSP operations. First-class Rust support. Zero external dependencies.',
     category: 'platform',
     href: '/stories/decks/rust-code-intel-deck.html',
+  },
+  {
+    id: 'rust-dev-bundle-deck',
+    title: 'Rust Dev Bundle — Amplifier',
+    description: 'cargo fmt, clippy, cargo check, and deep LSP analysis — in one package.',
+    category: 'platform',
+    href: '/stories/decks/rust-dev-bundle-deck.html',
   },
   {
     id: 'self-improving-amplifier-deck',
@@ -576,4 +590,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-16T23:32:42.891Z'
+export const lastSynced = '2026-02-17T00:19:47.054Z'
