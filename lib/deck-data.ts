@@ -141,13 +141,6 @@ export const decks: Deck[] = [
     href: '/stories/decks/best-practices-patterns.html',
   },
   {
-    id: 'billg-review-deck',
-    title: 'The Agentic Moment - BillG Review',
-    description: 'What\'s Changing in Teams, Workflow, and Software',
-    category: 'platform',
-    href: '/stories/decks/billg-review-deck.html',
-  },
-  {
     id: 'browser-automation-deck',
     title: 'Browser Automation with Amplifier',
     description: '"When fetch isn\'t enough"',
@@ -597,4 +590,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-19T22:25:18.495Z'
+export const lastSynced = '2026-02-19T22:27:55.566Z'
