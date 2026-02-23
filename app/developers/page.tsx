@@ -28,32 +28,10 @@ export default function DevelopersPage() {
     <div className="pt-16">
 
       {/* ============================================================
-          SLIDE 1: THE PROBLEM
+          SLIDE 1: THE PROBLEM — 3 cards, flat, your copy
           ============================================================ */}
 
-      {/* HERO: Name the pain */}
-      <section data-section="dev-hero" data-theme="dark" className="section-feature section-dark relative overflow-hidden">
-        <div className="container-default text-center relative z-10">
-          <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-6">
-            For developers building with AI
-          </p>
-          <h1 className="reveal text-display-xl text-white font-heading px-2" style={{ transitionDelay: '0.1s' }}>
-            Your framework<br />assumes too much.
-          </h1>
-          <p className="reveal mt-6 md:mt-8 text-body-large max-w-2xl mx-auto px-4" style={{ transitionDelay: '0.2s', color: 'var(--text-on-dark-secondary)' }}>
-            You picked an AI framework. It got you to a demo fast.
-            Then you hit the parts that aren&apos;t yours to change.
-          </p>
-          <div className="reveal mt-10" style={{ transitionDelay: '0.3s' }}>
-            <svg className="w-6 h-6 mx-auto animate-bounce" style={{ color: 'var(--text-on-dark-tertiary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      {/* ALL 5 PROBLEMS: Compact cards with hover/click expand */}
-      <section data-section="problems" data-theme="light" className="section-feature section-light-glow" style={{ minHeight: 'auto', paddingTop: '6rem', paddingBottom: '6rem' }}>
+      <section data-section="problems" data-theme="light" className="section-feature section-light-glow">
         <div className="container-wide">
           <div className="text-center mb-12 md:mb-16">
             <p className="reveal text-eyebrow text-signal tracking-widest uppercase mb-4">Sound familiar?</p>
@@ -62,93 +40,46 @@ export default function DevelopersPage() {
             </h2>
           </div>
 
-          {/* Top row: 3 cards */}
-          <div className="reveal-stagger grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-            {[
-              {
-                num: '01',
-                title: 'The provider isn\u2019t yours.',
-                summary: 'Your framework owns the model abstraction. Bringing a custom endpoint means workarounds.',
-                expanded: 'Most frameworks let you configure which model to call. But the framework owns how it calls the model, parses responses, and handles errors. You can\u2019t bring your own fine-tuned endpoint, a self-hosted model, or a provider the SDK doesn\u2019t know about without working around the abstraction. When the best model for your use case changes \u2014 and it does, quarterly \u2014 you\u2019re constrained by what the framework supports, not what\u2019s possible.',
-                answer: 'In Amplifier, the provider is a module you own. Implement the Protocol and it\u2019s a first-class citizen \u2014 alongside any official provider, running simultaneously.',
-              },
-              {
-                num: '02',
-                title: 'The agent loop isn\u2019t yours to change.',
-                summary: 'The loop is where decisions happen. You can configure it, but not replace it.',
-                expanded: 'Your framework gives you an agent loop: prompt the model, get tool calls, execute them, feed results back. It works until it doesn\u2019t. Maybe you need the agent to pause for human approval before a destructive action. Maybe you need it to consult a second model for verification. Maybe you need a fundamentally different execution pattern. Some frameworks ship the loop as a closed binary (55\u201373MB) you can\u2019t inspect. Others expose it as source you can read and configure, but the core loop logic is fixed. You can tune it, but you can\u2019t replace it with your own.',
-                answer: 'In Amplifier, the orchestrator is a replaceable module. Same tools, same hooks, same providers \u2014 completely different execution behavior.',
-              },
-              {
-                num: '03',
-                title: 'You can observe, but not control.',
-                summary: 'Callbacks let you see what\u2019s happening. They don\u2019t let you change it.',
-                expanded: 'You want rules: \u201cbefore any file write, check with the user.\u201d Or: \u201credact API keys from logs.\u201d Or: \u201cinject linting errors back into the conversation so the agent fixes them proactively.\u201d Most frameworks give you callbacks \u2014 before_tool, after_tool \u2014 that observe. You can log that a dangerous tool call is about to happen. But the gap between seeing an event and being able to block it, reroute it, or feed information back into the agent\u2019s reasoning is the gap between monitoring and a control plane.',
-                answer: 'Amplifier hooks are a control plane with five actions: continue, deny, ask_user, modify, and inject_context. Multiple hooks compose with deterministic precedence.',
-              },
-            ].map((pain, i) => (
-              <details key={i} className="group rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift transition-all duration-300">
-                <summary className="p-6 cursor-pointer list-none select-none">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <span className="text-micro font-medium text-signal">{pain.num}</span>
-                      <h3 className="text-subheading text-ink font-heading mt-2 mb-2">{pain.title}</h3>
-                      <p className="text-body text-ink-slate">{pain.summary}</p>
-                    </div>
-                    <svg className="w-5 h-5 text-ink-fog flex-shrink-0 mt-1 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </summary>
-                <div className="px-6 pb-6">
-                  <div className="pt-4 border-t border-canvas-mist">
-                    <p className="text-body text-ink-slate">{pain.expanded}</p>
-                    <p className="text-caption text-signal-dark mt-4 font-medium">{pain.answer}</p>
-                  </div>
-                </div>
-              </details>
-            ))}
-          </div>
+          <div className="reveal-stagger grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-          {/* Bottom row: 2 cards */}
-          <div className="reveal-stagger grid md:grid-cols-2 gap-5 max-w-5xl mx-auto mt-5">
-            {[
-              {
-                num: '04',
-                title: 'Your workflow disappears when the session ends.',
-                summary: 'You got the agent working perfectly. Tomorrow you re-explain the whole thing.',
-                expanded: 'You spent 45 minutes getting an agent to review your code exactly the way you want: security first, then style, then performance, pause for approval before writing a summary. It worked. Tomorrow you need to do it again for a different PR. You re-explain from scratch. There\u2019s no way to capture that workflow as a repeatable, version-controlled artifact. No way to hand it to a teammate and say \u201crun this.\u201d No way to add an approval gate that pauses the workflow and waits for a human decision before continuing.',
-                answer: 'Amplifier recipes are declarative YAML workflows with stages, approval gates, context accumulation, foreach/while loops, conditional execution, and automatic checkpointing for resumability.',
-              },
-              {
-                num: '05',
-                title: 'Your setup doesn\u2019t compose.',
-                summary: 'Your teammate wants your config with one change. That means maintaining two copies.',
-                expanded: 'You figured out a great setup: the right model, the right tools, the right system prompt, a custom hook that enforces your team\u2019s commit standards. Your teammate wants the same thing but with a different model and an extra tool for their frontend work. That means: copy the config, manually edit it, keep two copies in sync forever. There\u2019s no inheritance, no override semantics, no way to say \u201cstart from this setup, swap the provider, add this tool.\u201d Software engineering solved this decades ago with package managers and imports. AI tooling hasn\u2019t caught up.',
-                answer: 'Amplifier bundles are composable packages that inherit, override, and share. The thin bundle pattern means most setups are ~14 lines of YAML that inherit everything else.',
-              },
-            ].map((pain, i) => (
-              <details key={i} className="group rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift transition-all duration-300">
-                <summary className="p-6 cursor-pointer list-none select-none">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <span className="text-micro font-medium text-signal">{pain.num}</span>
-                      <h3 className="text-subheading text-ink font-heading mt-2 mb-2">{pain.title}</h3>
-                      <p className="text-body text-ink-slate">{pain.summary}</p>
-                    </div>
-                    <svg className="w-5 h-5 text-ink-fog flex-shrink-0 mt-1 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </summary>
-                <div className="px-6 pb-6">
-                  <div className="pt-4 border-t border-canvas-mist">
-                    <p className="text-body text-ink-slate">{pain.expanded}</p>
-                    <p className="text-caption text-signal-dark mt-4 font-medium">{pain.answer}</p>
-                  </div>
-                </div>
-              </details>
-            ))}
+            {/* Card 1: Provider */}
+            <div className="p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift transition-all duration-300">
+              <h3 className="text-subheading text-ink font-heading mb-4">The provider isn&apos;t yours.</h3>
+              <p className="text-body text-ink-slate">
+                When the best model for your use case changes &mdash; and it does, quarterly &mdash; you&apos;re
+                constrained by what the framework supports, not what&apos;s possible.
+              </p>
+              <p className="text-body text-signal-dark mt-6 pt-5 border-t border-canvas-mist">
+                In Amplifier, the provider is a module you own. Implement the Protocol
+                and it&apos;s a first-class citizen &mdash; alongside any other official
+                provider, running simultaneously.
+              </p>
+            </div>
+
+            {/* Card 2: Agent loop */}
+            <div className="p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift transition-all duration-300">
+              <h3 className="text-subheading text-ink font-heading mb-4">The agent loop isn&apos;t yours.</h3>
+              <p className="text-body text-ink-slate">
+                When you want to do more than just change a hook.
+              </p>
+              <p className="text-body text-signal-dark mt-6 pt-5 border-t border-canvas-mist">
+                In Amplifier, the orchestrator is a module you own. Implement the Protocol
+                and customize your agent loop to act how you want.
+              </p>
+            </div>
+
+            {/* Card 3: Interception & control */}
+            <div className="p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift transition-all duration-300">
+              <h3 className="text-subheading text-ink font-heading mb-4">Interception and control isn&apos;t yours.</h3>
+              <p className="text-body text-ink-slate">
+                When you want to do more than seeing and blocking an event.
+              </p>
+              <p className="text-body text-signal-dark mt-6 pt-5 border-t border-canvas-mist">
+                In Amplifier, not only can you modify the message in flight, you can inject
+                context into the conversation to change what is happening.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
