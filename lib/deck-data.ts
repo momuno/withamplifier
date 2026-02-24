@@ -8,6 +8,13 @@ import { Deck } from '@/components/LearnCard'
 
 export const decks: Deck[] = [
   {
+    id: '2026-02-24-agent-model-routing',
+    title: 'Per-Agent Model Routing — Amplifier Foundation',
+    description: 'The right model for every agent, automatically.',
+    category: 'platform',
+    href: '/stories/decks/2026-02-24-agent-model-routing.html',
+  },
+  {
     id: '20260130-amplifier-sdk',
     title: 'Amplifier SDK - Building Just Got Easier',
     description: 'Building on Amplifier just got a whole lot easier. TypeScript & Python.',
@@ -583,4 +590,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-24T20:32:11.539Z'
+export const lastSynced = '2026-02-24T22:00:01.081Z'
