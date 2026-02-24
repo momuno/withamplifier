@@ -22,6 +22,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260130-source-driven-content-generation.html',
   },
   {
+    id: 'a2a-bundle-deck',
+    title: 'amplifier-bundle-a2a — Agent-to-Agent Communication',
+    description: 'Your Amplifier sessions can now talk to each other. Same machine. Same network. Real HTTP.',
+    category: 'platform',
+    href: '/stories/decks/a2a-bundle-deck.html',
+  },
+  {
     id: 'agents-behavior-capabilities',
     title: 'AGENTS Behavior Bundle - New Capabilities',
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
@@ -576,4 +583,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-24T18:48:21.611Z'
+export const lastSynced = '2026-02-24T20:32:11.539Z'
