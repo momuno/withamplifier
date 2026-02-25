@@ -28,315 +28,597 @@ export default function DevelopersPage() {
     <div className="pt-16">
 
       {/* ============================================================
-          SLIDE 1: THE PROBLEM — 3 stacked rows, large type, visual weight
+          HERO
           ============================================================ */}
 
-      <section data-section="problems" data-theme="dark" className="section-dark" style={{ paddingTop: '6rem', paddingBottom: '2rem' }}>
-        <div className="container-default">
-          <div className="text-center mb-16 md:mb-20">
-            <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-4">Sound familiar?</p>
-            <h2 className="reveal text-display text-white font-heading max-w-3xl mx-auto" style={{ transitionDelay: '0.05s' }}>
-              If you&apos;ve built with AI frameworks,<br />you&apos;ve hit these walls.
-            </h2>
+      <section
+        data-section="hero"
+        data-theme="light"
+        className="section-feature section-light-glow"
+        style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <div className="container-default text-center">
+          <p className="reveal text-eyebrow text-signal tracking-widest uppercase mb-6">
+            For Developers
+          </p>
+          <h1
+            className="reveal text-display-xl font-heading text-ink"
+            style={{ transitionDelay: '0.05s' }}
+          >
+            Build AI Your Way<br />with Amplifier
+          </h1>
+          <p
+            className="reveal text-body-large text-ink-slate max-w-2xl mx-auto mt-6"
+            style={{ transitionDelay: '0.1s', textWrap: 'balance' as const }}
+          >
+            Compose your modules. Control the details. Share with others.
+          </p>
+          <div className="reveal mt-10" style={{ transitionDelay: '0.15s' }}>
+            <CodeBlock
+              code="uv tool install git+https://github.com/microsoft/amplifier"
+              className="max-w-2xl mx-auto"
+            />
           </div>
+
         </div>
       </section>
 
-      {/* Problem 1 */}
-      <section data-section="problem-1" data-theme="light" className="section-light-glow" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+      {/* ============================================================
+          THE THREE NEEDS
+          ============================================================ */}
+
+      <section
+        data-section="three-needs"
+        data-theme="dark"
+        className="section-dark"
+        style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <div className="container-default text-center">
+          <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-4">
+            The Three Needs
+          </p>
+          <h2
+            className="reveal text-display text-white font-heading max-w-4xl mx-auto"
+            style={{ transitionDelay: '0.05s' }}
+          >
+            You need three things<br />from your AI&nbsp;framework.
+          </h2>
+        </div>
+      </section>
+
+      {/* -- Need #01: Composability -- */}
+      <section
+        data-section="need-composability"
+        data-theme="light"
+        className="section-light-glow"
+        style={{ paddingTop: '4rem', paddingBottom: '3rem' }}
+      >
         <div className="container-wide">
           <div className="reveal max-w-5xl mx-auto flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-[45%]">
-              <span className="text-display font-heading font-bold" style={{ color: 'rgba(91,77,227,0.12)', fontSize: 'clamp(4rem, 8vw, 7rem)', lineHeight: '1' }}>01</span>
+              <span
+                className="text-display font-heading font-bold block"
+                style={{
+                  color: 'rgba(91,77,227,0.07)',
+                  fontSize: 'clamp(5rem, 12vw, 10rem)',
+                  lineHeight: '1',
+                }}
+              >
+                01
+              </span>
               <h3 className="text-title text-ink font-heading mt-2">
-                The provider<br />isn&apos;t yours.
+                Composability
               </h3>
-              <p className="text-body-large text-ink-slate mt-4">
-                When the best model for your use case changes &mdash; and it does,
-                quarterly &mdash; you&apos;re constrained by what the framework supports,
-                not what&apos;s possible.
+              <p className="text-body text-ink-slate mt-4">
+                Need a different provider? Different context management?
+                A different orchestration loop? No problem.
               </p>
-            </div>
-            <div className="md:w-[55%] md:pt-16">
-              <div className="p-6 rounded-2xl" style={{ background: 'rgba(91,77,227,0.04)', border: '1px solid rgba(91,77,227,0.12)' }}>
-                <p className="text-eyebrow text-signal tracking-widest uppercase mb-3">With Amplifier</p>
-                <p className="text-body-large text-ink">
-                  The provider is a module you own. Implement the Protocol and it&apos;s a
-                  first-class citizen &mdash; alongside any other official provider,
-                  running simultaneously.
+              <div
+                className="px-4 py-3 rounded-lg mt-4"
+                style={{
+                  background: 'rgba(91,77,227,0.04)',
+                  border: '1px solid rgba(91,77,227,0.10)',
+                }}
+              >
+                <p className="text-micro font-medium text-signal tracking-wide uppercase mb-1">
+                  With Amplifier
+                </p>
+                <p className="text-caption text-ink-slate">
+                  Modules let you easily swap out or plug in new functionality.
+                  Every capability is a module &mdash; change one line, keep everything else.
                 </p>
               </div>
+            </div>
+            <div className="md:w-[55%] md:pt-16">
+              <p className="text-caption text-ink-fog mb-3">
+                Your entire module stack &mdash; each one swappable
+              </p>
+              <CodeBlock
+                code={`providers:
+  - module: provider-anthropic        # or provider-openai
+    config: { model: claude-sonnet-4-5 }
+
+orchestrators:
+  - module: orchestrator-streaming    # or orchestrator-batch
+
+tools:
+  - module: tool-filesystem
+  - module: tool-bash
+  - module: tool-web-search
+
+context:
+  - module: context-persistent        # or context-simple
+
+hooks:
+  - module: hooks-approval            # mix and match
+  - module: hooks-redaction`}
+                className="max-w-xl"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="max-w-4xl mx-auto px-6"><div style={{ height: '1px', background: 'var(--canvas-mist)' }} /></div>
+      <div className="max-w-4xl mx-auto px-6">
+        <div style={{ height: '1px', background: 'var(--canvas-mist)' }} />
+      </div>
 
-      {/* Problem 2 */}
-      <section data-section="problem-2" data-theme="light" className="section-light-glow" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+      {/* -- Need #02: Control -- */}
+      <section
+        data-section="need-control"
+        data-theme="light"
+        className="section-light-glow"
+        style={{ paddingTop: '3rem', paddingBottom: '3rem' }}
+      >
         <div className="container-wide">
           <div className="reveal max-w-5xl mx-auto flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-[45%]">
-              <span className="text-display font-heading font-bold" style={{ color: 'rgba(91,77,227,0.12)', fontSize: 'clamp(4rem, 8vw, 7rem)', lineHeight: '1' }}>02</span>
+              <span
+                className="text-display font-heading font-bold block"
+                style={{
+                  color: 'rgba(91,77,227,0.07)',
+                  fontSize: 'clamp(5rem, 12vw, 10rem)',
+                  lineHeight: '1',
+                }}
+              >
+                02
+              </span>
               <h3 className="text-title text-ink font-heading mt-2">
-                The agent loop<br />isn&apos;t yours.
+                Control
               </h3>
-              <p className="text-body-large text-ink-slate mt-4">
-                When you want to do more than just change a hook.
+              <p className="text-body text-ink-slate mt-4">
+                The agent loop and memory strategy are the most important behaviors
+                in your system. They shouldn&apos;t be sealed infrastructure you
+                can observe but never change.
               </p>
-            </div>
-            <div className="md:w-[55%] md:pt-16">
-              <div className="p-6 rounded-2xl" style={{ background: 'rgba(91,77,227,0.04)', border: '1px solid rgba(91,77,227,0.12)' }}>
-                <p className="text-eyebrow text-signal tracking-widest uppercase mb-3">With Amplifier</p>
-                <p className="text-body-large text-ink">
-                  The orchestrator is a module you own. Implement the Protocol and
-                  customize your agent loop to act how you want.
+              <div
+                className="px-4 py-3 rounded-lg mt-4"
+                style={{
+                  background: 'rgba(91,77,227,0.04)',
+                  border: '1px solid rgba(91,77,227,0.10)',
+                }}
+              >
+                <p className="text-micro font-medium text-signal tracking-wide uppercase mb-1">
+                  With Amplifier
+                </p>
+                <p className="text-caption text-ink-slate">
+                  Customize the model per agent and run simultaneously.
+                  Inject context exactly where you need it. Get specific
+                  on the details that optimize your agent behaviors.
                 </p>
               </div>
+            </div>
+            <div className="md:w-[55%] md:pt-16">
+              <p className="text-caption text-ink-fog mb-3">
+                A hook that teaches the agent conventions
+              </p>
+              <CodeBlock
+                code={`async def __call__(self, event, data):
+    if event != "tool_call":
+        return HookResult(action="continue")
+
+    command = data.get("input", {}).get("command", "")
+    if not command.startswith("git commit"):
+        return HookResult(action="continue")
+
+    # Don't block — teach. The agent self-corrects.
+    if not follows_convention(command):
+        return HookResult(
+            action="inject_context",
+            context="Use conventional commits: "
+                    "feat|fix|docs|refactor: description"
+        )
+
+    return HookResult(action="continue")`}
+                className="max-w-xl"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="max-w-4xl mx-auto px-6"><div style={{ height: '1px', background: 'var(--canvas-mist)' }} /></div>
+      <div className="max-w-4xl mx-auto px-6">
+        <div style={{ height: '1px', background: 'var(--canvas-mist)' }} />
+      </div>
 
-      {/* Problem 3 */}
-      <section data-section="problem-3" data-theme="light" className="section-light-glow" style={{ paddingTop: '3rem', paddingBottom: '6rem' }}>
+      {/* -- Need #03: Shareability -- */}
+      <section
+        data-section="need-shareability"
+        data-theme="light"
+        className="section-light-glow"
+        style={{ paddingTop: '3rem', paddingBottom: '6rem' }}
+      >
         <div className="container-wide">
           <div className="reveal max-w-5xl mx-auto flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-[45%]">
-              <span className="text-display font-heading font-bold" style={{ color: 'rgba(91,77,227,0.12)', fontSize: 'clamp(4rem, 8vw, 7rem)', lineHeight: '1' }}>03</span>
+              <span
+                className="text-display font-heading font-bold block"
+                style={{
+                  color: 'rgba(91,77,227,0.07)',
+                  fontSize: 'clamp(5rem, 12vw, 10rem)',
+                  lineHeight: '1',
+                }}
+              >
+                03
+              </span>
               <h3 className="text-title text-ink font-heading mt-2">
-                Interjection<br />isn&apos;t yours.
+                Shareability
               </h3>
-              <p className="text-body-large text-ink-slate mt-4">
-                When you want to do more than seeing and blocking an event.
+              <p className="text-body text-ink-slate mt-4">
+                Your teammate wants your setup with a few changes.
+                Today that means copying config and keeping two versions in sync.
               </p>
-            </div>
-            <div className="md:w-[55%] md:pt-16">
-              <div className="p-6 rounded-2xl" style={{ background: 'rgba(91,77,227,0.04)', border: '1px solid rgba(91,77,227,0.12)' }}>
-                <p className="text-eyebrow text-signal tracking-widest uppercase mb-3">With Amplifier</p>
-                <p className="text-body-large text-ink">
-                  Not only can you modify the message in flight, you can inject context
-                  into the conversation to change what is happening.
+              <div
+                className="px-4 py-3 rounded-lg mt-4"
+                style={{
+                  background: 'rgba(91,77,227,0.04)',
+                  border: '1px solid rgba(91,77,227,0.10)',
+                }}
+              >
+                <p className="text-micro font-medium text-signal tracking-wide uppercase mb-1">
+                  With Amplifier
+                </p>
+                <p className="text-caption text-ink-slate">
+                  Share your work and they can easily customize it.
+                  Your teammate starts from your setup and changes only what&apos;s different.
                 </p>
               </div>
+            </div>
+            <div className="md:w-[55%] md:pt-16">
+              <p className="text-caption text-ink-fog mb-3">
+                Your teammate extends your setup
+              </p>
+              <CodeBlock
+                code={`includes:
+  - my-team-platform             # everything inherited
+
+providers:
+  - module: provider-openai      # swapped one provider
+    config: { model: gpt-4o }
+
+tools:
+  - module: tool-browser-test    # added one tool
+
+# Everything else stays exactly the same`}
+                className="max-w-xl"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          SLIDE 2: THE ARCHITECTURE
+          THE ARCHITECTURE
           ============================================================ */}
 
-      {/* Architecture intro + diagram — single dark section */}
-      <section data-section="architecture" data-theme="dark" className="section-dark" style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
+      <section
+        data-section="architecture"
+        data-theme="dark"
+        className="section-dark"
+        style={{ paddingTop: '6rem', paddingBottom: '6rem' }}
+      >
         <div className="container-wide">
 
           {/* Intro text */}
-          <div className="text-center mb-16 md:mb-20">
-            <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-6">
-              How Amplifier is different
-            </p>
-            <h2 className="reveal text-display text-white font-heading" style={{ transitionDelay: '0.05s' }}>
-              A kernel, not a framework.
-            </h2>
-            <p className="reveal mt-6 text-body-large max-w-2xl mx-auto" style={{ transitionDelay: '0.1s', color: 'var(--text-on-dark-secondary)' }}>
-              2,600 lines of Python. Zero decisions about models, loops, tools, or memory.
-              Those are all modules you own.
-            </p>
-          </div>
-
-          {/* Side-by-side diagram */}
-          <div className="reveal max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-
-            {/* Vendor SDKs side */}
-            <div className="p-8 rounded-2xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <p className="text-eyebrow tracking-widest uppercase mb-6" style={{ color: 'var(--text-on-dark-tertiary)' }}>Vendor SDKs</p>
-              <div className="space-y-3">
-                <div className="p-4 rounded-xl text-center" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                  <span className="text-caption font-medium" style={{ color: 'var(--text-on-dark)' }}>Your App</span>
-                </div>
-                <div className="flex justify-center" style={{ color: 'var(--text-on-dark-tertiary)' }}>
-                  <svg className="w-4 h-5" viewBox="0 0 16 20" fill="none"><path d="M8 0v20M8 20l-3-3M8 20l3-3" stroke="currentColor" strokeWidth="1.5"/></svg>
-                </div>
-                <div className="p-4 rounded-xl text-center" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-                  <span className="text-caption font-medium" style={{ color: '#f87171' }}>Vendor&apos;s Agent Loop</span>
-                  <p className="text-micro mt-1" style={{ color: '#ef4444' }}>fixed or opaque</p>
-                </div>
-                <div className="flex justify-center" style={{ color: 'var(--text-on-dark-tertiary)' }}>
-                  <svg className="w-4 h-5" viewBox="0 0 16 20" fill="none"><path d="M8 0v20M8 20l-3-3M8 20l3-3" stroke="currentColor" strokeWidth="1.5"/></svg>
-                </div>
-                <div className="p-4 rounded-xl text-center" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-                  <span className="text-caption font-medium" style={{ color: '#f87171' }}>Vendor&apos;s API</span>
-                  <p className="text-micro mt-1" style={{ color: '#ef4444' }}>one vendor</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Amplifier side */}
-            <div className="p-8 rounded-2xl" style={{ background: 'rgba(91,77,227,0.08)', border: '1px solid rgba(91,77,227,0.25)', boxShadow: '0 0 60px rgba(91,77,227,0.08)' }}>
-              <p className="text-eyebrow text-signal-light tracking-widest uppercase mb-6">Amplifier</p>
-              <div className="space-y-3">
-                <div className="p-4 rounded-xl text-center" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                  <span className="text-caption font-medium" style={{ color: 'var(--text-on-dark)' }}>Your App</span>
-                </div>
-                <div className="flex justify-center" style={{ color: 'var(--text-on-dark-tertiary)' }}>
-                  <svg className="w-4 h-5" viewBox="0 0 16 20" fill="none"><path d="M8 0v20M8 20l-3-3M8 20l3-3" stroke="currentColor" strokeWidth="1.5"/></svg>
-                </div>
-                <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(91,77,227,0.12)', border: '1px solid rgba(91,77,227,0.3)' }}>
-                  <span className="text-caption font-medium text-signal-light">Kernel</span>
-                  <p className="text-micro mt-1" style={{ color: 'var(--text-on-dark-tertiary)' }}>2,600 lines &middot; mechanisms only</p>
-                </div>
-                <div className="flex justify-center" style={{ color: 'var(--text-on-dark-tertiary)' }}>
-                  <svg className="w-4 h-5" viewBox="0 0 16 20" fill="none"><path d="M8 0v20M8 20l-3-3M8 20l3-3" stroke="currentColor" strokeWidth="1.5"/></svg>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { name: 'Orchestrator', note: 'replaceable' },
-                    { name: 'Provider(s)', note: 'any, multiple' },
-                    { name: 'Tools', note: 'composable' },
-                    { name: 'Hooks', note: 'control plane' },
-                  ].map((m, i) => (
-                    <div key={i} className="p-3 rounded-lg text-center" style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
-                      <span className="text-micro font-medium" style={{ color: '#4ade80' }}>{m.name}</span>
-                      <p className="text-micro" style={{ color: '#22c55e' }}>{m.note}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="p-3 rounded-lg text-center" style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
-                  <span className="text-micro font-medium" style={{ color: '#4ade80' }}>Context</span>
-                  <p className="text-micro" style={{ color: '#22c55e' }}>replaceable</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Five module types */}
-      <section data-section="modules" data-theme="light" className="section-feature section-light-glow">
-        <div className="container-wide">
           <div className="text-center mb-12">
-            <h2 className="reveal text-headline text-ink font-heading">Five module types. Each one replaceable.</h2>
-            <p className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto" style={{ transitionDelay: '0.1s' }}>
-              Implement the Protocol contract, and the kernel treats your module
-              identically to any official one.
+            <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-6">
+              The Architecture
+            </p>
+            <h2
+              className="reveal text-display text-white font-heading"
+              style={{ transitionDelay: '0.05s' }}
+            >
+              A kernel at the core.
+            </h2>
+            <p
+              className="reveal mt-6 text-body-large max-w-2xl mx-auto"
+              style={{ transitionDelay: '0.1s', color: 'var(--text-on-dark-secondary)' }}
+            >
+              2,600 lines of Python. The kernel provides mechanisms &mdash;
+              the capabilities that every AI application needs &mdash; but
+              makes zero decisions about how you use them.
             </p>
           </div>
-          <div className="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
-            {[
-              { name: 'Provider', icon: 'P', contract: 'complete(req) \u2192 res', desc: 'Which LLM answers. Swap without rewriting. Run multiple simultaneously.' },
-              { name: 'Orchestrator', icon: 'O', contract: 'execute(prompt, ...)', desc: 'How the loop runs. The only system where you replace the loop itself.' },
-              { name: 'Tool', icon: 'T', contract: 'execute(input) \u2192 result', desc: 'What the agent can do. Add, remove, or write your own.' },
-              { name: 'Hook', icon: 'H', contract: '(event, data) \u2192 HookResult', desc: 'Control plane: block, modify, inject context, or ask for approval.' },
-              { name: 'Context', icon: 'C', contract: 'add/get/set_messages', desc: 'How memory works. Swap strategies like databases.' },
-            ].map((mod, i) => (
-              <div key={i} className="p-5 rounded-2xl border border-canvas-mist bg-canvas text-center">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(91,77,227,0.1)' }}>
-                  <span className="text-signal font-heading font-bold text-body">{mod.icon}</span>
-                </div>
-                <h3 className="text-subheading text-ink font-heading mb-1">{mod.name}</h3>
-                <code className="text-micro px-2 py-0.5 rounded" style={{ color: '#4338B8', background: 'rgba(91,77,227,0.06)' }}>{mod.contract}</code>
-                <p className="text-caption text-ink-slate mt-3">{mod.desc}</p>
+
+          {/* Kernel visual */}
+          <div className="reveal max-w-2xl mx-auto">
+            <div
+              className="p-8 md:p-10 rounded-2xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(133,120,240,0.12) 0%, rgba(91,77,227,0.06) 100%)',
+                border: '1px solid rgba(133,120,240,0.35)',
+                boxShadow: '0 0 80px rgba(133,120,240,0.15), 0 0 160px rgba(91,77,227,0.06)',
+              }}
+            >
+              <div className="text-center mb-8">
+                <p
+                  className="text-heading font-heading font-semibold mb-1"
+                  style={{ color: '#c4bdf8' }}
+                >
+                  Kernel
+                </p>
+                <p className="text-caption font-mono" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                  ~2,600 lines of Python
+                </p>
               </div>
-            ))}
+
+              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+                {[
+                  { name: 'Session Lifecycle', desc: 'Create, execute, and clean up agent sessions. Fork child sessions for sub-agents.' },
+                  { name: 'Module Loading', desc: 'Load and unload any module at runtime. The kernel never knows what it\'s loading.' },
+                  { name: 'Event Dispatch', desc: 'If it\'s important, emit an event. Single JSONL log as the source of truth.' },
+                  { name: 'Protocol Enforcement', desc: 'Contracts ensure every module is interchangeable. Implement the interface, plug it in.' },
+                ].map((mech, i) => (
+                  <div key={i}>
+                    <h4
+                      className="text-caption font-heading font-medium mb-1"
+                      style={{ color: '#c4bdf8' }}
+                    >
+                      {mech.name}
+                    </h4>
+                    <p className="text-caption" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      {mech.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Design principle */}
-          <div className="reveal mt-16 text-center">
-            <blockquote className="text-subheading text-ink font-heading italic max-w-2xl mx-auto">
-              &ldquo;Could two teams want different behavior?<br />Then it&apos;s a module, not the kernel.&rdquo;
+          <div className="reveal text-center mt-12">
+            <blockquote className="text-subheading text-white font-heading italic max-w-2xl mx-auto">
+              &ldquo;Could two teams want different behavior?<br />
+              Then it&apos;s a module, not the kernel.&rdquo;
             </blockquote>
           </div>
         </div>
       </section>
 
-      {/* ============================================================
-          SLIDE 3: UNDERSTAND, USE, EXTEND
-          ============================================================ */}
-
-      {/* Stages intro */}
-      <section data-section="stages-intro" data-theme="dark" className="section-dark" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="container-narrow text-center">
-          <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-6">
-            The experimental layer
-          </p>
-          <h2 className="reveal text-display text-white font-heading" style={{ transitionDelay: '0.05s' }}>
-            Understand it. Use it.<br />Make it yours.
-          </h2>
-          <p className="reveal mt-6 text-body-large max-w-xl mx-auto" style={{ transitionDelay: '0.1s', color: 'var(--text-on-dark-secondary)' }}>
-            Go as deep as you want. Each stage builds on the last.
-          </p>
+      {/* Five module types */}
+      <section
+        data-section="modules"
+        data-theme="light"
+        className="section-feature section-light-glow"
+      >
+        <div className="container-wide">
+          <div className="text-center mb-12">
+            <h2 className="reveal text-headline text-ink font-heading">
+              Five module types. Each one replaceable.
+            </h2>
+            <p
+              className="reveal mt-4 text-body-large text-ink-slate max-w-2xl mx-auto"
+              style={{ transitionDelay: '0.1s' }}
+            >
+              Implement the Protocol contract. The kernel treats your module
+              identically to any official one.
+            </p>
+          </div>
+          <div className="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+            {[
+              {
+                name: 'Provider',
+                icon: 'P',
+                contract: 'complete(req) \u2192 res',
+                desc: 'Which LLM answers. Swap without rewriting.',
+              },
+              {
+                name: 'Orchestrator',
+                icon: 'O',
+                contract: 'execute(prompt, ...)',
+                desc: 'How the loop runs. Replace the loop itself.',
+              },
+              {
+                name: 'Tool',
+                icon: 'T',
+                contract: 'execute(input) \u2192 result',
+                desc: 'What the agent can do. Write your own.',
+              },
+              {
+                name: 'Hook',
+                icon: 'H',
+                contract: '(event, data) \u2192 HookResult',
+                desc: 'Block, modify, inject context, ask for approval.',
+              },
+              {
+                name: 'Context',
+                icon: 'C',
+                contract: 'add/get/set_messages',
+                desc: 'How memory works. Swap strategies.',
+              },
+            ].map((mod, i) => (
+              <div
+                key={i}
+                className="p-5 rounded-2xl border border-canvas-mist bg-canvas text-center"
+              >
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4"
+                  style={{ background: 'rgba(91,77,227,0.1)' }}
+                >
+                  <span className="text-signal font-heading font-bold text-body">
+                    {mod.icon}
+                  </span>
+                </div>
+                <h3 className="text-subheading text-ink font-heading mb-1">
+                  {mod.name}
+                </h3>
+                <code
+                  className="text-micro px-2 py-0.5 rounded"
+                  style={{ color: '#4338B8', background: 'rgba(91,77,227,0.06)' }}
+                >
+                  {mod.contract}
+                </code>
+                <p className="text-caption text-ink-slate mt-3">{mod.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* STAGE 1: Understand */}
-      <section data-section="understand" data-theme="light" className="section-light-glow" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+      {/* ============================================================
+          THREE STAGES
+          ============================================================ */}
+
+      {/* Stages intro */}
+      <section
+        data-section="stages-intro"
+        data-theme="dark"
+        className="section-dark"
+        style={{
+          minHeight: '60vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div className="container-narrow text-center">
+          <p className="reveal text-eyebrow text-signal-light tracking-widest uppercase mb-6">
+            The Experimental Layer
+          </p>
+          <h2
+            className="reveal text-display text-white font-heading"
+            style={{ transitionDelay: '0.05s' }}
+          >
+            Understand it. Use it.<br />Make it yours.
+          </h2>
+        </div>
+      </section>
+
+      {/* -- Stage 1: Understand -- */}
+      <section
+        data-section="stage-understand"
+        data-theme="light"
+        className="section-light-glow"
+        style={{ paddingTop: '5rem', paddingBottom: '5rem' }}
+      >
         <div className="container-default">
           <div className="reveal mb-10">
-            <span className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4" style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}>Stage 1</span>
+            <span
+              className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4"
+              style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}
+            >
+              Stage 1
+            </span>
             <h2 className="text-headline text-ink font-heading">Understand it</h2>
           </div>
 
+          {/* Three link cards */}
           <div className="reveal grid md:grid-cols-3 gap-6 max-w-5xl">
-            {/* Read the kernel */}
-            <a href="https://github.com/microsoft/amplifier-core/tree/main/amplifier_core" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(91,77,227,0.1)' }}>
-                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+            <a
+              href="https://github.com/microsoft/amplifier-core/tree/main/amplifier_core"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
               </div>
-              <h3 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Read the kernel</h3>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Read the kernel
+              </h4>
               <p className="text-body text-ink-slate">
-                The entire kernel is ~2,600 lines of Python. No magic, no metaprogramming.
+                ~2,600 lines of Python. No magic, no abstraction layers.
                 Small enough to hold in your head.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 amplifier_core/
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
 
-            {/* Inspect the contracts */}
-            <a href="https://github.com/microsoft/amplifier-core/tree/main/docs/contracts" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(91,77,227,0.1)' }}>
-                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            <a
+              href="https://github.com/microsoft/amplifier-core/tree/main/docs/contracts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
               </div>
-              <h3 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Inspect the contracts</h3>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Inspect the contracts
+              </h4>
               <p className="text-body text-ink-slate">
-                Each module type has a Protocol &mdash; a stable interface that defines the contract
-                between the kernel and the module. They&apos;re short, documented, and public.
+                Each module type has a Protocol interface.
+                Short, documented, public. This is the entire API surface.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 docs/contracts/
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
 
-            {/* Trace a request */}
-            <a href="https://github.com/microsoft/amplifier-core/blob/main/docs/DESIGN_PHILOSOPHY.md" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(91,77,227,0.1)' }}>
-                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <a
+              href="https://github.com/microsoft/amplifier/tree/main/amplifier"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
-              <h3 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Trace a request</h3>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Go under the hood
+              </h4>
               <p className="text-body text-ink-slate">
-                Follow a prompt from input to output: Session &rarr; Orchestrator &rarr; Provider &rarr; Tools &rarr; Hooks &rarr; Context.
-                Every step is a module boundary you can replace.
+                The Amplifier CLI is a reference implementation. See how modules load,
+                sessions are created, and the orchestrator drives everything.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
-                Design Philosophy
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                Reference Implementation
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
           </div>
 
-          {/* Code sample */}
-          <div className="reveal mt-10 max-w-5xl">
-            <p className="text-caption text-ink-fog mb-3">The entire Provider contract &mdash; from <a href="https://github.com/microsoft/amplifier-core/blob/main/amplifier_core/interfaces.py" target="_blank" rel="noopener noreferrer" className="text-signal hover:underline">interfaces.py</a></p>
+          {/* Protocol code sample */}
+          <div className="reveal max-w-5xl mt-12">
+            <p className="text-caption text-ink-fog mb-3">
+              The Provider contract &mdash; implement three things
+            </p>
             <CodeBlock
               code={`class Provider(Protocol):
     @property
@@ -357,147 +639,188 @@ export default function DevelopersPage() {
         </div>
       </section>
 
-      {/* STAGE 2: Use it — experiment with modules */}
-      <section data-section="use" data-theme="light" className="section-gradient-flow" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+      {/* Divider */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div style={{ height: '1px', background: 'var(--canvas-mist)' }} />
+      </div>
+
+      {/* -- Stage 2: Use it -- */}
+      <section
+        data-section="stage-use"
+        data-theme="light"
+        className="section-gradient-flow"
+        style={{ paddingTop: '5rem', paddingBottom: '5rem' }}
+      >
         <div className="container-default">
           <div className="reveal mb-10">
-            <span className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4" style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}>Stage 2</span>
+            <span
+              className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4"
+              style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}
+            >
+              Stage 2
+            </span>
             <h2 className="text-headline text-ink font-heading">Use it</h2>
             <p className="mt-4 text-body-large text-ink-slate max-w-2xl">
-              Experiment with individual modules. See what changes when you swap one,
-              add one, or teach one something new.
-            </p>
-          </div>
-
-          {/* Injection example — the hook that teaches */}
-          <div className="reveal max-w-5xl">
-            <h3 className="text-subheading text-ink font-heading mb-2">Inject context into the conversation</h3>
-            <p className="text-body text-ink-slate mb-4">
-              Most hook systems let you see events or block them. Amplifier hooks can feed
-              information <em>back</em> into the agent&apos;s reasoning. Here&apos;s a hook that
-              teaches the agent your team&apos;s commit convention &mdash; not by changing the prompt,
-              but by injecting context when it gets it wrong:
-            </p>
-            <CodeBlock
-              code={`async def __call__(self, event, data):
-    if event != "tool_call":
-        return HookResult(action="continue")
-
-    command = data.get("input", {}).get("command", "")
-    if not command.startswith("git commit"):
-        return HookResult(action="continue")
-
-    # The hook doesn't block — it teaches.
-    # The agent sees this context and reformats the commit.
-    if not follows_convention(command):
-        return HookResult(
-            action="inject_context",
-            context="Commit messages must use conventional format: "
-                    "feat|fix|docs|refactor: description"
-        )
-
-    return HookResult(action="continue")`}
-              className="max-w-2xl"
-            />
-            <p className="text-body text-ink-slate mt-4">
-              Change what gets injected and you change how the agent behaves &mdash; without
-              touching the prompt, the orchestrator, or anything else. The hook is
-              a standalone module that composes with the rest of the system.
+              Experiment with modules. See what changes when you swap one,
+              add one, or teach one something new. Use the event log to trace every step.
             </p>
           </div>
 
           {/* Three experiment cards */}
-          <div className="reveal grid md:grid-cols-3 gap-6 max-w-5xl mt-10">
-            <a href="https://github.com/microsoft/amplifier-core/blob/main/docs/HOOKS_API.md" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Hook injection</h4>
+          <div className="reveal grid md:grid-cols-3 gap-6 max-w-5xl">
+            <a
+              href="https://github.com/microsoft/amplifier-core/blob/main/docs/HOOKS_API.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+              </div>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Inject a hook
+              </h4>
               <p className="text-body text-ink-slate">
-                Five hook actions: continue, deny, ask_user, modify, and inject_context.
-                Layer multiple hooks with deterministic precedence.
+                Control the conversation. Five hook actions let you block, modify,
+                inject context, or request approval &mdash; without touching the orchestrator.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Hooks API
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
-            <a href="https://github.com/microsoft/amplifier-core/blob/main/docs/contracts/PROVIDER_CONTRACT.md" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Swap a provider</h4>
+
+            <a
+              href="https://github.com/microsoft/amplifier-core/blob/main/docs/contracts/PROVIDER_CONTRACT.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Swap a provider
+              </h4>
               <p className="text-body text-ink-slate">
-                Change one module reference and the entire system uses a different model.
-                Your tools, hooks, and orchestrator don&apos;t notice.
+                Change one YAML line. See agents running on different models simultaneously.
+                Same tools, same context, different intelligence.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Provider contract
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
-            <a href="https://github.com/microsoft/amplifier-core/blob/main/docs/contracts/ORCHESTRATOR_CONTRACT.md" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline">
-              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">Replace the loop</h4>
+
+            <a
+              href="https://github.com/microsoft/amplifier-core/blob/main/docs/contracts/ORCHESTRATOR_CONTRACT.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl border border-canvas-mist bg-canvas hover:shadow-lift hover:border-signal/20 transition-all duration-300 no-underline"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(91,77,227,0.1)' }}
+              >
+                <svg className="w-5 h-5 text-signal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h4 className="text-subheading text-ink font-heading mb-2 group-hover:text-signal transition-colors">
+                Replace the loop
+              </h4>
               <p className="text-body text-ink-slate">
-                The orchestrator is a module. Swap in a different execution pattern &mdash; same
-                tools, same hooks, completely different behavior.
+                The orchestrator IS the agent behavior. Same tools, same hooks,
+                completely different execution pattern.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Orchestrator contract
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* STAGE 3: Make it yours — compose into your app */}
-      <section data-section="make-yours" data-theme="light" className="section-light-glow" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+      {/* Divider */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div style={{ height: '1px', background: 'var(--canvas-mist)' }} />
+      </div>
+
+      {/* -- Stage 3: Make it yours -- */}
+      <section
+        data-section="stage-own"
+        data-theme="light"
+        className="section-light-glow"
+        style={{ paddingTop: '5rem', paddingBottom: '5rem' }}
+      >
         <div className="container-default">
           <div className="reveal mb-10">
-            <span className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4" style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}>Stage 3</span>
+            <span
+              className="inline-block px-3 py-1 rounded-full text-micro font-medium mb-4"
+              style={{ background: 'rgba(91,77,227,0.1)', color: '#5B4DE3' }}
+            >
+              Stage 3
+            </span>
             <h2 className="text-headline text-ink font-heading">Make it yours</h2>
             <p className="mt-4 text-body-large text-ink-slate max-w-2xl">
-              Pull your modules together into an app you own.
-              Bundles package the pieces. Recipes automate the workflows.
+              Build your own application with exactly the modules you need.
+              Automate your workflows. Share with your team.
             </p>
           </div>
 
           <div className="reveal max-w-5xl grid md:grid-cols-2 gap-8">
-            {/* Bundle */}
+            {/* Build your app */}
             <div>
-              <h3 className="text-subheading text-ink font-heading mb-2">Bundle your modules</h3>
+              <h3 className="text-subheading text-ink font-heading mb-2">
+                Build your app
+              </h3>
               <p className="text-body text-ink-slate mb-4">
-                A bundle assembles your providers, tools, hooks, and agents into a
-                shareable, composable package. Your teammates inherit it and override
-                what they need.
+                Use the kernel as a dependency. Choose your modules.
+                Wire them together with a few lines of Python.
               </p>
               <CodeBlock
-                code={`bundle:
-  name: my-team-platform
-  version: 1.0.0
+                code={`from amplifier_core import AmplifierSession
 
-includes:
-  - foundation        # base tools
-  - python-dev        # code intelligence
+session = AmplifierSession(
+    providers=[MyProvider()],
+    orchestrator=MyOrchestrator(),
+    tools=[filesystem, bash, web_search],
+    hooks=[approval, redaction],
+    context=PersistentContext(),
+)
 
-providers:
-  - module: provider-anthropic
-    config:
-      model: claude-sonnet-4-20250514
-
-tools:
-  - module: ./modules/internal-docs
-
-hooks:
-  - module: ./modules/commit-convention
-  - module: hooks-approval
-  - module: hooks-redaction`}
+result = await session.run(
+    "Build the auth module"
+)`}
                 className="max-w-xl"
               />
             </div>
 
-            {/* Recipe */}
+            {/* Automate with recipes */}
             <div>
-              <h3 className="text-subheading text-ink font-heading mb-2">Declare your workflows</h3>
+              <h3 className="text-subheading text-ink font-heading mb-2">
+                Automate with recipes
+              </h3>
               <p className="text-body text-ink-slate mb-4">
-                Recipes are repeatable, version-controlled YAML workflows with
-                stages, approval gates, and resumability. Commit them to your repo
-                and run them the same way every time.
+                Declarative multi-step workflows with approval gates,
+                context accumulation, and resumability.
               </p>
               <CodeBlock
                 code={`name: pr-review
@@ -515,18 +838,10 @@ stages:
   report:
     steps:
       - agent: technical-writer
-        prompt: "Synthesize into a report"`}
+        prompt: "Synthesize findings"`}
                 className="max-w-xl"
               />
             </div>
-          </div>
-
-          <div className="reveal mt-8 max-w-5xl">
-            <p className="text-body text-ink-slate">
-              Your app is the bundle + the recipes + the modules you wrote or chose.
-              Your teammate forks your bundle, swaps the provider, adds their own hook.
-              The system composes &mdash; it doesn&apos;t copy.
-            </p>
           </div>
         </div>
       </section>
@@ -534,13 +849,37 @@ stages:
       {/* ============================================================
           CTA
           ============================================================ */}
-      <section data-section="dev-cta" data-theme="dark" className="section-dark" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+
+      <section
+        data-section="dev-cta"
+        data-theme="dark"
+        className="section-dark"
+        style={{ paddingTop: '8rem', paddingBottom: '8rem' }}
+      >
         <div className="container-default text-center">
           <div className="reveal">
-            <p className="text-caption mb-3" style={{ color: 'var(--text-on-dark-tertiary)' }}>Install the Amplifier CLI</p>
-            <CodeBlock code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
-            <div className="mt-8">
-              <a href="https://github.com/microsoft/amplifier" target="_blank" rel="noopener noreferrer" className="btn-apple">
+            <h2 className="text-headline text-white font-heading mb-4">
+              Try a reference implementation. The Amplifier CLI.
+            </h2>
+            <p
+              className="text-body-large mb-8"
+              style={{ color: 'var(--text-on-dark-secondary)' }}
+            >
+              Run this in your terminal
+            </p>
+            <div className="py-4">
+              <CodeBlock
+                code="uv tool install git+https://github.com/microsoft/amplifier"
+                className="max-w-2xl mx-auto"
+              />
+            </div>
+            <div className="mt-10">
+              <a
+                href="https://github.com/microsoft/amplifier"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-apple"
+              >
                 View on GitHub
               </a>
             </div>
