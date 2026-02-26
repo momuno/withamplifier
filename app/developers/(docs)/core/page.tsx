@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { DocCodeBlock, DocDiagram, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import DocPageNav from '@/components/DocPageNav'
+import { DocCodeBlock, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import ConceptDiagram, { Step, SubFlow, SubStep } from '@/components/diagrams/ConceptDiagram'
 
 export default function CorePage() {
   useEffect(() => {
@@ -37,24 +39,29 @@ export default function CorePage() {
       <section className="section-dark doc-hero" data-theme="dark">
         <div className="container-default">
           <div className="reveal">
-            {/* Breadcrumb */}
-            <nav className="doc-breadcrumb" aria-label="Breadcrumb">
-              <a href="/developers">Developers</a>
-              <span aria-hidden="true">/</span>
-              <span>The Core</span>
-            </nav>
+            <div className="doc-hero-meta">
+              {/* Breadcrumb */}
+              <nav className="doc-breadcrumb" aria-label="Breadcrumb">
+                <a href="/developers">Developers</a>
+                <span aria-hidden="true">/</span>
+                <span>The Core</span>
+              </nav>
 
-            {/* Page indicator */}
-            <p className="doc-page-indicator">01 of 03</p>
+              {/* Page navigation */}
+              <DocPageNav
+                current={1}
+                total={3}
+                next={{ href: '/developers/modules', label: 'The Modules' }}
+              />
+            </div>
 
             {/* Title */}
             <h1 className="doc-hero-title">The Core</h1>
 
             {/* Lead text */}
             <p className="doc-hero-lead">
-              A session, a coordinator, and 5 module types. ~4,000 lines total.
+              A session, a coordinator, and five module types. ~4,000 lines total.
             </p>
-            <br/>
 
             {/* Source link */}
             <a
@@ -109,7 +116,10 @@ session = AmplifierSession(config={
         "context": "context-simple",
     },
     "providers": [
-        {"module": "provider-anthropic", "config": {"default_model": "claude-sonnet-4-5"}}
+        {
+            "module": "provider-anthropic",
+            "config": {"default_model": "claude-sonnet-4-5"},
+        }
     ],
     "tools": [],
     "hooks": [],
@@ -142,28 +152,23 @@ await session.cleanup()`}
                 forgiving: a failure logs a warning but doesn&apos;t stop the session.
               </p>
 
-              <DocDiagram
-                label="initialize() flow"
-                diagram={`initialize()
-│
-├── 1. Load orchestrator    (required — fails if missing)
-│      find "loop-streaming" → import it → call its mount() → slot filled
-│
-├── 2. Load context         (required — fails if missing)
-│      find "context-simple" → import it → call its mount() → slot filled
-│
-├── 3. Load providers       (warns on failure, keeps going)
-│      for each in config["providers"]:
-│        find module → import → mount → slot filled
-│
-├── 4. Load tools           (warns on failure, keeps going)
-│      for each in config["tools"]:
-│        find module → import → mount → slot filled
-│
-└── 5. Load hooks           (warns on failure, keeps going)
-       for each in config["hooks"]:
-         find module → import → mount → slot filled`}
-              />
+              <ConceptDiagram title="initialize()">
+                <Step number={1} label="Load orchestrator" badge="required" badgeVariant="required">
+                  find <code>loop-streaming</code> &rarr; import it &rarr; call its <code>mount()</code> &rarr; slot filled
+                </Step>
+                <Step number={2} label="Load context" badge="required" badgeVariant="required">
+                  find <code>context-simple</code> &rarr; import it &rarr; call its <code>mount()</code> &rarr; slot filled
+                </Step>
+                <Step number={3} label="Load providers" badge="warns on failure" badgeVariant="warn">
+                  for each in <code>config[&quot;providers&quot;]</code>: find module &rarr; import &rarr; mount &rarr; slot filled
+                </Step>
+                <Step number={4} label="Load tools" badge="warns on failure" badgeVariant="warn">
+                  for each in <code>config[&quot;tools&quot;]</code>: find module &rarr; import &rarr; mount &rarr; slot filled
+                </Step>
+                <Step number={5} label="Load hooks" badge="warns on failure" badgeVariant="warn">
+                  for each in <code>config[&quot;hooks&quot;]</code>: find module &rarr; import &rarr; mount &rarr; slot filled
+                </Step>
+              </ConceptDiagram>
 
               <DocNote>
                 <p>
@@ -184,22 +189,22 @@ await session.cleanup()`}
                 the orchestrator. What happens next is the orchestrator&apos;s business.
               </p>
 
-              <DocDiagram
-                label="execute() flow"
-                diagram={`execute("What are the 3 laws of robotics?")
-│
-├── get orchestrator, context, providers, tools, hooks from coordinator
-│
-├── orchestrator.execute(prompt, context, providers, tools, hooks)
-│   │
-│   │  (inside the orchestrator — this is the orchestrator's job, not the kernel's)
-│   ├── context.add_message(user prompt)
-│   ├── provider.complete(messages) → call LLM API
-│   ├── if LLM wants to use a tool → tool.execute() → loop back to LLM
-│   └── return response text
-│
-└── return "The three laws of robotics are..."`}
-              />
+              <ConceptDiagram title='execute("What are the 3 laws of robotics?")'>
+                <Step number={1} label="Gather from coordinator">
+                  get orchestrator, context, providers, tools, hooks
+                </Step>
+                <Step number={2} label="orchestrator.execute(prompt, context, providers, tools, hooks)">
+                  <SubFlow label="Inside the orchestrator" annotation="this is the orchestrator&apos;s job, not the kernel&apos;s">
+                    <SubStep label="context.add_message(user prompt)" />
+                    <SubStep label="provider.complete(messages)">call LLM API</SubStep>
+                    <SubStep label="If LLM wants to use a tool">tool.execute() &rarr; loop back to LLM</SubStep>
+                    <SubStep label="Return response text" />
+                  </SubFlow>
+                </Step>
+                <Step number={3} label="Return result">
+                  <code>&quot;The three laws of robotics are...&quot;</code>
+                </Step>
+              </ConceptDiagram>
 
               <p>
                 The orchestrator <em>is</em> the agent loop. The kernel just hands it the pieces.
@@ -212,18 +217,18 @@ await session.cleanup()`}
             <DocSection id="coordinators-slots" number="04" title="The Coordinator's Slots">
               <p>
                 The <code>ModuleCoordinator</code> holds every mounted module in a simple
-                data structure. Single-instance slots for the orchestrator and context,
+                data structure. Single-instance slots for the orchestrator and context manager,
                 dictionaries for providers and tools, and a registry for hooks.
               </p>
 
               <DocCodeBlock
                 label="coordinator.py — mount_points"
                 code={`coordinator.mount_points = {
-    "orchestrator": None,           # single module — required
-    "context":      None,           # single module — required
-    "providers":    {},             # dict of modules by name — at least 1 required
-    "tools":        {},             # dict of modules by name — optional
-    "hooks":        HookRegistry(), # event handler registry — optional
+    "orchestrator": None,      # single — required
+    "context":      None,      # single — required
+    "providers":    {},        # dict by name — need at least 1
+    "tools":        {},        # dict by name — optional
+    "hooks":        HookRegistry(),  # optional
 }`}
               />
 
@@ -251,7 +256,7 @@ await session.cleanup()`}
                     'Without it, nothing executes. There is no default loop.',
                   ],
                   [
-                    'Context',
+                    'Context Manager',
                     'Stores and retrieves the conversation history.',
                     'The LLM needs messages to reason about. No context, no memory.',
                   ],

@@ -366,7 +366,7 @@ tools:
 
               <div className="grid sm:grid-cols-3 gap-x-8 gap-y-5">
                 {[
-                  { name: 'Coordinator + Session', desc: 'The kernel is a session with a coordinator that holds your modules in typed slots. Four-step lifecycle: create, initialize, execute, cleanup.' },
+                  { name: 'Session + Coordinator', desc: 'The kernel is a session with a coordinator that holds your modules in typed slots. Four-step lifecycle: create, initialize, execute, cleanup.' },
                   { name: 'Protocol Contracts', desc: 'Each slot defines a Python Protocol\u2009\u2014\u2009the methods a module must have. No base class, no inheritance. If your object has the right shape, it fits.' },
                   { name: 'Zero Policy', desc: 'The kernel doesn\'t choose your LLM, your tools, your output format, or your persistence strategy. It provides mechanisms. Your app provides policy.' },
                 ].map((mech, i) => (
@@ -539,8 +539,8 @@ tools:
                 The Core
               </h4>
               <p className="text-body text-ink-slate">
-                A session, a coordinator, and 5 module types.
-                ~2,600 lines total. The entire kernel.
+                A session, a coordinator, and five module types.
+                ~4,000 lines of runtime.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Read more
@@ -564,8 +564,7 @@ tools:
                 The Modules
               </h4>
               <p className="text-body text-ink-slate">
-                5 types. Protocol-based. No inheritance required.
-                Swap any module without touching the rest.
+                No inheritance. Protocol-based. Swap any module without touching the rest.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Read more
@@ -590,7 +589,7 @@ tools:
               </h4>
               <p className="text-body text-ink-slate">
                 An optional convenience layer. Handles module downloading,
-                dependency installation, and config composition.
+                dependencies, and more.
               </p>
               <span className="inline-flex items-center gap-1 text-caption text-signal mt-4 font-medium">
                 Read more
@@ -599,32 +598,6 @@ tools:
                 </svg>
               </span>
             </a>
-          </div>
-
-          {/* Protocol code sample */}
-          <div className="reveal max-w-5xl mt-12">
-            <p className="text-caption text-ink-fog mb-3">
-              The Provider contract &mdash; implement three things
-            </p>
-            <CodeBlock
-              code={`class Provider(Protocol):
-    @property
-    def name(self) -> str: ...
-
-    def get_info(self) -> ProviderInfo: ...
-    
-    async def list_models(self) -> list[ModelInfo]:
-
-    async def complete(
-        self, request: ChatRequest, **kwargs
-    ) -> ChatResponse: ...
-
-    def parse_tool_calls(self, response: ChatResponse) -> list[ToolCall]: ...`}
-
-# Implement these things and the kernel
-# treats your module identically to any official provider.`}
-              className="max-w-2xl"
-            />
           </div>
         </div>
       </section>

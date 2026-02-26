@@ -1,7 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { DocCodeBlock, DocDiagram, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import DocPageNav from '@/components/DocPageNav'
+import { DocCodeBlock, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import ConceptDiagram, { Step } from '@/components/diagrams/ConceptDiagram'
+import { ArchDiagram, ArchLayer, ArchConnection, ArchGroup, ArchItem } from '@/components/diagrams/ConceptDiagram'
 
 export default function FoundationPage() {
   useEffect(() => {
@@ -38,15 +41,21 @@ export default function FoundationPage() {
       <section className="section-dark doc-hero" data-theme="dark">
         <div className="container-default">
           <div className="reveal">
-            {/* Breadcrumb */}
-            <nav className="doc-breadcrumb" aria-label="Breadcrumb">
-              <a href="/developers">Developers</a>
-              <span aria-hidden="true">/</span>
-              <span>The Foundation</span>
-            </nav>
+            <div className="doc-hero-meta">
+              {/* Breadcrumb */}
+              <nav className="doc-breadcrumb" aria-label="Breadcrumb">
+                <a href="/developers">Developers</a>
+                <span aria-hidden="true">/</span>
+                <span>The Foundation</span>
+              </nav>
 
-            {/* Page indicator */}
-            <p className="doc-page-indicator">03 of 03</p>
+              {/* Page navigation */}
+              <DocPageNav
+                current={3}
+                total={3}
+                prev={{ href: '/developers/modules', label: 'The Modules' }}
+              />
+            </div>
 
             {/* Title */}
             <h1 className="doc-hero-title">The Foundation</h1>
@@ -144,49 +153,40 @@ async with session:
 
             {/* Section 02: What prepare() Does */}
             <DocSection id="what-prepare-does" number="02" title="What prepare() Does">
-              <DocDiagram
-                label="prepare() under the hood"
-                diagram={`prepare()
-│
-├── For each module in the bundle:
-│   ├── "source": "git+https://..." → git clone to local cache
-│   ├── Install Python dependencies (if any)
-│   └── Record: "loop-streaming" lives at /path/to/local/clone
-│
-└── Build a BundleModuleResolver:
-    A dict that maps module IDs → local file paths
-    {
-      "loop-streaming":      Path("/tmp/.cache/amplifier-module-loop-streaming"),
-      "context-simple":      Path("/tmp/.cache/amplifier-module-context-simple"),
-      "provider-anthropic":  Path("/tmp/.cache/amplifier-module-provider-anthropic"),
-    }`}
-              />
+              <ConceptDiagram title="prepare()">
+                <Step number={1} label="Fetch and install each module from the bundle">
+                  <code>source: &quot;git+https://...&quot;</code> &rarr; git clone to local cache.
+                  Install Python dependencies if any.
+                  Record: <code>loop-streaming</code> lives at path to local clone.
+                </Step>
+                <Step number={2} label="Build a BundleModuleResolver">
+                  A dict that maps module IDs &rarr; local file paths:
+                  <code>loop-streaming</code> &rarr; <code>/tmp/.cache/amplifier-module-loop-streaming</code>,
+                  <code>context-simple</code> &rarr; <code>/tmp/.cache/amplifier-module-context-simple</code>,
+                  <code>provider-anthropic</code> &rarr; <code>/tmp/.cache/amplifier-module-provider-anthropic</code>
+                </Step>
+              </ConceptDiagram>
             </DocSection>
 
             {/* Section 03: What create_session() Does */}
             <DocSection id="what-create-session-does" number="03" title="What create_session() Does">
-              <DocDiagram
-                label="create_session() under the hood"
-                diagram={`create_session()
-│
-├── 1. Build the config dict (the "mount plan") from the Bundle
-│      Same plain dict the kernel expects:
-│      {"session": {"orchestrator": "loop-streaming", ...},
-│       "providers": [...], "tools": [...], "hooks": [...]}
-│
-├── 2. Create an AmplifierSession with that config
-│      session = AmplifierSession(config=mount_plan)
-│
-├── 3. Mount the BundleModuleResolver at the "module-source-resolver" slot
-│      await session.coordinator.mount("module-source-resolver", resolver)
-│
-│      Now when initialize() asks the ModuleLoader to find "provider-anthropic",
-│      Strategy 1 kicks in: the resolver says "it's at /tmp/.cache/..."
-│
-└── 4. Call session.initialize()
-       Same initialize() from The Core — loads orchestrator, context,
-       providers, tools, hooks in order`}
-              />
+              <ConceptDiagram title="create_session()">
+                <Step number={1} label="Build the config dict from the Bundle">
+                  Same plain dict the kernel expects: orchestrator, providers, tools, hooks
+                </Step>
+                <Step number={2} label="Create an AmplifierSession with that config">
+                  <code>session = AmplifierSession(config=mount_plan)</code>
+                </Step>
+                <Step number={3} label='Mount the BundleModuleResolver at "module-source-resolver"'>
+                  Now when <code>initialize()</code> asks the ModuleLoader to
+                  find <code>provider-anthropic</code>, Strategy 1 kicks in:
+                  the resolver says &quot;it&apos;s at /tmp/.cache/...&quot;
+                </Step>
+                <Step number={4} label="Call session.initialize()">
+                  Same <code>initialize()</code> from The Core &mdash; loads orchestrator,
+                  context, providers, tools, hooks in order
+                </Step>
+              </ConceptDiagram>
 
               <p>
                 This is exactly what you&apos;d do manually with the kernel. Foundation just
@@ -200,32 +200,32 @@ async with session:
                 Foundation fills one specific kernel slot: <code>module-source-resolver</code>.
               </p>
 
-              <DocDiagram
-                label="Foundation → Kernel connection"
-                diagram={`┌─────────────── Your App ──────────────────────┐
-│  Bundle(...)                                   │
-│  prepare()                                     │
-│  create_session()                              │
-└──────────────────┬─────────────────────────────┘
-                   │ mounts resolver + calls initialize()
-┌──────────────────▼─────────────────────────────┐
-│  Kernel: AmplifierSession                      │
-│                                                │
-│  ModuleCoordinator                             │
-│  ├── module-source-resolver ← Foundation's     │
-│  │                            BundleResolver   │
-│  ├── orchestrator ← loaded via resolver        │
-│  ├── context      ← loaded via resolver        │
-│  ├── providers    ← loaded via resolver        │
-│  ├── tools        ← loaded via resolver        │
-│  └── hooks        ← loaded via resolver        │
-│                                                │
-│  ModuleLoader                                  │
-│  └── load("provider-anthropic")                │
-│      └── asks resolver → "/tmp/.cache/…"       │
-│          → imports module → calls mount()      │
-└────────────────────────────────────────────────┘`}
-              />
+              <ArchDiagram title="Foundation &rarr; Kernel connection">
+                <ArchLayer label="Your App" variant="primary">
+                  <ArchItem>Bundle(...)</ArchItem>
+                  <ArchItem>prepare()</ArchItem>
+                  <ArchItem>create_session()</ArchItem>
+                </ArchLayer>
+
+                <ArchConnection label="mounts resolver + calls initialize()" />
+
+                <ArchLayer label="Kernel: AmplifierSession" variant="secondary">
+                  <ArchGroup label="ModuleCoordinator">
+                    <ArchItem annotation="&larr; Foundation's BundleResolver">module-source-resolver</ArchItem>
+                    <ArchItem annotation="&larr; loaded via resolver">orchestrator</ArchItem>
+                    <ArchItem annotation="&larr; loaded via resolver">context</ArchItem>
+                    <ArchItem annotation="&larr; loaded via resolver">providers</ArchItem>
+                    <ArchItem annotation="&larr; loaded via resolver">tools</ArchItem>
+                    <ArchItem annotation="&larr; loaded via resolver">hooks</ArchItem>
+                  </ArchGroup>
+                  <ArchGroup label="ModuleLoader">
+                    <ArchItem>load(&quot;provider-anthropic&quot;)</ArchItem>
+                    <ArchItem annotation="&rarr; imports module &rarr; calls mount()">
+                      asks resolver &rarr; &quot;/tmp/.cache/...&quot;
+                    </ArchItem>
+                  </ArchGroup>
+                </ArchLayer>
+              </ArchDiagram>
 
               <p>
                 The kernel doesn&apos;t know Foundation exists. It just sees a resolver in its

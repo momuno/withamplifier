@@ -1,0 +1,422 @@
+/* ============================================
+   CONCEPT DIAGRAMS — Visual flow diagrams
+   
+   Three diagram types:
+   1. Sequential flow (ConceptDiagram)
+   2. Fallback/decision chain (ConceptDiagram variant="fallback")
+   3. Architecture layers (ArchDiagram)
+   ============================================ */
+
+/* --- Scoped tokens --- */
+.cd-diagram,
+.cd-arch {
+  --_cd-accent: var(--signal, #5B4DE3);
+  --_cd-accent-soft: var(--canvas-stone, #F5F3F0);
+  --_cd-accent-border: var(--canvas-mist, #EEEAE5);
+  --_cd-accent-line: rgba(26, 26, 26, 0.10);
+  --_cd-warn: #D4A017;
+  --_cd-warn-soft: rgba(212, 160, 23, 0.10);
+  --_cd-green: #00B870;
+  --_cd-green-soft: rgba(0, 184, 112, 0.08);
+  --_cd-green-border: rgba(0, 184, 112, 0.20);
+  --_cd-text: var(--ink, #1a1a1a);
+  --_cd-text-secondary: var(--ink-slate, #555);
+  --_cd-bg: var(--canvas-stone, #F5F3F0);
+  --_cd-radius: 12px;
+  --_cd-step-size: 32px;
+  --_cd-substep-size: 10px;
+}
+
+/* --- Diagram container --- */
+.cd-diagram {
+  position: relative;
+  background: var(--_cd-bg);
+  border-left: 3px solid var(--canvas-mist, #EEEAE5);
+  border-radius: 0 var(--_cd-radius) var(--_cd-radius) 0;
+  padding: 28px 28px 28px 24px;
+  margin: 32px 0;
+}
+
+/* --- Diagram title --- */
+.cd-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+
+/* --- Steps container (the timeline rail) --- */
+.cd-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 16px;
+}
+
+/* Vertical connector line */
+.cd-steps::before {
+  content: '';
+  position: absolute;
+  left: 15px; /* center of the 32px circle */
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: rgba(26, 26, 26, 0.10);
+}
+
+/* Fallback variant: dashed connector */
+.cd-diagram[data-variant="fallback"] .cd-steps::before {
+  background: none;
+  border-left: 2px dashed rgba(26, 26, 26, 0.14);
+  width: 0;
+}
+
+/* --- Individual step --- */
+.cd-step {
+  display: grid;
+  grid-template-columns: var(--_cd-step-size) 1fr;
+  gap: 16px;
+  align-items: start;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.cd-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Step number circle — KEEP purple accent */
+.cd-step-number {
+  width: var(--_cd-step-size);
+  height: var(--_cd-step-size);
+  border-radius: 50%;
+  background: var(--_cd-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* Fallback variant: outlined circles — warm gray outline */
+.cd-diagram[data-variant="fallback"] .cd-step-number {
+  background: transparent;
+  border: 2px solid var(--ink-fog, #7a7a7a);
+  color: var(--ink-fog, #7a7a7a);
+}
+
+/* Step content */
+.cd-step-content {
+  padding-top: 4px;
+}
+
+.cd-step-label {
+  font-family: var(--font-heading, 'Syne', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--_cd-text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cd-step-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--_cd-text-secondary);
+}
+
+.cd-step-body code {
+  font-size: 13px;
+  background: rgba(26, 26, 26, 0.05);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--ink, #1a1a1a);
+  font-weight: 500;
+}
+
+/* --- Badges --- */
+.cd-badge {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.cd-badge-required {
+  background: var(--_cd-accent);
+  color: white;
+}
+
+.cd-badge-warn {
+  background: var(--_cd-warn-soft);
+  color: var(--_cd-warn);
+  border: 1px solid rgba(212, 160, 23, 0.25);
+}
+
+/* --- SubFlow (nested execution) --- */
+.cd-subflow {
+  margin-top: 12px;
+  background: var(--canvas, #FDFCFA);
+  border: 1px solid var(--canvas-mist, #EEEAE5);
+  border-radius: 8px;
+  padding: 16px 16px 16px 12px;
+}
+
+.cd-subflow-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.cd-subflow-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+}
+
+.cd-subflow-annotation {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--_cd-text-secondary);
+}
+
+/* SubSteps inside a SubFlow */
+.cd-substeps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 5px;
+}
+
+.cd-substeps::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 5px;
+  bottom: 5px;
+  width: 1.5px;
+  background: rgba(26, 26, 26, 0.10);
+}
+
+.cd-substep {
+  display: grid;
+  grid-template-columns: var(--_cd-substep-size) 1fr;
+  gap: 10px;
+  align-items: start;
+  padding-bottom: 10px;
+}
+
+.cd-substep:last-child {
+  padding-bottom: 0;
+}
+
+.cd-substep-dot {
+  width: var(--_cd-substep-size);
+  height: var(--_cd-substep-size);
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.14);
+  margin-top: 4px;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.cd-substep-content {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--_cd-text-secondary);
+}
+
+.cd-substep-label {
+  font-weight: 600;
+  color: var(--_cd-text);
+}
+
+.cd-substep-body {
+  color: var(--_cd-text-secondary);
+}
+
+/* --- Architecture Diagram --- */
+.cd-arch {
+  margin: 32px 0;
+}
+
+.cd-arch-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+  margin-bottom: 16px;
+}
+
+/* Architecture layers */
+.cd-arch-layer {
+  border-radius: var(--_cd-radius);
+  padding: 20px;
+  position: relative;
+}
+
+.cd-arch-layer-primary {
+  background: var(--canvas-stone, #F5F3F0);
+  border: 1px solid var(--canvas-mist, #EEEAE5);
+}
+
+.cd-arch-layer-secondary {
+  background: var(--canvas-warm, #FAF8F5);
+  border: 1px solid var(--canvas-mist, #EEEAE5);
+}
+
+.cd-arch-layer-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.cd-arch-layer-primary .cd-arch-layer-label {
+  color: var(--ink-slate, #555);
+}
+
+.cd-arch-layer-secondary .cd-arch-layer-label {
+  color: var(--ink-slate, #555);
+}
+
+/* Connection arrow between layers */
+.cd-arch-connection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  color: var(--_cd-text-secondary);
+  font-size: 13px;
+}
+
+.cd-arch-connection-arrow {
+  width: 2px;
+  height: 20px;
+  background: rgba(26, 26, 26, 0.14);
+  position: relative;
+}
+
+.cd-arch-connection-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(26, 26, 26, 0.14);
+}
+
+.cd-arch-connection-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  color: var(--_cd-text-secondary);
+}
+
+/* Groups inside layers */
+.cd-arch-group {
+  margin-bottom: 12px;
+}
+
+.cd-arch-group:last-child {
+  margin-bottom: 0;
+}
+
+.cd-arch-group-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--_cd-text);
+  margin-bottom: 6px;
+}
+
+.cd-arch-group-items {
+  border-left: 2px solid rgba(26, 26, 26, 0.10);
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cd-arch-layer-secondary .cd-arch-group-items {
+  border-left-color: rgba(26, 26, 26, 0.10);
+}
+
+/* Items */
+.cd-arch-item {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  color: var(--_cd-text);
+  line-height: 1.5;
+}
+
+.cd-arch-item-annotation {
+  font-style: italic;
+  font-family: var(--font-body, 'Epilogue', sans-serif);
+  color: var(--_cd-text-secondary);
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+/* --- Breakout for doc-grid --- */
+.doc-article .cd-diagram,
+.doc-article .cd-arch {
+  grid-column: 1 / -1;
+  max-width: min(880px, calc(100% - 48px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .cd-diagram {
+    padding: 20px 16px 20px 16px;
+    margin-left: -20px;
+    margin-right: -20px;
+    border-radius: 0;
+  }
+
+  .cd-step {
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+  }
+
+  .cd-step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .cd-arch {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .cd-arch-layer {
+    border-radius: 0;
+    padding: 16px;
+  }
+}

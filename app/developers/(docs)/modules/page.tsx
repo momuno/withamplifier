@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { DocCodeBlock, DocDiagram, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import DocPageNav from '@/components/DocPageNav'
+import { DocCodeBlock, DocTable, DocSection, DocPagination, DocNote } from '@/components/DocComponents'
+import ConceptDiagram, { Step } from '@/components/diagrams/ConceptDiagram'
 
 export default function ModulesPage() {
   useEffect(() => {
@@ -37,24 +39,30 @@ export default function ModulesPage() {
       <section className="section-dark doc-hero" data-theme="dark">
         <div className="container-default">
           <div className="reveal">
-            {/* Breadcrumb */}
-            <nav className="doc-breadcrumb" aria-label="Breadcrumb">
-              <a href="/developers">Developers</a>
-              <span aria-hidden="true">/</span>
-              <span>The Modules</span>
-            </nav>
+            <div className="doc-hero-meta">
+              {/* Breadcrumb */}
+              <nav className="doc-breadcrumb" aria-label="Breadcrumb">
+                <a href="/developers">Developers</a>
+                <span aria-hidden="true">/</span>
+                <span>The Modules</span>
+              </nav>
 
-            {/* Page indicator */}
-            <p className="doc-page-indicator">02 of 03</p>
+              {/* Page navigation */}
+              <DocPageNav
+                current={2}
+                total={3}
+                prev={{ href: '/developers/core', label: 'The Core' }}
+                next={{ href: '/developers/foundation', label: 'The Foundation' }}
+              />
+            </div>
 
             {/* Title */}
             <h1 className="doc-hero-title">The Modules</h1>
 
             {/* Lead text */}
             <p className="doc-hero-lead">
-              5 types. Protocol-based. No inheritance required.
+              Five types. Protocol-based. No inheritance required.
             </p>
-            <br/>
 
             {/* Source link */}
             <a
@@ -208,31 +216,48 @@ class InventoryTool:
                 which tries three strategies in order.
               </p>
 
-              <DocDiagram
-                label="ModuleLoader resolution strategies"
-                diagram={`ModuleLoader.load("tool-inventory")
-│
-├── Strategy 1: Source resolver
-│   Is there a resolver mounted at the "module-source-resolver" slot?
-│   If yes → ask it: "where is tool-inventory?"
-│            resolver returns a file path → load from there
-│
-├── Strategy 2: Python entry points
-│   Is there a pip-installed package that registered itself under
-│   the "amplifier.modules" entry point group?
-│   If yes → import it
-│
-└── Strategy 3: Filesystem convention
-    Is there a package named "amplifier_module_tool_inventory"
-    importable on sys.path?
-    If yes → import it, look for a mount() function`}
+              <ConceptDiagram title='ModuleLoader.load("tool-inventory")' variant="fallback">
+                <Step number={1} label="Strategy 1: Source resolver">
+                  Is there a resolver mounted at the <code>module-source-resolver</code> slot?
+                  If yes &rarr; ask it: &quot;where is tool-inventory?&quot;
+                  &rarr; resolver returns a file path &rarr; load from there
+                </Step>
+                <Step number={2} label="Strategy 2: Python entry points">
+                  Is there a pip-installed package that registered itself under
+                  the <code>amplifier.modules</code> entry point group? If yes &rarr; import it
+                </Step>
+                <Step number={3} label="Strategy 3: Filesystem convention">
+                  Is there a package named <code>amplifier_module_tool_inventory</code> importable
+                  on <code>sys.path</code>? If yes &rarr; import it, look for
+                  a <code>mount()</code> function
+                </Step>
+              </ConceptDiagram>
+
+              <p>
+                In practice, you rarely think about this. The most common
+                path is installing a module with <code>pip</code> or <code>uv</code> and
+                referencing it by name in your config:
+              </p>
+
+              <DocCodeBlock
+                label="Install a module, use it by name"
+                code={`# At the command line:
+uv pip install amplifier-module-tool-bash
+
+# Then in your AmplifierSession config, reference it by name:
+session = AmplifierSession(config={
+    ...
+    "tools": [
+        {"module": "tool-bash"}   # the loader finds it
+    ],
+})
+# The kernel handles the rest during initialize().`}
               />
 
               <p>
-                In practice, you rarely think about this. If you <code>pip install</code> a
-                module, the loader finds it automatically. If you pull modules from git
-                repos, the <a href="/developers/foundation">Foundation</a> layer handles
-                that for you.
+                If you need modules from git repos instead of published packages,
+                the <a href="/developers/foundation">Foundation</a> layer handles
+                cloning and setup for you &mdash; that&apos;s covered on the next page.
               </p>
               <p>
                 What matters next is what happens <em>after</em> the loader finds your
@@ -283,11 +308,18 @@ class InventoryTool:
               </p>
 
               <DocCodeBlock
-                label="The Config Dict — adding a custom tool"
-                code={`session = AmplifierSession(config={...})
+                label="Mounting a tool directly — skipping the config dict"
+                code={`# Same session setup as before, but with an empty tools list —
+# we're not loading this tool through the config.
+session = AmplifierSession(config={
+    "session": {"orchestrator": "loop-streaming", ...},
+    "providers": [...],
+    "tools": [],      # <-- nothing here
+})
 await session.initialize()
 
-# Mount your tool directly — no package, no mount() function needed
+# Instead, mount InventoryTool directly on the coordinator.
+# Same result as if the kernel loaded it from a package.
 my_tool = InventoryTool()
 await session.coordinator.mount("tools", my_tool, name=my_tool.name)
 
@@ -304,48 +336,60 @@ response = await session.execute("Check inventory for widget-a")`}
               </p>
 
               <h3>Orchestrators</h3>
-              <DocTable
-                headers={['Module ID', 'What it does']}
-                rows={[
-                  ['loop-streaming', 'Streaming agent loop — sends tokens as they arrive from the LLM.'],
-                  ['loop-basic', 'Simple agent loop — waits for the full response before returning.'],
-                ]}
-              />
+              <table className="doc-table">
+                <thead><tr><th>Module ID</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-loop-streaming" target="_blank" rel="noopener noreferrer">loop-streaming</a></td><td>Streaming agent loop &mdash; sends tokens as they arrive from the LLM.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-loop-basic" target="_blank" rel="noopener noreferrer">loop-basic</a></td><td>Simple agent loop &mdash; waits for the full response before returning.</td></tr>
+                </tbody>
+              </table>
 
-              <h3>Context</h3>
-              <DocTable
-                headers={['Module ID', 'What it does']}
-                rows={[
-                  ['context-simple', 'In-memory conversation history. Stores messages in a list.'],
-                ]}
-              />
+              <h3>Context Managers</h3>
+              <table className="doc-table">
+                <thead><tr><th>Module ID</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-context-simple" target="_blank" rel="noopener noreferrer">context-simple</a></td><td>In-memory conversation history. Stores messages in a list.</td></tr>
+                </tbody>
+              </table>
 
               <h3>Providers</h3>
-              <DocTable
-                headers={['Module ID', 'What it does']}
-                rows={[
-                  ['provider-anthropic', 'Connects to the Anthropic API (Claude models).'],
-                  ['provider-openai', 'Connects to the OpenAI API (GPT models).'],
-                  ['provider-azure', 'Connects to Azure OpenAI Service.'],
-                  ['provider-ollama', 'Connects to a local Ollama instance for open-source models.'],
-                ]}
-              />
+              <table className="doc-table">
+                <thead><tr><th>Module ID</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-provider-anthropic" target="_blank" rel="noopener noreferrer">provider-anthropic</a></td><td>Connects to the Anthropic API (Claude models).</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-provider-openai" target="_blank" rel="noopener noreferrer">provider-openai</a></td><td>Connects to the OpenAI API (GPT models).</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-provider-ollama" target="_blank" rel="noopener noreferrer">provider-ollama</a></td><td>Connects to a local Ollama instance for open-source models.</td></tr>
+                </tbody>
+              </table>
 
               <h3>Tools</h3>
-              <DocTable
-                headers={['Module ID', 'What it does']}
-                rows={[
-                  ['tool-filesystem', 'Read, write, and list files on the local filesystem.'],
-                  ['tool-bash', 'Execute shell commands and return output.'],
-                  ['tool-web', 'Fetch web pages and extract content.'],
-                  ['tool-search', 'Search the web using a search API.'],
-                ]}
-              />
+              <table className="doc-table">
+                <thead><tr><th>Module ID</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-tool-filesystem" target="_blank" rel="noopener noreferrer">tool-filesystem</a></td><td>Read, write, and list files on the local filesystem.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-tool-bash" target="_blank" rel="noopener noreferrer">tool-bash</a></td><td>Execute shell commands and return output.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-tool-web" target="_blank" rel="noopener noreferrer">tool-web</a></td><td>Fetch web pages and extract content.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-tool-search" target="_blank" rel="noopener noreferrer">tool-search</a></td><td>Search the web using a search API.</td></tr>
+                </tbody>
+              </table>
+
+              <h3>Hooks</h3>
+              <table className="doc-table">
+                <thead><tr><th>Module ID</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-logging" target="_blank" rel="noopener noreferrer">hooks-logging</a></td><td>Logs lifecycle events to the session event log.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-approval" target="_blank" rel="noopener noreferrer">hooks-approval</a></td><td>Requires user approval before sensitive tool calls.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-redaction" target="_blank" rel="noopener noreferrer">hooks-redaction</a></td><td>Redacts secrets and sensitive data from event logs.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-streaming-ui" target="_blank" rel="noopener noreferrer">hooks-streaming-ui</a></td><td>Streams tokens and tool status to the terminal UI.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-todo-reminder" target="_blank" rel="noopener noreferrer">hooks-todo-reminder</a></td><td>Injects todo list reminders into agent context.</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/amplifier-module-hooks-status-context" target="_blank" rel="noopener noreferrer">hooks-status-context</a></td><td>Injects environment info (git status, working dir, date) into context.</td></tr>
+                </tbody>
+              </table>
 
               <DocNote>
                 <p>
                   Full list: <a
-                    href="https://github.com/microsoft/amplifier-core/blob/main/MODULES.md"
+                    href="https://github.com/microsoft/amplifier/blob/main/docs/MODULES.md"
                     target="_blank"
                     rel="noopener noreferrer"
                   >MODULES.md on GitHub</a>

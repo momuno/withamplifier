@@ -2111,8 +2111,8 @@ a {
 
 /* Hero */
 .doc-hero {
-  padding-top: 128px;
-  padding-bottom: 64px;
+  padding-top: 80px;
+  padding-bottom: 32px;
 }
 
 .doc-breadcrumb {
@@ -2120,7 +2120,7 @@ a {
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .doc-breadcrumb a {
@@ -2142,11 +2142,81 @@ a {
   font-weight: 500;
 }
 
-.doc-page-indicator {
+/* Inline page navigation (replaces static page indicator) */
+.doc-page-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.doc-page-nav-label {
   font-family: var(--font-mono);
   font-size: 14px;
   color: var(--signal);
+  padding: 0 2px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.doc-page-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--signal);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 150ms ease, background-color 150ms ease;
+  cursor: pointer;
+}
+
+.doc-page-nav-arrow:hover {
+  color: var(--signal-light);
+  background-color: rgba(91, 77, 227, 0.12);
+}
+
+.doc-page-nav-arrow:active {
+  background-color: rgba(91, 77, 227, 0.2);
+}
+
+.doc-page-nav-arrow:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.doc-page-nav-arrow--disabled {
+  color: rgba(255, 255, 255, 0.15);
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (pointer: coarse) {
+  .doc-page-nav-arrow {
+    width: 44px;
+    height: 44px;
+    margin: -8px -4px;
+  }
+}
+
+/* Breadcrumb + page indicator on one line */
+.doc-hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 16px;
+}
+
+.doc-hero-title {
+  font-size: 28px;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.doc-hero-lead {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 0;
 }
 
 .doc-lead {
@@ -2163,6 +2233,7 @@ a {
   color: var(--signal);
   text-decoration: none;
   transition: opacity 200ms;
+  margin-top: 12px;
 }
 
 .doc-source-link:hover {
@@ -2411,6 +2482,12 @@ a {
   vertical-align: top;
 }
 
+.doc-table td:first-child,
+.doc-table th:first-child {
+  width: 200px;
+  white-space: nowrap;
+}
+
 .doc-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -2577,8 +2654,12 @@ a {
 /* Mobile adaptations */
 @media (max-width: 640px) {
   .doc-hero {
-    padding-top: 96px;
-    padding-bottom: 48px;
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+
+  .doc-hero-title {
+    font-size: 24px;
   }
 
   .doc-section {

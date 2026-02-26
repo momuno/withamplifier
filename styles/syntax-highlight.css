@@ -1,0 +1,56 @@
+/* ============================================
+   SYNTAX HIGHLIGHTING — Token colors for code
+   
+   On #171717 charcoal background (existing code blocks)
+   Warm palette connecting to site design tokens
+   ============================================ */
+
+.sh-keyword {
+  color: #B0A0E8;
+}
+
+.sh-string {
+  color: #C9A87C;
+}
+
+.sh-comment {
+  color: #706F6A;
+  font-style: italic;
+}
+
+.sh-decorator {
+  color: #C4887E;
+}
+
+.sh-func-name {
+  color: #D4C4A0;
+}
+
+.sh-class-name {
+  color: #D4C4A0;
+}
+
+.sh-builtin {
+  color: #82BAC6;
+}
+
+.sh-builtin-const {
+  color: #CC9A6A;
+}
+
+.sh-number {
+  color: #A0BC8E;
+}
+
+.sh-self {
+  color: #9A9690;
+  font-style: italic;
+}
+
+.sh-punct {
+  color: #8A8A84;
+}
+
+.sh-plain {
+  color: #E8E8E6;
+}
