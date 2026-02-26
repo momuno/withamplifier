@@ -6,18 +6,16 @@ import { CopyButton } from '@/components/CopyButton'
 interface DocCodeBlockProps {
   code: string
   label?: string
-  thread?: boolean  // progressive code thread indicator
   sourceUrl?: string
   className?: string
 }
 
-export function DocCodeBlock({ code, label, thread, sourceUrl, className = '' }: DocCodeBlockProps) {
+export function DocCodeBlock({ code, label, sourceUrl, className = '' }: DocCodeBlockProps) {
   return (
-    <div className={`doc-breakout doc-code-wrapper ${thread ? 'doc-code-thread' : ''} ${className}`}>
+    <div className={`doc-breakout doc-code-wrapper ${className}`}>
       {label && (
         <div className="doc-code-header">
           <span className="doc-code-label">
-            {thread && <span className="doc-thread-indicator">&#x25C6;</span>}
             {label}
           </span>
           <div className="flex items-center gap-2">

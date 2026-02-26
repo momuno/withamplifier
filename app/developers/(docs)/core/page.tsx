@@ -52,10 +52,9 @@ export default function CorePage() {
 
             {/* Lead text */}
             <p className="doc-hero-lead">
-              A session, a coordinator, and 5 module types. ~2,600 lines total.
-              The kernel provides mechanisms &mdash; it never decides which LLM to use,
-              how to display output, or where to save conversations.
+              A session, a coordinator, and 5 module types. ~4,000 lines total.
             </p>
+            <br/>
 
             {/* Source link */}
             <a
@@ -100,7 +99,6 @@ export default function CorePage() {
               </p>
 
               <DocCodeBlock
-                thread={true}
                 label="The Config Dict — session lifecycle"
                 code={`from amplifier_core import AmplifierSession
 
@@ -148,7 +146,7 @@ await session.cleanup()`}
                 label="initialize() flow"
                 diagram={`initialize()
 │
-├── 1. Load orchestrator   (required — fails if missing)
+├── 1. Load orchestrator    (required — fails if missing)
 │      find "loop-streaming" → import it → call its mount() → slot filled
 │
 ├── 2. Load context         (required — fails if missing)
@@ -170,7 +168,7 @@ await session.cleanup()`}
               <DocNote>
                 <p>
                   Source: <a
-                    href="https://github.com/microsoft/amplifier-core/blob/main/src/amplifier_core/session.py"
+                    href="https://github.com/microsoft/amplifier-core/amplifier_core/session.py"
                     target="_blank"
                     rel="noopener noreferrer"
                   >session.py &mdash; initialize()</a>
@@ -294,7 +292,7 @@ await session.cleanup()`}
                   ],
                   [
                     'Full kernel repo',
-                    '~2,600 lines of Python. The entire kernel with no external runtime dependencies.',
+                    '~4,000 lines of Python. The entire kernel with minimal runtime dependencies.',
                     'github.com/microsoft/amplifier-core',
                   ],
                 ]}

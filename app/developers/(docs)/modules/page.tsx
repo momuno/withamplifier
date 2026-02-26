@@ -52,10 +52,9 @@ export default function ModulesPage() {
 
             {/* Lead text */}
             <p className="doc-hero-lead">
-              5 types. Protocol-based. No inheritance required. Modules are plain
-              Python objects that fill the coordinator&apos;s slots. If your class has
-              the right methods, it&apos;s a valid module.
+              5 types. Protocol-based. No inheritance required.
             </p>
+            <br/>
 
             {/* Source link */}
             <a
@@ -95,18 +94,26 @@ export default function ModulesPage() {
             {/* Section 01: What a Module Looks Like */}
             <DocSection id="what-a-module-looks-like" number="01" title="What a Module Looks Like">
               <p>
-                A module is a Python object that fills one of the coordinator&apos;s five slots.
-                The kernel defines what methods each slot expects &mdash; these are
-                called <em>protocols</em> (Python&apos;s <code>typing.Protocol</code>). Your object
-                just needs to have those methods. No base class, no inheritance, no registration.
+                A module is a Python package with two parts: a <strong>class</strong> that
+                satisfies a protocol, and a <strong><code>mount()</code> function</strong> that
+                the kernel calls during initialization. Each coordinator slot has
+                a <em>protocol</em> &mdash; a definition of the methods a module must
+                have to fill that slot (defined using Python&apos;s <code>typing.Protocol</code>).
+                Your class just needs to have the right methods. No base class, no inheritance.
+              </p>
+              <br/>
+              <p>
+                Here&apos;s what the class part looks like for a custom tool.
               </p>
 
               <DocCodeBlock
-                label="A custom tool — the full protocol"
-                code={`class MyTool:
+                label="A custom tool — the Tool protocol"
+                code={`from amplifier_core import ToolResult
+
+class InventoryTool:
+
     @property
     def name(self) -> str:
-        """Unique identifier. The LLM sees this."""
         return "check_inventory"
 
     @property
@@ -120,55 +127,63 @@ export default function ModulesPage() {
         return {
             "type": "object",
             "properties": {
-                "product_id": {"type": "string"},
+                "product_id": {
+                    "type": "string",
+                    "description": "The product ID to look up",
+                },
             },
             "required": ["product_id"],
         }
 
     async def execute(self, input: dict) -> ToolResult:
-        """Your code. Runs when the LLM calls this tool."""
-        product = lookup(input["product_id"])
-        return ToolResult(success=True, output=str(product))`}
+        """Runs when the LLM calls this tool."""
+        product_id = input.get("product_id")
+        if not product_id:
+            return ToolResult(
+                success=False,
+                error={"message": "product_id is required"}
+            )
+
+        product = await self._lookup(product_id)
+        return ToolResult(success=True, output=product)`}
               />
 
               <p>
-                That&apos;s it. No <code>class MyTool(BaseTool)</code>. No <code>@register_tool</code> decorator.
-                Just a class with the right shape.
+                The class has no awareness of the kernel &mdash; it&apos;s just a plain Python
+                object with the right shape. The <code>mount()</code> function (covered
+                in <a href="#how-a-module-gets-mounted">Section 04</a>) is what wires
+                it into the coordinator.
               </p>
+
             </DocSection>
 
             {/* Section 02: All Five Protocols */}
             <DocSection id="all-five-protocols" number="02" title="All Five Protocols">
               <DocTable
-                headers={['Type', 'Slot', 'What it does', 'Key methods']}
+                headers={['Type', 'What it does', 'Key methods']}
                 rows={[
                   [
                     'Orchestrator',
-                    'orchestrator (single)',
                     'THE agent loop — calls the LLM, handles tool calls, loops',
                     'execute(prompt, context, providers, tools, hooks) → str',
                   ],
                   [
-                    'Context',
-                    'context (single)',
+                    'ContextManager',
                     'Conversation memory — stores and retrieves messages',
-                    'add_message(), get_messages(), clear()',
+                    'add_message(message), get_messages_for_request() → list[dict]',
                   ],
                   [
                     'Provider',
-                    'providers (by name)',
                     'Connects to an LLM API',
-                    'name, complete(request) → response',
+                    'name, complete(request) → ChatResponse',
                   ],
                   [
                     'Tool',
-                    'tools (by name)',
                     'A capability the LLM can decide to call',
                     'name, description, input_schema, execute(input) → ToolResult',
                   ],
                   [
-                    'Hook',
-                    'hooks (registry)',
+                    'HookHandler',
                     'Observes lifecycle events (logging, guardrails, cost tracking)',
                     '__call__(event, data) → HookResult',
                   ],
@@ -178,27 +193,28 @@ export default function ModulesPage() {
               <p>
                 Key distinction: <strong>Tools are LLM-triggered</strong> &mdash; the model decides
                 when to call them based on the conversation. <strong>Hooks are code-triggered</strong> &mdash;
-                they fire on lifecycle events like <code>before_llm_call</code> or <code>after_tool_execute</code>,
+                they fire on lifecycle events like <code>provider:request</code> or <code>tool:post</code>,
                 regardless of what the LLM wants. Tools extend what the agent can do.
-                Hooks observe and control how it does it.
+                Hooks observe and control how the agent behaves.
               </p>
             </DocSection>
 
             {/* Section 03: How Modules Get Found */}
             <DocSection id="how-modules-get-found" number="03" title="How Modules Get Found">
               <p>
-                When <code>initialize()</code> needs to load a module
-                (say, <code>&quot;provider-anthropic&quot;</code>), it asks
-                the <code>ModuleLoader</code>.
+                If you packaged <code>InventoryTool</code> as a module
+                called <code>&quot;tool-inventory&quot;</code>, the kernel needs to find
+                that package at load time. It asks the <code>ModuleLoader</code>,
+                which tries three strategies in order.
               </p>
 
               <DocDiagram
                 label="ModuleLoader resolution strategies"
-                diagram={`ModuleLoader.load("provider-anthropic")
+                diagram={`ModuleLoader.load("tool-inventory")
 │
 ├── Strategy 1: Source resolver
 │   Is there a resolver mounted at the "module-source-resolver" slot?
-│   If yes → ask it: "where is provider-anthropic?"
+│   If yes → ask it: "where is tool-inventory?"
 │            resolver returns a file path → load from there
 │
 ├── Strategy 2: Python entry points
@@ -207,20 +223,21 @@ export default function ModulesPage() {
 │   If yes → import it
 │
 └── Strategy 3: Filesystem convention
-    Is there a package named "amplifier_module_provider_anthropic"
+    Is there a package named "amplifier_module_tool_inventory"
     importable on sys.path?
     If yes → import it, look for a mount() function`}
               />
 
-              <DocNote>
-                <p>
-                  Source: <a
-                    href="https://github.com/microsoft/amplifier-core/blob/main/src/amplifier_core/loader.py"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >loader.py &mdash; ModuleLoader</a>
-                </p>
-              </DocNote>
+              <p>
+                In practice, you rarely think about this. If you <code>pip install</code> a
+                module, the loader finds it automatically. If you pull modules from git
+                repos, the <a href="/developers/foundation">Foundation</a> layer handles
+                that for you.
+              </p>
+              <p>
+                What matters next is what happens <em>after</em> the loader finds your
+                package &mdash; it looks for a <code>mount()</code> function.
+              </p>
             </DocSection>
 
             {/* Section 04: How a Module Gets Mounted */}
@@ -231,21 +248,20 @@ export default function ModulesPage() {
               </p>
 
               <DocCodeBlock
-                label="Inside a module package — mount()"
-                code={`# Inside a module package (e.g., amplifier_module_provider_anthropic):
+                label="The mount() function for InventoryTool"
+                code={`from amplifier_core import ModuleCoordinator
 
-async def mount(coordinator, config):
+async def mount(coordinator: ModuleCoordinator, config=None):
     """Called by the kernel during initialize()."""
-    provider = AnthropicProvider(
-        api_key=os.getenv("ANTHROPIC_API_KEY"),
-        model=config.get("default_model", "claude-sonnet-4-5"),
+    config = config or {}
+    tool = InventoryTool(
+        api_url=config.get("api_url", "https://api.example.com"),
     )
-    await coordinator.mount("providers", provider, name="anthropic")
+    await coordinator.mount("tools", tool, name=tool.name)
 
-    # Optional: return a cleanup function
-    async def cleanup():
-        await provider.close()
-    return cleanup`}
+class InventoryTool:
+    ...  # same as before`
+}
               />
 
               <p>
@@ -267,7 +283,6 @@ async def mount(coordinator, config):
               </p>
 
               <DocCodeBlock
-                thread={true}
                 label="The Config Dict — adding a custom tool"
                 code={`session = AmplifierSession(config={...})
 await session.initialize()

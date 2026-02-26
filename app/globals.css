@@ -2308,27 +2308,68 @@ a {
   margin: 0;
 }
 
-/* Progressive code thread indicator */
-.doc-code-thread {
-  border-left: 3px solid var(--signal);
+
+
+/* ============================================
+   DIAGRAM BLOCKS — "Blueprint Slate" Treatment
+   
+   Distinguishes explanatory diagrams from
+   runnable code blocks through five visual cues:
+   hue shift, text temperature, left accent,
+   wrapper border, and background texture.
+   ============================================ */
+
+/* Wrapper: indigo border + left accent when containing a diagram */
+.doc-code-wrapper:has(.doc-diagram) {
+  border: 1px solid rgba(120, 135, 180, 0.10);
 }
 
-.doc-thread-indicator {
-  color: var(--signal);
-  margin-right: 6px;
+/* Header: shifted to match indigo-slate palette */
+.doc-code-wrapper:has(.doc-diagram) .doc-code-header {
+  background: #0c0e1a;
+  border-bottom-color: rgba(120, 135, 180, 0.08);
 }
 
-/* ASCII diagrams */
+/* "conceptual" badge — sits where copy button would be on code blocks */
+.doc-code-wrapper:has(.doc-diagram) .doc-code-header::after {
+  content: "conceptual";
+  font-size: 10px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(140, 155, 200, 0.50);
+  background: rgba(140, 155, 200, 0.07);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+/* Diagram content: deep indigo-slate background with faint grid */
 .doc-diagram {
   font-family: var(--font-mono);
   font-size: 15px;
-  line-height: 1.5;
-  color: #E8E8E6;
-  background: var(--depth-charcoal);
+  line-height: 1.6;
+  color: #B8BFD4;
   padding: 32px 24px;
   overflow-x: auto;
   white-space: pre;
   margin: 0;
+
+  /* Deep indigo-slate instead of neutral charcoal */
+  background-color: #111525;
+
+  /* Faint grid: "blueprint" feel at 2.5% opacity */
+  background-image:
+    linear-gradient(
+      rgba(100, 120, 180, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(100, 120, 180, 0.025) 1px,
+      transparent 1px
+    );
+  background-size: 24px 24px;
 }
 
 /* Tables */

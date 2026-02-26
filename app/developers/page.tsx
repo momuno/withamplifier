@@ -139,12 +139,12 @@ export default function DevelopersPage() {
     config: { model: claude-sonnet-4-5 }
 
 orchestrators:
-  - module: orchestrator-streaming    # or orchestrator-batch
+  - module: loop-streaming            # or loop-events
 
 tools:
   - module: tool-filesystem
   - module: tool-bash
-  - module: tool-web-search
+  - module: tool-web
 
 context:
   - module: context-persistent        # or context-simple
@@ -215,7 +215,7 @@ hooks:
               </p>
               <CodeBlock
                 code={`async def __call__(self, event, data):
-    if event != "tool_call":
+    if event != "tool:pre":
         return HookResult(action="continue")
 
     command = data.get("input", {}).get("command", "")
@@ -611,14 +611,17 @@ tools:
     @property
     def name(self) -> str: ...
 
-    @property
-    def model(self) -> str: ...
+    def get_info(self) -> ProviderInfo: ...
+    
+    async def list_models(self) -> list[ModelInfo]:
 
     async def complete(
-        self, request: CompletionRequest
-    ) -> CompletionResponse: ...
+        self, request: ChatRequest, **kwargs
+    ) -> ChatResponse: ...
 
-# Implement these three things and the kernel
+    def parse_tool_calls(self, response: ChatResponse) -> list[ToolCall]: ...`}
+
+# Implement these things and the kernel
 # treats your module identically to any official provider.`}
               className="max-w-2xl"
             />
@@ -783,19 +786,7 @@ tools:
                 Wire them together with a few lines of Python.
               </p>
               <CodeBlock
-                code={`from amplifier_core import AmplifierSession
-
-session = AmplifierSession(
-    providers=[MyProvider()],
-    orchestrator=MyOrchestrator(),
-    tools=[filesystem, bash, web_search],
-    hooks=[approval, redaction],
-    context=PersistentContext(),
-)
-
-result = await session.run(
-    "Build the auth module"
-)`}
+                code={`Under Construction`}
                 className="max-w-xl"
               />
             </div>

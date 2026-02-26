@@ -104,7 +104,6 @@ export default function FoundationPage() {
               </p>
 
               <DocCodeBlock
-                thread={true}
                 label="The Config Dict — Foundation wires it all"
                 code={`from amplifier_foundation import Bundle
 
