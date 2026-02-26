@@ -336,14 +336,14 @@ tools:
               className="reveal mt-6 text-body-large max-w-2xl mx-auto"
               style={{ transitionDelay: '0.1s', color: 'var(--text-on-dark-secondary)' }}
             >
-              2,600 lines of Python. The kernel provides mechanisms &mdash;
-              the capabilities that every AI application needs &mdash; but
-              makes zero decisions about how you use them.
+              A session with a coordinator that holds your modules in typed
+              slots. You configure which modules to load, the kernel loads
+              and runs them. It provides mechanisms &mdash; never opinions.
             </p>
           </div>
 
           {/* Kernel visual */}
-          <div className="reveal max-w-2xl mx-auto">
+          <div className="reveal max-w-4xl mx-auto">
             <div
               className="p-8 md:p-10 rounded-2xl"
               style={{
@@ -360,16 +360,15 @@ tools:
                   Kernel
                 </p>
                 <p className="text-caption font-mono" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                  ~2,600 lines of Python
+                  ~4,000 lines of runtime
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+              <div className="grid sm:grid-cols-3 gap-x-8 gap-y-5">
                 {[
-                  { name: 'Session Lifecycle', desc: 'Create, execute, and clean up agent sessions. Fork child sessions for sub-agents.' },
-                  { name: 'Module Loading', desc: 'Load and unload any module at runtime. The kernel never knows what it\'s loading.' },
-                  { name: 'Event Dispatch', desc: 'If it\'s important, emit an event. Single JSONL log as the source of truth.' },
-                  { name: 'Protocol Enforcement', desc: 'Contracts ensure every module is interchangeable. Implement the interface, plug it in.' },
+                  { name: 'Coordinator + Session', desc: 'The kernel is a session with a coordinator that holds your modules in typed slots. Four-step lifecycle: create, initialize, execute, cleanup.' },
+                  { name: 'Protocol Contracts', desc: 'Each slot defines a Python Protocol\u2009\u2014\u2009the methods a module must have. No base class, no inheritance. If your object has the right shape, it fits.' },
+                  { name: 'Zero Policy', desc: 'The kernel doesn\'t choose your LLM, your tools, your output format, or your persistence strategy. It provides mechanisms. Your app provides policy.' },
                 ].map((mech, i) => (
                   <div key={i}>
                     <h4
