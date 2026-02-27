@@ -29,6 +29,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260130-source-driven-content-generation.html',
   },
   {
+    id: '20260226-command-center',
+    title: 'Untangled - An Amplifier Story',
+    description: 'Four devices. Dozens of broken&nbsp;projects. One hour to fix&nbsp;everything.',
+    category: 'showcase',
+    href: '/stories/decks/20260226-command-center.html',
+  },
+  {
     id: 'a2a-bundle-deck',
     title: 'amplifier-bundle-a2a — Agent-to-Agent Communication',
     description: 'Your Amplifier sessions can now talk to each other. Same machine. Same network. Real HTTP.',
@@ -590,4 +597,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-27T00:02:51.907Z'
+export const lastSynced = '2026-02-27T00:04:51.753Z'
