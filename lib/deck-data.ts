@@ -8,6 +8,13 @@ import { Deck } from '@/components/LearnCard'
 
 export const decks: Deck[] = [
   {
+    id: '14-lines-to-infinity',
+    title: '14 Lines to Infinity — Amplifier Composition Model',
+    description: 'The composition model that makes AI agents as simple as YAML and as powerful as your imagination',
+    category: 'platform',
+    href: '/stories/decks/14-lines-to-infinity.html',
+  },
+  {
     id: '2026-02-24-agent-model-routing',
     title: 'Per-Agent Model Routing — Amplifier Foundation',
     description: 'The right model for every agent, automatically.',
@@ -43,6 +50,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/agents-behavior-capabilities.html',
   },
   {
+    id: 'ai-as-a-document',
+    title: 'AI as a Document — Amplifier Browser Runtime',
+    description: 'What happens when you put an AI agent framework inside a single HTML file',
+    category: 'platform',
+    href: '/stories/decks/ai-as-a-document.html',
+  },
+  {
     id: 'amplifier-app-benchmarks-story',
     title: 'Building a Complete Regression Test Suite in Hours | amplifier-app-benchmarks',
     description: 'The amplifier-app-benchmarks Story',
@@ -51,8 +65,8 @@ export const decks: Deck[] = [
   },
   {
     id: 'amplifier-architecture-deck',
-    title: 'Amplifier Ecosystem Architecture',
-    description: 'A Linux kernel-inspired, modular AI agent framework',
+    title: 'Amplifier Architecture',
+    description: 'A modular AI agent framework built on the Linux kernel philosophy',
     category: 'platform',
     href: '/stories/decks/amplifier-architecture-deck.html',
   },
@@ -127,6 +141,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-vscode-extension.html',
   },
   {
+    id: 'architecture',
+    title: 'Architecture &amp; Philosophy',
+    description: 'The design principles, technical architecture, and philosophical foundations that make Amplifier fundamentally different. For engineers who want to understand not just what, but why.',
+    category: 'platform',
+    href: '/stories/decks/architecture.html',
+  },
+  {
     id: 'attention-firewall-deck',
     title: 'Attention Firewall — Rule-Based Notification Filtering',
     description: 'Rule-based Windows notification filtering. Surfaces what matters. Blocks what doesn\'t.',
@@ -188,6 +209,13 @@ export const decks: Deck[] = [
     description: 'How Diego & Samuel used Amplifier to identify, debug, review, and fix CLI issues — improving the entire stack',
     category: 'platform',
     href: '/stories/decks/cli-quality-collaboration.html',
+  },
+  {
+    id: 'composition-all-the-way-down',
+    title: 'Composition All the Way Down — Amplifier Architecture',
+    description: 'How markdown files become AI agent systems — the architecture of amplifier-foundation',
+    category: 'platform',
+    href: '/stories/decks/composition-all-the-way-down.html',
   },
   {
     id: 'context-inheritance-deck',
@@ -554,6 +582,27 @@ export const decks: Deck[] = [
     href: '/stories/decks/team-tracking-story.html',
   },
   {
+    id: 'the-invisible-team',
+    title: 'The Invisible Team — Amplifier Multi-Agent Orchestration',
+    description: '40+ specialist agents. One conversation. Zero complexity.',
+    category: 'platform',
+    href: '/stories/decks/the-invisible-team.html',
+  },
+  {
+    id: 'the-kernel-that-does-less',
+    title: 'The Kernel That Does Less — amplifier-core Architecture',
+    description: 'An architectural deep-dive into the microkernel that runs AI agents in ~3,400 lines of Python',
+    category: 'platform',
+    href: '/stories/decks/the-kernel-that-does-less.html',
+  },
+  {
+    id: 'the-still-center',
+    title: 'The Still Center — Amplifier\'s Philosophical Core',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/the-still-center.html',
+  },
+  {
     id: 'tui-tester-innovation-story',
     title: 'The TUI Tester Story | When You Can\'t See, You Can\'t Fix',
     description: 'How frustration with TUI debugging led to creating a bundle that enables Amplifier to see terminal interfaces — and fix its own TUI client.',
@@ -590,4 +639,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-26T18:39:12.757Z'
+export const lastSynced = '2026-02-27T00:15:26.396Z'
