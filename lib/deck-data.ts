@@ -51,8 +51,8 @@ export const decks: Deck[] = [
   },
   {
     id: 'amplifier-architecture-deck',
-    title: 'Amplifier Ecosystem Architecture',
-    description: 'A Linux kernel-inspired, modular AI agent framework',
+    title: 'Amplifier Architecture',
+    description: 'A modular AI agent framework built on the Linux kernel philosophy',
     category: 'platform',
     href: '/stories/decks/amplifier-architecture-deck.html',
   },
@@ -590,4 +590,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-26T18:39:12.757Z'
+export const lastSynced = '2026-02-27T00:02:51.907Z'
