@@ -106,6 +106,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-modes-deck.html',
   },
   {
+    id: 'amplifier-platform-evolution-story',
+    title: 'Amplifier Platform Evolution',
+    description: 'Infrastructure, Quality & Pragmatic Decisions',
+    category: 'platform',
+    href: '/stories/decks/amplifier-platform-evolution-story.html',
+  },
+  {
     id: 'amplifier-swarm-deck',
     title: 'Amplifier Swarm — Parallel Task Execution',
     description: 'Parallel task execution with real-time monitoring',
@@ -617,6 +624,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/tui-tester-innovation-story.html',
   },
   {
+    id: 'ui-vision-story',
+    title: 'Teaching AI to See | The ui-vision Story',
+    description: 'When an AI agent built a feature but couldn\'t see what it built, it created its own eyes.',
+    category: 'showcase',
+    href: '/stories/decks/ui-vision-story.html',
+  },
+  {
     id: 'vibecoding-deck',
     title: 'Vibecoding - Best Practices for AI-Assisted Development',
     description: 'Best practices for AI-assisted development. Extracted from practitioners who are building the future.',
@@ -646,4 +660,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-27T12:30:37.028Z'
+export const lastSynced = '2026-02-27T18:25:14.334Z'
