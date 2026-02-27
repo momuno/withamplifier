@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useViewportHeight } from '@/hooks/useViewportHeight'
 import { CodeBlock } from '@/components/CopyButton'
+import AmplifierWebChat from '@/components/AmplifierWebChat'
 
 export default function DevelopersPage() {
   useViewportHeight()
@@ -55,6 +56,7 @@ export default function DevelopersPage() {
           </p>
           <div className="reveal mt-10" style={{ transitionDelay: '0.15s' }}>
             <CodeBlock
+              language="bash"
               code="uv tool install git+https://github.com/microsoft/amplifier"
               className="max-w-2xl mx-auto"
             />
@@ -134,6 +136,7 @@ export default function DevelopersPage() {
                 Your entire module stack &mdash; each one swappable
               </p>
               <CodeBlock
+                language="yaml"
                 code={`providers:
   - module: provider-anthropic        # or provider-openai
     config: { model: claude-sonnet-4-5 }
@@ -214,6 +217,7 @@ hooks:
                 A hook that teaches the agent conventions
               </p>
               <CodeBlock
+                language="python"
                 code={`async def __call__(self, event, data):
     if event != "tool:pre":
         return HookResult(action="continue")
@@ -291,6 +295,7 @@ hooks:
                 Your teammate extends your setup
               </p>
               <CodeBlock
+                language="yaml"
                 code={`includes:
   - my-team-platform             # everything inherited
 
@@ -774,6 +779,7 @@ tools:
                 context accumulation, and resumability.
               </p>
               <CodeBlock
+                language="yaml"
                 code={`name: pr-review
 stages:
   review:
@@ -820,6 +826,7 @@ stages:
             </p>
             <div className="py-4">
               <CodeBlock
+                language="bash"
                 code="uv tool install git+https://github.com/microsoft/amplifier"
                 className="max-w-2xl mx-auto"
               />

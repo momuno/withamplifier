@@ -114,7 +114,7 @@ export default function ModulesPage() {
                 Here&apos;s what the class part looks like for a custom tool.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="A custom tool — the Tool protocol"
                 code={`from amplifier_core import ToolResult
 
@@ -239,7 +239,7 @@ class InventoryTool:
                 referencing it by name in your config:
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="Install a module, use it by name"
                 code={`# At the command line:
 uv pip install amplifier-module-tool-bash
@@ -272,7 +272,7 @@ session = AmplifierSession(config={
                 calls it with the coordinator and any config.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="The mount() function for InventoryTool"
                 code={`from amplifier_core import ModuleCoordinator
 
@@ -307,7 +307,7 @@ class InventoryTool:
                 that satisfies the protocol, mount it directly on the coordinator.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="Mounting a tool directly — skipping the config dict"
                 code={`# Same session setup as before, but with an empty tools list —
 # we're not loading this tool through the config.

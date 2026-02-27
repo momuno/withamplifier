@@ -105,7 +105,7 @@ export default function CorePage() {
                 initialize (which loads and mounts every module), execute a prompt, and clean up.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="The Config Dict — session lifecycle"
                 code={`from amplifier_core import AmplifierSession
 
@@ -221,7 +221,7 @@ await session.cleanup()`}
                 dictionaries for providers and tools, and a registry for hooks.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="coordinator.py — mount_points"
                 code={`coordinator.mount_points = {
     "orchestrator": None,      # single — required

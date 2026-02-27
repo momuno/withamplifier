@@ -16,19 +16,9 @@ const PYTHON_BUILTINS = new Set([
   'AttributeError', 'ImportError', 'StopIteration', 'OSError',
 ])
 
-const TOKEN_RE = new RegExp(
-  [
-    '(#[^\\n]*)',                                         // 1: comment
-    '("""[\\s\\S]*?"""|\'\'\'[\\s\\S]*?\'\'\')',          // 2: triple-quoted string
-    '("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')',   // 3: string
-    '(@\\w+)',                                            // 4: decorator
-    '(\\b\\d+(?:\\.\\d+)?\\b)',                           // 5: number
-    '(\\b\\w+\\b)',                                       // 6: word
-    '([^\\w\\s]+)',                                       // 7: punctuation
-    '(\\s+)',                                             // 8: whitespace
-  ].join('|'),
-  'g'
-)
+// Group 7 excludes quotes so they always go through the string matcher first.
+// Group 8 catches lone unmatched quotes as punct.
+const TOKEN_RE = /(#[^\n]*)|("""[\s\S]*?"""|'''[\s\S]*?''')|("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|(@\w+)|(\b\d+(?:\.\d+)?\b)|(\b\w+\b)|([^\w\s"']+)|(["'])|(\s+)/g
 
 export interface Token {
   type: string
@@ -47,10 +37,9 @@ export function tokenizePython(code: string): Token[] {
   const tokens: Token[] = []
   let match: RegExpExecArray | null
 
-  // Reset lastIndex for safety
-  TOKEN_RE.lastIndex = 0
+  const re = new RegExp(TOKEN_RE.source, 'g')
 
-  while ((match = TOKEN_RE.exec(code)) !== null) {
+  while ((match = re.exec(code)) !== null) {
     const text = match[0]
     let type: string
 
@@ -59,7 +48,9 @@ export function tokenizePython(code: string): Token[] {
     } else if (match[2] != null) {
       type = 'string'
     } else if (match[3] != null) {
-      type = 'string'
+      // Reject false strings: inner content must have a word character
+      const inner = text.slice(1, -1)
+      type = /\w/.test(inner) ? 'string' : 'punct'
     } else if (match[4] != null) {
       type = 'decorator'
     } else if (match[5] != null) {
@@ -68,8 +59,9 @@ export function tokenizePython(code: string): Token[] {
       type = classifyWord(text)
     } else if (match[7] != null) {
       type = 'punct'
+    } else if (match[8] != null) {
+      type = 'punct'  // lone unmatched quote
     } else {
-      // whitespace
       type = 'plain'
     }
 
@@ -82,7 +74,6 @@ export function tokenizePython(code: string): Token[] {
       const targetType = tokens[i].text === 'def' ? 'func-name' : 'class-name'
       for (let j = i + 1; j < tokens.length; j++) {
         if (tokens[j].type !== 'plain' || tokens[j].text.trim() !== '') {
-          // Found a non-whitespace token
           if (tokens[j].type === 'plain') {
             tokens[j].type = targetType
           }

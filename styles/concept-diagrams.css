@@ -31,8 +31,7 @@
 .cd-diagram {
   position: relative;
   background: var(--_cd-bg);
-  border-left: 3px solid var(--canvas-mist, #EEEAE5);
-  border-radius: 0 var(--_cd-radius) var(--_cd-radius) 0;
+  border-radius: var(--_cd-radius);
   padding: 28px 28px 28px 24px;
   margin: 32px 0;
 }
@@ -56,24 +55,6 @@
   padding-left: 16px;
 }
 
-/* Vertical connector line */
-.cd-steps::before {
-  content: '';
-  position: absolute;
-  left: 15px; /* center of the 32px circle */
-  top: 16px;
-  bottom: 16px;
-  width: 2px;
-  background: rgba(26, 26, 26, 0.10);
-}
-
-/* Fallback variant: dashed connector */
-.cd-diagram[data-variant="fallback"] .cd-steps::before {
-  background: none;
-  border-left: 2px dashed rgba(26, 26, 26, 0.14);
-  width: 0;
-}
-
 /* --- Individual step --- */
 .cd-step {
   display: grid;
@@ -88,13 +69,13 @@
   padding-bottom: 0;
 }
 
-/* Step number circle — KEEP purple accent */
+/* Step number circle — warm outlined, not filled purple */
 .cd-step-number {
   width: var(--_cd-step-size);
   height: var(--_cd-step-size);
   border-radius: 50%;
-  background: var(--_cd-accent);
-  color: white;
+  background: var(--canvas-mist, #EEEAE5);
+  color: var(--ink-slate, #5c5c5c);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,16 +184,6 @@
   gap: 0;
   position: relative;
   padding-left: 5px;
-}
-
-.cd-substeps::before {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 5px;
-  bottom: 5px;
-  width: 1.5px;
-  background: rgba(26, 26, 26, 0.10);
 }
 
 .cd-substep {

@@ -1,6 +1,7 @@
 'use client'
 
 import { CopyButton } from '@/components/CopyButton'
+import SyntaxHighlight from '@/components/SyntaxHighlight'
 
 // === DocCodeBlock: Code block with header label ===
 interface DocCodeBlockProps {
@@ -8,9 +9,10 @@ interface DocCodeBlockProps {
   label?: string
   sourceUrl?: string
   className?: string
+  language?: string
 }
 
-export function DocCodeBlock({ code, label, sourceUrl, className = '' }: DocCodeBlockProps) {
+export function DocCodeBlock({ code, label, sourceUrl, className = '', language }: DocCodeBlockProps) {
   return (
     <div className={`doc-breakout doc-code-wrapper ${className}`}>
       {label && (
@@ -36,7 +38,7 @@ export function DocCodeBlock({ code, label, sourceUrl, className = '' }: DocCode
           </div>
         </div>
       )}
-      <pre style={{ margin: 0 }}><code className="code-block pr-12 block">{code}</code></pre>
+      <pre style={{ margin: 0 }}><code className="code-block pr-12 block">{language ? <SyntaxHighlight code={code} language={language} /> : code}</code></pre>
     </div>
   )
 }

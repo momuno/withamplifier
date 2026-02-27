@@ -56,7 +56,7 @@ export default function Home() {
           </p>
           
           <div className="reveal mt-8 md:mt-10" style={{transitionDelay: '0.2s'}}>
-            <CodeBlock code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
+            <CodeBlock language="bash" code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
           </div>
         </div>
       </section>
@@ -446,7 +446,7 @@ You review code for vulnerabilities.
           </h2>
           
           <div className="reveal mt-8" style={{transitionDelay: '0.1s'}}>
-            <CodeBlock code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
+            <CodeBlock language="bash" code="uv tool install git+https://github.com/microsoft/amplifier" className="max-w-lg mx-auto" />
           </div>
           
           <div className="reveal mt-8 flex flex-col sm:flex-row gap-3 justify-center px-4" style={{transitionDelay: '0.2s'}}>

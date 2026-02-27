@@ -1,4 +1,6 @@
 import { tokenizePython } from '@/utils/pythonTokenizer'
+import { tokenizeYaml } from '@/utils/yamlTokenizer'
+import { tokenizeBash } from '@/utils/bashTokenizer'
 
 interface SyntaxHighlightProps {
   code: string
@@ -6,8 +8,22 @@ interface SyntaxHighlightProps {
 }
 
 export default function SyntaxHighlight({ code, language }: SyntaxHighlightProps) {
-  if (language === 'python') {
-    const tokens = tokenizePython(code)
+  let tokens: Array<{type: string, text: string}> | null = null
+
+  switch (language) {
+    case 'python':
+      tokens = tokenizePython(code)
+      break
+    case 'yaml':
+      tokens = tokenizeYaml(code)
+      break
+    case 'bash':
+    case 'shell':
+      tokens = tokenizeBash(code)
+      break
+  }
+
+  if (tokens) {
     return (
       <>
         {tokens.map((token, i) =>

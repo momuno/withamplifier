@@ -112,7 +112,7 @@ export default function FoundationPage() {
                 where I put them?
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="The Config Dict — Foundation wires it all"
                 code={`from amplifier_foundation import Bundle
 
@@ -240,7 +240,7 @@ async with session:
                 Foundation merges them.
               </p>
 
-              <DocCodeBlock
+              <DocCodeBlock language="python"
                 label="Bundle composition"
                 code={`from amplifier_foundation import Bundle, load_bundle
 

@@ -1,6 +1,7 @@
 import './globals.css'
 import '../styles/community-cards.css'
 import '../styles/concept-diagrams.css'
+import '../styles/syntax-highlight.css'
 import { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'

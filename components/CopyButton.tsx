@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import SyntaxHighlight from './SyntaxHighlight'
 
 interface CopyButtonProps {
   text: string
@@ -42,13 +43,14 @@ export function CopyButton({ text, className = '' }: CopyButtonProps) {
 interface CodeBlockProps {
   code: string
   className?: string
+  language?: string
 }
 
-export function CodeBlock({ code, className = '' }: CodeBlockProps) {
+export function CodeBlock({ code, className = '', language }: CodeBlockProps) {
   return (
     <div className={`code-block-wrapper ${className}`}>
       <code className="code-block pr-12 block">
-        {code}
+        {language ? <SyntaxHighlight code={code} language={language} /> : code}
       </code>
       <CopyButton text={code} />
     </div>
