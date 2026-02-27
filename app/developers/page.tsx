@@ -604,6 +604,11 @@ tools:
               </span>
             </a>
           </div>
+
+          {/* Ask the expert — live chat */}
+          <div className="reveal max-w-5xl mt-12">
+            <AmplifierWebChat />
+          </div>
         </div>
       </section>
 
