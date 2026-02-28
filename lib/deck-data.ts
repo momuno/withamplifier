@@ -15,6 +15,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/14-lines-to-infinity.html',
   },
   {
+    id: '2026-02-20-amplifier-docs-automation',
+    title: 'The Self-Maintaining Docs System — Amplifier',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/2026-02-20-amplifier-docs-automation.html',
+  },
+  {
     id: '2026-02-24-agent-model-routing',
     title: 'Per-Agent Model Routing — Amplifier Foundation',
     description: 'The right model for every agent, automatically.',
@@ -34,6 +41,20 @@ export const decks: Deck[] = [
     description: 'Building a system where website content is always accurate, always traceable, and always validated',
     category: 'platform',
     href: '/stories/decks/20260130-source-driven-content-generation.html',
+  },
+  {
+    id: '20260213-artifact-viewer-building-blind',
+    title: 'The Artifact Viewer Story — Building Blind at 1,538 Lines',
+    description: 'Building Blind at 1,538 Lines',
+    category: 'showcase',
+    href: '/stories/decks/20260213-artifact-viewer-building-blind.html',
+  },
+  {
+    id: '400-tabs-to-100',
+    title: '400 Tabs to 100: How Amplifier Manages Your Browser',
+    description: 'How Amplifier manages your browser &mdash; without anyone telling it how',
+    category: 'intro',
+    href: '/stories/decks/400-tabs-to-100.html',
   },
   {
     id: 'a2a-bundle-deck',
@@ -76,6 +97,13 @@ export const decks: Deck[] = [
     description: 'General-purpose container management for AI agents. Spin up isolated Docker/Podman environments complete with credential forwarding, smart language defaults, and dotfiles integration.',
     category: 'tool',
     href: '/stories/decks/amplifier-bundle-containers.html',
+  },
+  {
+    id: 'amplifier-eval-results-story-20260208',
+    title: 'Amplifier Foundation: Engineering Excellence Meets Benchmark Performance',
+    description: 'How a rigorous benchmarking infrastructure gave us the confidence to understand why Amplifier Foundation leads across 58 benchmark tasks.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-eval-results-story-20260208.html',
   },
   {
     id: 'amplifier-forge-deck',
@@ -169,6 +197,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/attention-firewall-deck.html',
   },
   {
+    id: 'attractor-nlspec-deck',
+    title: 'Attractor: Building Software from Natural Language Specs',
+    description: 'StrongDM published three natural language specifications for an AI workflow platform. They shipped zero code. Sam handed the specs to Amplifier and built the entire thing.',
+    category: 'platform',
+    href: '/stories/decks/attractor-nlspec-deck.html',
+  },
+  {
     id: 'azure-zap-story',
     title: 'Azure ZAP Bundle - Multi-Agent Deployment Orchestration',
     description: 'Multi-Agent Deployment Orchestration',
@@ -218,6 +253,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/bundles-and-agents.html',
   },
   {
+    id: 'canvas-platform-trilogy-deck',
+    title: 'The Canvas Platform Trilogy — Amplifier Stories',
+    description: '3 Phases · 10 Sessions · 3 Crashes · Zero Work Lost A two-day architectural overhaul with Amplifier',
+    category: 'platform',
+    href: '/stories/decks/canvas-platform-trilogy-deck.html',
+  },
+  {
     id: 'cli-quality-collaboration',
     title: 'CLI Quality & Collaborative Debugging | Diego & Samuel',
     description: 'How Diego & Samuel used Amplifier to identify, debug, review, and fix CLI issues — improving the entire stack',
@@ -237,6 +279,13 @@ export const decks: Deck[] = [
     description: 'Smarter agent delegation through two-parameter context control',
     category: 'platform',
     href: '/stories/decks/context-inheritance-deck.html',
+  },
+  {
+    id: 'context-intelligence-week-deck',
+    title: 'The Week the System Learned to Run',
+    description: 'Building AI development infrastructure &mdash; and watching it start to build itself.',
+    category: 'platform',
+    href: '/stories/decks/context-intelligence-week-deck.html',
   },
   {
     id: 'cortex-amplifier-presentation',
@@ -370,6 +419,13 @@ export const decks: Deck[] = [
     description: 'Just-in-time tool provisioning for spawned agents',
     category: 'tool',
     href: '/stories/decks/lazy-module-activation-deck.html',
+  },
+  {
+    id: 'lessons-in-developing-multi-agent-orchestration',
+    title: 'Escaping Dark Alleys: Process Discipline in AI Development',
+    description: 'How process discipline and design investment transformed AI development',
+    category: 'platform',
+    href: '/stories/decks/lessons-in-developing-multi-agent-orchestration.html',
   },
   {
     id: 'longbuilder-deck',
@@ -568,6 +624,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/story-proving-parallel-execution.html',
   },
   {
+    id: 'story-spawn-events',
+    title: 'Integrated Session Spawning & Event-Driven Orchestration',
+    description: 'One unified primitive for all session spawning. Cross-session events. Reactive triggers. Background session management.',
+    category: 'platform',
+    href: '/stories/decks/story-spawn-events.html',
+  },
+  {
     id: 'story-three-branches-one-recipe',
     title: 'Three Branches, One Recipe — Amplifier Stories',
     description: 'Merging parallel development into a unified recipe system',
@@ -608,6 +671,13 @@ export const decks: Deck[] = [
     description: 'An architectural deep-dive into the microkernel that runs AI agents in ~3,400 lines of Python',
     category: 'platform',
     href: '/stories/decks/the-kernel-that-does-less.html',
+  },
+  {
+    id: 'the-self-debugging-slack-loop',
+    title: 'The Self-Debugging Slack Loop',
+    description: 'When Amplifier learned to test its own UI by talking to itself through Slack.',
+    category: 'platform',
+    href: '/stories/decks/the-self-debugging-slack-loop.html',
   },
   {
     id: 'the-still-center',
@@ -660,4 +730,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-02-27T18:25:14.334Z'
+export const lastSynced = '2026-02-28T00:54:55.073Z'
