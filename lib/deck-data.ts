@@ -540,6 +540,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/recipes-workflows.html',
   },
   {
+    id: 'routing-matrix-deck',
+    title: 'Amplifier Routing Matrix v2 — Stable Names, Shifting Models',
+    description: 'Stable names, shifting models. Declare intent — the matrix resolves the rest.',
+    category: 'platform',
+    href: '/stories/decks/routing-matrix-deck.html',
+  },
+  {
     id: 'runtime-sdk-tui-journey',
     title: 'Runtime SDK & TUI | Building IDE Integration for Amplifier',
     description: 'Building IDE integration for Amplifier: ACP protocol, multiple transports, and a terminal interface &#8212; with AI-assisted visual testing',
@@ -730,4 +737,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-02T01:13:45.898Z'
+export const lastSynced = '2026-03-02T02:37:47.646Z'
