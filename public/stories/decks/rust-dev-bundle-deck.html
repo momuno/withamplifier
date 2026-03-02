@@ -515,8 +515,6 @@
         .green { color: var(--green); }
         .max-width { max-width: min(900px, 100%); }
     </style>
-    <link rel="stylesheet" href="shared-variables.css">
-    <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
 
@@ -1006,16 +1004,14 @@ amplifier bundle use git+https://github.com/microsoft/amplifier-bundle-rust-dev@
         <span class="tag">github.com/microsoft/amplifier-bundle-rust-dev</span>
     </div>
 
-    <a href="/stories" class="stories-link">&#x2190; More Amplifier Stories</a>
+    <a href="index.html" class="stories-link">&#x2190; More Amplifier Stories</a>
 </div>
 
 <!-- Navigation -->
 <div class="nav" id="nav"></div>
 <div class="slide-counter" id="counter"></div>
 
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
-    <script>
+<script>
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
 
