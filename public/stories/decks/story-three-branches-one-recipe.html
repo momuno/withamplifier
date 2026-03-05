@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Three Branches, One Recipe — Amplifier Stories</title>
+<script>document.documentElement.classList.add('js')</script>
+
 <style>
   :root {
     --accent: #FF375F;
@@ -41,7 +43,6 @@
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     color: var(--text-primary);
-    overflow: hidden;
     height: 100vh;
     height: 100dvh;
     -webkit-font-smoothing: antialiased;
@@ -50,7 +51,7 @@
 
   /* ── Slide base ── */
   .slide {
-    display: none;
+    display: flex;
     min-height: 100vh;
     min-height: 100dvh;
     overflow-y: auto;
@@ -375,7 +376,27 @@
     .badge-active::before { animation: none; }
     .nav-dot { transition: none; }
   }
-</style>
+
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>

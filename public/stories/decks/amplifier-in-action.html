@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Amplifier in Action | Productivity Multiplier</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow: hidden; }
-        .slide { display: none; width: 100vw; min-height: 100vh; min-height: 100dvh; padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px); flex-direction: column; overflow-y: auto; overflow-x: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; }
+        .slide { display: flex; width: 100vw; min-height: 100vh; min-height: 100dvh; padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px); flex-direction: column; overflow-y: auto; overflow-x: hidden; }
         .slide.active { display: flex; }
         .center { text-align: center; align-items: center; justify-content: center; }
         .section-label { font-size: clamp(12px, 2vw, 14px); text-transform: uppercase; letter-spacing: 3px; color: #FF6B9D; margin-bottom: 20px; font-weight: 600; }
@@ -139,6 +141,26 @@
         .chat-message__content a { color: #FF6B9D; text-decoration: none; }
         .chat-message__content a:hover { text-decoration: underline; }
         .nav.hidden, .slide-counter.hidden, .more-stories.hidden { display: none; }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

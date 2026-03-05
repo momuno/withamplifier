@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Per-Agent Model Routing — Amplifier Foundation</title>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>document.documentElement.classList.add('js')</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -41,7 +45,6 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
-    overflow: hidden;
     height: 100vh;
     width: 100vw;
     -webkit-font-smoothing: antialiased;
@@ -51,7 +54,6 @@
   .deck {
     position: relative;
     width: 100vw;
-    height: 100vh;
   }
 
   .slide {
@@ -656,7 +658,28 @@
     .bidir-visual { flex-direction: column; }
     .bidir-arrow { transform: rotate(90deg); }
   }
-</style>
+
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>

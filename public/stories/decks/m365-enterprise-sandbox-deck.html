@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VibOps: Enterprise Vibe Coding | Amplifier Stories</title>
+        <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         * {
             margin: 0;
@@ -52,7 +56,7 @@
 
         /* Slide structure — NO justify-content on base class */
         .slide {
-            display: none;
+            display: flex;
             width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
@@ -709,6 +713,26 @@
                 transition-duration: 0.01ms !important;
             }
         }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

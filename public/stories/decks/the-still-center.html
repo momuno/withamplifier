@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>The Still Center — Amplifier's Philosophical Core</title>
+  <script>document.documentElement.classList.add('js')</script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -39,14 +41,12 @@
       font-family: var(--font-body);
       background: radial-gradient(ellipse at 50% 50%, #332F2C, var(--bg) 60%, var(--bg-deep));
       color: var(--text);
-      overflow: hidden;
-      overscroll-behavior: none;
       -webkit-font-smoothing: antialiased;
     }
 
     /* Slides */
     .slide {
-      display: none;
+      display: flex;
       width: 100vw;
       min-height: 100vh;
       min-height: 100dvh;
@@ -407,7 +407,27 @@
     @media (max-width: 600px) {
       .comparison { grid-template-columns: 1fr; }
     }
-  </style>
+  
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Lazy Module Activation - Amplifier Stories</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         :root {
             --accent: #5AC8FA;
@@ -34,11 +36,10 @@
             background: #000;
             color: var(--text-primary);
             overflow-x: hidden;
-            overscroll-behavior: none;
         }
 
         .slide {
-            display: none;
+            display: flex;
             min-height: 100vh;
             min-height: 100dvh;
             padding: clamp(60px, 10vw, 120px) var(--padding-slide) clamp(80px, 12vw, 100px);
@@ -503,6 +504,26 @@
                 transition: none !important;
             }
         }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

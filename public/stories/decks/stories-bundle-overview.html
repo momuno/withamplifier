@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Stories Bundle — Amplifier Stories</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         :root {
             --accent: #FF2D92;
@@ -39,12 +41,11 @@
             color: var(--text-primary);
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden;
         }
 
         /* Slides */
         .slide {
-            display: none;
+            display: flex;
             flex-direction: column;
             min-height: 100vh;
             min-height: 100dvh;
@@ -502,6 +503,26 @@
                 font-size: clamp(32px, 8vw, 56px);
             }
         }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

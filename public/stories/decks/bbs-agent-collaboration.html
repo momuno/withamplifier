@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The BBS Experiment - Multi-Agent Collaboration</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         :root {
             --accent: #E6A23C;
@@ -46,18 +48,13 @@
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
             background: #000;
             color: #fff;
-            overflow: hidden;
-            overscroll-behavior: none;
         }
         
         .deck {
-            height: 100vh;
-            height: 100dvh;
-            overflow: hidden;
         }
         
         .slide {
-            display: none;
+            display: flex;
             min-height: 100vh;
             min-height: 100dvh;
             padding: var(--padding-slide);
@@ -585,6 +582,27 @@
         .more-stories:hover { color: rgba(255,255,255,0.7); }
         @media (prefers-reduced-motion: reduce) { .slide, .slide * { animation: none !important; transition: none !important; } }
 
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

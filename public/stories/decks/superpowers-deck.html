@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Amplifier + Superpowers</title>
+<script>document.documentElement.classList.add('js')</script>
+
 <style>
 :root {
     --accent: #FF2D55;
@@ -50,12 +52,10 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     color: var(--text);
-    overflow: hidden;
-    overscroll-behavior: none;
     -webkit-font-smoothing: antialiased;
 }
 
-.deck { position: relative; width: 100vw; height: 100vh; height: 100dvh; }
+.deck { position: relative; width: 100vw; }
 
 /* CRITICAL: No justify-content on base slide - prevents content clipping */
 .slide {
@@ -558,7 +558,28 @@ body {
         transition: none !important;
     }
 }
-</style>
+
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Canvas Platform Trilogy — Amplifier Stories</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -24,7 +26,6 @@
             background: #000;
             color: #fff;
             font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-            overflow: hidden;
         }
 
         .progress-bar {
@@ -139,6 +140,26 @@
         .more-stories { position: fixed; top: 22px; right: 28px; font-size: 11px; color: rgba(255,255,255,0.28); text-decoration: none; z-index: 50; transition: color 0.2s; }
         .more-stories:hover { color: rgba(255,255,255,0.65); }
         code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.88em; background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

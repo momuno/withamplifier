@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus: Phase 0 — The Planning That Preceded the Product</title>
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         :root {
             --accent: #64D2FF;
@@ -36,12 +38,11 @@
             background: var(--bg);
             color: var(--text-primary);
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         .slide {
-            display: none;
+            display: flex;
             min-height: 100vh;
             min-height: 100dvh;
             overflow-y: auto;
@@ -335,6 +336,26 @@
         }
 
         .max-width { max-width: 1100px; width: 100%; }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

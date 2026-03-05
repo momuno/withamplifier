@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Self-Debugging Slack Loop</title>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>document.documentElement.classList.add('js')</script>
+
 <style>
 :root {
     --accent: #7B68EE;
@@ -27,8 +31,6 @@
 
 html, body {
     width: 100%; height: 100%;
-    overflow: hidden;
-    overscroll-behavior: none;
     background: #000;
     color: #fff;
 }
@@ -413,7 +415,28 @@ body { font-family: var(--sans); }
     .diagram-arrow { transform: rotate(90deg); }
     .hide-mobile { display: none; }
 }
-</style>
+
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>

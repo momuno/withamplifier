@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Building M365 Multi-Agent Collaboration | Diego Colombo</title>
+        <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>document.documentElement.classList.add('js')</script>
+
     <style>
         :root {
             /* Design system type scale */
@@ -63,12 +67,11 @@
             background: #000;
             color: var(--text-primary);
             line-height: 1.5;
-            overflow: hidden;
         }
 
         /* ── Slide layout ── */
         .slide {
-            display: none;
+            display: flex;
             width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
@@ -546,6 +549,26 @@
                 animation-duration: 0.01ms !important;
             }
         }
+    
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">

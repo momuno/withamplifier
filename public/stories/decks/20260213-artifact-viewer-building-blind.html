@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Artifact Viewer Story — Building Blind at 1,538 Lines</title>
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>document.documentElement.classList.add('js')</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -34,7 +38,6 @@
 
   html, body {
     width: 100%; height: 100%;
-    overflow: hidden;
     background: var(--navy-deep);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--text);
@@ -584,7 +587,28 @@
     .slide { padding: 40px 50px; }
     .metric-value { font-size: 44px; }
   }
-</style>
+
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+    </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
