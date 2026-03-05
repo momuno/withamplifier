@@ -470,6 +470,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/marathon-session-deck.html',
   },
   {
+    id: 'modes-adherence-deck',
+    title: 'Mode Transition Control — Amplifier',
+    description: 'Structural enforcement of pipeline sequencing across multi-stage agentic workflows',
+    category: 'platform',
+    href: '/stories/decks/modes-adherence-deck.html',
+  },
+  {
     id: 'multi-provider-swarms-deck',
     title: 'Multi-Provider Agent Swarms — Cross-Validating AI with AI',
     description: 'Cross-Validating AI with AI',
@@ -737,4 +744,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-04T18:31:25.925Z'
+export const lastSynced = '2026-03-05T01:02:37.551Z'
