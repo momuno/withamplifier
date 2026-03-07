@@ -400,6 +400,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/github-actions-tool-deck.html',
   },
   {
+    id: 'gpt-5-4-ecosystem-support',
+    title: 'GPT-5.4 Ecosystem Support',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/gpt-5-4-ecosystem-support.html',
+  },
+  {
     id: 'kepler-refactor-deck',
     title: 'The Kepler Refactor — 606 Lines of Dead Code & 104 New Tests',
     description: '606 lines of dead code removed. 104 new tests added. A disciplined, AI-assisted 5-phase migration.',
@@ -744,4 +751,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-07T06:23:29.370Z'
+export const lastSynced = '2026-03-07T12:21:02.739Z'
