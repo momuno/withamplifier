@@ -477,6 +477,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/marathon-session-deck.html',
   },
   {
+    id: 'model-routing-provider-config',
+    title: 'Model Routing &amp; Provider Configuration',
+    description: 'Configure everything. Share what matters. Keep credentials personal.',
+    category: 'platform',
+    href: '/stories/decks/model-routing-provider-config.html',
+  },
+  {
     id: 'modes-adherence-deck',
     title: 'Mode Transition Control — Amplifier',
     description: 'Structural enforcement of pipeline sequencing across multi-stage agentic workflows',
@@ -751,4 +758,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-08T12:22:11.361Z'
+export const lastSynced = '2026-03-08T18:17:08.717Z'
