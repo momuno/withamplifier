@@ -694,6 +694,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/team-tracking-story.html',
   },
   {
+    id: 'terminal-tester-announcement',
+    title: 'amplifier-bundle-terminal-tester — AI That Can See Your TUI',
+    description: 'amplifier-bundle-terminal-tester Spawn, inspect, and interact with TUI applications — from inside an AI agent.',
+    category: 'platform',
+    href: '/stories/decks/terminal-tester-announcement.html',
+  },
+  {
     id: 'the-invisible-team',
     title: 'The Invisible Team — Amplifier Multi-Agent Orchestration',
     description: '40+ specialist agents. One conversation. Zero complexity.',
@@ -765,4 +772,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-10T18:33:12.220Z'
+export const lastSynced = '2026-03-11T00:58:16.849Z'
