@@ -50,6 +50,41 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260213-artifact-viewer-building-blind.html',
   },
   {
+    id: '20260226-command-center',
+    title: 'Untangled - An Amplifier Story',
+    description: 'Four devices. Dozens of broken&nbsp;projects. One hour to fix&nbsp;everything.',
+    category: 'showcase',
+    href: '/stories/decks/20260226-command-center.html',
+  },
+  {
+    id: '20260226-the-long-session',
+    title: 'Compound - An Amplifier Story',
+    description: 'One session. Four hours. Each problem solved revealed the&nbsp;next.',
+    category: 'platform',
+    href: '/stories/decks/20260226-the-long-session.html',
+  },
+  {
+    id: '20260227-amplifier-module-auto-title-terminal-clarity',
+    title: 'amplifier-module-auto-title — Terminal Clarity',
+    description: 'One printf. Zero runtime overhead. Infinite clarity across every AI session you run simultaneously.',
+    category: 'platform',
+    href: '/stories/decks/20260227-amplifier-module-auto-title-terminal-clarity.html',
+  },
+  {
+    id: '20260227-amplifier-qna-bundle-structured-requirements-gathering',
+    title: 'amplifier-qna-bundle — Structured Requirements, Conversationally',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260227-amplifier-qna-bundle-structured-requirements-gathering.html',
+  },
+  {
+    id: '20260227-nano-banana-pro-visual-intelligence-for-ai-sessions',
+    title: 'Nano Banana Pro: Visual Intelligence for AI Sessions',
+    description: 'You describe images with words. Your AI generates code it cannot see. The gap between mockup and implementation is pure guesswork.',
+    category: 'platform',
+    href: '/stories/decks/20260227-nano-banana-pro-visual-intelligence-for-ai-sessions.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'How Amplifier manages your browser &mdash; without anyone telling it how',
@@ -64,6 +99,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/a2a-bundle-deck.html',
   },
   {
+    id: 'a2a-context-management-story',
+    title: 'Context at Every Level — Amplifier A2A & Multi-Directory Architecture',
+    description: 'How Amplifier\'s directory-aware context and A2A (Agent-to-Agent — a protocol for autonomous inter-agent communication) combine to create focused, collaborative multi-agent workspaces. One project. Many agents. Each with the right context — and a way to talk to each other.',
+    category: 'intro',
+    href: '/stories/decks/a2a-context-management-story.html',
+  },
+  {
     id: 'agents-behavior-capabilities',
     title: 'AGENTS Behavior Bundle - New Capabilities',
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
@@ -76,6 +118,13 @@ export const decks: Deck[] = [
     description: 'What happens when you put an AI agent framework inside a single HTML file',
     category: 'platform',
     href: '/stories/decks/ai-as-a-document.html',
+  },
+  {
+    id: 'ampbrowser-debugging-story',
+    title: 'The Ghost in the Network — An AMP Browser Debugging Story',
+    description: 'How a "broken HTTPS" bug turned out to be a phantom DNS problem — and how Amplifier\'s multi-agent debugging traced it across three sessions, two machines, and a disconnected iPhone.',
+    category: 'intro',
+    href: '/stories/decks/ampbrowser-debugging-story.html',
   },
   {
     id: 'amplifier-app-benchmarks-story',
@@ -125,6 +174,13 @@ export const decks: Deck[] = [
     description: 'How cross-session memory and agent coordination turn fragments into finished work',
     category: 'platform',
     href: '/stories/decks/amplifier-in-action.html',
+  },
+  {
+    id: 'amplifier-meets-the-desktop',
+    title: 'Amplifier Meets the Desktop: A Python Sidecar Story',
+    description: 'From PyInstaller binaries to portable Python distributions',
+    category: 'showcase',
+    href: '/stories/decks/amplifier-meets-the-desktop.html',
   },
   {
     id: 'amplifier-modes-deck',
@@ -337,6 +393,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/design-intelligence-feedback.html',
   },
   {
+    id: 'dev-machine-22-features-one-day',
+    title: '22 Production Features. 1 Developer. 1 Day.',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/dev-machine-22-features-one-day.html',
+  },
+  {
     id: 'diagrams-tool-deck',
     title: 'Diagrams Tool',
     description: 'Generate diagrams from natural language. Visual communication for AI agents.',
@@ -377,6 +440,13 @@ export const decks: Deck[] = [
     description: 'How a casual question became a fully browser-based AI application',
     category: 'showcase',
     href: '/stories/decks/four-prompts-to-serverless-ai.html',
+  },
+  {
+    id: 'from-bland-to-brilliant.slides',
+    title: 'From Bland to Brilliant',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/from-bland-to-brilliant.slides.html',
   },
   {
     id: 'getting-started-guide',
@@ -477,6 +547,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/marathon-session-deck.html',
   },
   {
+    id: 'meta-skill-story',
+    title: 'The Meta-Skill: How to Create Template-Based Amplifier Skills',
+    description: 'How to create template-based Amplifier skills &mdash; a methodology extracted from building scaffold-new-service',
+    category: 'platform',
+    href: '/stories/decks/meta-skill-story.html',
+  },
+  {
     id: 'model-routing-provider-config',
     title: 'Model Routing &amp; Provider Configuration',
     description: 'Configure everything. Share what matters. Keep credentials personal.',
@@ -489,6 +566,13 @@ export const decks: Deck[] = [
     description: 'Structural enforcement of pipeline sequencing across multi-stage agentic workflows',
     category: 'platform',
     href: '/stories/decks/modes-adherence-deck.html',
+  },
+  {
+    id: 'multi-provider-swarm-deck',
+    title: 'The Multi-Provider Swarm Technique — Amplifier',
+    description: 'Eliminate AI blind spots by dispatching parallel agents across providers — then let them cross-review until they converge.',
+    category: 'platform',
+    href: '/stories/decks/multi-provider-swarm-deck.html',
   },
   {
     id: 'multi-provider-swarms-deck',
@@ -638,6 +722,27 @@ export const decks: Deck[] = [
     href: '/stories/decks/story-50-percent-rule.html',
   },
   {
+    id: 'story-building-the-storyteller',
+    title: 'Building the Storyteller &mdash; canvas-specialists',
+    description: 'How to build an AI specialist that selects rather than summarizes &mdash; and why narrative cognition matters for knowledge work.',
+    category: 'showcase',
+    href: '/stories/decks/story-building-the-storyteller.html',
+  },
+  {
+    id: 'story-change-advisor-session',
+    title: 'The Tool That Built Itself — Change Advisor Story',
+    description: 'A story about human judgment in the age of AI-generated pull requests',
+    category: 'tool',
+    href: '/stories/decks/story-change-advisor-session.html',
+  },
+  {
+    id: 'story-how-do-you-know',
+    title: '"How Do You Know?" — Validating the Storyteller Specialist',
+    description: 'Why one question was worth more than three rounds of blind testing',
+    category: 'showcase',
+    href: '/stories/decks/story-how-do-you-know.html',
+  },
+  {
     id: 'story-making-llms-reliable',
     title: 'Making LLMs Reliable Through Code',
     description: 'A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.',
@@ -666,6 +771,20 @@ export const decks: Deck[] = [
     href: '/stories/decks/story-spawn-events.html',
   },
   {
+    id: 'story-teaching-ai-to-follow-through',
+    title: 'Teaching AI to Follow Through &mdash; How Instruction Design Beat Code',
+    description: 'How instruction design took specialist chain reliability from ~40% to &gt;90%&thinsp;&mdash;&thinsp;without writing a single line of code.',
+    category: 'platform',
+    href: '/stories/decks/story-teaching-ai-to-follow-through.html',
+  },
+  {
+    id: 'story-the-seventh-layer',
+    title: 'The Seventh Layer — Cognitive Routing in Agent Pipelines',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/story-the-seventh-layer.html',
+  },
+  {
     id: 'story-three-branches-one-recipe',
     title: 'Three Branches, One Recipe — Amplifier Stories',
     description: 'Merging parallel development into a unified recipe system',
@@ -687,6 +806,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/superpowers-deck.html',
   },
   {
+    id: 'teaching-ai-taste-case-study',
+    title: 'Teaching AI to Have Taste — An Amplifier Case Study',
+    description: 'How a brainstorm session turned a passive design archive into a self-improving intelligence system &mdash; in one afternoon.',
+    category: 'platform',
+    href: '/stories/decks/teaching-ai-taste-case-study.html',
+  },
+  {
     id: 'team-tracking-story',
     title: 'Team Tracking Bundle: Recipe Engineering at Scale',
     description: 'Recipe Engineering at Scale: Patterns for Reliable Bulk Processing',
@@ -699,6 +825,13 @@ export const decks: Deck[] = [
     description: 'amplifier-bundle-terminal-tester Spawn, inspect, and interact with TUI applications — from inside an AI agent.',
     category: 'platform',
     href: '/stories/decks/terminal-tester-announcement.html',
+  },
+  {
+    id: 'the-garden',
+    title: 'The Garden — Plant a Seed, Watch It Grow',
+    description: 'Plant a seed. Watch it grow.',
+    category: 'platform',
+    href: '/stories/decks/the-garden.html',
   },
   {
     id: 'the-invisible-team',
@@ -727,6 +860,13 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/stories/decks/the-still-center.html',
+  },
+  {
+    id: 'the-story-of-all-stories',
+    title: 'The Story of All Stories | Amplifier',
+    description: '',
+    category: 'showcase',
+    href: '/stories/decks/the-story-of-all-stories.html',
   },
   {
     id: 'tui-tester-innovation-story',
@@ -772,4 +912,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-11T18:38:01.358Z'
+export const lastSynced = '2026-03-12T00:55:27.907Z'
