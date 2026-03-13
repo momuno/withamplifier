@@ -85,6 +85,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260227-nano-banana-pro-visual-intelligence-for-ai-sessions.html',
   },
   {
+    id: '20260305-engram-lite-persistent-memory-for-ai-agents',
+    title: 'engram-lite: Persistent Memory for AI Agents',
+    description: 'Persistent, vector-backed memory for Claude Code&nbsp;and&nbsp;Amplifier agents. Local SQLite. Dual-route retrieval. Silent by&nbsp;design.',
+    category: 'platform',
+    href: '/stories/decks/20260305-engram-lite-persistent-memory-for-ai-agents.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'How Amplifier manages your browser &mdash; without anyone telling it how',
@@ -293,6 +300,13 @@ export const decks: Deck[] = [
     description: 'Introducing webruntime and webllm bundles for fully serverless AI',
     category: 'intro',
     href: '/stories/decks/browser-bundles-announcement.html',
+  },
+  {
+    id: 'builder-coach-metacognitive-coaching',
+    title: 'Becoming a Better AI Builder &mdash; One Session at a Time',
+    description: 'Metacognitive coaching for AI builders &mdash; a system that evaluates the person who built it',
+    category: 'platform',
+    href: '/stories/decks/builder-coach-metacognitive-coaching.html',
   },
   {
     id: 'bundle-orchestration-deck',
@@ -806,6 +820,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/superpowers-deck.html',
   },
   {
+    id: 'superpowers-v2-announcement',
+    title: 'Superpowers v2 — Major Methodology Refresh',
+    description: 'Major Methodology Refresh',
+    category: 'devex',
+    href: '/stories/decks/superpowers-v2-announcement.html',
+  },
+  {
     id: 'teaching-ai-taste-case-study',
     title: 'Teaching AI to Have Taste — An Amplifier Case Study',
     description: 'How a brainstorm session turned a passive design archive into a self-improving intelligence system &mdash; in one afternoon.',
@@ -912,4 +933,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-13T12:30:10.743Z'
+export const lastSynced = '2026-03-13T18:25:51.845Z'
