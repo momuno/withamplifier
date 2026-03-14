@@ -155,6 +155,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-bundle-containers.html',
   },
   {
+    id: 'amplifier-chat',
+    title: 'Amplifier Chat — Product Launch',
+    description: 'Queue messages while your AI works.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-chat.html',
+  },
+  {
     id: 'amplifier-eval-results-story-20260208',
     title: 'Amplifier Foundation: Engineering Excellence Meets Benchmark Performance',
     description: 'How a rigorous benchmarking infrastructure gave us the confidence to understand why Amplifier Foundation leads across 58 benchmark tasks.',
@@ -911,6 +918,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/vibecoding-deck.html',
   },
   {
+    id: 'video-editing-story',
+    title: 'From Clipchamp to CLI — How Amplifier Turned 20 Minutes of Video Editing Into a 2-Minute Conversation',
+    description: 'How Amplifier turned 15-20 minutes of manual video editing into a 2-minute conversation',
+    category: 'intro',
+    href: '/stories/decks/video-editing-story.html',
+  },
+  {
     id: 'vision-roadmap',
     title: 'Vision & Roadmap',
     description: 'Where Amplifier is going &mdash; and what\'s already here',
@@ -933,4 +947,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-13T18:25:51.845Z'
+export const lastSynced = '2026-03-14T00:59:54.578Z'
