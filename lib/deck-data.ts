@@ -666,6 +666,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/recipe-runner-mode-story.html',
   },
   {
+    id: 'recipe-validation-pipeline-deck',
+    title: 'Recipe Validation Pipeline — Amplifier Ecosystem',
+    description: 'Catch broken recipes before they reach production. Three PRs. One session. Zero regressions.',
+    category: 'platform',
+    href: '/stories/decks/recipe-validation-pipeline-deck.html',
+  },
+  {
     id: 'recipes-workflows',
     title: 'Recipes & Workflows',
     description: 'Declarative multi-step agent coordination with approval gates, loops, and automatic checkpointing',
@@ -947,4 +954,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-14T00:59:54.578Z'
+export const lastSynced = '2026-03-14T06:31:55.253Z'
