@@ -435,6 +435,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/distributed-ai-network-deck.html',
   },
   {
+    id: 'dot-graph-bundle-deck',
+    title: 'amplifier-bundle-dot-graph — Announcement Deck',
+    description: 'First-class DOT/Graphviz infrastructure for the Amplifier ecosystem',
+    category: 'platform',
+    href: '/stories/decks/dot-graph-bundle-deck.html',
+  },
+  {
     id: 'ecosystem-audit-deck',
     title: 'Ecosystem Audit - 67 Repos, One Command',
     description: '67 repos. Microsoft OSS compliance. One command.',
@@ -954,4 +961,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-15T18:21:46.618Z'
+export const lastSynced = '2026-03-16T01:10:50.847Z'
