@@ -505,6 +505,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/gpt-5-4-ecosystem-support.html',
   },
   {
+    id: 'ios-app-in-a-day',
+    title: 'iOS App in a Day',
+    description: 'One developer. One AI session. A full native iOS app&mdash; auth, offline, CarPlay, sleep timer&mdash;from expo init to done.',
+    category: 'platform',
+    href: '/stories/decks/ios-app-in-a-day.html',
+  },
+  {
     id: 'kepler-refactor-deck',
     title: 'The Kepler Refactor — 606 Lines of Dead Code & 104 New Tests',
     description: '606 lines of dead code removed. 104 new tests added. A disciplined, AI-assisted 5-phase migration.',
@@ -685,6 +692,13 @@ export const decks: Deck[] = [
     description: 'Declarative multi-step agent coordination with approval gates, loops, and automatic checkpointing',
     category: 'platform',
     href: '/stories/decks/recipes-workflows.html',
+  },
+  {
+    id: 'research-specialists-adversarial-quality',
+    title: 'Research Specialists: Adversarial Quality for AI Research',
+    description: 'Adversarial quality for AI research. Every claim sourced. Every inference challenged. Scores its own output.',
+    category: 'platform',
+    href: '/stories/decks/research-specialists-adversarial-quality.html',
   },
   {
     id: 'routing-matrix-deck',
@@ -965,7 +979,14 @@ export const decks: Deck[] = [
     description: 'Not just a website&mdash;the communication layer for everything built with Amplifier.',
     category: 'platform',
     href: '/stories/decks/withamplifier-site-deck.html',
+  },
+  {
+    id: 'writing-readmes-ai-can-explain',
+    title: 'READMEs Nobody Reads (And How to Fix Them)',
+    description: 'A reusable skill for writing project READMEs that humans and AI can actually explain.',
+    category: 'platform',
+    href: '/stories/decks/writing-readmes-ai-can-explain.html',
   }
 ]
 
-export const lastSynced = '2026-03-20T18:31:12.469Z'
+export const lastSynced = '2026-03-21T00:58:32.816Z'
