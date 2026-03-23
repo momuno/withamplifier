@@ -29,6 +29,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/2026-02-24-agent-model-routing.html',
   },
   {
+    id: '2026-03-23-skills-system-upgrade',
+    title: 'Major Skills System Upgrade — Amplifier',
+    description: 'The biggest skills update since launch &mdash; extending the format to support the broader ecosystem while adding powerful new capabilities for Amplifier users.',
+    category: 'platform',
+    href: '/stories/decks/2026-03-23-skills-system-upgrade.html',
+  },
+  {
     id: '20260130-amplifier-sdk',
     title: 'Amplifier SDK - Building Just Got Easier',
     description: 'Building on Amplifier just got a whole lot easier. TypeScript & Python.',
@@ -989,4 +996,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-23T12:37:01.492Z'
+export const lastSynced = '2026-03-23T18:36:38.935Z'
