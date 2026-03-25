@@ -134,6 +134,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/ai-as-a-document.html',
   },
   {
+    id: 'ai-design-thinking-partner',
+    title: 'AI as Design Thinking Partner',
+    description: 'A single brainstorming session that redefined how we think about building with AI',
+    category: 'platform',
+    href: '/stories/decks/ai-design-thinking-partner.html',
+  },
+  {
     id: 'ampbrowser-debugging-story',
     title: 'The Ghost in the Network — An AMP Browser Debugging Story',
     description: 'How a "broken HTTPS" bug turned out to be a phantom DNS problem — and how Amplifier\'s multi-agent debugging traced it across three sessions, two machines, and a disconnected iPhone.',
@@ -384,6 +391,13 @@ export const decks: Deck[] = [
     description: 'Prompt caching, per-step model selection, and loop architecture. Real infrastructure with measurable impact.',
     category: 'devex',
     href: '/stories/decks/cost-optimization-deck.html',
+  },
+  {
+    id: 'cross-repo-bug-hunting',
+    title: 'Cross-Repo Bug Hunting — Amplifier Story',
+    description: 'Following a bug across 3 repositories, 2 languages, and a Python-to-Rust FFI boundary',
+    category: 'showcase',
+    href: '/stories/decks/cross-repo-bug-hunting.html',
   },
   {
     id: 'cross-session-intelligence-deck',
@@ -996,4 +1010,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-25T12:38:01.516Z'
+export const lastSynced = '2026-03-25T18:40:28.949Z'
