@@ -169,11 +169,25 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-bundle-containers.html',
   },
   {
+    id: 'amplifier-bundle-gitea-story',
+    title: 'amplifier-bundle-gitea — Ephemeral Git Servers for Fearless Experimentation',
+    description: 'Ephemeral Git servers for fearless experimentation. Mirror, work, promote &mdash; then throw it away.',
+    category: 'showcase',
+    href: '/stories/decks/amplifier-bundle-gitea-story.html',
+  },
+  {
     id: 'amplifier-chat',
     title: 'Amplifier Chat — Product Launch',
     description: 'Queue messages while your AI works.',
     category: 'platform',
     href: '/stories/decks/amplifier-chat.html',
+  },
+  {
+    id: 'amplifier-digital-twin-universe-phase-1-story',
+    title: 'Amplifier Digital Twin Universe',
+    description: 'Phase 1: A complete, isolated environment stood up on demand that simulates the world your code will live in.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-digital-twin-universe-phase-1-story.html',
   },
   {
     id: 'amplifier-eval-results-story-20260208',
@@ -1010,4 +1024,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-03-27T12:35:46.522Z'
+export const lastSynced = '2026-03-27T18:40:08.875Z'
