@@ -2,11 +2,303 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/learn">
-    <title>Redirecting to Learn...</title>
-    <script>window.location.href = '/learn';</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Amplifier Stories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --font-headline: clamp(32px, 8vw, 56px);
+            --font-subhead: clamp(16px, 2.5vw, 20px);
+            --font-body: clamp(14px, 2vw, 15px);
+            --font-small: clamp(12px, 1.5vw, 14px);
+            --padding-page: clamp(24px, 6vw, 60px) clamp(20px, 5vw, 40px);
+            --gap-grid: clamp(16px, 3vw, 24px);
+            --radius-card: clamp(12px, 2vw, 16px);
+            --color-background: #000;
+            --color-text: #fff;
+
+    /* Surface hierarchy (injected by deck-style-fix) */
+    --surface-1: rgba(255,255,255,0.06);
+    --surface-2: rgba(255,255,255,0.10);
+    --surface-3: rgba(255,255,255,0.15);
+    --border-subtle: rgba(255,255,255,0.12);
+    --text-primary: #ffffff;
+    --text-readable: rgba(255,255,255,0.7);
+    --text-muted-floor: rgba(255,255,255,0.5);
+}
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text);
+            min-height: 100vh;
+            padding: var(--padding-page);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: clamp(32px, 8vw, 60px);
+        }
+
+        .section-label {
+            font-size: var(--font-small);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #0A84FF;
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .headline {
+            font-size: var(--font-headline);
+            font-weight: 700;
+            letter-spacing: clamp(-1px, -0.03em, -2px);
+            line-height: 1.1;
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .subhead {
+            font-size: var(--font-subhead);
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            max-width: 700px;
+            margin: 0 auto clamp(20px, 4vw, 32px);
+            line-height: 1.4;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-card);
+            padding: clamp(24px, 5vw, 40px);
+            margin-bottom: clamp(40px, 8vw, 64px);
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 600;
+            margin-bottom: clamp(12px, 2vw, 16px);
+            color: #0A84FF;
+        }
+
+        .welcome p {
+            font-size: var(--font-body);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto clamp(12px, 2vw, 16px);
+        }
+
+        .welcome ul {
+            list-style: none;
+            font-size: var(--font-body);
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+        }
+
+        .welcome li:before {
+            content: "→ ";
+            color: #0A84FF;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+            gap: var(--gap-grid);
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-card);
+            padding: clamp(24px, 5vw, 32px);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            display: block;
+            position: relative;
+        }
+
+        .category-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        @media (hover: none) {
+            .category-card:hover {
+                transform: none;
+            }
+            .category-card:active {
+                background: rgba(255,255,255,0.08);
+            }
+        }
+
+        .category-icon {
+            font-size: clamp(32px, 6vw, 48px);
+            margin-bottom: clamp(12px, 2vw, 16px);
+            display: block;
+        }
+
+        .category-name {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: clamp(8px, 1.5vw, 12px);
+            line-height: 1.2;
+        }
+
+        .category-description {
+            font-size: var(--font-body);
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .category-count {
+            font-size: var(--font-small);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.5;
+        }
+
+        /* Category colors */
+        .cat-getting-started .category-icon { color: #5AC8FA; }
+        .cat-getting-started:hover { border-color: rgba(90, 200, 250, 0.3); }
+
+        .cat-showcase .category-icon { color: #0A84FF; }
+        .cat-showcase:hover { border-color: rgba(10, 132, 255, 0.3); }
+
+        .cat-features .category-icon { color: #30D158; }
+        .cat-features:hover { border-color: rgba(48, 209, 88, 0.3); }
+
+        .cat-tools .category-icon { color: #FFD60A; }
+        .cat-tools:hover { border-color: rgba(255, 214, 10, 0.3); }
+
+        .cat-devex .category-icon { color: #BF5AF2; }
+        .cat-devex:hover { border-color: rgba(191, 90, 242, 0.3); }
+
+        .cat-enterprise .category-icon { color: #FF9F0A; }
+        .cat-enterprise:hover { border-color: rgba(255, 159, 10, 0.3); }
+
+        .cat-architecture .category-icon { color: #B87333; }
+        .cat-architecture:hover { border-color: rgba(184, 115, 51, 0.3); }
+
+        /* Footer */
+        .footer {
+            margin-top: clamp(48px, 10vw, 80px);
+            text-align: center;
+            padding-top: clamp(24px, 5vw, 40px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-text {
+            font-size: var(--font-small);
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-link {
+            color: #0A84FF;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to <a href="/stories">Learn</a>...</p>
+    <div class="container">
+        <header class="header">
+            <div class="section-label">Presentation Decks</div>
+            <h1 class="headline">Amplifier Stories</h1>
+            <p class="subhead">Showcasing features, projects, and capabilities built with Amplifier. Real stories from real development.</p>
+        </header>
+
+        <section class="welcome">
+            <h2>Welcome to Amplifier Stories</h2>
+            <p>These presentation decks tell the story of Amplifier: what it is, what you can build with it, and how it changes the way we develop software with AI.</p>
+            <ul>
+                <li>Browse by category to find what interests you</li>
+                <li>Each deck is a self-contained HTML presentation</li>
+                <li>Navigate with arrow keys or click left/right</li>
+            </ul>
+        </section>
+
+        <div class="category-grid">
+            <a href="getting-started.html" class="category-card cat-getting-started">
+                <span class="category-icon">📚</span>
+                <div class="category-name">Getting Started</div>
+                <div class="category-description">New to Amplifier? Start here. Introduction, guides, core concepts, and best practices to get productive quickly.</div>
+                <div class="category-count">10 stories</div>
+            </a>
+
+            <a href="showcase.html" class="category-card cat-showcase">
+                <span class="category-icon">✨</span>
+                <div class="category-name">Showcase</div>
+                <div class="category-description">Real applications and interactive demos. See Amplifier in action with live demos, case studies, and complete project stories.</div>
+                <div class="category-count">49 stories</div>
+            </a>
+
+            <a href="features.html" class="category-card cat-features">
+                <span class="category-icon">⚡</span>
+                <div class="category-name">Features</div>
+                <div class="category-description">Platform capabilities that make Amplifier powerful. Session management, testing infrastructure, and multi-agent coordination.</div>
+                <div class="category-count">38 stories</div>
+            </a>
+
+            <a href="tools.html" class="category-card cat-tools">
+                <span class="category-icon">🔧</span>
+                <div class="category-name">Developer Tools</div>
+                <div class="category-description">Extend Amplifier with specialized tool modules. Database access, diagram generation, CI/CD integration, and more.</div>
+                <div class="category-count">17 stories</div>
+            </a>
+
+            <a href="devex.html" class="category-card cat-devex">
+                <span class="category-icon">💜</span>
+                <div class="category-name">Developer Experience</div>
+                <div class="category-description">Improvements to workflows and development philosophy. Cost optimization, behavioral modes, and thoughtful approaches to AI-assisted development.</div>
+                <div class="category-count">16 stories</div>
+            </a>
+
+            <a href="enterprise.html" class="category-card cat-enterprise">
+                <span class="category-icon">🏢</span>
+                <div class="category-name">Enterprise</div>
+                <div class="category-description">Enterprise-grade features for compliance, governance, and safe AI-assisted development at scale. Built for organizations that need control.</div>
+                <div class="category-count">4 stories</div>
+            </a>
+
+            <a href="architecture.html" class="category-card cat-architecture">
+                <span class="category-icon">🔬</span>
+                <div class="category-name">Architecture &amp; Philosophy</div>
+                <div class="category-description">Deep dives into what makes Amplifier fundamentally different. Kernel design, composition architecture, multi-agent orchestration, and the philosophical foundations behind the framework.</div>
+                <div class="category-count">9 stories</div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p class="footer-text">
+                Built with <a href="https://github.com/microsoft/amplifier" class="footer-link">Amplifier</a> · 
+                <a href="https://github.com/ramparte/amplifier-stories" class="footer-link">View source</a>
+            </p>
+        </footer>
+    </div>
 </body>
 </html>

@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Amplifier Swarm — Parallel Task Execution</title>
-        <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
     <script>document.documentElement.classList.add('js')</script>
 
     <style>
@@ -493,8 +491,6 @@
         html.js .slide { display: none; }
         html.js .slide.active { display: flex; }
     </style>
-    <link rel="stylesheet" href="shared-variables.css">
-    <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
 
@@ -895,14 +891,12 @@ amplifier-swarm run <span class="str">--workers 4</span> tasks.yaml</div>
 
 <!-- ── Navigation ── -->
 <div class="nav-container">
-    <a href="/stories" class="stories-link">More Amplifier Stories</a>
+    <a href="index.html" class="stories-link">More Amplifier Stories</a>
     <div class="nav" id="nav"></div>
     <div class="counter" id="counter"></div>
 </div>
 
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
-    <script>
+<script>
 const slides = document.querySelectorAll('.slide');
 let currentSlide = 0;
 function showSlide(n) {
