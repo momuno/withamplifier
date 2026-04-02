@@ -274,6 +274,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-vscode-extension.html',
   },
   {
+    id: 'amplifier-workspace',
+    title: 'amplifier-workspace',
+    description: 'One command to a ready-to-work Amplifier environment. Repos cloned, templates in place, terminal arranged.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-workspace.html',
+  },
+  {
     id: 'app-integration-guide-deck',
     title: 'Amplifier Application Integration Guide',
     description: 'From "I understand bundles" to "I\'ve built a production app with Amplifier"',
@@ -1031,4 +1038,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-04-01T18:42:42.947Z'
+export const lastSynced = '2026-04-02T01:08:34.656Z'
