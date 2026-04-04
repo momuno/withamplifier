@@ -351,6 +351,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/builder-coach-metacognitive-coaching.html',
   },
   {
+    id: 'bundle-dot-announcement',
+    title: 'bundle.dot — Visual Documentation for Bundle Repos',
+    description: 'Visual Documentation for Bundle Repos',
+    category: 'platform',
+    href: '/stories/decks/bundle-dot-announcement.html',
+  },
+  {
     id: 'bundle-orchestration-deck',
     title: 'Bundle Orchestration — How Amplifier Bundles Compose and Load',
     description: 'How Amplifier bundles compose, merge, and load — the engine that makes layered agent systems possible',
@@ -1038,4 +1045,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-04-04T01:05:13.972Z'
+export const lastSynced = '2026-04-04T06:44:06.427Z'
