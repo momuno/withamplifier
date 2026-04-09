@@ -36,6 +36,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/2026-03-23-skills-system-upgrade.html',
   },
   {
+    id: '2026-04-03-recipe-dashboard-story',
+    title: 'amplifier-recipe-dashboard — See what your recipes are doing',
+    description: 'See what your recipes are doing &mdash; without switching back to the terminal.',
+    category: 'platform',
+    href: '/stories/decks/2026-04-03-recipe-dashboard-story.html',
+  },
+  {
     id: '20260130-amplifier-sdk',
     title: 'Amplifier SDK - Building Just Got Easier',
     description: 'Building on Amplifier just got a whole lot easier. TypeScript & Python.',
@@ -386,6 +393,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/cli-quality-collaboration.html',
   },
   {
+    id: 'communication-intelligence-story',
+    title: 'Signal Over Noise — Amplifier as Communication Infrastructure',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/communication-intelligence-story.html',
+  },
+  {
     id: 'composition-all-the-way-down',
     title: 'Composition All the Way Down — Amplifier Architecture',
     description: 'How markdown files become AI agent systems — the architecture of amplifier-foundation',
@@ -475,6 +489,20 @@ export const decks: Deck[] = [
     description: 'Generate diagrams from natural language. Visual communication for AI agents.',
     category: 'tool',
     href: '/stories/decks/diagrams-tool-deck.html',
+  },
+  {
+    id: 'digital-twin-mock-services-story',
+    title: 'Mock Services — Testing Against the Real World Without the Real World',
+    description: 'Testing against the real world without the real world.',
+    category: 'platform',
+    href: '/stories/decks/digital-twin-mock-services-story.html',
+  },
+  {
+    id: 'digital-twin-universe-update',
+    title: 'Digital Twin Universe — Amplifier',
+    description: 'What we built this week: a CLI, declarative profiles, two agents, and an end-to-end pipeline that answers "does this actually work when deployed?"',
+    category: 'platform',
+    href: '/stories/decks/digital-twin-universe-update.html',
   },
   {
     id: 'distributed-ai-network-deck',
@@ -594,6 +622,13 @@ export const decks: Deck[] = [
     description: 'Phase-based orchestration for long-term projects',
     category: 'platform',
     href: '/stories/decks/longbuilder-deck.html',
+  },
+  {
+    id: 'lookbook-ui-convergence-dataset',
+    title: 'Lookbook: A Dataset for UI Convergence',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/lookbook-ui-convergence-dataset.html',
   },
   {
     id: 'm365-collaboration-journey',
@@ -974,6 +1009,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/the-kernel-that-does-less.html',
   },
   {
+    id: 'the-self-auditing-codebase',
+    title: 'The Self-Auditing Codebase — Architecture as Bug Specification',
+    description: 'When architecture diagrams become bug specifications',
+    category: 'tool',
+    href: '/stories/decks/the-self-auditing-codebase.html',
+  },
+  {
     id: 'the-self-debugging-slack-loop',
     title: 'The Self-Debugging Slack Loop',
     description: 'When Amplifier learned to test its own UI by talking to itself through Slack.',
@@ -1052,4 +1094,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-04-08T18:59:28.213Z'
+export const lastSynced = '2026-04-09T01:03:10.880Z'
