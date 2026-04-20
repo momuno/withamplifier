@@ -435,6 +435,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/context-intelligence-week-deck.html',
   },
   {
+    id: 'context-managed-announcement',
+    title: 'amplifier-bundle-context-managed — Intelligent Context Management for Amplifier',
+    description: 'Intelligent Context Management for Amplifier',
+    category: 'platform',
+    href: '/stories/decks/context-managed-announcement.html',
+  },
+  {
     id: 'context-rot-systems-architecture',
     title: 'Context Rot is a Systems Problem — Amplifier Architecture',
     description: 'How Amplifier\'s Architecture Keeps AI Sharp',
@@ -1122,4 +1129,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-04-20T12:59:51.190Z'
+export const lastSynced = '2026-04-20T18:47:43.540Z'
