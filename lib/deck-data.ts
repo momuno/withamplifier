@@ -918,6 +918,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/parallax-discovery.html',
   },
   {
+    id: 'persona-skills-cranky-crusty-samclone-deck',
+    title: 'The Ghosts in the Machine &mdash; Persona Skills in Amplifier',
+    description: 'Three approaches to giving AI a personality. A simplicity zealot, a battle-scarred engineer, and a computational persona clone &mdash; each built differently, each teaching something about AI identity.',
+    category: 'platform',
+    href: '/stories/decks/persona-skills-cranky-crusty-samclone-deck.html',
+  },
+  {
     id: 'polyglot-amplifier-deck',
     title: 'Polyglot Amplifier — From Python to Rust (and Beyond)',
     description: 'How a language-agnostic LSP architecture turned a Python tool into a polyglot code intelligence platform.',
@@ -1388,4 +1395,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-05-21T01:57:53.868Z'
+export const lastSynced = '2026-05-21T08:51:38.148Z'
