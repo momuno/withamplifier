@@ -134,6 +134,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/a2a-context-management-story.html',
   },
   {
+    id: 'agency-integration-microsoft-deck',
+    title: 'amplifier-bundle-agency — Microsoft Agency, Meet Amplifier',
+    description: 'Enterprise services &mdash; DevOps, incidents, comms, search, security &mdash; seamlessly exposed as AI agent tools through 16+ MCP servers.',
+    category: 'tool',
+    href: '/stories/decks/agency-integration-microsoft-deck.html',
+  },
+  {
     id: 'agents-behavior-capabilities',
     title: 'AGENTS Behavior Bundle - New Capabilities',
     description: 'From escape hatch to orchestration primitive. Delegation reimagined.',
@@ -232,6 +239,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/amplifier-in-action.html',
   },
   {
+    id: 'amplifier-ipc-microservices-deck',
+    title: 'Amplifier IPC &mdash; Every Component, Its Own Container',
+    description: 'Decomposing the AI agent monolith into composable microservices &mdash; JSON-RPC today, Dapr-native containers tomorrow.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-ipc-microservices-deck.html',
+  },
+  {
     id: 'amplifier-meets-the-desktop',
     title: 'Amplifier Meets the Desktop: A Python Sidecar Story',
     description: 'From PyInstaller binaries to portable Python distributions',
@@ -258,6 +272,20 @@ export const decks: Deck[] = [
     description: 'The GitHub Copilot Provider Story',
     category: 'showcase',
     href: '/stories/decks/amplifier-provider-github-copilot.html',
+  },
+  {
+    id: 'amplifier-resolve-platform-deck',
+    title: 'Amplifier Resolve — How Amplifier Builds Software',
+    description: 'How Amplifier builds software. Turn intent into working code through pluggable resolver backends.',
+    category: 'intro',
+    href: '/stories/decks/amplifier-resolve-platform-deck.html',
+  },
+  {
+    id: 'amplifier-safeguard-governance-deck',
+    title: 'Amplifier Safeguard &mdash; Trust at Scale',
+    description: 'A tenant-level gateway that gives CIOs complete visibility and policy control over all AI agent activity in their organization.',
+    category: 'platform',
+    href: '/stories/decks/amplifier-safeguard-governance-deck.html',
   },
   {
     id: 'amplifier-swarm-deck',
@@ -351,6 +379,20 @@ export const decks: Deck[] = [
     href: '/stories/decks/best-practices-patterns.html',
   },
   {
+    id: 'bookfoundry-ai-book-machine-deck',
+    title: 'BookFoundry &mdash; The AI Book Writing Machine',
+    description: 'An AI book-writing machine. Eight layers from voice capture to finished manuscript.',
+    category: 'platform',
+    href: '/stories/decks/bookfoundry-ai-book-machine-deck.html',
+  },
+  {
+    id: 'botslack-slack-native-deck',
+    title: 'BotSlack &mdash; Amplifier in Your Slack',
+    description: 'Amplifier in your Slack. AI agents join channels, respond in threads, and remember everything.',
+    category: 'platform',
+    href: '/stories/decks/botslack-slack-native-deck.html',
+  },
+  {
     id: 'browser-automation-deck',
     title: 'Browser Automation with Amplifier',
     description: '"When fetch isn\'t enough"',
@@ -393,6 +435,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/bundles-and-agents.html',
   },
   {
+    id: 'bundlewizard-self-building-deck',
+    title: 'BundleWizard &mdash; The System That Builds Itself',
+    description: 'The system that builds itself. Interview, generate, critique, converge &mdash; deliver.',
+    category: 'platform',
+    href: '/stories/decks/bundlewizard-self-building-deck.html',
+  },
+  {
     id: 'canvas-platform-trilogy-deck',
     title: 'The Canvas Platform Trilogy — Amplifier Stories',
     description: '3 Phases · 10 Sessions · 3 Crashes · Zero Work Lost A two-day architectural overhaul with Amplifier',
@@ -419,6 +468,13 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/stories/decks/code-mode-write-a-program-not-a-prompt.html',
+  },
+  {
+    id: 'comic-strips-visual-storytelling-deck',
+    title: 'Comic Strips Bundle &mdash; Your Sessions, Illustrated',
+    description: 'Transform any Amplifier session into a polished, multi-page comic strip &mdash; with consistent characters, dramatic storytelling, and AmpliVerse publisher branding.',
+    category: 'platform',
+    href: '/stories/decks/comic-strips-visual-storytelling-deck.html',
   },
   {
     id: 'communication-intelligence-story',
@@ -491,6 +547,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/cross-session-intelligence-deck.html',
   },
   {
+    id: 'cua-desktop-automation-deck',
+    title: 'amplifier-bundle-cua &mdash; The Agent Takes the Wheel',
+    description: 'Amplifier agents can now see your screen, understand what\'s on it, and operate the desktop directly &mdash; clicks, keystrokes, scrolls, all of it.',
+    category: 'platform',
+    href: '/stories/decks/cua-desktop-automation-deck.html',
+  },
+  {
     id: 'database-tool-deck',
     title: 'Database Tool',
     description: 'Safe SQL queries for AI agents. Enterprise-grade data access without the risk.',
@@ -524,6 +587,20 @@ export const decks: Deck[] = [
     description: '',
     category: 'platform',
     href: '/stories/decks/dev-machine-22-features-one-day.html',
+  },
+  {
+    id: 'dev-machine-dashboard-fleet-deck',
+    title: 'Dev Machine Dashboard &amp; Fleet Healing &mdash; The Dev Machine Grows a Brain',
+    description: 'Autonomous dev machines that monitor themselves, heal themselves, and phone home with a status page you can check from your phone.',
+    category: 'platform',
+    href: '/stories/decks/dev-machine-dashboard-fleet-deck.html',
+  },
+  {
+    id: 'dev-memory-v2-compression-deck',
+    title: 'Dev Memory V2 &mdash; 93% Compression: When Less Context Means More Memory',
+    description: 'When less context means more memory. A persistent memory system that got radically better by loading less.',
+    category: 'platform',
+    href: '/stories/decks/dev-memory-v2-compression-deck.html',
   },
   {
     id: 'diagrams-tool-deck',
@@ -561,6 +638,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/digital_twin_universe_universe_framing.html',
   },
   {
+    id: 'director-deck-ai-presentations-deck',
+    title: 'Director Deck &mdash; Your Slides, Animated',
+    description: 'Your slides, animated. Transform any presentation into a cinematic experience with GPT Image slides and Veo 3.1 video transitions.',
+    category: 'platform',
+    href: '/stories/decks/director-deck-ai-presentations-deck.html',
+  },
+  {
     id: 'distributed-ai-network-deck',
     title: 'Building a Distributed AI Network While Gaming',
     description: 'While Gaming with My Kids',
@@ -573,6 +657,13 @@ export const decks: Deck[] = [
     description: 'First-class DOT/Graphviz infrastructure for the Amplifier ecosystem',
     category: 'platform',
     href: '/stories/decks/dot-graph-bundle-deck.html',
+  },
+  {
+    id: 'dotviewer-interactive-graphs-deck',
+    title: 'dotviewer &mdash; See Your Architecture',
+    description: 'dotviewer turns complex DOT graphs into explorable, zoomable, interactive maps. Stop squinting at flat PNGs &mdash; drag, search, and discover your system\'s structure.',
+    category: 'platform',
+    href: '/stories/decks/dotviewer-interactive-graphs-deck.html',
   },
   {
     id: 'ecosystem-audit-deck',
@@ -589,11 +680,25 @@ export const decks: Deck[] = [
     href: '/stories/decks/eval-recipes-v0.0.28-v0.0.31-release-deck.html',
   },
   {
+    id: 'evaluator-framework-ai-eval-deck',
+    title: 'Evaluator Framework &mdash; How Do You Know It\'s Good?',
+    description: 'The Evaluator Framework &mdash; scientific rigor for evaluating AI agent output. Define rubrics. Judge with LLMs. Calibrate against humans. Track over time.',
+    category: 'platform',
+    href: '/stories/decks/evaluator-framework-ai-eval-deck.html',
+  },
+  {
     id: 'exo-protocol-deck',
     title: 'EXO Protocol - Deep Dive',
     description: 'Expressed Ownership&mdash;reclaiming human expression in the age of AI.',
     category: 'platform',
     href: '/stories/decks/exo-protocol-deck.html',
+  },
+  {
+    id: 'flywheel-methodology-deck',
+    title: 'Flywheel Methodology &mdash; Outcomes Over Process',
+    description: 'Outcome-driven development. Define what done looks like &mdash; then prove it.',
+    category: 'platform',
+    href: '/stories/decks/flywheel-methodology-deck.html',
   },
   {
     id: 'four-prompts-to-serverless-ai',
@@ -673,6 +778,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/lessons-in-developing-multi-agent-orchestration.html',
   },
   {
+    id: 'letsgo-gateway-every-channel-deck',
+    title: 'LetsGo Gateway &mdash; One Agent, Every Channel',
+    description: 'LetsGo Gateway puts Amplifier on Telegram, Slack, Discord, WhatsApp, Signal, Teams, iMessage, Matrix &mdash; and 10 more platforms. Same memory, same skills, wherever you already are.',
+    category: 'platform',
+    href: '/stories/decks/letsgo-gateway-every-channel-deck.html',
+  },
+  {
     id: 'longbuilder-deck',
     title: 'LongBuilder',
     description: 'Phase-based orchestration for long-term projects',
@@ -722,6 +834,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/marathon-session-deck.html',
   },
   {
+    id: 'mempalace-five-tier-memory-deck',
+    title: 'MemPalace &mdash; The Agent That Remembers Everything',
+    description: 'The agent that remembers everything. Five-tier persistent memory with 96.6% recall on LongMemEval.',
+    category: 'platform',
+    href: '/stories/decks/mempalace-five-tier-memory-deck.html',
+  },
+  {
     id: 'meta-skill-story',
     title: 'The Meta-Skill: How to Create Template-Based Amplifier Skills',
     description: 'How to create template-based Amplifier skills &mdash; a methodology extracted from building scaffold-new-service',
@@ -757,6 +876,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/multi-provider-swarms-deck.html',
   },
   {
+    id: 'muxplex-federation-deck',
+    title: 'Muxplex — Your Terminal Sessions, Everywhere',
+    description: 'Monitor and interact with all your tmux sessions across all your machines from a single browser tab &mdash; on any device, including your phone.',
+    category: 'platform',
+    href: '/stories/decks/muxplex-federation-deck.html',
+  },
+  {
     id: 'nexus-phase-0-story',
     title: 'Nexus: Phase 0 — The Planning That Preceded the Product',
     description: 'The planning that preceded the product',
@@ -769,6 +895,20 @@ export const decks: Deck[] = [
     description: 'Desktop and push notifications when Amplifier is ready for input.',
     category: 'tool',
     href: '/stories/decks/notifications-deck.html',
+  },
+  {
+    id: 'octo-platform-code-search-deck',
+    title: 'OCTO Platform &mdash; Find Anything in Any Codebase',
+    description: 'Multi-index code search that combines semantic understanding, keyword matching, and structural awareness &mdash; at enterprise scale.',
+    category: 'enterprise',
+    href: '/stories/decks/octo-platform-code-search-deck.html',
+  },
+  {
+    id: 'openm365-enterprise-integration-deck',
+    title: 'OpenM365 &mdash; Amplifier Meets the Enterprise',
+    description: 'Amplifier meets the enterprise. Agents that work natively with Outlook, Teams, SharePoint &mdash; the entire Microsoft 365 stack.',
+    category: 'enterprise',
+    href: '/stories/decks/openm365-enterprise-integration-deck.html',
   },
   {
     id: 'parallax-discovery',
@@ -883,11 +1023,39 @@ export const decks: Deck[] = [
     href: '/stories/decks/rust-dev-bundle-deck.html',
   },
   {
+    id: 'samvoice-writing-voice-deck',
+    title: 'SamVoice &mdash; Your Voice, Amplified',
+    description: 'SamVoice: an AI that learns exactly how you write &mdash; then helps you write more like yourself.',
+    category: 'platform',
+    href: '/stories/decks/samvoice-writing-voice-deck.html',
+  },
+  {
+    id: 'scientific-paper-research-deck',
+    title: 'amplifier-bundle-research — Write Better Papers, Faster',
+    description: 'Rigorous AI-assisted academic paper authoring for every research format &mdash; from sharpened question to venue-ready PDF.',
+    category: 'platform',
+    href: '/stories/decks/scientific-paper-research-deck.html',
+  },
+  {
     id: 'self-improving-amplifier-deck',
     title: 'Self-Improving Amplifier — An AI That Builds What It Needs',
     description: 'An AI That Builds What It Needs',
     category: 'platform',
     href: '/stories/decks/self-improving-amplifier-deck.html',
+  },
+  {
+    id: 'semantic-os-vision-deck',
+    title: 'The Semantic OS &mdash; Two Teams, One Architecture',
+    description: 'When a bottom-up ecosystem analysis and a top-down platform design converge on the same architecture, it suggests the team is circling something real.',
+    category: 'platform',
+    href: '/stories/decks/semantic-os-vision-deck.html',
+  },
+  {
+    id: 'session-cockpit-deck',
+    title: 'Session Cockpit &mdash; Amplifier Gets a Cockpit',
+    description: 'Watch, inspect, and steer your AI sessions in real time. The human is no longer just the task-giver &mdash; they\'re the co-pilot.',
+    category: 'platform',
+    href: '/stories/decks/session-cockpit-deck.html',
   },
   {
     id: 'session-configurator-announcement',
@@ -937,6 +1105,13 @@ export const decks: Deck[] = [
     description: 'Objective validation for shadow environments. Pass means your changes work. Fail means stop and investigate.',
     category: 'platform',
     href: '/stories/decks/smoke-test-bundle-deck.html',
+  },
+  {
+    id: 'softcloud-youtube-for-apps-deck',
+    title: 'SoftCloud &mdash; YouTube for AI-Generated Software',
+    description: 'Describe what you want. Get a live app at a URL. Share it with the world. AI-generated software as a social platform.',
+    category: 'platform',
+    href: '/stories/decks/softcloud-youtube-for-apps-deck.html',
   },
   {
     id: 'stories-bundle-overview',
@@ -1044,6 +1219,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/superpowers-v2-announcement.html',
   },
   {
+    id: 'taste-bundle-anti-slop-design-deck',
+    title: 'amplifier-bundle-taste &mdash; Teaching AI Taste: Anti-Slop Frontend Design',
+    description: 'A design discipline that rewires LLM defaults &mdash; replacing centered heroes, Inter font, purple gradients, and placeholder code with testable, named bans and parametric controls.',
+    category: 'platform',
+    href: '/stories/decks/taste-bundle-anti-slop-design-deck.html',
+  },
+  {
     id: 'teaching-ai-taste-case-study',
     title: 'Teaching AI to Have Taste — An Amplifier Case Study',
     description: 'How a brainstorm session turned a passive design archive into a self-improving intelligence system &mdash; in one afternoon.',
@@ -1058,11 +1240,25 @@ export const decks: Deck[] = [
     href: '/stories/decks/team-knowledge-brainstorming.html',
   },
   {
+    id: 'team-pulse-accountability-deck',
+    title: 'Team Pulse &mdash; What Did We Actually Ship?',
+    description: 'What did we actually ship? Accountability through outcomes, not status updates.',
+    category: 'platform',
+    href: '/stories/decks/team-pulse-accountability-deck.html',
+  },
+  {
     id: 'team-tracking-story',
     title: 'Team Tracking Bundle: Recipe Engineering at Scale',
     description: 'Recipe Engineering at Scale: Patterns for Reliable Bulk Processing',
     category: 'intro',
     href: '/stories/decks/team-tracking-story.html',
+  },
+  {
+    id: 'team',
+    title: 'Team &amp; Methodology',
+    description: 'How the team works, measures outcomes, and builds a culture of accountability. Process stories, methodology frameworks, and team practices.',
+    category: 'platform',
+    href: '/stories/decks/team.html',
   },
   {
     id: 'terminal-tester-announcement',
@@ -1135,6 +1331,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/ui-vision-story.html',
   },
   {
+    id: 'universal-app-llm-native-deck',
+    title: 'Universal App &mdash; Intent &rarr; App',
+    description: 'A personal operating environment you can have a conversation with. Describe what you want. Get a working app. Modify everything with natural language.',
+    category: 'platform',
+    href: '/stories/decks/universal-app-llm-native-deck.html',
+  },
+  {
     id: 'vibecoding-deck',
     title: 'Vibecoding - Best Practices for AI-Assisted Development',
     description: 'Best practices for AI-assisted development. Extracted from practitioners who are building the future.',
@@ -1175,7 +1378,14 @@ export const decks: Deck[] = [
     description: 'A reusable skill for writing project READMEs that humans and AI can actually explain.',
     category: 'platform',
     href: '/stories/decks/writing-readmes-ai-can-explain.html',
+  },
+  {
+    id: 'zerovector-fidelity-convergence-deck',
+    title: 'ZeroVector &mdash; Zero Translation Loss: Fidelity Convergence Architecture',
+    description: 'State your intent once. Get exactly what you meant. Zero translation loss through fidelity convergence.',
+    category: 'platform',
+    href: '/stories/decks/zerovector-fidelity-convergence-deck.html',
   }
 ]
 
-export const lastSynced = '2026-05-20T19:59:03.758Z'
+export const lastSynced = '2026-05-21T01:57:53.868Z'
