@@ -785,6 +785,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/letsgo-gateway-every-channel-deck.html',
   },
   {
+    id: 'llm-wiki-bundle-deck',
+    title: 'LLM Wiki bundle for Amplifier',
+    description: 'Persistent knowledge that compounds — not RAG that re-derives.',
+    category: 'platform',
+    href: '/stories/decks/llm-wiki-bundle-deck.html',
+  },
+  {
     id: 'longbuilder-deck',
     title: 'LongBuilder',
     description: 'Phase-based orchestration for long-term projects',
@@ -1395,4 +1402,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-05-29T09:00:53.461Z'
+export const lastSynced = '2026-05-29T14:32:29.023Z'
