@@ -106,6 +106,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260305-engram-lite-persistent-memory-for-ai-agents.html',
   },
   {
+    id: '20260430-born-ready-on-session-ready',
+    title: 'Born Ready — on_session_ready() · Amplifier Core 1.4',
+    description: 'How on_session_ready() ended module blindness and made the logging hook the first to benefit',
+    category: 'platform',
+    href: '/stories/decks/20260430-born-ready-on-session-ready.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'How Amplifier manages your browser &mdash; without anyone telling it how',
@@ -293,6 +300,13 @@ export const decks: Deck[] = [
     description: 'Parallel task execution with real-time monitoring',
     category: 'platform',
     href: '/stories/decks/amplifier-swarm-deck.html',
+  },
+  {
+    id: 'amplifier-tester-use-case',
+    title: 'Amplifier-Tester · In Practice',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/amplifier-tester-use-case.html',
   },
   {
     id: 'amplifier-tui-showcase',
@@ -967,6 +981,20 @@ export const decks: Deck[] = [
     href: '/stories/decks/reality-check-story.html',
   },
   {
+    id: 'reality_check_self_validation',
+    title: 'Reality-Check Validates Itself',
+    description: 'Using the Digital Twin Universe to test the Digital Twin Universe — and everything that rides on it.',
+    category: 'platform',
+    href: '/stories/decks/reality_check_self_validation.html',
+  },
+  {
+    id: 'reality_check_technical_walkthrough',
+    title: 'Reality Check Technical Walkthrough',
+    description: 'How amplifier-bundle-reality-check turns user intent into evidence-backed pass/fail.',
+    category: 'intro',
+    href: '/stories/decks/reality_check_technical_walkthrough.html',
+  },
+  {
     id: 'recipe-efficiency-week',
     title: 'Recipe System Maturation - Week of Jan 25, 2026',
     description: '51 commits across 2 repos in one week, making the recipe engine production-ready with provider resilience, convergence loops, and validation tooling',
@@ -1402,4 +1430,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-06-11T15:27:51.418Z'
+export const lastSynced = '2026-06-11T20:06:12.079Z'
