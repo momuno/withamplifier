@@ -1310,6 +1310,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/terminal-tester-announcement.html',
   },
   {
+    id: 'the-foundry-and-the-machine',
+    title: 'The Foundry and the Machine — Leverage for Building Software That the Model Couldn\'t',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/the-foundry-and-the-machine.html',
+  },
+  {
     id: 'the-garden',
     title: 'The Garden — Plant a Seed, Watch It Grow',
     description: 'Plant a seed. Watch it grow.',
@@ -1430,4 +1437,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-06-29T19:29:26.525Z'
+export const lastSynced = '2026-06-30T02:00:56.288Z'
