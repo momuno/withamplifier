@@ -113,6 +113,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260430-born-ready-on-session-ready.html',
   },
   {
+    id: '20260709-context-compaction-performance-fix',
+    title: 'You\'re About to Become the Bottleneck Again',
+    description: 'Good news: this time, it\'s not the agent\'s fault.',
+    category: 'platform',
+    href: '/stories/decks/20260709-context-compaction-performance-fix.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'How Amplifier manages your browser &mdash; without anyone telling it how',
@@ -1437,4 +1444,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-07-10T01:26:38.327Z'
+export const lastSynced = '2026-07-10T08:55:31.488Z'
