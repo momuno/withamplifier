@@ -3,371 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>amplifier-bundle-research — Write Better Papers, Faster</title>
+    <title>Rigor as Enforced Habits</title>
+    <script>document.documentElement.classList.add('js')</script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --accent: #5C6BC0;
-            --accent-dim: rgba(92, 107, 192, 0.15);
-            --accent-glow: rgba(92, 107, 192, 0.3);
-
-            /* Surface hierarchy */
-            --surface-1: rgba(255,255,255,0.06);
-            --surface-2: rgba(255,255,255,0.10);
-            --surface-3: rgba(255,255,255,0.15);
-            --border-subtle: rgba(255,255,255,0.12);
-            --border-visible: rgba(255,255,255,0.20);
-
-            /* Text hierarchy */
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255,255,255,0.7);
-            --text-tertiary: rgba(255,255,255,0.5);
-
-            /* Typography scale */
-            --fs-hero: clamp(36px, 8vw, 72px);
-            --fs-h1: clamp(28px, 6vw, 48px);
-            --fs-h2: clamp(22px, 4vw, 36px);
-            --fs-h3: clamp(18px, 3vw, 24px);
-            --fs-body: clamp(14px, 2vw, 16px);
-            --fs-small: clamp(12px, 1.8vw, 14px);
-            --fs-code: clamp(12px, 1.8vw, 15px);
-
-            /* Spacing */
-            --space-xs: clamp(8px, 1.5vw, 12px);
-            --space-sm: clamp(12px, 2vw, 16px);
-            --space-md: clamp(16px, 3vw, 24px);
-            --space-lg: clamp(24px, 4vw, 40px);
-            --space-xl: clamp(32px, 6vw, 60px);
-
-            /* Radius */
-            --radius-sm: clamp(8px, 1vw, 12px);
-            --radius-md: clamp(12px, 1.5vw, 16px);
+            --bg: #0a0e14;
+            --bg-2: #121822;
+            --ink: #f4f6fb;
+            --muted: #aab4c4;
+            --accent: #5ec8ff;
+            --accent-2: #ffd166;
+            --danger: #ff6b6b;
+            --line: rgba(255,255,255,0.12);
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: var(--text-primary);
-            overflow: hidden;
-            overscroll-behavior: none;
+        html, body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Slide base */
         .slide {
-            display: none;
+            display: flex;
             width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
             padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
             flex-direction: column;
+            justify-content: center;
             overflow-y: auto;
             overflow-x: hidden;
+            background: radial-gradient(140% 120% at 80% 0%, var(--bg-2) 0%, var(--bg) 60%);
         }
+
         .slide.active { display: flex; }
-        .slide.center {
+
+        html.js .slide { max-height: 100dvh; overflow-y: auto; }
+
+        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Progressive enhancement: JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+
+        .slide { transition: transform 0.5s ease, opacity 0.5s ease; }
+
+        .center {
             text-align: center;
             align-items: center;
             justify-content: center;
         }
 
-        /* Typography */
+        h1 { font-size: clamp(32px, 7vw, 76px); line-height: 1.06; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(22px, 4vw, 40px); line-height: 1.14; max-width: 24ch; letter-spacing: -0.01em; }
+        p, li { font-size: clamp(14px, 1.9vw, 19px); line-height: 1.45; color: var(--muted); }
+        .title-slide h1 { font-size: clamp(40px, 10vw, 104px); }
+        .subtitle { font-size: clamp(16px, 2.4vw, 24px); color: var(--muted); margin-top: clamp(16px, 3vw, 28px); max-width: 30ch; }
+
         .section-label {
-            font-size: var(--fs-small);
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 0.18em;
+            font-size: clamp(11px, 1.4vw, 13px);
             color: var(--accent);
-            margin-bottom: var(--space-sm);
-        }
-        .headline {
-            font-size: var(--fs-hero);
             font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.08;
-            margin-bottom: var(--space-md);
+            margin-bottom: clamp(14px, 2.4vw, 22px);
         }
-        .medium-headline {
-            font-size: var(--fs-h1);
-            font-weight: 700;
+
+        h1 .em, h2 .em { color: var(--accent); }
+        .danger { color: var(--danger); }
+        .gold { color: var(--accent-2); }
+
+        .body { margin-top: clamp(14px, 2.4vw, 22px); max-width: 46ch; }
+        .handoff {
+            margin-top: clamp(16px, 3vw, 26px);
+            color: var(--ink);
+            opacity: 0.75;
+            font-style: italic;
+            max-width: 42ch;
+        }
+        .body strong { color: var(--ink); }
+
+        /* Split layout */
+        .slide.split { flex-direction: column; }
+        @media (min-width: 880px) and (min-height: 480px) {
+            .slide.split {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(32px, 5vw, 84px);
+            }
+            html.js .slide.split.active { display: flex; }
+            .slide.split > .col-main  { flex: 1 1 0; min-width: 0; max-width: 48%; }
+            .slide.split > .col-aside { flex: 1 1 0; min-width: 0; max-width: 52%; }
+            .slide.split .col-aside > * { margin-top: 0; }
+            .slide.split .col-aside .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+        .col-main > *:first-child, .col-aside > *:first-child { margin-top: 0; }
+
+        /* Stat grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: clamp(12px, 1.6vw, 18px);
+        }
+        .stat {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(16px, 2.2vw, 24px);
+        }
+        .stat .num {
+            font-size: clamp(28px, 5vw, 52px);
+            font-weight: 800;
+            line-height: 1;
+            color: var(--accent);
             letter-spacing: -0.02em;
-            line-height: 1.15;
-            margin-bottom: var(--space-md);
         }
-        .subhead {
-            font-size: var(--fs-h3);
-            color: var(--text-secondary);
-            line-height: 1.4;
-            max-width: min(680px, 90vw);
-        }
-        .small-text {
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
-            margin-top: var(--space-sm);
+        .stat .lbl {
+            margin-top: 8px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--muted);
+            line-height: 1.3;
         }
 
-        /* Status badge */
-        .status-badge {
-            display: inline-block;
-            font-size: var(--fs-small);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 100px;
-            background: rgba(48, 209, 88, 0.15);
-            color: #30D158;
-            margin-top: var(--space-sm);
+        /* Steps / rules */
+        .steps, .rules { list-style: none; display: flex; flex-direction: column; gap: clamp(10px, 1.6vw, 16px); }
+        .steps li, .rules li {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: clamp(12px, 1.8vw, 18px) clamp(14px, 2vw, 20px);
+            color: var(--ink);
         }
+        .rules li { border-left-color: var(--accent-2); }
+        .steps li strong, .rules li strong { color: var(--ink); display: block; margin-bottom: 4px; }
+        .steps li span, .rules li span { color: var(--muted); font-size: clamp(13px, 1.6vw, 16px); }
 
-        /* Grids */
-        .thirds {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-        .halves {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-        .quads {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-
-        /* Cards */
-        .card {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-        }
-        .card h3, .card h4 {
-            color: var(--text-primary);
-            font-size: var(--fs-h3);
-            font-weight: 600;
-            margin-bottom: var(--space-xs);
-        }
-        .card p, .card li {
-            color: var(--text-secondary);
-            font-size: var(--fs-body);
-            line-height: 1.5;
-        }
-        .card .icon {
-            font-size: clamp(28px, 5vw, 48px);
-            margin-bottom: var(--space-xs);
-        }
-
-        /* Card with accent border top */
-        .card-accent {
-            border-top: 2px solid var(--accent);
-        }
-
-        /* Code blocks */
         .code-block {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--space-md) var(--space-lg);
-            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-            font-size: var(--fs-code);
+            background: #05080d;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: clamp(16px, 2.4vw, 26px);
+            font-family: "SF Mono", "Menlo", Consolas, monospace;
+            font-size: clamp(12px, 1.5vw, 16px);
             line-height: 1.7;
             white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            color: #BFC0C5;
-            margin-top: var(--space-md);
+            word-break: break-word;
+            color: #d7e2f0;
         }
-        .code-comment { color: rgba(255,255,255,0.35); }
-        .code-cmd { color: #30D158; }
-        .code-flag { color: #5C6BC0; }
-        .code-string { color: #FF9F0A; }
-        .code-var { color: #64D2FF; }
+        .code-block .cmt { color: #6b7a8d; }
+        .code-block .key { color: var(--accent); }
+        .code-block .val { color: var(--accent-2); }
 
-        /* Flow steps */
-        .flow-steps {
+        .flip {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-            max-width: min(800px, 95vw);
+            gap: clamp(10px, 1.6vw, 16px);
         }
-        .flow-step {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-md);
+        .flip .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: clamp(12px, 1.8vw, 18px) clamp(14px, 2vw, 20px);
         }
-        .flow-number {
-            flex-shrink: 0;
-            width: clamp(36px, 5vw, 48px);
-            height: clamp(36px, 5vw, 48px);
-            border-radius: 50%;
-            background: var(--accent-dim);
-            border: 2px solid var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--fs-body);
-            font-weight: 700;
+        .flip .card .k { color: var(--accent); font-weight: 700; font-size: clamp(13px, 1.6vw, 15px); }
+        .flip .card .v { color: var(--muted); font-size: clamp(13px, 1.6vw, 16px); margin-top: 4px; }
+
+        .sources-body { max-width: 60ch; }
+        .sources-body p { margin-top: 10px; }
+        .sources-body ul { margin: 10px 0 0 20px; }
+        .sources-body li { margin-bottom: 8px; color: var(--muted); }
+        .sources-body code {
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            background: rgba(255,255,255,0.06);
+            border-radius: 5px;
+            padding: 1px 6px;
+            font-size: 0.92em;
+            color: #d7e2f0;
+        }
+        .sources-body strong { color: var(--ink); }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid var(--accent);
             color: var(--accent);
-        }
-        .flow-content h4 {
-            font-size: var(--fs-h3);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        .flow-content p {
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .flow-arrow {
-            width: 2px;
-            height: var(--space-sm);
-            background: var(--accent-dim);
-            margin-left: clamp(17px, 2.3vw, 23px);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: clamp(11px, 1.4vw, 13px);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: clamp(20px, 3vw, 30px);
         }
 
-        /* Architecture diagram */
-        .arch-entities {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-        .entity-box {
-            background: var(--surface-2);
-            border: 1px solid var(--border-visible);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            text-align: center;
-        }
-        .entity-box .icon {
-            font-size: clamp(32px, 6vw, 56px);
-            margin-bottom: var(--space-xs);
-        }
-        .entity-box h4 {
-            font-size: var(--fs-h3);
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
-        }
-        .entity-box p {
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        /* Velocity stats */
-        .velocity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(140px, 45%), 1fr));
-            gap: var(--space-lg);
-            margin-top: var(--space-lg);
-        }
-        .velocity-stat { text-align: center; }
-        .velocity-number {
-            font-size: clamp(48px, 12vw, 96px);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--accent), #BF5AF2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .velocity-label {
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            margin-top: var(--space-xs);
-        }
-
-        /* Quote / callout box */
-        .callout {
-            background: var(--accent-dim);
-            border-left: 3px solid var(--accent);
-            border-radius: var(--radius-sm);
-            padding: var(--space-md);
-            margin-top: var(--space-md);
-            max-width: min(700px, 95vw);
-        }
-        .callout p {
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.5;
-            font-style: italic;
-        }
-        .callout .attribution {
-            font-style: normal;
-            color: var(--text-tertiary);
-            font-size: var(--fs-small);
-            margin-top: var(--space-xs);
-        }
-
-        /* Navigation */
         .nav {
             position: fixed;
-            bottom: 28px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 22px;
+            right: 26px;
             display: flex;
-            gap: 8px;
+            gap: 9px;
             z-index: 100;
         }
         .nav-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px; height: 9px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.22);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
-        .nav-dot.active {
-            background: var(--accent);
-            transform: scale(1.3);
-        }
+        .nav-dot.active { background: var(--accent); transform: scale(1.35); }
         .slide-counter {
             position: fixed;
-            bottom: 28px;
-            right: clamp(16px, 3vw, 32px);
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
+            bottom: 20px;
+            left: 26px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
             z-index: 100;
         }
 
-        /* Sources slide specifics */
-        .sources-content {
-            color: var(--text-secondary);
-            font-size: var(--fs-body);
-            line-height: 1.7;
-            max-width: min(800px, 95vw);
-        }
-        .sources-content strong {
-            color: var(--text-primary);
-        }
-        .sources-content code {
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: var(--fs-small);
-            background: var(--surface-1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .sources-content ul {
-            padding-left: var(--space-md);
-            margin: var(--space-xs) 0;
-        }
-        .sources-content li {
-            margin-bottom: var(--space-xs);
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; }
+            .slide.center { justify-content: flex-start; }
         }
 
-        /* More stories link */
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .slide * { animation: none !important; transition: none !important; }
+        }
+
         .more-stories {
             position: fixed;
             bottom: 10px;
@@ -379,362 +260,168 @@
             z-index: 100;
         }
         .more-stories:hover { color: rgba(255,255,255,0.5); }
-
-        /* Landscape mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .slide {
-                padding: 16px clamp(20px, 5vw, 80px) 60px;
-            }
-            .slide.center {
-                justify-content: flex-start;
-            }
-        }
-
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            .slide, .slide * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* Touch targets */
-        @media (hover: none) {
-            .nav-dot {
-                min-width: 16px;
-                min-height: 16px;
-            }
-        }
-
-        /* Highlight accent text */
-        .accent { color: var(--accent); }
-
-        /* Inline list with subtle bullets */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-        .feature-list li {
-            padding-left: var(--space-md);
-            position: relative;
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: var(--space-xs);
-        }
-        .feature-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.6em;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
+<!--
+SPINE
+ABT: AND LLMs make it trivial to produce academic-LOOKING papers for anyone who needs a defensible artifact; BUT they write confidently, not rigorously — overclaiming and dressing exploratory findings up as confirmatory, with no methodology lockdown; THEREFORE amplifier-bundle-research encodes scientific rigor as ENFORCED habits — lockdown, honest-pivot, cross-vendor critique — so the discipline can't be silently skipped.
+Payoff: The dogfood — a real sleep-consolidation study whose headline finding flipped TWICE under the bundle's own critique, each flip catching a tautology, a confound, or a real code bug that would otherwise have shipped as a false causal claim.
+Beats:
+  1. frame     — LLMs write confident papers, not rigorous ones; amplifier-bundle-research (v0.9.0, MIT) ships rigor as enforced habits, not advice.  advances: orients the audience on the AND and the BUT together — the easy academic-looking output and the rigor gap that makes it dangerous.
+  2. proof     — a real, worked system: 16 agents, 12 enforced behaviors, 6 modes, 20 recipes, 9 venue formats, 32,870 lines of authored discipline.  advances: establishes the AND is substantive — the rigor is packaged and shipped, not slide-ware.
+  3. tension   — the failure mode is HARKing: an LLM reports a finding it stumbled on as if it predicted it all along.  advances: sharpens the BUT into the specific enemy the habits must defeat.
+  4. mechanism — /study-plan hash-seals a SHA256 preregistration.yaml before any data is seen.  advances: shows the first tooth of the THEREFORE — lockdown removes room to move the goalposts.
+  5. mechanism — honest-pivot is default-ON and stops the mode transition on any divergence; there is no 'just continue' path.  advances: shows the second tooth — the enforcement that turns the locked plan into a gate.
+  6. mechanism — a claude-* system can't be graded by a claude-* judge, grounded in a measured 3–10pp same-vendor leniency bias.  advances: shows the third tooth — cross-vendor critique closes the self-flattery loophole.
+  7. payoff    — the sleep-consolidation study's headline finding flipped TWICE under the bundle's own critique.  advances: lands the THEREFORE as the climax — enforced habits caught false causal claims on real work before they shipped.
+  8. takeaway  — anyone gets the same scaffolding and the same honest critic, shaped to the artifact they're making.  advances: generalizes the THEREFORE — the discipline a decade of training buys, packaged for whoever needs a defensible artifact.
+-->
 
-    <!-- ============================================================ -->
-    <!-- SLIDE 1: TITLE                                                -->
-    <!-- ============================================================ -->
-    <div class="slide active center">
-        <div class="section-label">Showcase &middot; Amplifier Bundle</div>
-        <h1 class="headline">Write Better<br>Papers, Faster</h1>
-        <p class="subhead">Rigorous AI-assisted academic paper authoring for every research format &mdash; from sharpened question to venue-ready PDF.</p>
-        <div class="status-badge">v0.8.5 &middot; MIT License</div>
-        <div class="small-text">May 2026 &middot; michaeljabbour/amplifier-bundle-research</div>
+    <!-- Title cover (no beat) -->
+    <div class="slide title-slide active center">
+        <h1>Rigor as <span class="em">Enforced Habits</span></h1>
+        <p class="subtitle">A bundle that won't let you overclaim</p>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SLIDE 2: THE PROBLEM                                          -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">The Problem</div>
-        <h2 class="headline">AI helps you<br>write &mdash; not think</h2>
-        <div class="thirds">
-            <div class="card card-accent">
-                <div class="icon">&#x1F9EA;</div>
-                <h3>Rigor Takes a Decade</h3>
-                <p>Precise questions, locked methodology, honest reporting against yourself, proper citations &mdash; researchers learn these habits over years. Everyone else reinvents the mistakes.</p>
-            </div>
-            <div class="card card-accent">
-                <div class="icon">&#x1F6A8;</div>
-                <h3>Overclaiming Everywhere</h3>
-                <p>LLMs default to confident prose. Without guardrails, exploratory findings get reported as confirmatory &mdash; and causal language replaces correlation.</p>
-            </div>
-            <div class="card card-accent">
-                <div class="icon">&#x1F4DA;</div>
-                <h3>Format Fragmentation</h3>
-                <p>NeurIPS, ACL, IEEE, USPTO, NSF &mdash; every venue has different templates, page limits, and compliance checklists. Each one is a manual burden.</p>
-            </div>
-        </div>
-        <div class="callout">
-            <p>Scientific rigor is a set of habits. This bundle encodes the habits &mdash; so a patent attorney, a policy analyst, or a junior researcher drafting their first workshop paper all get the same scaffolding and the same honest critic.</p>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 3: THE SOLUTION                                         -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">The Solution</div>
-        <h2 class="headline">Full research<br>lifecycle</h2>
-        <p class="subhead">Six disciplined modes walk you from raw intuition to venue-ready output &mdash; with pre-registration lockdown and honest-pivot enforcement baked in.</p>
-        <div class="flow-steps">
-            <div class="flow-step">
-                <div class="flow-number">1</div>
-                <div class="flow-content">
-                    <h4>/question</h4>
-                    <p>Sharpen a rough claim into a falsifiable research question with explicit predictions, named mechanisms, and disconfirmation criteria.</p>
-                </div>
-            </div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step">
-                <div class="flow-number">2</div>
-                <div class="flow-content">
-                    <h4>/study-plan</h4>
-                    <p>Lock your methodology before seeing results. Hash-sealed pre-registration with power analysis, named tests, and alpha levels.</p>
-                </div>
-            </div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step">
-                <div class="flow-number">3</div>
-                <div class="flow-content">
-                    <h4>/execute</h4>
-                    <p>Run the analysis, gather prior art, or pull evidence &mdash; depending on what you're making. Execution log tracks every step.</p>
-                </div>
-            </div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step">
-                <div class="flow-number">4</div>
-                <div class="flow-content">
-                    <h4>/critique &rarr; /draft &rarr; /publish</h4>
-                    <p>Honest peer review names specific limitations. Draft produces venue-structured output. Publish blocks until critique has run and honest-pivots are acknowledged.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 4: PAPER TYPES                                          -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">8 Paper Types</div>
-        <h2 class="medium-headline">One bundle, every research format</h2>
-        <div class="quads">
-            <div class="card card-accent">
-                <h4>Empirical Paper</h4>
-                <p>Full IMRAD structure with CONSORT/STROBE compliance, pre-registration, and honest-pivot enforcement.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Benchmark Paper</h4>
-                <p>Dataset releases, method comparisons, and performance evaluations with protocol definition and fairness checks.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Grant Proposal</h4>
-                <p>Funding applications for NSF, NIH, DARPA. Feasibility scoring, well-powered research plans, preliminary data emphasis.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Patent Brief</h4>
-                <p>USPTO-style invention disclosure with prior-art section and claim chart for filing attorneys.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Literature Review</h4>
-                <p>Systematic review with PRISMA compliance, multi-database search logging, and evidence synthesis.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>White Paper</h4>
-                <p>Technical thesis defense for decision-makers with comparative analysis and practical case studies.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Policy Brief</h4>
-                <p>Evidence-based briefs for policymakers with counter-argument coverage and implementation feasibility.</p>
-            </div>
-            <div class="card card-accent">
-                <h4>Replication Study</h4>
-                <p>Reproducibility research measuring deviations against original claims. Honest-pivot measures drift, not fresh hypotheses.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 5: ARCHITECTURE                                         -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">Architecture</div>
-        <h2 class="medium-headline">14 agents, 6 modes, 7 tool modules</h2>
-        <div class="arch-entities">
-            <div class="entity-box">
-                <div class="icon">&#x1F9D1;&#x200D;&#x1F52C;</div>
-                <h4>Researcher</h4>
-                <p>You &mdash; any skill level, any venue, any document type</p>
-            </div>
-            <div class="entity-box">
-                <div class="icon">&#x1F3AF;</div>
-                <h4>Coordinator</h4>
-                <p>Routes intent to the right mode/agent, enforces honest-pivot</p>
-            </div>
-            <div class="entity-box">
-                <div class="icon">&#x1F4C4;</div>
-                <h4>Venue Output</h4>
-                <p>NeurIPS, ICML, ACL, IEEE, ACM, arXiv, USPTO, NSF, policy memo</p>
-            </div>
-        </div>
-        <div class="thirds">
-            <div class="card">
-                <h4 class="accent">Thinking Agents</h4>
-                <p>Hypothesis designer, methodologist, statistician, preregistration reviewer &mdash; sharpen the question and lock the method.</p>
-            </div>
-            <div class="card">
-                <h4 class="accent">Writing Agents</h4>
-                <p>Paper architect, technical writer, citation manager, figure designer, venue formatter &mdash; structure and produce the artifact.</p>
-            </div>
-            <div class="card">
-                <h4 class="accent">Quality Agents</h4>
-                <p>Honest critic, ML paper reviewer, literature scout, idea generator &mdash; review, challenge, and strengthen the work.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 6: KEY FEATURES                                         -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">Key Features</div>
-        <h2 class="medium-headline">Discipline by default</h2>
-        <div class="halves">
-            <div class="card card-accent">
-                <h3>Pre-Registration Lockdown</h3>
-                <p>Hash-sealed study plans before you see results. The preregistration-reviewer checks predictions are specific and directional, tests are named, alpha levels set, MDEs calculated. Issues pass/fail/warn per section.</p>
-            </div>
-            <div class="card card-accent">
-                <h3>Honest-Pivot Enforcement</h3>
-                <p>If your data contradicts the pre-registration, exploratory findings are automatically labeled as such. <code>/publish</code> blocks until pivots are acknowledged. No silent overclaiming.</p>
-            </div>
-            <div class="card card-accent">
-                <h3>PaperBanana Figures</h3>
-                <p>Multi-agent figure generation with 8 quality veto rules: vector format, readable text (&ge;8pt), colorblind-safe palette, error bars, white background, proper aspect ratio, no misleading axis truncation, unobstructed legends.</p>
-            </div>
-            <div class="card card-accent">
-                <h3>Cross-Vendor Judge</h3>
-                <p>Mitigates reflexivity hazards by routing critique through a different LLM vendor than the one that drafted. No model grading its own homework.</p>
-            </div>
-        </div>
-        <div class="callout">
-            <p>The honest-critic issues BLOCK/WARN/NOTE findings with severity levels. BLOCK items must be resolved before /draft. It argues against the work: overclaiming, methodology gaps, alternative explanations, limitation specificity.</p>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 7: QUICK START                                          -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">Quick Start</div>
-        <h2 class="medium-headline">Natural language, full pipeline</h2>
-        <div class="code-block"><span class="code-comment"># Install</span>
-<span class="code-cmd">amplifier bundle add</span> <span class="code-flag">--app</span> <span class="code-string">git+https://github.com/michaeljabbour/amplifier-bundle-research@main</span>
-<span class="code-cmd">amplifier bundle use</span> <span class="code-string">research</span>
-
-<span class="code-comment"># Run any paper type with natural language</span>
-<span class="code-cmd">amplifier run</span> <span class="code-string">"Run the empirical-paper recipe on:
-  Reflection tokens improve long-horizon reasoning"</span>
-
-<span class="code-cmd">amplifier run</span> <span class="code-string">"Run the patent-brief recipe on:
-  Novel rolling-ROI control for AI agent sessions"</span>
-
-<span class="code-cmd">amplifier run</span> <span class="code-string">"Run the literature-review recipe on:
-  Systematic review of chain-of-thought methods"</span>
-
-<span class="code-comment"># Or use slash commands interactively</span>
-<span class="code-cmd">/question</span>  <span class="code-comment">  # sharpen the claim</span>
-<span class="code-cmd">/study-plan</span> <span class="code-comment"> # lock the method</span>
-<span class="code-cmd">/execute</span>  <span class="code-comment">  # run the analysis</span>
-<span class="code-cmd">/critique</span> <span class="code-comment">  # honest peer review</span>
-<span class="code-cmd">/draft</span>    <span class="code-comment">  # produce the artifact</span>
-<span class="code-cmd">/publish</span>  <span class="code-comment">  # format for venue</span></div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- SLIDE 8: BY THE NUMBERS                                       -->
-    <!-- ============================================================ -->
     <div class="slide center">
-        <div class="section-label">By the Numbers</div>
-        <h2 class="medium-headline">Built in 8 active dev days</h2>
-        <div class="velocity-grid">
-            <div class="velocity-stat">
-                <div class="velocity-number">14</div>
-                <div class="velocity-label">Specialized agents</div>
-            </div>
-            <div class="velocity-stat">
-                <div class="velocity-number">9</div>
-                <div class="velocity-label">Venue formats</div>
-            </div>
-            <div class="velocity-stat">
-                <div class="velocity-number">279</div>
-                <div class="velocity-label">Files in repo</div>
-            </div>
-            <div class="velocity-stat">
-                <div class="velocity-number">51K</div>
-                <div class="velocity-label">Lines of content</div>
-            </div>
+        <!-- beat 1: frame -->
+        <div class="section-label">The Frame</div>
+        <h2>LLMs write <span class="danger">confident</span> papers, not <span class="em">rigorous</span> ones</h2>
+        <p class="body">It's trivial now to produce an academic-LOOKING paper for anyone who needs a defensible artifact — but the writing is confident, not rigorous: overclaiming, no methodology lockdown. <strong>amplifier-bundle-research</strong> (v0.9.0, MIT) answers by shipping scientific rigor as <strong>enforced habits, not advice</strong>.</p>
+        <p class="handoff">First question: is this a real system, or a promise?</p>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 2: proof -->
+        <div class="col-main">
+            <div class="section-label">The Proof</div>
+            <h2>This is a real, worked system — not slide-ware</h2>
+            <p class="body">The rigor is packaged and shipped: a fleet of specialist agents, enforced behaviors, pipeline modes, document recipes and venue knowledge — <strong>32,870 lines of authored discipline</strong> in the repo.</p>
+            <p class="handoff">So what exactly are all these habits defending against?</p>
         </div>
-        <div class="thirds" style="max-width: min(900px, 95vw); margin-left: auto; margin-right: auto;">
-            <div class="card">
-                <h4 class="accent">7 Tool Modules</h4>
-                <p>Experiment audit, power analysis, provenance check, stage analyzer, block-hypothesis, resume/repair, PaperBanana &mdash; each with CLI and tests.</p>
-            </div>
-            <div class="card">
-                <h4 class="accent">28 Test Files</h4>
-                <p>~4,946 lines of tests across 7 Python tool modules. ~13,048 lines of Python source. Real assertions, real coverage.</p>
-            </div>
-            <div class="card">
-                <h4 class="accent">11 Behaviors</h4>
-                <p>Honest-pivot, exploratory-labeling, PaperBanana, figure-generation, LaTeX authoring, conference-styling, cross-vendor-judge, stop-slop, and more.</p>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat"><div class="num">16</div><div class="lbl">agent .md files</div></div>
+                <div class="stat"><div class="num">12</div><div class="lbl">enforced behaviors</div></div>
+                <div class="stat"><div class="num">6</div><div class="lbl">pipeline modes</div></div>
+                <div class="stat"><div class="num">20</div><div class="lbl">recipe .yaml files</div></div>
+                <div class="stat"><div class="num">9</div><div class="lbl">venue formats</div></div>
+                <div class="stat"><div class="num">32,870</div><div class="lbl">lines of markdown</div></div>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SLIDE 9: SOURCES & METHODOLOGY                                -->
-    <!-- ============================================================ -->
-    <div class="slide">
-        <div class="section-label">Sources &amp; Methodology</div>
-        <h2 class="medium-headline">How we built this deck</h2>
-        <div class="sources-content">
-            <p><strong>Repository:</strong> <code>michaeljabbour/amplifier-bundle-research</code> (v0.8.5, MIT License)</p>
-            <ul>
-                <li><strong>27 commits</strong> from 2026-04-22 to 2026-05-04, across <strong>8 active dev days</strong></li>
-                <li><strong>Primary contributor:</strong> Michael J. Jabbour (14 commits); 13 Amplifier-automated commits</li>
-                <li><strong>279 files</strong> &mdash; ~15,165 lines Python, ~7,136 lines YAML, ~29,129 lines Markdown</li>
-                <li><strong>14 agents</strong> verified via <code>agents/</code> directory listing</li>
-                <li><strong>16 recipes</strong> verified via <code>recipes/</code> directory listing (8 primary paper types + orchestration, idea-generation, cache-verify, smoke test, and others)</li>
-                <li><strong>9 venue formats</strong> verified via <code>context/conference-formats/</code> and <code>context/venue-formats/</code>: NeurIPS, ICML, ACL, IEEE, ACM, arXiv, USPTO, NSF grant, policy memo</li>
-                <li><strong>7 Python tool modules</strong> in <code>modules/</code>: experiment-audit, block-hypothesis, power, provenance-check, resume, stage-analyzer, PaperBanana</li>
-                <li><strong>28 test files</strong> (~4,946 lines) across all tool modules</li>
+    <div class="slide center">
+        <!-- beat 3: tension -->
+        <div class="section-label">The Enemy</div>
+        <h2>The failure mode is <span class="danger">HARKing</span></h2>
+        <p class="body">An LLM will happily report a finding it stumbled on <strong>as if it had predicted it all along</strong> — motivated reasoning dressed up as a result. That's the specific enemy the enforced habits have to defeat.</p>
+        <p class="handoff">The first tooth: take away the room to move the goalposts.</p>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 4: mechanism -->
+        <div class="col-main">
+            <div class="section-label">Tooth One — Lockdown</div>
+            <h2>The methodology is hash-sealed <span class="em">before any data is seen</span></h2>
+            <p class="body"><strong>/study-plan</strong> writes a SHA256-locked <code>preregistration.yaml</code> — predictions, analysis plan, stopping rules — locked and timestamped. Its mode default action is <strong>block</strong>. It can't be quietly rewritten.</p>
+            <p class="handoff">But a lock is only as good as the gate that enforces it.</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="cmt"># modes/plan.md — /study-plan</span>
+<span class="key">preregistration.yaml</span>:
+  predictions: {confirmatory, exploratory}
+  analysis_plan: ...
+  stopping_rules: ...
+  honest_pivot_clause: <span class="val">true</span>
+  locked_sha256: <span class="val">&lt;hash&gt;</span>
+  locked_at: <span class="val">&lt;timestamp&gt;</span>
+<span class="key">default_action</span>: <span class="val">block</span></div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 5: mechanism -->
+        <div class="col-main">
+            <div class="section-label">Tooth Two — honest-pivot</div>
+            <h2>On any divergence from the plan, the transition <span class="danger">stops</span></h2>
+            <p class="body">honest-pivot is <strong>default-ON</strong> and fires at every mode boundary after /plan. When a draft diverges from the locked pre-registration it halts the mode transition — <strong>"there is no 'just continue' path."</strong> Disabling it needs an explicit <code>--no-honest-pivot</code> flag, logged in the artifact.</p>
+            <p class="handoff">One loophole remains: who gets to grade the result?</p>
+        </div>
+        <div class="col-aside">
+            <ul class="steps">
+                <li><strong>Keep + label exploratory</strong><span>Findings not in the plan carry the tag through to the artifact.</span></li>
+                <li><strong>Timestamped amendment</strong><span>Deviations are recorded, not erased.</span></li>
+                <li><strong>Explicit disable</strong><span>Only via a logged --no-honest-pivot flag.</span></li>
             </ul>
-            <p style="margin-top: var(--space-sm);"><strong>Data collection:</strong> <code>git log</code>, <code>git shortlog -sne</code>, directory listings, file line counts via <code>wc -l</code>, <code>README.md</code>, <code>bundle.md</code> frontmatter, and team-knowledge YAML capability manifests.</p>
-            <p style="margin-top: var(--space-sm);"><strong>Lineage:</strong> Thin wrappers over K-Dense scientific-agent-skills, orchestrated with Superpowers-style mode workflow, informed by Denario multi-agent topology. Gene-transfers from AI-Scientist (idea-generator, ML-paper-reviewer, literature-scout) and amplifier-bundle-scientificpaper (paper-architect).</p>
-            <p style="margin-top: var(--space-sm);"><strong>Deck generated:</strong> May 2026. All figures are repo-verifiable counts, not estimates.</p>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SLIDE 10: CTA                                                 -->
-    <!-- ============================================================ -->
+    <div class="slide split">
+        <!-- beat 6: mechanism -->
+        <div class="col-main">
+            <div class="section-label">Tooth Three — Cross-vendor critique</div>
+            <h2>A claude-* system <span class="danger">can't</span> be graded by a claude-* judge</h2>
+            <p class="body">Same-vendor judging produces a <strong>measurable leniency bias</strong>: per behaviors/cross-vendor-judge.md, the claude-opus-4-7 judge graded claude-*-family agents <strong>3 to 10 percentage points more leniently</strong> than gpt-5.5 did — across three Anthropic agents on the same 30 items. When the system is claude-*, the recipe HALTS rather than let a claude-* judge grade it.</p>
+            <p class="handoff">Three teeth in place — now, do they actually catch anything real?</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat"><div class="num">3–10</div><div class="lbl">pp more lenient, same-vendor judge (PSE-PG14 Layer 2)</div></div>
+                <div class="stat"><div class="num">3</div><div class="lbl">Anthropic agents compared</div></div>
+                <div class="stat"><div class="num">30</div><div class="lbl">items, held constant</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 7: payoff -->
+        <div class="col-main">
+            <div class="section-label">The Payoff</div>
+            <h2>On a real study, the headline finding flipped <span class="gold">TWICE</span></h2>
+            <p class="body">The bundle is dogfooded on a real sleep-consolidation study (porting arXiv:2605.26099, n=192 paired). Under its own honest-critic the headline flipped twice — each flip catching a <strong>false causal claim before it could ship</strong>.</p>
+            <p class="handoff">Same discipline, whoever is making the artifact.</p>
+        </div>
+        <div class="col-aside">
+            <div class="flip">
+                <div class="card"><div class="k">RAG tautology</div><div class="v">The retriever was an exact-match oracle — a proxy that guaranteed its own result.</div></div>
+                <div class="card"><div class="k">Format confound</div><div class="v">Verbatim used sentences; the LLM used triples — not a fair comparison.</div></div>
+                <div class="card"><div class="k">Two genuine code bugs</div><div class="v">Each correction changed a conclusion. Corrected finding: faithful consolidation ≈ dumb verbatim (delta≈0, p=0.69–1.0).</div></div>
+            </div>
+        </div>
+    </div>
+
     <div class="slide center">
-        <div class="section-label">Get Started</div>
-        <h1 class="headline">Your next paper<br>starts here</h1>
-        <p class="subhead">Install with one command. Every paper type. Every venue. Pre-registration, honest critique, and PaperBanana figures &mdash; built in.</p>
-        <div class="code-block" style="text-align: left; max-width: min(600px, 90vw);"><span class="code-cmd">amplifier bundle add</span> <span class="code-flag">--app</span> <span class="code-string">git+https://github.com/michaeljabbour/amplifier-bundle-research@main</span>
-<span class="code-cmd">amplifier bundle use</span> <span class="code-string">research</span>
-<span class="code-cmd">amplifier</span></div>
-        <div class="small-text" style="margin-top: var(--space-lg);">
-            github.com/<strong>michaeljabbour/amplifier-bundle-research</strong><br>
-            MIT License &middot; 14 agents &middot; 8 paper types &middot; 9 venue formats
+        <!-- beat 8: takeaway -->
+        <div class="section-label">The Takeaway</div>
+        <h2>Same scaffolding, same honest critic — <span class="em">for whoever needs it</span></h2>
+        <p class="body">Patent attorney, policy analyst, founder, first-time researcher — everyone gets the same discipline, shaped to the artifact they're making. The rigor a decade of research training buys, now packaged as habits that can't be silently skipped.</p>
+        <span class="badge">Shipped · v0.9.0 · MIT</span>
+    </div>
+
+    <!-- Sources & Methodology (no beat) -->
+    <div class="slide">
+        <div class="section-label">Sources</div>
+        <h2>Research Methodology</h2>
+        <div class="sources-body">
+            <p><strong>Repository:</strong> michaeljabbour/amplifier-bundle-research (v0.9.0, MIT). Re-derived against a fresh clone at /tmp/abr, HEAD 79b64cb (2026-06-08).</p>
+            <p><strong>Feature status:</strong> Shipped — lockdown, honest-pivot, cross-vendor-judge, autonomous experiment loop all present in-repo.</p>
+            <p><strong>Commands run:</strong></p>
+            <ul>
+                <li><code>gh repo view michaeljabbour/amplifier-bundle-research --json name,description</code></li>
+                <li><code>git log --oneline | wc -l</code> → 69 commits (2026-04-22 → 2026-06-08, span 47 days)</li>
+                <li><code>ls agents/*.md | wc -l</code> → 16; <code>ls behaviors/*.md | wc -l</code> → 12; <code>ls modes/*.md</code> → 6; <code>ls recipes/*.yaml | wc -l</code> → 20</li>
+                <li><code>ls context/conference-formats/ context/venue-formats/</code> → 9 venue formats</li>
+                <li><code>find . -name '*.md' -not -path './.git/*' | xargs wc -l | tail -1</code> → 32,870 lines</li>
+                <li><code>cat modes/plan.md</code>, <code>cat behaviors/honest-pivot.md</code>, <code>cat behaviors/cross-vendor-judge.md</code></li>
+                <li><code>bash scripts/experiment-loop/tests/run_all.sh</code> → ALL 10 helper tests PASS</li>
+                <li><code>cat docs/case-studies/sleep-consolidation-study.md</code></li>
+            </ul>
+            <p><strong>Gaps:</strong> The 3–10pp same-vendor leniency figure (PSE-PG14 Layer 2) and the sleep-consolidation numbers (n=192, p=0.69–1.0, arXiv:2605.26099) are the bundle's self-reported figures — the in-repo claim text was verified verbatim, but the underlying datasets/harness were not re-run here.</p>
+            <p><strong>Primary contributors:</strong> Michael J. Jabbour (56 commits), Amplifier bots (13 commits).</p>
         </div>
     </div>
 
@@ -742,18 +429,48 @@
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
 
-    <!-- More stories link -->
+    <!-- More stories link - REQUIRED -->
     <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+        const total = slides.length;
+        let current = 0;
+        let transitioning = false;
 
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
+        function goTo(n) {
+            n = ((n % total) + total) % total;
+            if (transitioning || n === current) return;
+            transitioning = true;
+            var direction = n > current ? 1 : -1;
+            var prev = slides[current];
+            var next = slides[n];
+
+            prev.classList.remove('active');
+            prev.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+            prev.style.opacity = '0';
+
+            next.style.transition = 'none';
+            next.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+            next.style.opacity = '0';
+
+            void next.offsetWidth;
+
+            next.style.transition = '';
+            next.style.transform = 'translateX(0)';
+            next.style.opacity = '1';
+            next.classList.add('active');
+
+            current = n;
             updateNav();
+
+            setTimeout(function() {
+                prev.style.transform = '';
+                prev.style.opacity = '';
+                next.style.transform = '';
+                next.style.opacity = '';
+                transitioning = false;
+            }, 500);
         }
 
         function updateNav() {
@@ -762,29 +479,25 @@
             nav.innerHTML = '';
             slides.forEach((_, i) => {
                 const dot = document.createElement('div');
-                dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
-                dot.onclick = (e) => { e.stopPropagation(); showSlide(i); };
+                dot.className = 'nav-dot' + (i === current ? ' active' : '');
+                dot.onclick = () => goTo(i);
                 nav.appendChild(dot);
             });
-            counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            counter.textContent = `${current + 1} / ${total}`;
         }
 
-        // Keyboard
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(currentSlide + 1); }
-            if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(currentSlide - 1); }
+            if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
         });
 
-        // Click
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.nav') || e.target.closest('a') || e.target.closest('code')) return;
-            if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
-            else showSlide(currentSlide - 1);
+            if (e.target.closest('.nav')) return;
+            if (e.clientX > window.innerWidth / 2) goTo(current + 1);
+            else goTo(current - 1);
         });
 
-        // Touch/swipe
         let touchStartX = 0;
-        let touchEndX = 0;
         const SWIPE_THRESHOLD = 50;
 
         document.addEventListener('touchstart', (e) => {
@@ -792,11 +505,10 @@
         }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
+            const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > SWIPE_THRESHOLD) {
-                if (diff > 0) showSlide(currentSlide + 1);
-                else showSlide(currentSlide - 1);
+                if (diff > 0) goTo(current + 1);
+                else goTo(current - 1);
             }
         }, { passive: true });
 

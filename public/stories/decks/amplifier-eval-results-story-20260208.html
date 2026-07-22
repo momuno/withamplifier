@@ -1,319 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amplifier Foundation: Engineering Excellence Meets Benchmark Performance</title>
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Scores You Can Trust</title>
     <script>document.documentElement.classList.add('js')</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<style>
-  /* ── Reset & Base ─────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; background: #000; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --bg: #0a0a0f;
+            --fg: #f5f5f7;
+            --muted: #8a8a99;
+            --accent: #5eead4;
+            --accent2: #818cf8;
+            --danger: #f87171;
+            --card: #16161f;
+            --line: #26263a;
+        }
 
-  /* ── Color Tokens ─────────────────────────────────── */
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a28;
-    --blue: #0A84FF;
-    --blue-dim: rgba(10, 132, 255, 0.15);
-    --blue-glow: rgba(10, 132, 255, 0.25);
-    --teal: #64D2FF;
-    --teal-dim: rgba(100, 210, 255, 0.12);
-    --green: #30D158;
-    --green-dim: rgba(48, 209, 88, 0.12);
-    --orange: #FF9F0A;
-    --purple: #BF5AF2;
-    --text: #f5f5f7;
-    --text-secondary: rgba(245, 245, 247, 0.6);
-    --text-tertiary: rgba(245, 245, 247, 0.35);
-    --border: rgba(245, 245, 247, 0.08);
-  }
+        html, body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-  /* ── Slide Engine ─────────────────────────────────── */
-  .deck { position: relative; width: 100%; height: 100%; }
-  .slide {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    padding: 60px 80px;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: translateX(40px);
-    background: var(--bg);
-  }
-  .slide.active {
-    opacity: 1; visibility: visible; transform: translateX(0);
-  }
-  .slide.exit {
-    opacity: 0; visibility: visible; transform: translateX(-40px);
-  }
+        .slide {
+            display: flex;
+            width: 100vw;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-  /* ── Typography ───────────────────────────────────── */
-  .hero-title {
-    font-size: 56px; font-weight: 700; letter-spacing: -1.5px;
-    line-height: 1.15; color: var(--text); text-align: center;
-    max-width: 900px;
-  }
-  .hero-title .accent { color: var(--blue); }
-  .hero-title .teal { color: var(--teal); }
-
-  .slide-title {
-    font-size: 42px; font-weight: 700; letter-spacing: -1px;
-    line-height: 1.2; color: var(--text); margin-bottom: 8px;
-  }
-  .slide-subtitle {
-    font-size: 18px; font-weight: 400; color: var(--text-secondary);
-    margin-bottom: 40px; max-width: 700px;
-  }
-  .section-label {
-    font-size: 13px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--teal); margin-bottom: 16px;
-  }
-
-  /* ── Layout Helpers ───────────────────────────────── */
-  .slide-header { text-align: left; width: 100%; max-width: 1100px; margin-bottom: 12px; }
-  .content-area { width: 100%; max-width: 1100px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; width: 100%; }
-  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; width: 100%; }
-
-  /* ── Cards ─────────────────────────────────────────── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 28px;
-    transition: border-color 0.3s;
-  }
-  .card:hover { border-color: rgba(10, 132, 255, 0.3); }
-  .card-title {
-    font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .card-title .icon {
-    width: 32px; height: 32px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
-  .card-body { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
-  .card-body li { margin-bottom: 4px; }
-  .card-body ul { padding-left: 18px; }
-
-  /* ── Big Metric ────────────────────────────────────── */
-  .metric-block { text-align: center; padding: 20px; }
-  .metric-value {
-    font-size: 72px; font-weight: 800; letter-spacing: -2px;
-    background: linear-gradient(135deg, var(--blue), var(--teal));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; line-height: 1;
-  }
-  .metric-value.green-grad {
-    background: linear-gradient(135deg, var(--green), var(--teal));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .metric-value.small { font-size: 48px; }
-  .metric-label {
-    font-size: 14px; font-weight: 500; color: var(--text-secondary);
-    margin-top: 8px; letter-spacing: 0.5px;
-  }
-
-  /* ── Bar Chart ─────────────────────────────────────── */
-  .bar-chart { width: 100%; }
-  .bar-row {
-    display: flex; align-items: center; margin-bottom: 14px; gap: 14px;
-  }
-  .bar-label {
-    font-size: 13px; font-weight: 500; color: var(--text-secondary);
-    width: 200px; text-align: right; flex-shrink: 0;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .bar-track {
-    flex: 1; height: 28px; background: var(--surface2);
-    border-radius: 6px; overflow: hidden; position: relative;
-  }
-  .bar-fill {
-    height: 100%; border-radius: 6px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
-    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-    display: flex; align-items: center; justify-content: flex-end;
-    padding-right: 10px; min-width: 50px;
-  }
-  .bar-fill.gold {
-    background: linear-gradient(90deg, var(--blue), #30D158);
-  }
-  .bar-val {
-    font-size: 12px; font-weight: 700; color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-  }
-
-  /* ── Win Badge ─────────────────────────────────────── */
-  .win-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .win-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px; padding: 22px 26px;
-    display: flex; align-items: center; gap: 18px;
-  }
-  .win-card .rank {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 800; flex-shrink: 0;
-  }
-  .win-card .rank.gold {
-    background: linear-gradient(135deg, rgba(48,209,88,0.2), rgba(100,210,255,0.15));
-    color: var(--green); border: 1px solid rgba(48,209,88,0.3);
-  }
-  .win-card .rank.silver {
-    background: var(--blue-dim);
-    color: var(--teal); border: 1px solid rgba(100,210,255,0.2);
-  }
-  .win-info { flex: 1; }
-  .win-info .task-name { font-size: 15px; font-weight: 600; color: var(--text); }
-  .win-info .task-meta { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-
-  /* ── Pill Tag ──────────────────────────────────────── */
-  .pill {
-    display: inline-block; padding: 4px 12px; border-radius: 20px;
-    font-size: 12px; font-weight: 600; margin: 3px 4px 3px 0;
-  }
-  .pill.blue { background: var(--blue-dim); color: var(--blue); }
-  .pill.teal { background: var(--teal-dim); color: var(--teal); }
-  .pill.green { background: var(--green-dim); color: var(--green); }
-
-  /* ── Perfect Score Row ─────────────────────────────── */
-  .perfect-list { list-style: none; }
-  .perfect-list li {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 0; border-bottom: 1px solid var(--border);
-    font-size: 15px; color: var(--text);
-  }
-  .perfect-list li:last-child { border-bottom: none; }
-  .perfect-list .score-badge {
-    background: linear-gradient(135deg, rgba(48,209,88,0.2), rgba(100,210,255,0.1));
-    color: var(--green); font-weight: 700; font-size: 13px;
-    padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
-  }
-
-  /* ── Timeline ──────────────────────────────────────── */
-  .timeline {
-    position: relative; padding-left: 32px;
-    border-left: 2px solid rgba(10, 132, 255, 0.25);
-  }
-  .timeline-item {
-    position: relative; margin-bottom: 28px; padding-left: 8px;
-  }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -39px; top: 6px;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--blue); border: 3px solid var(--bg);
-  }
-  .timeline-item .tl-title {
-    font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px;
-  }
-  .timeline-item .tl-desc {
-    font-size: 13px; color: var(--text-secondary); line-height: 1.5;
-  }
-
-  /* ── Growth Card ───────────────────────────────────── */
-  .growth-card {
-    background: var(--surface); border-radius: 16px;
-    border: 1px solid var(--border); padding: 32px;
-  }
-  .growth-card .growth-title {
-    font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .growth-card .growth-body {
-    font-size: 14px; line-height: 1.65; color: var(--text-secondary);
-  }
-
-  /* ── Nav Dots & Counter ────────────────────────────── */
-  .nav-dots {
-    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 8px; z-index: 100;
-  }
-  .nav-dots .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--text-tertiary); cursor: pointer;
-    transition: all 0.3s;
-  }
-  .nav-dots .dot.active {
-    background: var(--blue); width: 24px; border-radius: 4px;
-  }
-  .slide-counter {
-    position: fixed; bottom: 28px; right: 40px;
-    font-size: 13px; font-weight: 500; color: var(--text-tertiary);
-    z-index: 100;
-  }
-
-  /* ── Glow Effects ──────────────────────────────────── */
-  .glow-orb {
-    position: absolute; border-radius: 50%; filter: blur(100px);
-    pointer-events: none; opacity: 0.4;
-  }
-
-  /* ── Animate-in ────────────────────────────────────── */
-  .slide.active .fade-up {
-    animation: fadeUp 0.6s ease forwards;
-  }
-  .slide.active .fade-up-d1 { animation-delay: 0.1s; }
-  .slide.active .fade-up-d2 { animation-delay: 0.2s; }
-  .slide.active .fade-up-d3 { animation-delay: 0.3s; }
-  .slide.active .fade-up-d4 { animation-delay: 0.4s; }
-  .slide.active .fade-up-d5 { animation-delay: 0.5s; }
-  .fade-up { opacity: 0; transform: translateY(20px); }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── Stat Inline ───────────────────────────────────── */
-  .stat-inline {
-    display: inline-flex; align-items: baseline; gap: 6px;
-  }
-  .stat-inline .num {
-    font-size: 28px; font-weight: 800; letter-spacing: -1px;
-    background: linear-gradient(135deg, var(--blue), var(--teal));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .stat-inline .unit {
-    font-size: 14px; color: var(--text-secondary);
-  }
-
-  /* ── Pipeline Diagram ──────────────────────────────── */
-  .pipeline {
-    display: flex; align-items: center; gap: 0; flex-wrap: wrap;
-    justify-content: center;
-  }
-  .pipeline-step {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 16px;
-    font-size: 12px; font-weight: 600; color: var(--teal);
-    white-space: nowrap;
-  }
-  .pipeline-arrow {
-    font-size: 18px; color: var(--text-tertiary); margin: 0 6px;
-  }
-
-  /* ── CTA ────────────────────────────────────────────── */
-  .cta-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, var(--blue), #0070d6);
-    color: white; font-size: 16px; font-weight: 600;
-    padding: 14px 32px; border-radius: 12px; text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(10, 132, 255, 0.3);
-  }
-  .cta-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(10, 132, 255, 0.45);
-  }
-
+        .slide.active { display: flex; }
 
         /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
         html:not(.js) .slide {
@@ -331,490 +56,424 @@
         /* Progressive enhancement: JS-only slide mode */
         html.js { overflow: hidden; }
         html.js body { overflow: hidden; overscroll-behavior: none; }
-        html.js .deck { height: 100vh; height: 100dvh; overflow: hidden; }
         html.js .slide { display: none; }
         html.js .slide.active { display: flex; }
+
+        /* Fit-safe: cap slides to the viewport and allow scroll if needed */
+        html.js .slide { max-height: 100dvh; overflow-y: auto; }
+
+        .slide.active { animation: fade .5s ease; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+        .center {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Conservative type scale */
+        h1 { font-size: clamp(32px, 7vw, 76px); line-height: 1.06; letter-spacing: -0.02em; font-weight: 700; }
+        h2 { font-size: clamp(22px, 4vw, 40px); line-height: 1.14; max-width: 24ch; letter-spacing: -0.01em; font-weight: 650; }
+        p, li { font-size: clamp(14px, 1.9vw, 19px); line-height: 1.45; }
+        .title-slide h1 { font-size: clamp(40px, 10vw, 104px); }
+        .subtitle { font-size: clamp(16px, 2.4vw, 24px); color: var(--muted); margin-top: 1rem; font-weight: 400; }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: clamp(11px, 1.4vw, 13px);
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .body { color: #d4d4dd; margin-top: 1.1rem; max-width: 34ch; }
+        .handoff { color: var(--muted); margin-top: 1.4rem; font-style: italic; max-width: 34ch; }
+
+        h1 + .body, h2 + .body { margin-top: 1.1rem; }
+
+        /* Horizontal split */
+        .slide.split { flex-direction: column; }
+        @media (min-width: 880px) and (min-height: 480px) {
+            .slide.split {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(32px, 5vw, 84px);
+            }
+            html.js .slide.split.active { display: flex; }
+            .slide.split > .col-main  { flex: 1 1 0; min-width: 0; max-width: 48%; }
+            .slide.split > .col-aside { flex: 1 1 0; min-width: 0; max-width: 52%; }
+            .slide.split .col-aside > * { margin-top: 0; }
+            .slide.split .col-aside .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+        .col-main > *:first-child, .col-aside > *:first-child { margin-top: 0; }
+
+        /* Stat grid */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: clamp(14px, 2vw, 22px); }
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(16px, 2.4vw, 26px);
+        }
+        .stat .num { font-size: clamp(30px, 6vw, 58px); font-weight: 750; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+        .stat .lbl { color: var(--muted); margin-top: .55rem; font-size: clamp(12px, 1.5vw, 15px); }
+
+        /* Numbered steps / rules list */
+        .steps { display: flex; flex-direction: column; gap: clamp(12px, 1.8vw, 18px); }
+        .step {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(14px, 2vw, 20px) clamp(16px, 2.2vw, 24px);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .step .k { color: var(--accent2); font-weight: 700; font-size: clamp(16px, 2vw, 22px); flex: none; }
+        .step .t { font-size: clamp(13px, 1.7vw, 17px); line-height: 1.4; }
+        .step .t strong { color: var(--fg); }
+        .step.discard { border-color: rgba(248,113,113,0.4); }
+        .step.discard .k { color: var(--danger); }
+        .step.keep { border-color: rgba(94,234,212,0.35); }
+        .step.keep .k { color: var(--accent); }
+
+        .code-block {
+            background: #101018;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: clamp(14px, 2vw, 22px);
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            font-size: clamp(12px, 1.5vw, 15px);
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #d4d4dd;
+        }
+        .code-block .c { color: var(--accent); }
+
+        .kicker-num { color: var(--accent); font-weight: 700; }
+
+        .sources-body { color: #c4c4cf; line-height: 1.6; max-width: 62ch; }
+        .sources-body p { margin-top: .7rem; font-size: clamp(13px, 1.6vw, 16px); }
+        .sources-body ul { margin: .5rem 0 0 1.1rem; }
+        .sources-body li { margin-top: .4rem; font-size: clamp(12px, 1.5vw, 15px); }
+        .sources-body code { background: #101018; border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-family: "SF Mono", Menlo, monospace; font-size: 0.9em; color: var(--accent); }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: clamp(11px, 1.4vw, 13px);
+            color: var(--muted);
+            margin-top: 1rem;
+        }
+
+        /* Navigation */
+        .nav { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+        .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); cursor: pointer; transition: background .3s, transform .3s; }
+        .nav-dot.active { background: var(--accent); transform: scale(1.35); }
+        .slide-counter { position: fixed; bottom: 24px; right: 26px; font-size: clamp(11px, 1.5vw, 13px); color: var(--muted); z-index: 100; }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; }
+            .slide.center { justify-content: flex-start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .slide * { animation: none !important; transition: none !important; }
+        }
+
+        .more-stories {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(11px, 1.5vw, 12px);
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            z-index: 100;
+        }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
+<!--
+SPINE
+ABT: AND Amplifier Foundation is benchmarked head-to-head against Claude Code, GitHub Copilot CLI, and OpenAI Codex on real office and business-document tasks; BUT a benchmark number only means something if infrastructure flakiness (Docker hiccups, API timeouts, network errors) can't quietly masquerade as an agent failing; THEREFORE the eval-recipes team threw out the old harness and rebuilt it to separate real agent errors from infrastructure noise, so any Amplifier Foundation result is one you can actually trust.
+Payoff: The valid_trial rule — a trial is discarded ONLY when the failure is infrastructure, so infra noise never lands on an agent's score, and the number you read is the number the agent earned.
+Beats:
+  1. frame     — a benchmark score is only worth reading if infrastructure hiccups aren't secretly counted against the agent.  advances: opens with the stakes behind the AND/BUT — orients the audience that this deck is about earning trustworthy numbers, not just posting them.
+  2. proof     — Amplifier Foundation is actually run head-to-head vs Claude Code, GitHub Copilot CLI, and OpenAI Codex on the same tasks.  advances: establishes the AND with verified evidence (full.yaml agent_ids) — a real, competitive, apples-to-apples contest, not a self-report.
+  3. setup     — the test bed: 23 office/business tasks run 7x each, plus 28 scored tasks, all on a 0-100 scale.  advances: grounds the AND in specifics the audience can hold onto before the argument leans on the harness.
+  4. tension   — a Docker crash, API timeout, or network blip can look exactly like the agent failing and poison the score.  advances: establishes the BUT — names the specific threat to trust the rest of the deck must answer.
+  5. mechanism — at v0.0.32 the team threw out the old harness in a single 188-file rewrite and rebuilt on a DAG job runner.  advances: shows HOW the fix was built — one claim (the rebuild happened, at real scale) that makes the new design credible.
+  6. mechanism — the new harness reads every failure and sorts it into AGENT_ERROR, INFRASTRUCTURE_ERROR, or TEST_ISSUE.  advances: shows HOW trust is engineered — failures are classified, not lumped — setting up the decisive rule in the payoff.
+  7. payoff    — a trial is thrown out ONLY when the failure is infrastructure, so infra noise never touches an agent's score.  advances: lands the THEREFORE as the climax — the valid_trial rule is exactly what makes any Amplifier Foundation result trustworthy.
+  8. takeaway  — trust isn't a headline number; it's built into the schema — valid_trial and failure_category are first-class fields.  advances: what the audience keeps — credibility engineered into the data model, not asserted, generalized beyond this one benchmark.
+-->
 
-<div class="deck" id="deck">
+    <!-- Title cover (no beat comment) -->
+    <div class="slide title-slide active center">
+        <h1>Scores You Can Trust</h1>
+        <p class="subtitle">How a rebuilt harness earns its numbers</p>
+    </div>
 
-  <!-- ═══════════════════ SLIDE 1: TITLE ═══════════════════ -->
-  <div class="slide active" data-slide="0">
-    <div class="glow-orb" style="width:500px;height:500px;background:var(--blue);top:-100px;right:-100px;"></div>
-    <div class="glow-orb" style="width:400px;height:400px;background:var(--teal);bottom:-80px;left:-60px;opacity:0.25;"></div>
-    <div class="section-label fade-up">eval-recipes v0.36 &middot; February 2026</div>
-    <h1 class="hero-title fade-up fade-up-d1">
-      <span class="accent">Amplifier Foundation</span><br>
-      Engineering Excellence Meets<br>
-      <span class="teal">Benchmark Performance</span>
-    </h1>
-    <p class="slide-subtitle fade-up fade-up-d2" style="margin-top:24px; text-align:center;">
-      How a rigorous benchmarking infrastructure gave us the confidence to understand why Amplifier Foundation leads across 58 benchmark tasks.
-    </p>
-  </div>
+    <div class="slide center">
+        <!-- beat 1: frame -->
+        <div class="section-label">The Stakes</div>
+        <h1>A score is only worth reading if you can trust it wasn't stolen by a Docker hiccup</h1>
+        <p class="body" style="max-width: 46ch;">This deck isn't about posting a number — it's about earning one. When infrastructure flakiness can masquerade as an agent failing, the score stops meaning anything.</p>
+        <p class="handoff" style="max-width: 46ch;">So the first question is simple: is this a real contest at all?</p>
+    </div>
 
-  <!-- ═══════════════════ SLIDE 2: BENCHMARK HERO NUMBER ═══════════ -->
-  <div class="slide" data-slide="1">
-    <div class="glow-orb" style="width:600px;height:600px;background:var(--blue);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.2;"></div>
-    <div class="section-label fade-up">Benchmark Results &middot; February 8, 2026</div>
-    <div class="fade-up fade-up-d1" style="text-align:center;margin-bottom:12px;">
-      <div style="font-size:120px;font-weight:900;letter-spacing:-4px;line-height:1;background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-        62.5%
-      </div>
-      <div style="font-size:22px;font-weight:600;color:var(--text);margin-top:12px;">
-        Highest Overall Score
-      </div>
-      <div style="font-size:16px;color:var(--text-secondary);margin-top:6px;">
-        Across all 58 rubric-scored benchmark tasks
-      </div>
-    </div>
-    <div class="fade-up fade-up-d2" style="margin-top:32px;">
-      <div class="metric-block">
-        <div class="metric-value small">58</div>
-        <div class="metric-label">Tasks Evaluated</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════ SLIDE 3: PERFECT SCORES ═══════════ -->
-  <div class="slide" data-slide="2">
-    <div class="glow-orb" style="width:350px;height:350px;background:var(--green);top:10%;right:-80px;opacity:0.2;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">Rubric Benchmark</div>
-      <h2 class="slide-title">Perfect 100% Scores</h2>
-      <p class="slide-subtitle">Tasks where Amplifier Foundation achieved flawless execution.</p>
-    </div>
-    <div class="content-area" style="justify-content:center;">
-      <div class="two-col">
-        <div class="fade-up fade-up-d1">
-          <ul class="perfect-list">
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">ArXiv Conclusion Extraction</strong><br><span style="font-size:12px;color:var(--text-secondary);">Extract and synthesize conclusions from academic papers</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">ArXiv Paper Summarizer</strong><br><span style="font-size:12px;color:var(--text-secondary);">Generate structured summaries of research papers</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Chiptune Generator</strong><br><span style="font-size:12px;color:var(--text-secondary);">Build a CLI tool that generates chip-tune MIDI music from natural language</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Code Discrepancy &mdash; Tutorials Grasp</strong><br><span style="font-size:12px;color:var(--text-secondary);">Detect and explain discrepancies between code and documentation</span></div>
-            </li>
-          </ul>
+    <div class="slide split">
+        <!-- beat 2: proof -->
+        <div class="col-main">
+            <div class="section-label">The Contest</div>
+            <h2>Amplifier Foundation runs head-to-head against three other agents on the same tasks</h2>
+            <p class="body">Every comparison task lists the same four agent IDs — this is an apples-to-apples run, not a self-report.</p>
+            <p class="handoff">And the workload behind those runs is concrete.</p>
         </div>
-        <div class="fade-up fade-up-d2">
-          <ul class="perfect-list">
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Frontier Science &mdash; Attention Sink</strong><br><span style="font-size:12px;color:var(--text-secondary);">Expert-level reasoning about attention sink mechanisms in LLMs</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Frontier Science &mdash; DPO</strong><br><span style="font-size:12px;color:var(--text-secondary);">Expert-level reasoning about Direct Preference Optimization</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Frontier Science &mdash; Mixture of Experts</strong><br><span style="font-size:12px;color:var(--text-secondary);">Expert-level reasoning about MoE architectures</span></div>
-            </li>
-            <li>
-              <span class="score-badge">100%</span>
-              <div><strong style="color:var(--text);">Frontier Science &mdash; Ring Attention</strong><br><span style="font-size:12px;color:var(--text-secondary);">Expert-level reasoning about ring attention for long sequences</span></div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="fade-up fade-up-d3" style="margin-top:32px;text-align:center;">
-        <p style="font-size:15px;color:var(--text-secondary);max-width:700px;margin:0 auto;">
-          Strong across domains &mdash; from scientific paper analysis to code comprehension to creative audio generation.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════ SLIDE 4: COMPARISON WINS ═══════════ -->
-  <div class="slide" data-slide="3">
-    <div class="glow-orb" style="width:400px;height:400px;background:var(--blue);bottom:-80px;left:-60px;opacity:0.25;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">Head-to-Head Comparisons &middot; 23 Office/Document Tasks</div>
-      <h2 class="slide-title">Where We Win</h2>
-      <p class="slide-subtitle">Blind LLM-judged comparison across structured data, documents, and presentations.</p>
-    </div>
-    <div class="content-area" style="justify-content:center;">
-      <div class="win-grid fade-up fade-up-d1">
-        <div class="win-card">
-          <div class="rank gold">#1</div>
-          <div class="win-info">
-            <div class="task-name">Expense Reconciliation</div>
-            <div class="task-meta">Average rank 1.40 &middot; Structured data</div>
-          </div>
-        </div>
-        <div class="win-card">
-          <div class="rank gold">#1</div>
-          <div class="win-info">
-            <div class="task-name">Travel Itinerary</div>
-            <div class="task-meta">Average rank 1.43 &middot; Document generation</div>
-          </div>
-        </div>
-        <div class="win-card">
-          <div class="rank gold">#1</div>
-          <div class="win-info">
-            <div class="task-name">PPT-1 Presentation</div>
-            <div class="task-meta">Average rank 1.71 &middot; Presentation creation</div>
-          </div>
-        </div>
-        <div class="win-card">
-          <div class="rank gold">=1</div>
-          <div class="win-info">
-            <div class="task-name">Board Meeting Materials</div>
-            <div class="task-meta">Average rank 1.57 &middot; PPT + Excel</div>
-          </div>
-        </div>
-        <div class="win-card">
-          <div class="rank gold">=1</div>
-          <div class="win-info">
-            <div class="task-name">Meeting Notes</div>
-            <div class="task-meta">Average rank 1.50 &middot; Document generation</div>
-          </div>
-        </div>
-        <div class="win-card" style="border-color:rgba(100,210,255,0.2);">
-          <div class="rank silver">#2</div>
-          <div class="win-info">
-            <div class="task-name">+5 Strong Runner-Ups</div>
-            <div class="task-meta">Annual Report, Calendar, Contacts, PPT-2, Vendor Eval</div>
-          </div>
-        </div>
-      </div>
-      <div class="fade-up fade-up-d2" style="margin-top:28px;text-align:center;">
-        <p style="font-size:14px;color:var(--text-secondary);">
-          Each task was judged 7 times by a blind LLM grader. The rankings were <strong style="color:var(--teal);">strongly consistent</strong> across rounds (Kendall's W = 0.67).
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════ SLIDE 5: STRENGTHS SUMMARY ═══════════ -->
-  <div class="slide" data-slide="4">
-    <div class="glow-orb" style="width:350px;height:350px;background:var(--teal);top:-60px;left:15%;opacity:0.25;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">Strengths & Opportunities</div>
-      <h2 class="slide-title">What Makes It Work</h2>
-    </div>
-    <div class="content-area" style="justify-content:center;">
-      <div class="two-col">
-        <div class="fade-up fade-up-d1">
-          <h3 style="font-size:16px;font-weight:600;color:var(--green);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
-            <span style="font-size:20px;">&#9650;</span> Key Strengths
-          </h3>
-          <div class="growth-card" style="margin-bottom:16px;">
-            <div class="growth-title">&#9670; Structured Data Mastery</div>
-            <div class="growth-body">Excels at expense reconciliation, board meeting materials, and complex data organization tasks.</div>
-          </div>
-          <div class="growth-card" style="margin-bottom:16px;">
-            <div class="growth-title">&#9670; Document Generation</div>
-            <div class="growth-body">Top performer on travel itineraries, meeting notes, and multi-format output tasks.</div>
-          </div>
-          <div class="growth-card">
-            <div class="growth-title">&#9670; Breadth of Capability</div>
-            <div class="growth-body">Highest raw score across all 58 tasks demonstrates consistent performance, not just isolated wins.</div>
-          </div>
-        </div>
-        <div class="fade-up fade-up-d2">
-          <h3 style="font-size:16px;font-weight:600;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
-            <span style="font-size:20px;">&#9655;</span> Growth Opportunities
-          </h3>
-          <div class="growth-card" style="margin-bottom:16px;">
-            <div class="growth-title">&#9670; Case Study & Deck Tasks</div>
-            <div class="growth-body">Opportunity to improve on longer-form narrative and onboarding-deck style tasks where more creative structuring is needed.</div>
-          </div>
-          <div class="growth-card" style="margin-bottom:16px;">
-            <div class="growth-title">&#9670; Timeout Optimization</div>
-            <div class="growth-body">Some complex tasks approach time limits. Better resource budgeting could recover additional points.</div>
-          </div>
-          <div class="growth-card">
-            <div class="growth-title">&#9670; Artifact Completion</div>
-            <div class="growth-body">"Built but didn't finalize" pattern shows the reasoning is sound &mdash; tightening output completion is a clear path to higher scores.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════ SLIDE 6: THE CHALLENGE ═══════════ -->
-  <div class="slide" data-slide="5">
-    <div class="glow-orb" style="width:350px;height:350px;background:var(--blue);top:10%;left:-80px;opacity:0.3;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">How We Know</div>
-      <h2 class="slide-title">Building Confidence in the Results</h2>
-      <p class="slide-subtitle">Strong results only matter if you can trust the harness that produced them. We invested heavily in making ours reliable, fast, and fair.</p>
-    </div>
-    <div class="content-area">
-      <div class="two-col">
-        <div class="fade-up fade-up-d1">
-          <div class="card" style="margin-bottom:20px;">
-            <div class="card-title">
-              <span class="icon" style="background:rgba(255,69,58,0.15);color:#FF453A;">!</span>
-              Before v0.32 (old benchmarking harness)
+        <div class="col-aside">
+            <div class="steps">
+                <div class="step keep"><span class="k">1</span><span class="t"><strong>amplifier_foundation</strong> — <code>amplifier run --bundle foundation</code></span></div>
+                <div class="step"><span class="k">2</span><span class="t"><strong>claude_code</strong></span></div>
+                <div class="step"><span class="k">3</span><span class="t"><strong>gh_cli</strong> — GitHub Copilot CLI</span></div>
+                <div class="step"><span class="k">4</span><span class="t"><strong>openai_codex</strong></span></div>
             </div>
-            <div class="card-body">
-              <ul>
-                <li>Monolithic harness with linear execution</li>
-                <li>Infrastructure flakiness polluted agent scores</li>
-                <li>Idle Docker containers wasting resources</li>
-                <li>Scattered config across multiple file types</li>
-              </ul>
-            </div>
-          </div>
         </div>
-        <div class="fade-up fade-up-d2">
-          <div class="card" style="border-color:rgba(10,132,255,0.25);">
-            <div class="card-title">
-              <span class="icon" style="background:var(--blue-dim);color:var(--blue);">&#10003;</span>
-              After v0.36 (rebuilt eval-recipes harness)
-            </div>
-            <div class="card-body">
-              <ul>
-                <li>DAG-based parallel job execution</li>
-                <li>Intelligent failure classification</li>
-                <li>SQLite-persisted state for resumability</li>
-                <li>Soft dependencies so partial failures never block results</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════ SLIDE 7: INVESTMENT BY THE NUMBERS ═══════════ -->
-  <div class="slide" data-slide="6">
-    <div class="glow-orb" style="width:400px;height:400px;background:var(--teal);bottom:-100px;right:-60px;opacity:0.25;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">eval-recipes v0.32 &rarr; v0.36</div>
-      <h2 class="slide-title">A Complete Benchmarking Overhaul</h2>
-      <p class="slide-subtitle">Five PRs. One vision: a benchmarking harness rigorous enough to trust the results it produces.</p>
+    <div class="slide split">
+        <!-- beat 3: setup -->
+        <div class="col-main">
+            <div class="section-label">The Test Bed</div>
+            <h2>The workload is concrete: real office tasks, repeated, plus scored tasks</h2>
+            <p class="body">23 business and office-document tasks run 7 times each, plus 28 scored tasks — all judged on a 0-100 scale where a perfect score is 100.</p>
+            <p class="handoff">Which is exactly where the catch hides.</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat"><div class="num">23</div><div class="lbl">office / business tasks</div></div>
+                <div class="stat"><div class="num">7&times;</div><div class="lbl">runs per comparison task</div></div>
+                <div class="stat"><div class="num">28</div><div class="lbl">scored tasks per agent</div></div>
+                <div class="stat"><div class="num">0&ndash;100</div><div class="lbl">score scale</div></div>
+            </div>
+        </div>
     </div>
-    <div class="content-area" style="justify-content:center;">
-      <div class="three-col fade-up fade-up-d1" style="margin-bottom:36px;">
-        <div class="metric-block">
-          <div class="metric-value">245</div>
-          <div class="metric-label">Files Changed</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-value green-grad">+10,843</div>
-          <div class="metric-label">Lines Added</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-value" style="background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;background-clip:text;">5 PRs</div>
-          <div class="metric-label">Merged Across 5 Versions</div>
-        </div>
-      </div>
-      <div class="two-col fade-up fade-up-d2">
-        <div>
-          <div style="margin-bottom:16px;">
-            <span class="pill blue">DAG Job Runner</span>
-            <span class="pill teal">Failure Classification</span>
-            <span class="pill green">SQLite Resumability</span>
-          </div>
-          <div>
-            <span class="pill blue">Soft Dependencies</span>
-            <span class="pill teal">In-Container Analysis</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:14px;color:var(--text-secondary);line-height:1.7;">
-            <strong style="color:var(--text);">5 new benchmark tasks</strong> added: chiptune generator, energy forecast, git changelog, IPO tracker, pixel art generator<br><br>
-            <strong style="color:var(--text);">Docker reliability</strong> &mdash; fixed package collection for installed mode
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ═══════════════════ SLIDE 8: INFRASTRUCTURE DEEP DIVE ═══════════ -->
-  <div class="slide" data-slide="7">
-    <div class="glow-orb" style="width:350px;height:350px;background:var(--blue);top:-60px;right:20%;opacity:0.3;"></div>
-    <div class="slide-header fade-up">
-      <div class="section-label">Architecture</div>
-      <h2 class="slide-title">Infrastructure Highlights</h2>
-      <p class="slide-subtitle">Purpose-built primitives for reliable, parallelized agent evaluation.</p>
+    <div class="slide split">
+        <!-- beat 4: tension -->
+        <div class="col-main">
+            <div class="section-label">The Catch</div>
+            <h2>A crashed container looks exactly like the agent failing</h2>
+            <p class="body">A Docker issue, an API timeout, or a network error can be indistinguishable from a real agent mistake — and quietly poison the score.</p>
+            <p class="handoff">So at v0.0.32 the team did something drastic about it.</p>
+        </div>
+        <div class="col-aside">
+            <div class="steps">
+                <div class="step discard"><span class="k">×</span><span class="t"><strong>Docker issues</strong> — container fails to start</span></div>
+                <div class="step discard"><span class="k">×</span><span class="t"><strong>API timeouts</strong> — external service stalls</span></div>
+                <div class="step discard"><span class="k">×</span><span class="t"><strong>Network errors</strong> &amp; missing base-image deps</span></div>
+            </div>
+        </div>
     </div>
-    <div class="content-area" style="justify-content:center;">
-      <!-- DAG Card -->
-      <div class="card fade-up fade-up-d1" style="margin-bottom:20px;">
-        <div class="card-title">
-          <span class="icon" style="background:var(--blue-dim);color:var(--blue);">&#9670;</span>
-          DAG-Based Job Framework
+
+    <div class="slide split">
+        <!-- beat 5: mechanism -->
+        <div class="col-main">
+            <div class="section-label">The Rebuild</div>
+            <h2>They threw out the old harness in a single 188-file rewrite</h2>
+            <p class="body">At v0.0.32 (PR #45, David Koleczek, Feb 3 2026) the old Harness and ComparisonHarness were removed and benchmarking was rebuilt on a DAG job runner with parallel execution.</p>
+            <p class="handoff">That runner does one crucial new thing with every failure.</p>
         </div>
-        <div class="card-body" style="margin-bottom:14px;">
-          Typed, directed acyclic graph runner with parallel execution, SQLite-persisted state for resumability, soft dependencies so partial failures never block results, and automatic cycle detection.
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat"><div class="num">188</div><div class="lbl">files changed in PR #45</div></div>
+                <div class="stat"><div class="num">+8224</div><div class="lbl">lines added</div></div>
+                <div class="stat"><div class="num">&minus;6925</div><div class="lbl">lines removed</div></div>
+                <div class="stat"><div class="num">DAG</div><div class="lbl">job runner replaces Harness</div></div>
+            </div>
         </div>
-        <div class="pipeline" style="margin-top:8px;">
-          <div class="pipeline-step">TrialExecutionJob</div>
-          <div class="pipeline-arrow">&#8594;</div>
-          <div class="pipeline-step">FinalAnalysisJob</div>
-          <div class="pipeline-arrow">&#8594;</div>
-          <div class="pipeline-step">AgentComparisonJob</div>
-          <div class="pipeline-arrow">&#8594;</div>
-          <div class="pipeline-step">ResultsAggregationJob</div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 6: mechanism -->
+        <div class="col-main">
+            <div class="section-label">Classification</div>
+            <h2>Every failure is read and sorted into one of three categories</h2>
+            <p class="body">The analysis runner classifies each failure — not lumping them together — so the harness can tell an agent's mistake apart from the environment's.</p>
+            <p class="handoff">And that distinction drives the one rule that makes the score honest.</p>
         </div>
-      </div>
-      <div class="two-col fade-up fade-up-d2">
-        <!-- Failure Classification -->
-        <div class="card">
-          <div class="card-title">
-            <span class="icon" style="background:rgba(255,159,10,0.15);color:var(--orange);">&#9888;</span>
-            Failure Classification
-          </div>
-          <div class="card-body">
+        <div class="col-aside">
+            <div class="steps">
+                <div class="step"><span class="k">A</span><span class="t"><strong>AGENT_ERROR</strong> — the agent made a mistake</span></div>
+                <div class="step discard"><span class="k">I</span><span class="t"><strong>INFRASTRUCTURE_ERROR</strong> — Docker, API timeout, network, missing deps</span></div>
+                <div class="step"><span class="k">T</span><span class="t"><strong>TEST_ISSUE</strong> — flaky test or incorrect expectations</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 7: payoff -->
+        <div class="col-main">
+            <div class="section-label">The Payoff</div>
+            <h2>A trial is discarded ONLY when the failure is infrastructure</h2>
+            <p class="body">valid_trial is set to false <em>only</em> for INFRASTRUCTURE_ERROR. Infra noise never lands on an agent's score — so the number you read is the number the agent earned.</p>
+            <p class="handoff">And that rule isn't a convention — it's baked into the data.</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="c"># analysis_runner.py</span>
+Set VALID_TRIAL to false
+ONLY for INFRASTRUCTURE_ERROR
+failures.
+
+<span class="c"># AGENT_ERROR  → trial counts</span>
+<span class="c"># TEST_ISSUE   → trial counts</span>
+<span class="c"># INFRA_ERROR  → trial discarded</span></div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 8: takeaway -->
+        <div class="col-main">
+            <div class="section-label">What To Keep</div>
+            <h2>Trust isn't a headline — it's a field in the schema</h2>
+            <p class="body">valid_trial and failure_category are first-class fields in the benchmark result schema. Credibility is engineered into the data model, so trustworthiness ships with every result.</p>
+            <p class="handoff">The durable pattern: don't assert trust — build it into the record.</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="c"># schemas.py</span>
+valid_trial: bool
+  <span class="c"># False if failure was</span>
+  <span class="c"># infrastructure-related</span>
+  <span class="c"># (Docker, API, timeout)</span>
+
+failure_category: str | None
+score: float  <span class="c"># 0 to 100</span></div>
+        </div>
+    </div>
+
+    <!-- Sources & Methodology (no beat comment) -->
+    <div class="slide">
+        <div class="section-label">Sources</div>
+        <h2>Research Methodology</h2>
+        <div class="sources-body">
+            <p><strong>Data as of:</strong> February 2026. All metrics independently re-derived from command output in a fresh isolated session.</p>
+            <p><strong>Feature status:</strong> microsoft/eval-recipes (MIT, "very early"), benchmarking rewritten at v0.0.32 (2026-02-03); latest verified tag v0.0.36 (2026-02-10). DavidKoleczek/amplifier-app-benchmarks v0.1.0 pins eval-recipes@v0.0.34.</p>
+            <p><strong>Commands run:</strong></p>
             <ul>
-              <li><strong style="color:var(--text);">AGENT_ERROR</strong> &mdash; real agent issue, counts</li>
-              <li><strong style="color:var(--text);">INFRASTRUCTURE_ERROR</strong> &mdash; flaky infra, excluded</li>
-              <li><strong style="color:var(--text);">TEST_ISSUE</strong> &mdash; benchmark bug, excluded</li>
+                <li><code>gh api repos/microsoft/eval-recipes/tags --jq '.[].name'</code> — tags v0.0.32–v0.0.36 exist</li>
+                <li><code>gh pr view 45 --repo microsoft/eval-recipes --json title,author,mergedAt,additions,deletions,changedFiles</code> — +8224/−6925, 188 files, David Koleczek, merged 2026-02-03</li>
+                <li><code>gh release view v0.0.32 --repo microsoft/eval-recipes</code> — complete rewrite; Harness/ComparisonHarness removed</li>
+                <li><code>gh api .../job_framework/runner.py?ref=v0.0.36</code> — "Job runner with DAG resolution and parallel execution"</li>
+                <li><code>gh api .../evaluation/analysis_runner.py?ref=v0.0.36</code> — AGENT_ERROR / INFRASTRUCTURE_ERROR / TEST_ISSUE; VALID_TRIAL false only for infrastructure</li>
+                <li><code>gh api .../schemas.py?ref=v0.0.36</code> — valid_trial, failure_category, score 0–100</li>
+                <li><code>cat data/benchmarks/full.yaml</code> — agent_ids [claude_code, gh_cli, amplifier_foundation, openai_codex]; comparison_runs: 7</li>
+                <li><code>grep -c 'task_name:' full.yaml</code> — 23 comparison tasks; <code>ls data/tasks/full_benchmark | wc -l</code> — 28 score tasks</li>
             </ul>
-            <p style="margin-top:10px;">Only infrastructure errors set <code style="color:var(--teal);">valid_trial=false</code>, keeping agent scores clean.</p>
-          </div>
+            <p><strong>Primary contributor:</strong> David Koleczek (DavidKoleczek) — top contributor to microsoft/eval-recipes and author of the benchmarking rewrite (PR #45) and amplifier-app-benchmarks.</p>
+            <p><strong>Gaps:</strong> No results artifact (win rankings, per-task scores, or aggregate percentages) was found in the accessible repos; this deck therefore makes no claim about who won or by how much — only about how the harness earns a trustworthy number.</p>
         </div>
-        <!-- In-Container Analysis -->
-        <div class="card">
-          <div class="card-title">
-            <span class="icon" style="background:var(--teal-dim);color:var(--teal);">&#9881;</span>
-            In-Container Analysis
-          </div>
-          <div class="card-body">
-            <ul>
-              <li><code style="color:var(--teal);">analysis_runner.py</code> runs inside Docker</li>
-              <li>Full filesystem access to explore failures</li>
-              <li>Score threshold (&ge;85.0) skips costly analysis</li>
-              <li>7-run comparison with Kendall's W agreement</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <span class="badge">Status: Active &middot; eval-recipes v0.0.36 &middot; MIT</span>
     </div>
-  </div>
 
-  <!-- ═══════════════════ SLIDE 9: CLOSING ═══════════════════ -->
-  <div class="slide" data-slide="8">
-    <div class="glow-orb" style="width:500px;height:500px;background:var(--blue);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.15;"></div>
-    <div class="glow-orb" style="width:300px;height:300px;background:var(--teal);bottom:-60px;right:-60px;opacity:0.2;"></div>
-    <div class="section-label fade-up">February 2026</div>
-    <h1 class="hero-title fade-up fade-up-d1" style="font-size:48px;">
-      <span class="accent">62.5%</span> overall.<br>
-      <span class="teal">100%</span> on eight tasks.<br>
-      <span style="color:var(--green);">#1</span> on the hardest comparisons.
-    </h1>
-    <p class="slide-subtitle fade-up fade-up-d2" style="margin-top:24px;text-align:center;max-width:650px;">
-      245 files changed. 10,843 lines of infrastructure.<br>
-      A rigorous harness that gives us confidence in the results.
-    </p>
-    <div class="fade-up fade-up-d3" style="margin-top:36px;display:flex;gap:32px;align-items:center;">
-      <div class="three-col" style="gap:48px;">
-        <div class="metric-block">
-          <div class="metric-value small">58</div>
-          <div class="metric-label">Tasks Benchmarked</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-value small green-grad">23</div>
-          <div class="metric-label">Comparison Tasks</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-value small">5</div>
-          <div class="metric-label">Versions Shipped</div>
-        </div>
-      </div>
-    </div>
-    <div class="fade-up fade-up-d4" style="margin-top:40px;">
-      <p style="font-size:15px;color:var(--text-tertiary);letter-spacing:0.5px;">
-        Amplifier Foundation &middot; eval-recipes v0.36
-      </p>
-    </div>
-  </div>
+    <!-- Navigation -->
+    <div class="nav" id="nav"></div>
+    <div class="slide-counter" id="counter"></div>
 
-</div>
-
-<!-- ═══════════════════ NAV DOTS ═══════════════════ -->
-<div class="nav-dots" id="navDots"></div>
-<div class="slide-counter" id="slideCounter"></div>
-
+    <!-- More stories link -->
     <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
-(function() {
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
-  let current = 0;
-  let animating = false;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        let transitioning = false;
 
-  // Build nav dots
-  const dotsEl = document.getElementById('navDots');
-  for (let i = 0; i < total; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(dot);
-  }
+        function goTo(n) {
+            n = ((n % total) + total) % total;
+            if (transitioning || n === current) return;
+            transitioning = true;
+            var direction = n > current ? 1 : -1;
+            var prev = slides[current];
+            var next = slides[n];
 
-  function updateCounter() {
-    document.getElementById('slideCounter').textContent = (current + 1) + ' / ' + total;
-  }
-  updateCounter();
+            prev.classList.remove('active');
+            prev.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+            prev.style.opacity = '0';
 
-  function goTo(n) {
-    if (n === current || animating || n < 0 || n >= total) return;
-    animating = true;
-    slides[current].classList.remove('active');
-    slides[current].classList.add('exit');
-    slides[n].classList.add('active');
+            next.style.transition = 'none';
+            next.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+            next.style.opacity = '0';
 
-    // Reset animations on new slide
-    slides[n].querySelectorAll('.fade-up').forEach(el => {
-      el.style.animation = 'none';
-      el.offsetHeight; // reflow
-      el.style.animation = '';
-    });
+            void next.offsetWidth;
 
-    setTimeout(() => {
-      slides[current].classList.remove('exit');
-      current = n;
-      updateCounter();
-      dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      animating = false;
-    }, 500);
-  }
+            next.style.transition = '';
+            next.style.transform = 'translateX(0)';
+            next.style.opacity = '1';
+            next.classList.add('active');
 
-  function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
+            current = n;
+            updateNav();
 
-  // Keyboard
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
-  });
+            setTimeout(function() {
+                prev.style.transform = '';
+                prev.style.opacity = '';
+                next.style.transform = '';
+                next.style.opacity = '';
+                transitioning = false;
+            }, 500);
+        }
 
-  // Click zones
-  document.addEventListener('click', e => {
-    const x = e.clientX / window.innerWidth;
-    if (e.target.closest('.nav-dots') || e.target.closest('a')) return;
-    if (x > 0.65) next();
-    else if (x < 0.35) prev();
-  });
+        function updateNav() {
+            const nav = document.getElementById('nav');
+            const counter = document.getElementById('counter');
+            nav.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === current ? ' active' : '');
+                dot.onclick = () => goTo(i);
+                nav.appendChild(dot);
+            });
+            counter.textContent = `${current + 1} / ${total}`;
+        }
 
-  // Touch swipe
-  let touchStartX = 0;
-  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
-  });
-})();
-</script>
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav')) return;
+            if (e.clientX > window.innerWidth / 2) goTo(current + 1);
+            else goTo(current - 1);
+        });
+
+        let touchStartX = 0;
+        const SWIPE_THRESHOLD = 50;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > SWIPE_THRESHOLD) {
+                if (diff > 0) goTo(current + 1);
+                else goTo(current - 1);
+            }
+        }, { passive: true });
+
+        updateNav();
+    </script>
 </body>
 </html>

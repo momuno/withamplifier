@@ -3,539 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Making LLMs Reliable Through Code</title>
-        <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
+    <title>Don't Trust, Restore</title>
     <script>document.documentElement.classList.add('js')</script>
-
     <style>
-        :root {
-            --accent: #FF6B9D;
-            --accent-gradient: linear-gradient(135deg, #FF6B9D 0%, #FF9F0A 100%);
-            --font-headline: clamp(32px, 8vw, 72px);
-            --font-headline-hero: clamp(40px, 10vw, 96px);
-            --font-medium-headline: clamp(24px, 5vw, 48px);
-            --font-subhead: clamp(16px, 3vw, 32px);
-            --font-body: clamp(14px, 2vw, 16px);
-            --font-body-lg: clamp(16px, 2.5vw, 22px);
-            --font-label: clamp(12px, 1.5vw, 14px);
-            --font-code: clamp(11px, 1.5vw, 14px);
-            --font-big-number: clamp(60px, 20vw, 140px);
-            --font-metric: clamp(48px, 12vw, 96px);
-            --font-icon: clamp(32px, 8vw, 48px);
-            --font-nav: clamp(11px, 1.5vw, 13px);
-            --font-arrow: clamp(16px, 3vw, 24px);
-            --padding-slide: clamp(20px, 5vw, 80px);
-            --gap-grid: clamp(16px, 3vw, 40px);
-
-            /* Surface hierarchy */
-            --surface-1: rgba(255,255,255,0.06);
-            --surface-2: rgba(255,255,255,0.10);
-            --surface-3: rgba(255,255,255,0.15);
-            --border-subtle: rgba(255,255,255,0.12);
-            --text-primary: #ffffff;
-            --text-readable: rgba(255,255,255,0.7);
-            --text-muted-floor: rgba(255,255,255,0.5);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: #fff;
+        :root {
+            --bg: #08090c;
+            --bg2: #0f1218;
+            --fg: #f4f6fa;
+            --muted: #9aa4b2;
+            --accent: #5eead4;
+            --accent2: #7c93ff;
+            --line: rgba(255,255,255,0.10);
+            --card: rgba(255,255,255,0.045);
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         .slide {
-            width: 100%;
+            display: flex;
+            width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
-            padding: var(--padding-slide);
-            display: flex;
+            padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
             flex-direction: column;
+            justify-content: center;
             overflow-y: auto;
             overflow-x: hidden;
+            background:
+                radial-gradient(1200px 700px at 78% 18%, rgba(94,234,212,0.07), transparent 60%),
+                radial-gradient(1000px 700px at 12% 90%, rgba(124,147,255,0.07), transparent 60%),
+                var(--bg);
         }
 
         .slide.active { display: flex; }
 
-        .slide.center {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Status badge */
-        .status-badge {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: var(--font-nav);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(255, 107, 157, 0.2);
-            border: 1px solid rgba(255, 107, 157, 0.4);
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .section-label {
-            font-size: var(--font-label);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-
-        .headline {
-            font-size: var(--font-headline);
-            font-weight: 700;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 24px;
-        }
-
-        .headline-hero {
-            font-size: var(--font-headline-hero);
-            font-weight: 700;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 24px;
-        }
-
-        .subhead {
-            font-size: var(--font-subhead);
-            font-weight: 400;
-            color: var(--text-readable);
-            line-height: 1.4;
-            max-width: 800px;
-        }
-
-        .medium-headline {
-            font-size: var(--font-medium-headline);
-            font-weight: 600;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 32px;
-        }
-
-        .big-number {
-            font-size: var(--font-big-number);
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-        }
-
-        .thirds {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: var(--gap-grid);
-            margin-top: 40px;
-        }
-
-        .card {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: clamp(16px, 4vw, 28px);
-        }
-
-        .card h3, .card-title {
-            font-size: clamp(18px, 3vw, 24px);
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-
-        .card-title.error { color: #FF453A; }
-        .card-title.success { color: #30D158; }
-
-        .card p, .card-text {
-            font-size: var(--font-body);
-            color: var(--text-readable);
-            line-height: 1.5;
-        }
-
-        .card .code-block {
-            margin: 16px 0;
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--gap-grid);
-            margin-top: 40px;
-        }
-
-        .metric {
-            text-align: center;
-        }
-
-        .metric .value, .stat-number {
-            font-size: var(--font-metric);
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .metric .label, .stat-label {
-            font-size: clamp(14px, 2vw, 18px);
-            color: var(--text-readable);
-            margin-top: 8px;
-        }
-
-        .timeline {
-            margin-top: 40px;
-            padding-left: 40px;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border-subtle);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -32px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        .timeline-item.success::before { background: #30D158; }
-        .timeline-item.error::before { background: #FF453A; }
-
-        .timeline-version {
-            font-size: clamp(14px, 2vw, 18px);
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .timeline-title {
-            font-size: var(--font-body);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .timeline-desc {
-            font-size: var(--font-body);
-            color: var(--text-readable);
-        }
-
-        /* Code blocks */
-        .code-block {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: clamp(16px, 3vw, 24px);
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: var(--font-code);
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
-            margin: 24px 0;
-        }
-
-        .code-block .comment { color: var(--text-muted-floor); }
-        .code-block .keyword { color: #ff7b72; }
-        .code-block .string { color: #a5d6ff; }
-        .code-block .function { color: #d2a8ff; }
-        .code-block .variable { color: #ffa657; }
-        .code-block .success { color: #30D158; }
-        .code-block .error { color: #FF453A; }
-        .code-block .highlight {
-            background: rgba(255, 107, 157, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        /* Comparison boxes */
-        .comparison {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: var(--gap-grid);
-            margin-top: 32px;
-        }
-
-        .comparison-box {
-            padding: clamp(20px, 4vw, 32px);
-            border-radius: 16px;
-        }
-
-        .comparison-box.before {
-            background: rgba(255, 69, 58, 0.1);
-            border: 1px solid rgba(255, 69, 58, 0.3);
-        }
-
-        .comparison-box.after {
-            background: rgba(48, 209, 88, 0.1);
-            border: 1px solid rgba(48, 209, 88, 0.3);
-        }
-
-        .comparison-label {
-            font-size: var(--font-label);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-
-        .comparison-box.before .comparison-label { color: #FF453A; }
-        .comparison-box.after .comparison-label { color: #30D158; }
-
-        /* Special boxes */
-        .bug-reveal {
-            background: linear-gradient(135deg, rgba(255, 69, 58, 0.1), rgba(255, 69, 58, 0.05));
-            border: 1px solid rgba(255, 69, 58, 0.3);
-            border-radius: 16px;
-            padding: clamp(24px, 5vw, 40px);
-            margin: 32px 0;
-        }
-
-        .bug-reveal .bug-icon {
-            font-size: var(--font-icon);
-            margin-bottom: 16px;
-        }
-
-        .bug-reveal h3 {
-            font-size: var(--font-subhead);
-            margin-bottom: 16px;
-        }
-
-        .insight-box {
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(255, 107, 157, 0.05));
-            border: 1px solid rgba(255, 107, 157, 0.3);
-            border-radius: 16px;
-            padding: clamp(24px, 5vw, 40px);
-            margin: 32px 0;
-        }
-
-        .insight-box .insight-icon {
-            font-size: var(--font-icon);
-            margin-bottom: 16px;
-        }
-
-        .insight-box h3 {
-            font-size: var(--font-subhead);
-            margin-bottom: 16px;
-        }
-
-        .insight-box .lead {
-            font-size: var(--font-subhead);
-            color: var(--text-primary);
-            line-height: 1.5;
-        }
-
-        /* Flow diagram */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin: 32px 0;
-        }
-
-        .flow-step {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 16px 24px;
-            font-size: var(--font-body);
-            text-align: center;
-        }
-
-        .flow-step.highlight {
-            background: rgba(255, 107, 157, 0.2);
-            border-color: var(--accent);
-        }
-
-        .flow-arrow {
-            color: var(--text-readable);
-            font-size: var(--font-arrow);
-        }
-
-        /* Quote */
-        .quote {
-            font-size: var(--font-medium-headline);
-            font-weight: 500;
-            font-style: italic;
-            line-height: 1.4;
-            color: var(--accent);
-            padding-left: 32px;
-            border-left: 4px solid var(--accent);
-            margin: 40px 0;
-        }
-
-        /* Session box */
-        .session-box {
-            margin-top: 48px;
-            padding: clamp(16px, 3vw, 24px);
-            background: rgba(255, 107, 157, 0.2);
-            border-radius: 12px;
-            max-width: 500px;
-        }
-
-        .session-box p {
-            font-size: var(--font-body);
-            color: var(--text-primary);
-        }
-
-        .session-box .muted {
-            color: var(--text-readable);
-        }
-
-        /* Sources slide */
-        .sources-content {
-            max-width: 700px;
-        }
-
-        .sources-list {
-            list-style: none;
-            margin-top: 32px;
-        }
-
-        .sources-list li {
-            font-size: var(--font-body);
-            color: var(--text-readable);
-            margin-bottom: 16px;
-            padding-left: 20px;
-            position: relative;
-            line-height: 1.6;
-        }
-
-        .sources-list li::before {
-            content: "\2022";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-
-        .data-date {
-            font-size: var(--font-body);
-            color: var(--text-muted-floor);
-            margin-top: 32px;
-        }
-
-        /* Attribution */
-        .attribution {
-            font-size: var(--font-label);
-            color: var(--text-muted-floor);
-            margin-top: 24px;
-        }
-
-        /* Navigation */
-        #nav {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 100;
-        }
-
-        .nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: var(--accent);
-            transform: scale(1.2);
-        }
-
-        #counter {
-            position: fixed;
-            bottom: 30px;
-            right: 40px;
-            font-size: var(--font-nav);
-            color: var(--text-muted-floor);
-            z-index: 100;
-        }
-
-        /* More Amplifier Stories link */
-        .stories-link {
-            position: fixed;
-            top: 20px;
-            right: 24px;
-            font-size: var(--font-nav);
-            color: var(--text-muted-floor);
-            text-decoration: none;
-            z-index: 100;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-        }
-
-        .stories-link:hover { color: var(--accent); }
-
-        .highlight { color: var(--accent); }
-
-        .date {
-            font-size: clamp(14px, 2vw, 18px);
-            color: var(--text-muted-floor);
-            margin-top: 24px;
-        }
-
-        ul.feature-list {
-            list-style: none;
-            margin-top: 24px;
-        }
-
-        ul.feature-list li {
-            font-size: var(--font-body-lg);
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 16px;
-            padding-left: 24px;
-            position: relative;
-        }
-
-        ul.feature-list li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        @media (max-width: 768px) {
-            .timeline { padding-left: 30px; }
-            .timeline::before { left: 8px; }
-            .timeline-item::before { left: -26px; }
-        }
-    
-
-        /* Progressive enhancement: no-JS fallback — all slides visible, scrollable */
+        /* No-JS fallback */
         html:not(.js) .slide {
             display: flex !important;
             position: relative !important;
@@ -548,468 +57,494 @@
             min-height: 100dvh;
         }
 
-        /* Progressive enhancement: JS-only slide mode */
+        /* JS slide mode */
         html.js { overflow: hidden; }
         html.js body { overflow: hidden; overscroll-behavior: none; }
         html.js .slide { display: none; }
         html.js .slide.active { display: flex; }
+        html.js .slide { max-height: 100dvh; overflow-y: auto; }
+        .slide { transition: transform 0.5s ease, opacity 0.5s ease; }
+
+        .center {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 { font-size: clamp(32px, 7vw, 76px); line-height: 1.06; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(22px, 4vw, 40px); line-height: 1.14; max-width: 24ch; letter-spacing: -0.01em; }
+        p, li { font-size: clamp(14px, 1.9vw, 19px); line-height: 1.45; color: var(--fg); }
+        .title-slide h1 { font-size: clamp(40px, 10vw, 104px); }
+        .subtitle { font-size: clamp(16px, 2.4vw, 24px); color: var(--muted); margin-top: clamp(14px,2vw,22px); }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: clamp(11px, 1.5vw, 13px);
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: clamp(14px, 2vw, 22px);
+        }
+        .body { color: var(--muted); margin-top: clamp(14px,2vw,20px); max-width: 46ch; }
+        .handoff {
+            margin-top: clamp(18px,2.4vw,26px);
+            color: var(--accent2);
+            font-style: italic;
+            max-width: 46ch;
+        }
+
+        /* Title slide accents */
+        .title-slide .kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: clamp(11px, 1.6vw, 14px);
+            color: var(--accent);
+            margin-top: clamp(24px, 3.5vw, 40px);
+        }
+
+        /* Split layout */
+        .slide.split { flex-direction: column; }
+        @media (min-width: 880px) and (min-height: 480px) {
+            .slide.split {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(32px, 5vw, 84px);
+            }
+            html.js .slide.split.active { display: flex; }
+            .slide.split > .col-main  { flex: 1 1 0; min-width: 0; max-width: 48%; }
+            .slide.split > .col-aside { flex: 1 1 0; min-width: 0; max-width: 52%; }
+            .slide.split .col-aside > * { margin-top: 0; }
+            .slide.split .col-aside .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+        .col-main > *:first-child, .col-aside > *:first-child { margin-top: 0; }
+
+        /* Stat grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: clamp(14px, 2vw, 22px);
+        }
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: clamp(18px, 2.4vw, 28px);
+        }
+        .stat .num {
+            font-size: clamp(34px, 6vw, 60px);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+        .stat .lbl {
+            margin-top: 10px;
+            font-size: clamp(12px, 1.5vw, 15px);
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        /* Numbered steps */
+        .steps { list-style: none; display: flex; flex-direction: column; gap: clamp(12px,1.8vw,18px); }
+        .steps li {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(14px,1.8vw,20px) clamp(16px,2vw,22px);
+            display: flex;
+            gap: clamp(12px,1.6vw,18px);
+            align-items: flex-start;
+        }
+        .steps .n {
+            flex: 0 0 auto;
+            width: clamp(28px,3.4vw,38px);
+            height: clamp(28px,3.4vw,38px);
+            border-radius: 50%;
+            background: rgba(94,234,212,0.14);
+            color: var(--accent);
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(13px,1.7vw,17px);
+        }
+        .steps .txt { color: var(--fg); }
+        .steps .txt small { display:block; color: var(--muted); margin-top: 4px; }
+
+        /* Rules list */
+        .rules { list-style: none; display: flex; flex-direction: column; gap: clamp(10px,1.6vw,16px); }
+        .rules li {
+            border-left: 3px solid var(--accent);
+            padding: clamp(6px,1vw,10px) clamp(14px,1.8vw,18px);
+            color: var(--fg);
+        }
+        .rules li strong { color: var(--accent); }
+
+        /* Code block */
+        .code-block {
+            background: #05060a;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(16px,2vw,24px);
+            font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+            font-size: clamp(12px, 1.6vw, 16px);
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #e6edf3;
+        }
+        .code-block .c { color: #7d8590; }
+        .code-block .k { color: var(--accent); }
+        .code-block .s { color: #a5d6ff; }
+
+        .quote {
+            border-left: 3px solid var(--accent2);
+            padding: clamp(10px,1.6vw,16px) clamp(16px,2vw,22px);
+            background: var(--card);
+            border-radius: 0 14px 14px 0;
+            font-size: clamp(15px,2.1vw,22px);
+            line-height: 1.4;
+        }
+        .quote small { display:block; margin-top: 10px; color: var(--muted); font-size: clamp(11px,1.5vw,13px); }
+
+        /* Sources slide text */
+        .src-text { max-width: 60ch; }
+        .src-text p { margin-top: 10px; color: var(--muted); }
+        .src-text ul { margin: 12px 0 0 18px; }
+        .src-text li { margin-top: 8px; color: var(--muted); }
+        .src-text code {
+            font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+            font-size: 0.86em;
+            background: rgba(255,255,255,0.06);
+            padding: 2px 6px;
+            border-radius: 5px;
+            color: #a5d6ff;
+            word-break: break-word;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(94,234,212,0.14);
+            color: var(--accent);
+            font-size: clamp(11px,1.5vw,13px);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; }
+            .slide.center { justify-content: flex-start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .slide * { animation: none !important; transition: none !important; }
+        }
+
+        /* Nav */
+        .nav {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 90;
+        }
+        .nav-dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: rgba(255,255,255,0.22);
+            cursor: pointer; transition: background 0.25s, transform 0.25s;
+        }
+        .nav-dot.active { background: var(--accent); transform: scale(1.3); }
+        .slide-counter {
+            position: fixed;
+            bottom: 24px; right: 26px;
+            font-size: clamp(11px,1.5vw,13px);
+            color: var(--muted);
+            z-index: 90;
+        }
+
+        .more-stories {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(11px, 1.5vw, 12px);
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            z-index: 100;
+        }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
-    <!-- More Amplifier Stories link -->
-    <a href="/stories" class="stories-link">More Amplifier Stories &rarr;</a>
+<!--
+SPINE
+ABT: AND when Amplifier's document-generation recipe regenerates a doc you want the sections that already work left untouched; BUT LLMs won't obey "copy VERBATIM, don't touch" — they paraphrase and rewrite "preserved" content anyway; THEREFORE the recipe wraps the LLM in deterministic Python that restores each preserved section byte-for-byte after every pass, guaranteeing preservation regardless of what the model does.
+Payoff: The deterministic sandwich — let the LLM work, then two Python restore steps overwrite every preserved section with its original lines verbatim; 100% preservation guaranteed regardless of LLM behavior.
+Beats:
+  1. frame     — preservation is a code guarantee, not a prompt request.        advances: orients the audience to the whole ABT — the want (AND), the failure (BUT), and the fix (THEREFORE) in one hook.
+  2. proof     — 100% preservation "regardless of LLM behavior" + a reproduced byte-identical restore.  advances: rewards the frame with hard evidence that the THEREFORE holds.
+  3. setup     — the concrete ask: regenerate from an outline, keep action_needed=="none" sections exactly.  advances: grounds the AND in the recipe's real inputs so later beats have a named example.
+  4. tension   — "copy keep sections VERBATIM, do not touch them" was tried in a sibling recipe.  advances: establishes the BUT with a real artifact — prompt-only preservation is what fails.
+  5. turn      — the recipe names the root cause: "LLM can't be trusted to skip preserved sections."  advances: the hinge from AND/BUT to THEREFORE — stop asking, start enforcing.
+  6. mechanism — Python overwrites each section: lines[:start] + original_lines + lines[end:].  advances: shows HOW the THEREFORE works with one precise claim.
+  7. payoff    — two restore steps after content-fix and quality-fix — the deterministic sandwich.  advances: lands the THEREFORE as the climax.
+  8. takeaway  — when determinism matters, use code, not LLMs.  advances: the generalized principle the audience keeps.
+-->
 
-    <!-- Slide 1: Title -->
-    <div class="slide center active">
-        <div class="status-badge">Case Study</div>
-        <h1 class="headline-hero">Making LLMs Reliable<br>Through Code</h1>
-        <p class="subhead">A debugging journey: 5 recipe versions, 3 bugs found, 1 fundamental insight about AI-assisted development.</p>
-        <div class="date">February 2026</div>
+    <!-- Title cover -->
+    <div class="slide title-slide active center">
+        <h1>Don't Trust, Restore</h1>
+        <p class="subtitle">Wrapping the LLM in deterministic code</p>
+        <p class="kicker">Amplifier &middot; document-generation recipe</p>
     </div>
 
-    <!-- Slide 2: The Problem -->
-    <div class="slide">
-        <div class="section-label">The Challenge</div>
-        <h2 class="headline">Preserve What Works</h2>
-        <p class="subhead">When regenerating documentation, users want to keep their existing content intact - only updating sections that need changes.</p>
-
-        <div class="thirds">
-            <div class="card">
-                <div class="card-title">The Ask</div>
-                <p class="card-text">"When I provide an existing document, preserve sections that don't need changes. Only regenerate what's actually outdated."</p>
-            </div>
-            <div class="card">
-                <div class="card-title">The Stakes</div>
-                <p class="card-text">11 carefully written sections with code examples, commands, and formatting - losing any of it means manual recovery.</p>
-            </div>
+    <div class="slide split">
+        <!-- beat 1: frame -->
+        <div class="col-main">
+            <div class="section-label">The Frame</div>
+            <h2>Preservation is a code guarantee, not a prompt request</h2>
+            <p class="body">When Amplifier's document-generation recipe regenerates a doc, you want the sections that already work left alone. But the model won't reliably leave them alone — so the recipe enforces preservation in Python instead of asking for it.</p>
+            <p class="handoff">First, the payoff: does the guarantee actually hold?</p>
         </div>
-
-        <div class="quote" style="margin-top: 48px;">
-            "Mostly, we want to make sure the existing sections reflect the source files. The existing doc is a reference for what is already mainly working."
-        </div>
-    </div>
-
-    <!-- Slide 3: First Attempt -->
-    <div class="slide">
-        <div class="section-label">v7.1.0</div>
-        <h2 class="medium-headline">First Attempt: Let the LLM Decide</h2>
-
-        <div class="code-block"><span class="comment"># The prompt approach</span>
-<span class="keyword">If</span> action_needed is <span class="string">"none"</span>: <span class="highlight">USE EXISTING CONTENT AS-IS</span>
-<span class="keyword">If</span> action_needed is <span class="string">"add"</span>:  Keep existing, ADD missing content
-<span class="keyword">If</span> action_needed is <span class="string">"update"</span>: Revise specific parts only</div>
-
-        <div class="bug-reveal">
-            <div class="bug-icon">&#x1F6A8;</div>
-            <h3>Result: Content Mangled</h3>
-            <p class="card-text">The LLM "preserved" content by summarizing it. Code blocks were paraphrased. Commands were reformatted. Nothing was verbatim.</p>
-        </div>
-
-        <p class="subhead" style="margin-top: 24px;"><strong>Lesson:</strong> Asking an LLM to "copy exactly" doesn't mean it will.</p>
-    </div>
-
-    <!-- Slide 4: Fix #1 -->
-    <div class="slide">
-        <div class="section-label">v7.2.0</div>
-        <h2 class="medium-headline">Fix #1: Use Code to Extract Content</h2>
-        <p class="subhead">Don't ask the LLM to preserve - use bash/Python to copy sections directly.</p>
-
-        <div class="code-block"><span class="comment"># Deterministic preservation with bash</span>
-<span class="keyword">for</span> section_id <span class="keyword">in</span> $(jq -r <span class="string">'.[] | select(.action_needed == "none")'</span>); <span class="keyword">do</span>
-    <span class="comment"># Copy existing content directly to tracker</span>
-    existing_content=$(jq -r <span class="string">".section_mappings[$section_id].existing_content"</span>)
-    <span class="comment"># No LLM involved - pure data copy</span>
-    jq <span class="string">".generated_content[$section_id] = \$content"</span> tracker.json
-<span class="keyword">done</span></div>
-
-        <div class="comparison">
-            <div class="comparison-box before">
-                <div class="comparison-label">Before</div>
-                <p class="card-text"><strong>Original:</strong> 6,293 bytes</p>
-                <p class="card-text"><strong>Output:</strong> 5,340 bytes</p>
-                <p class="card-text" style="margin-top: 12px; color: #FF453A;">&#x274C; Lost ~950 bytes somewhere</p>
-            </div>
-            <div class="comparison-box before">
-                <div class="comparison-label">Still Broken</div>
-                <p class="card-text">Content extraction was truncating sections. But why?</p>
-                <p class="card-text" style="margin-top: 12px;">Time to investigate...</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 5: Bug Discovery -->
-    <div class="slide">
-        <div class="section-label">Discovery</div>
-        <h2 class="medium-headline">The Markdown Parser Bug</h2>
-
-        <div class="bug-reveal">
-            <div class="bug-icon">&#x1F41B;</div>
-            <h3>Code Comments Mistaken for Headings</h3>
-            <div class="code-block"><span class="comment"># This bash comment inside a code block...</span>
-```bash
-amplifier run <span class="string">"execute recipe.yaml"</span>
-<span class="error"># Interactive mode</span>   <span class="comment">&lt;-- Parser sees this as a heading!</span>
-amplifier
-```</div>
-            <p class="card-text">The markdown parser wasn't tracking whether it was inside a code fence. Every <code># comment</code> was treated as a new section boundary, truncating content.</p>
-        </div>
-
-        <p class="subhead" style="margin-top: 24px;">
-            <strong>Section 1.2.1 content:</strong><br>
-            Before fix: <span style="color: #FF453A;">99 characters</span> (truncated)<br>
-            After fix: <span style="color: #30D158;">737 characters</span> (complete)
-        </p>
-    </div>
-
-    <!-- Slide 6: Fix #2 -->
-    <div class="slide">
-        <div class="section-label">v7.5.0</div>
-        <h2 class="medium-headline">Fix #2: Code Block State Tracking</h2>
-
-        <div class="code-block"><span class="keyword">def</span> <span class="function">parse_markdown_sections</span>(content):
-    sections = []
-    <span class="highlight">in_code_block = False</span>  <span class="comment"># Track state!</span>
-
-    <span class="keyword">for</span> line <span class="keyword">in</span> content.split(<span class="string">'\\n'</span>):
-        <span class="keyword">if</span> line.startswith(<span class="string">'```'</span>):
-            <span class="highlight">in_code_block = not in_code_block</span>
-            <span class="keyword">continue</span>
-
-        <span class="comment"># Only treat # as heading if NOT in code block</span>
-        <span class="keyword">if</span> line.startswith(<span class="string">'#'</span>) <span class="keyword">and</span> <span class="highlight">not in_code_block</span>:
-            sections.append(parse_heading(line))
-
-    <span class="keyword">return</span> sections</div>
-
-        <div class="comparison">
-            <div class="comparison-box after">
-                <div class="comparison-label">Result</div>
-                <p class="card-text"><strong>Original:</strong> 6,293 bytes</p>
-                <p class="card-text"><strong>Output:</strong> 7,211 bytes</p>
-                <p class="card-text" style="margin-top: 12px; color: #30D158;">&#x2705; All content preserved + new sections added</p>
-            </div>
-            <div class="comparison-box after">
-                <div class="comparison-label">Diff Check</div>
-                <p class="card-text">Only 2 additions (intro paragraphs for empty parent sections).</p>
-                <p class="card-text" style="margin-top: 12px;"><strong>Zero modifications</strong> to preserved content!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 7: New Problem -->
-    <div class="slide">
-        <div class="section-label">Plot Twist</div>
-        <h2 class="medium-headline">But Then... Validation Broke It</h2>
-
-        <div class="flow-diagram">
-            <div class="flow-step">Generate</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step">Content Validation</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step highlight" style="border-color: #FF453A;">Fix Issues</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step">Quality Validation</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step highlight" style="border-color: #FF453A;">Fix Issues</div>
-        </div>
-
-        <div class="bug-reveal">
-            <div class="bug-icon">&#x1F92F;</div>
-            <h3>The "Skip These Sections" Problem</h3>
-            <p class="card-text">We told the LLM: "These sections are preserved - don't modify them during validation fixes."</p>
-            <p class="card-text" style="margin-top: 12px;"><strong>The LLM:</strong> "Sure!" <em>*proceeds to rewrite them anyway*</em></p>
-        </div>
-
-        <div class="insight-box">
-            <div class="insight-icon">&#x1F4A1;</div>
-            <h3>Root Cause Identified</h3>
-            <p class="card-text">LLMs cannot reliably follow "skip these sections" instructions. They will still touch, modify, or "improve" content they were told to leave alone.</p>
-        </div>
-    </div>
-
-    <!-- Slide 8: The Final Fix -->
-    <div class="slide">
-        <div class="section-label">v7.4.0</div>
-        <h2 class="medium-headline">Final Fix: Deterministic Restore</h2>
-        <p class="subhead">Don't trust the LLM to skip. Instead: let it do its thing, then <strong>restore</strong> preserved sections with code.</p>
-
-        <div class="flow-diagram">
-            <div class="flow-step">LLM Validation Fix</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step highlight">Python Restore</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step">LLM Quality Fix</div>
-            <div class="flow-arrow">&#x2192;</div>
-            <div class="flow-step highlight">Python Restore</div>
-        </div>
-
-        <div class="code-block"><span class="comment"># After EVERY LLM validation pass, restore preserved sections</span>
-
-<span class="keyword">def</span> <span class="function">restore_preserved_sections</span>(document, preserved_content):
-    <span class="string">"""Deterministically restore sections - no LLM involved"""</span>
-
-    <span class="keyword">for</span> section_id, original <span class="keyword">in</span> preserved_content.items():
-        <span class="comment"># Find section boundaries using heading matching</span>
-        start, end = find_section_boundaries(document, section_id)
-
-        <span class="comment"># Replace whatever the LLM wrote with the original</span>
-        document = document[:start] + <span class="highlight">original</span> + document[end:]
-
-    <span class="keyword">return</span> document  <span class="comment"># Guaranteed byte-for-byte identical</span></div>
-    </div>
-
-    <!-- Slide 9: The Pattern -->
-    <div class="slide">
-        <div class="section-label">The Pattern</div>
-        <h2 class="medium-headline">Trust But Verify</h2>
-
-        <div class="thirds">
-            <div class="card">
-                <div class="card-title error">&#x274C; Don't Do This</div>
-                <div class="code-block"><span class="comment"># Hoping the LLM follows instructions</span>
-prompt: |
-  Fix content issues but
-  <span class="error">DO NOT modify preserved sections</span>
-
-<span class="comment"># Result: LLM modifies them anyway</span></div>
-            </div>
-            <div class="card">
-                <div class="card-title success">&#x2705; Do This Instead</div>
-                <div class="code-block"><span class="comment"># Let LLM work, then restore with code</span>
-steps:
-  - llm_validation_fix
-  - <span class="success">python_restore_preserved</span>
-  - llm_quality_fix
-  - <span class="success">python_restore_preserved</span>
-
-<span class="comment"># Result: 100% fidelity guaranteed</span></div>
-            </div>
-        </div>
-
-        <div class="quote" style="margin-top: 40px;">
-            "When determinism matters, use code not LLMs."
-        </div>
-    </div>
-
-    <!-- Slide 10: Version Timeline -->
-    <div class="slide">
-        <div class="section-label">The Journey</div>
-        <h2 class="medium-headline">5 Versions in One Session</h2>
-
-        <div class="timeline">
-            <div class="timeline-item error">
-                <div class="timeline-version">v7.1.0</div>
-                <div class="timeline-title">Existing Document Input</div>
-                <div class="timeline-desc">LLM-based preservation with quality assessment (keep/revise/replace). <span style="color: #FF453A;">Failed: LLM rewrote "preserved" content.</span></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-version">v7.2.0</div>
-                <div class="timeline-title">Deterministic Copy</div>
-                <div class="timeline-desc">Bash copies sections with action_needed="none" directly. <span style="color: #FFD60A;">Partial: Content extraction truncated.</span></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-version">v7.3.0</div>
-                <div class="timeline-title">Skip Validation for Preserved</div>
-                <div class="timeline-desc">Analysis determines what needs work, validation skips preserved. <span style="color: #FFD60A;">Partial: LLM still touched preserved sections.</span></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-version">v7.4.0</div>
-                <div class="timeline-title">Deterministic Restore</div>
-                <div class="timeline-desc">Python restores preserved sections after each LLM pass. <span style="color: #30D158;">Success: 100% preservation.</span></div>
-            </div>
-            <div class="timeline-item success">
-                <div class="timeline-version">v7.5.0</div>
-                <div class="timeline-title">Code Block Aware Parsing</div>
-                <div class="timeline-desc">Fixed # comments in code blocks being seen as headings. <span style="color: #30D158;">Complete solution achieved.</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 11: Results -->
-    <div class="slide center">
-        <div class="section-label">Results</div>
-        <h2 class="headline">100% Fidelity</h2>
-
-        <div class="metric-grid" style="max-width: 800px;">
-            <div class="metric">
-                <div class="value">11</div>
-                <div class="label">Preserved Sections</div>
-            </div>
-            <div class="metric">
-                <div class="value">0</div>
-                <div class="label">Bytes Modified</div>
-            </div>
-            <div class="metric">
-                <div class="value">5</div>
-                <div class="label">Recipe Versions</div>
-            </div>
-        </div>
-
-        <div class="insight-box" style="max-width: 700px; margin-top: 48px;">
-            <p class="lead">
-                Validated by <strong>recipe-results-validator</strong>:<br>
-                All 11 preserved sections are <span style="color: #30D158;">byte-for-byte identical</span> to the original.
-            </p>
-        </div>
-
-        <div class="attribution">Analysis via Amplifier session-analyst and recipe-results-validator</div>
-    </div>
-
-    <!-- Slide 12: Key Insight -->
-    <div class="slide center">
-        <div class="section-label">Key Insight</div>
-        <div class="big-number" style="margin-bottom: 32px;">&#x1F4A1;</div>
-        <h2 class="headline" style="max-width: 900px;">When Determinism Matters,<br>Use Code Not LLMs</h2>
-        <p class="subhead" style="margin-top: 32px; max-width: 700px;">
-            LLMs are powerful for generation and analysis. But for tasks requiring exact reproduction, byte-level accuracy, or strict constraints - use deterministic code.
-        </p>
-    </div>
-
-    <!-- Slide 13: Takeaways -->
-    <div class="slide">
-        <div class="section-label">Takeaways</div>
-        <h2 class="medium-headline">Patterns for Reliable AI Workflows</h2>
-
-        <div class="thirds">
-            <div class="card">
-                <div class="card-title">1. Sandwich Pattern</div>
-                <p class="card-text">Wrap LLM operations with deterministic code. Pre-process inputs, post-process outputs.</p>
-            </div>
-            <div class="card">
-                <div class="card-title">2. Restore After</div>
-                <p class="card-text">Don't ask LLMs to skip things. Let them work, then restore what shouldn't change.</p>
-            </div>
-            <div class="card">
-                <div class="card-title">3. State Tracking</div>
-                <p class="card-text">Keep track of context (like in_code_block) that changes how content should be parsed.</p>
-            </div>
-            <div class="card">
-                <div class="card-title">4. Byte-Level Validation</div>
-                <p class="card-text">Don't trust "looks right" - verify with checksums, diffs, or exact byte comparisons.</p>
-            </div>
-            <div class="card">
-                <div class="card-title">5. Iterative Debugging</div>
-                <p class="card-text">Each fix reveals new issues. Budget time for multiple passes (5 versions in this case).</p>
-            </div>
-            <div class="card">
-                <div class="card-title">6. Code Over Prompts</div>
-                <p class="card-text">When determinism matters, a 10-line Python function beats a 100-word prompt.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 14: Sources & Methodology -->
-    <div class="slide">
-        <div class="section-label">Sources &amp; Methodology</div>
-        <h2 class="medium-headline">About This Case Study</h2>
-
-        <div class="sources-content">
-            <p class="subhead">This deck documents a debugging session working on the document-generation-parallel.yaml recipe within the Amplifier ecosystem.</p>
-
-            <ul class="sources-list">
-                <li>Recipe versions (v7.1.0 through v7.5.0) and bug counts are based on the session narrative recorded during the debugging process.</li>
-                <li>The document-generation-parallel.yaml recipe was not found locally for independent verification of version numbers.</li>
-                <li>Byte counts (6,293 original, 5,340 broken, 7,211 fixed) and section counts (11 preserved) are drawn from session logs.</li>
-                <li>The "deterministic restore" pattern and "code block state tracking" fix are architectural patterns that emerged from iterative debugging over approximately 4 hours.</li>
-                <li>Validation was performed by the recipe-results-validator agent confirming byte-for-byte section fidelity.</li>
+        <div class="col-aside">
+            <ul class="rules">
+                <li><strong>AND</strong> — keep the working sections untouched.</li>
+                <li><strong>BUT</strong> — the LLM paraphrases and rewrites them anyway.</li>
+                <li><strong>THEREFORE</strong> — restore each one byte-for-byte with code.</li>
             </ul>
-
-            <p class="data-date">Data as of February 20, 2026</p>
         </div>
     </div>
 
-    <!-- Slide 15: CTA -->
-    <div class="slide center">
-        <div class="section-label">Apply This Pattern</div>
-        <h2 class="headline">Trust But Verify</h2>
-        <p class="subhead" style="margin-top: 24px; max-width: 600px;">
-            The next time you need an LLM to "preserve" or "skip" something, consider: can you enforce that with code instead?
-        </p>
-
-        <div class="thirds" style="max-width: 700px; margin-top: 48px;">
-            <div class="card">
-                <div class="card-title">Recipe Source</div>
-                <p class="card-text">document-generation-parallel.yaml v7.5.0</p>
-            </div>
-            <div class="card">
-                <div class="card-title">Session Analysis</div>
-                <p class="card-text">Available via session-analyst agent</p>
+    <div class="slide split">
+        <!-- beat 2: proof -->
+        <div class="col-main">
+            <div class="section-label">The Proof</div>
+            <h2>100% preservation, regardless of LLM behavior</h2>
+            <p class="body">The recipe's v7.4.0 changelog states it "ensures 100% preservation of unchanged sections regardless of LLM behavior." An independent rerun of its restore logic returned a byte-identical section even after the LLM had paraphrased it.</p>
+            <p class="handoff">So what exactly is being preserved?</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="num">100%</div>
+                    <div class="lbl">preservation of unchanged sections, per v7.4.0 changelog</div>
+                </div>
+                <div class="stat">
+                    <div class="num">85 B</div>
+                    <div class="lbl">original section, restored byte-identical after paraphrase (independent rerun)</div>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="session-box">
-            <p>
-                <strong>The debugging session that inspired this deck:</strong><br>
-                <span class="muted">~4 hours of iterative problem-solving</span>
-            </p>
+    <div class="slide split">
+        <!-- beat 3: setup -->
+        <div class="col-main">
+            <div class="section-label">The Ask</div>
+            <h2>Regenerate from an outline, keep the "none" sections exactly</h2>
+            <p class="body">The recipe takes an existing document (via <code>existing_document_path</code>, added in v7.1.0) and classifies each section: none, add, remove, or update. Sections marked <strong>action_needed=="none"</strong> must come out exactly as they went in.</p>
+            <p class="handoff">The obvious way to enforce that? Just ask the model.</p>
+        </div>
+        <div class="col-aside">
+            <ul class="rules">
+                <li><strong>none</strong> — keep exactly as-is</li>
+                <li><strong>add</strong> — new section</li>
+                <li><strong>remove</strong> — drop it</li>
+                <li><strong>update</strong> — rewrite it</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 4: tension -->
+        <div class="col-main">
+            <div class="section-label">The Tension</div>
+            <h2>"Copy VERBATIM, do not touch them" — and it wasn't enough</h2>
+            <p class="body">The prompt-only fix was actually tried: a sibling recipe, <code>book2/machine/recipes/draft-chapter-v2.yaml</code>, simply tells the model to copy the "keep" sections verbatim. That's exactly the instruction the document-generation recipe stopped trusting.</p>
+            <p class="handoff">Why stop trusting it? The recipe says so itself.</p>
+        </div>
+        <div class="col-aside">
+            <div class="quote">
+                "ONLY rewrite the sections marked 'revise'. Copy sections marked 'keep' VERBATIM — do not touch them at all."
+                <small>draft-chapter-v2.yaml, lines 197–198</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 5: turn -->
+        <div class="col-main">
+            <div class="section-label">The Turn</div>
+            <h2>"LLM can't be trusted to skip preserved sections"</h2>
+            <p class="body">The recipe names the root cause in its own v7.4.0 changelog — then pivots. Instead of tuning the prompt harder, it introduces a deterministic Python restore step as the fix. Stop asking the model; start enforcing with code.</p>
+            <p class="handoff">Here's the code that does the enforcing.</p>
+        </div>
+        <div class="col-aside">
+            <div class="quote">
+                "DETERMINISTIC SECTION RESTORE: LLM can't be trusted to skip preserved sections."
+                <small>document-generation.yaml — v7.4.0 changelog (2026-01-27)</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 6: mechanism -->
+        <div class="col-main">
+            <div class="section-label">The Mechanism</div>
+            <h2>After each pass, Python overwrites the section with the original lines</h2>
+            <p class="body">The restore finds each preserved section by its heading and replaces it with the original lines — a verbatim list-slice swap, not a re-render or a summary. The original text wins every time.</p>
+            <p class="handoff">And it runs not once, but twice.</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="c"># restore preserved section verbatim</span>
+lines = lines[:section[<span class="s">'start'</span>]] \
+      + original_lines \
+      + lines[section[<span class="s">'end'</span>]:]</div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 7: payoff -->
+        <div class="col-main">
+            <div class="section-label">The Payoff</div>
+            <h2>The deterministic sandwich: let the LLM work, then restore ground truth</h2>
+            <p class="body">Two restore steps run after the LLM's passes — <code>restore-preserved-after-content-fix</code> and <code>restore-preserved-after-quality-fix</code>. The model is free to work; then code overwrites every preserved section, so preservation survives whatever it did.</p>
+            <p class="handoff">One pattern, generalized.</p>
+        </div>
+        <div class="col-aside">
+            <ol class="steps">
+                <li><span class="n">1</span><span class="txt">LLM content-fix pass<small>then restore-preserved-after-content-fix (line 1879)</small></span></li>
+                <li><span class="n">2</span><span class="txt">LLM quality-fix pass<small>then restore-preserved-after-quality-fix (line 2286)</small></span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="slide center">
+        <!-- beat 8: takeaway -->
+        <div class="section-label">The Takeaway</div>
+        <h2>When determinism matters, use code, not LLMs</h2>
+        <p class="body" style="margin-left:auto;margin-right:auto;text-align:center;">Wrap the model, let it do what it's good at — then restore the ground truth deterministically. An unreliable model can still produce a reliable result.</p>
+    </div>
+
+    <!-- Sources & Methodology -->
+    <div class="slide">
+        <div class="section-label">Sources</div>
+        <h2>Research Methodology</h2>
+        <div class="src-text">
+            <p><span class="badge">Active</span> &nbsp; microsoft/amplifier · recipes/document-generation.yaml (branch main) · file version v8.1.0 (2026-01-30)</p>
+            <p><strong>Data derived from:</strong> local checkout of microsoft/amplifier at /home/ramparte/dev/ANext/Inactive/amplifier (git remote confirmed via <code>git remote -v</code> / <code>git branch --show-current</code>).</p>
+            <p><strong>Commands run:</strong></p>
+            <ul>
+                <li><code>grep -n 'in_code_block' recipes/document-generation.yaml</code> ; <code>sed -n '100,145p' recipes/document-generation.yaml</code> — v7.4.0 / v7.5.0 changelog</li>
+                <li><code>grep -c 'id: "restore-preserved' recipes/document-generation.yaml</code> — 2 restore steps (lines 1879, 2286)</li>
+                <li><code>sed -n '1975,2011p' recipes/document-generation.yaml</code> — <code>lines = lines[:start] + original_lines + lines[end:]</code> (line 2000)</li>
+                <li><code>python3 /tmp/test_restore.py</code> — independent rerun: RESTORED == original True, byte-identical True (85-byte section)</li>
+                <li><code>sed -n '192,206p' book2/machine/recipes/draft-chapter-v2.yaml</code> — prompt-only "copy VERBATIM" (lines 197–198)</li>
+                <li><code>grep -n '^# v7\.' recipes/document-generation.yaml</code> — v7.1.0–v7.5.0 all dated 2026-01-27</li>
+                <li><code>git show 0cf1d50 --stat</code> — v8.0.0 merge, PR #197, +1309 / -1257, author Mollie Munoz</li>
+            </ul>
+            <p><strong>Gaps:</strong> "11 preserved sections / 0 bytes modified" and "100% fidelity" as a captured run result are NOT in the repo — treated as illustrative. What is verified is the recipe's design guarantee (line 114) plus the independent byte-identical reproduction. Per-version v7.x authorship/PR numbers exist only as changelog text; the topic's named repo colombod/code-story was not found.</p>
+            <p><strong>Primary contributor:</strong> Mollie Munoz (mollie.munoz@microsoft.com) — author of the v8.0.0 merge commit (0cf1d50 / PR #197); co-authored by the Amplifier bot.</p>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav id="nav"></nav>
-    <div id="counter">1 / 15</div>
+    <div class="nav" id="nav"></div>
+    <div class="slide-counter" id="counter"></div>
 
-        <a href="/stories" class="more-stories">More Amplifier Stories</a>
+    <!-- More stories link - REQUIRED -->
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');
-        const nav = document.getElementById('nav');
-        const counter = document.getElementById('counter');
-        let currentSlide = 0;
+        const total = slides.length;
+        let current = 0;
+        let transitioning = false;
 
-        // Create nav dots
-        slides.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => goToSlide(i));
-            nav.appendChild(dot);
-        });
+        function goTo(n) {
+            n = ((n % total) + total) % total;
+            if (transitioning || n === current) return;
+            transitioning = true;
+            var direction = n > current ? 1 : -1;
+            var prev = slides[current];
+            var next = slides[n];
 
-        function goToSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            nav.children[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            nav.children[currentSlide].classList.add('active');
-            counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            prev.classList.remove('active');
+            prev.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+            prev.style.opacity = '0';
+
+            next.style.transition = 'none';
+            next.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+            next.style.opacity = '0';
+
+            void next.offsetWidth;
+
+            next.style.transition = '';
+            next.style.transform = 'translateX(0)';
+            next.style.opacity = '1';
+            next.classList.add('active');
+
+            current = n;
+            updateNav();
+
+            setTimeout(function() {
+                prev.style.transform = '';
+                prev.style.opacity = '';
+                next.style.transform = '';
+                next.style.opacity = '';
+                transitioning = false;
+            }, 500);
         }
 
-        // Keyboard navigation
+        function updateNav() {
+            const nav = document.getElementById('nav');
+            const counter = document.getElementById('counter');
+            nav.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === current ? ' active' : '');
+                dot.onclick = () => goTo(i);
+                nav.appendChild(dot);
+            });
+            counter.textContent = `${current + 1} / ${total}`;
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') goToSlide(currentSlide + 1);
-            if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+            if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
         });
 
-        // Click navigation
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#nav')) return;
-            if (e.target.closest('.stories-link')) return;
-            const x = e.clientX / window.innerWidth;
-            if (x > 0.5) goToSlide(currentSlide + 1);
-            else goToSlide(currentSlide - 1);
+            if (e.target.closest('.nav')) return;
+            if (e.target.closest('.more-stories')) return;
+            if (e.clientX > window.innerWidth / 2) goTo(current + 1);
+            else goTo(current - 1);
         });
 
-        // Touch/swipe navigation
         let touchStartX = 0;
-        let touchStartY = 0;
+        const SWIPE_THRESHOLD = 50;
 
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
         }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            const dx = e.changedTouches[0].screenX - touchStartX;
-            const dy = e.changedTouches[0].screenY - touchStartY;
-
-            // Only trigger if horizontal swipe is dominant and exceeds threshold
-            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                if (dx < 0) goToSlide(currentSlide + 1);
-                else goToSlide(currentSlide - 1);
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > SWIPE_THRESHOLD) {
+                if (diff > 0) goTo(current + 1);
+                else goTo(current - 1);
             }
         }, { passive: true });
+
+        updateNav();
     </script>
 </body>
 </html>

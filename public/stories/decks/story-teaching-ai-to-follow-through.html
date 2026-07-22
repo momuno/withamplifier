@@ -3,1113 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Teaching AI to Follow Through &mdash; How Instruction Design Beat Code</title>
+    <title>Teaching AI to Follow Through</title>
+    <script>document.documentElement.classList.add('js')</script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --accent: #5E5CE6;
-            --accent-dim: rgba(94, 92, 230, 0.12);
-            --accent-glow: rgba(94, 92, 230, 0.3);
-            --accent-warm: #FF375F;
-            --accent-warm-dim: rgba(255, 55, 95, 0.12);
-            --accent-warm-glow: rgba(255, 55, 95, 0.3);
-            --green: #30D158;
-            --green-dim: rgba(48, 209, 88, 0.15);
-            --amber: #FF9F0A;
-            --amber-dim: rgba(255, 159, 10, 0.15);
-
-            --surface-1: rgba(255,255,255,0.06);
-            --surface-2: rgba(255,255,255,0.10);
-            --surface-3: rgba(255,255,255,0.15);
-            --border-subtle: rgba(255,255,255,0.12);
-            --border-visible: rgba(255,255,255,0.20);
-
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255,255,255,0.7);
-            --text-tertiary: rgba(255,255,255,0.5);
-
-            --fs-hero: clamp(32px, 7vw, 64px);
-            --fs-h1: clamp(26px, 5.5vw, 44px);
-            --fs-h2: clamp(22px, 4vw, 36px);
-            --fs-h3: clamp(18px, 3vw, 24px);
-            --fs-body: clamp(14px, 2vw, 18px);
-            --fs-body-lg: clamp(16px, 2.5vw, 20px);
-            --fs-small: clamp(12px, 1.8vw, 14px);
-            --fs-label: clamp(11px, 1.4vw, 13px);
-            --fs-big-number: clamp(56px, 16vw, 140px);
-            --fs-quote: clamp(20px, 3.5vw, 32px);
-            --fs-code: clamp(12px, 1.8vw, 15px);
-
-            --space-xs: clamp(8px, 1.5vw, 12px);
-            --space-sm: clamp(12px, 2vw, 16px);
-            --space-md: clamp(16px, 3vw, 24px);
-            --space-lg: clamp(24px, 4vw, 40px);
-            --space-xl: clamp(32px, 6vw, 60px);
-
-            --radius-sm: clamp(8px, 1vw, 12px);
-            --radius-md: clamp(12px, 1.5vw, 16px);
+            --bg: #0a0a0f;
+            --fg: #f5f5f7;
+            --muted: #a1a1aa;
+            --accent: #5eead4;
+            --accent2: #818cf8;
+            --danger: #f87171;
+            --card: #17171f;
+            --border: rgba(255,255,255,0.08);
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: var(--text-primary);
-            overflow: hidden;
-            overscroll-behavior: none;
+        html, body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* Core slide CSS */
         .slide {
-            display: none;
+            display: flex;
             width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
-            padding: clamp(60px, 10vw, 120px) clamp(24px, 6vw, 100px) clamp(80px, 12vw, 100px);
+            padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
             flex-direction: column;
+            justify-content: center;
             overflow-y: auto;
             overflow-x: hidden;
         }
+
         .slide.active { display: flex; }
-        .center { text-align: center; align-items: center; justify-content: center; }
+
+        /* No-JS fallback */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+
+        /* Fit-safe: cap slides to viewport and scroll */
+        html.js .slide { max-height: 100dvh; overflow-y: auto; }
+
+        .slide {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Centering opt-in */
+        .center {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Conservative type scale */
+        h1 { font-size: clamp(32px, 7vw, 76px); line-height: 1.06; font-weight: 700; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(22px, 4vw, 40px); line-height: 1.14; max-width: 24ch; font-weight: 650; letter-spacing: -0.01em; }
+        p, li { font-size: clamp(14px, 1.9vw, 19px); line-height: 1.45; color: var(--fg); }
+        .title-slide h1 { font-size: clamp(40px, 10vw, 104px); }
+        .subtitle { font-size: clamp(16px, 2.4vw, 24px); color: var(--muted); margin-top: clamp(16px, 3vw, 28px); }
+        .title-kicker { text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(11px, 1.4vw, 13px); font-weight: 600; color: var(--accent2); margin-top: clamp(20px, 4vw, 34px); }
 
         .section-label {
-            font-size: var(--fs-label);
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2.5px;
+            letter-spacing: 0.18em;
+            font-size: clamp(11px, 1.4vw, 13px);
+            font-weight: 600;
             color: var(--accent);
-            margin-bottom: var(--space-md);
+            margin-bottom: clamp(14px, 2.5vw, 22px);
         }
 
-        .headline {
-            font-size: var(--fs-hero);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: var(--space-md);
-        }
+        .body { color: var(--muted); margin-top: clamp(14px, 2.4vw, 22px); max-width: 40ch; }
+        .handoff { color: var(--fg); opacity: 0.85; margin-top: clamp(16px, 2.8vw, 26px); max-width: 42ch; font-style: italic; }
 
-        .medium-headline {
-            font-size: var(--fs-h1);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: var(--space-md);
-        }
+        h1 + .body, h2 + .body { margin-top: clamp(16px, 2.8vw, 26px); }
 
-        .subhead {
-            font-size: var(--fs-h3);
-            color: var(--text-secondary);
-            line-height: 1.45;
-            max-width: min(700px, 90vw);
-        }
+        /* Title slide */
+        .title-slide { text-align: center; align-items: center; justify-content: center; }
+        .title-slide .section-label { color: var(--accent2); }
 
-        .body-text {
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.65;
-            max-width: min(640px, 90vw);
+        /* Split layout */
+        .slide.split { flex-direction: column; }
+        @media (min-width: 880px) and (min-height: 480px) {
+            .slide.split {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(32px, 5vw, 84px);
+            }
+            html.js .slide.split.active { display: flex; }
+            .slide.split > .col-main  { flex: 1 1 0; min-width: 0; max-width: 48%; }
+            .slide.split > .col-aside { flex: 1 1 0; min-width: 0; max-width: 52%; }
+            .slide.split .col-aside > * { margin-top: 0; }
+            .slide.split .col-aside .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
         }
-
-        .small-text {
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
-        }
-
-        .big-number {
-            font-size: var(--fs-big-number);
-            font-weight: 800;
-            letter-spacing: -3px;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--accent), #7B7BF7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .big-number-warm {
-            font-size: var(--fs-big-number);
-            font-weight: 800;
-            letter-spacing: -3px;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--accent-warm), #FFD93D);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .big-number-green {
-            font-size: var(--fs-big-number);
-            font-weight: 800;
-            letter-spacing: -3px;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--green), #56CCF2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .unit { font-size: 0.4em; font-weight: 500; letter-spacing: 0; }
-
-        .quote-block {
-            border-left: 3px solid var(--accent);
-            padding-left: var(--space-lg);
-            margin: var(--space-lg) 0;
-            max-width: min(720px, 90vw);
-        }
-        .quote-block.warm { border-left-color: var(--accent-warm); }
-
-        .quote-text {
-            font-size: var(--fs-quote);
-            font-weight: 500;
-            font-style: italic;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-
-        .quote-attr {
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
-            margin-top: var(--space-sm);
-        }
-
-        /* Grids */
-        .thirds {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: var(--space-md);
-            width: 100%;
-            max-width: 1100px;
-        }
-
-        .halves {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: var(--space-md);
-            width: 100%;
-            max-width: 1100px;
-        }
-
-        .card {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-        }
-
-        .card-icon {
-            font-size: clamp(28px, 5vw, 40px);
-            margin-bottom: var(--space-sm);
-        }
-
-        .card h3, .card h4 {
-            color: var(--text-primary);
-            font-size: var(--fs-body-lg);
-            font-weight: 600;
-            margin-bottom: var(--space-xs);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: var(--fs-body);
-            line-height: 1.55;
-        }
-
-        /* Code block */
-        .code-block {
-            background: var(--surface-1);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            padding: var(--space-md);
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: var(--fs-code);
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .code-green { color: var(--green); }
-        .code-accent { color: var(--accent); }
-        .code-dim { color: var(--text-tertiary); }
-        .code-warn { color: var(--amber); }
-        .code-fail { color: var(--accent-warm); }
-        .code-inline {
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 0.9em;
-            background: var(--surface-2);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        /* Data table */
-        .data-table {
-            width: 100%;
-            max-width: 1000px;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .data-table th {
-            color: var(--accent);
-            font-size: var(--fs-small);
-            font-weight: 600;
-            text-align: left;
-            padding: clamp(8px, 1.5vw, 12px);
-            border-bottom: 1px solid var(--border-visible);
-        }
-        .data-table td {
-            color: var(--text-secondary);
-            font-size: var(--fs-body);
-            padding: clamp(8px, 1.5vw, 12px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            vertical-align: top;
-        }
-        .data-table .pass { color: var(--green); font-weight: 600; }
-        .data-table .debatable { color: var(--amber); font-weight: 600; }
-        .data-table .fail { color: var(--accent-warm); font-weight: 600; }
-
-        /* Flow */
-        .flow {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            flex-wrap: wrap;
-            margin: var(--space-md) 0;
-        }
-        .flow-step {
-            background: var(--surface-2);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            padding: var(--space-xs) var(--space-sm);
-            font-size: var(--fs-body);
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        .flow-step.active-step {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-        .flow-step.broken {
-            border-color: var(--accent-warm);
-            background: var(--accent-warm-dim);
-            color: var(--accent-warm);
-        }
-        .flow-arrow {
-            color: var(--text-tertiary);
-            font-size: var(--fs-body);
-        }
-        .flow-arrow.broken-arrow {
-            color: var(--accent-warm);
-        }
-
-        /* Routing table */
-        .routing-table {
-            width: 100%;
-            max-width: 900px;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .routing-table th {
-            color: var(--accent);
-            font-size: var(--fs-small);
-            font-weight: 600;
-            text-align: left;
-            padding: clamp(10px, 2vw, 16px);
-            border-bottom: 1px solid var(--border-visible);
-        }
-        .routing-table td {
-            font-size: var(--fs-body);
-            padding: clamp(10px, 2vw, 16px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            vertical-align: top;
-        }
-        .routing-table td:first-child {
-            color: var(--text-secondary);
-            min-width: 200px;
-        }
-        .routing-table td:last-child {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        /* Status badge */
-        .badge {
-            display: inline-block;
-            font-size: var(--fs-label);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 4px 12px;
-            border-radius: 100px;
-            margin-top: var(--space-sm);
-        }
-        .badge-active {
-            background: var(--green-dim);
-            color: var(--green);
-            border: 1px solid rgba(48, 209, 88, 0.3);
-        }
-
-        /* Spacers */
-        .spacer { height: var(--space-lg); }
-        .spacer-sm { height: var(--space-md); }
-        .spacer-xl { height: var(--space-xl); }
+        .col-main > *:first-child, .col-aside > *:first-child { margin-top: 0; }
 
         /* Stat grid */
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-            gap: var(--space-md);
-            width: 100%;
-            max-width: 1100px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: clamp(14px, 2vw, 22px);
         }
-        .stat-cell {
-            background: var(--surface-2);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg) var(--space-md);
-            text-align: center;
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: clamp(18px, 2.6vw, 28px);
         }
         .stat-number {
-            font-size: clamp(36px, 8vw, 64px);
-            font-weight: 800;
-            letter-spacing: -2px;
+            font-size: clamp(30px, 5.5vw, 52px);
+            font-weight: 700;
             line-height: 1;
-            background: linear-gradient(135deg, var(--accent), #7B7BF7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-number.green {
-            background: linear-gradient(135deg, var(--green), #56CCF2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-number.warm {
-            background: linear-gradient(135deg, var(--accent-warm), #FFD93D);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-label {
-            font-size: var(--fs-small);
-            color: var(--text-secondary);
-            margin-top: var(--space-xs);
-            line-height: 1.4;
-        }
-
-        /* Before/After */
-        .before-after {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: var(--space-md);
-            width: 100%;
-            max-width: 1000px;
-        }
-        .before-panel {
-            background: var(--accent-warm-dim);
-            border: 1px solid rgba(255, 55, 95, 0.25);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-        }
-        .after-panel {
-            background: var(--green-dim);
-            border: 1px solid rgba(48, 209, 88, 0.25);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-        }
-        .panel-label {
-            font-size: var(--fs-label);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: var(--space-sm);
-        }
-        .before-panel .panel-label { color: var(--accent-warm); }
-        .after-panel .panel-label { color: var(--green); }
-
-        /* Closing */
-        .closing-lead {
-            font-size: var(--fs-h2);
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.3;
             letter-spacing: -0.02em;
-        }
-        .closing-line {
-            font-size: var(--fs-h3);
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Sources */
-        .sources-content {
-            max-width: min(720px, 90vw);
-            font-size: var(--fs-body);
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        .sources-content strong { color: var(--text-primary); }
-        .sources-content ul {
-            list-style: none;
-            padding-left: var(--space-md);
-        }
-        .sources-content ul li::before {
-            content: "\2022 ";
             color: var(--accent);
         }
-
-        /* Narration demo */
-        .narration-demo {
-            max-width: min(600px, 90vw);
-            font-size: var(--fs-body-lg);
-            line-height: 2;
-        }
-        .narration-line {
-            display: block;
-            margin-bottom: var(--space-xs);
+        .stat-number.danger { color: var(--danger); }
+        .stat-number.up { color: var(--accent); }
+        .stat-label {
+            margin-top: clamp(8px, 1.4vw, 12px);
+            font-size: clamp(12px, 1.5vw, 15px);
+            color: var(--muted);
+            line-height: 1.35;
         }
 
-        /* Navigation */
+        /* Steps / rules list */
+        .steps, .rules { list-style: none; display: flex; flex-direction: column; gap: clamp(12px, 1.8vw, 18px); }
+        .steps li, .rules li {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent2);
+            border-radius: 12px;
+            padding: clamp(14px, 2vw, 20px) clamp(16px, 2.2vw, 22px);
+            color: var(--fg);
+        }
+        .steps li strong, .rules li strong { color: var(--accent); }
+
+        /* Code / callout block */
+        .code-block {
+            background: #05050a;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: clamp(18px, 2.6vw, 30px);
+            font-family: "SF Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+            font-size: clamp(14px, 2vw, 22px);
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: var(--accent);
+        }
+        .code-block .comment { color: var(--muted); }
+        .code-block .big { font-size: clamp(20px, 3.2vw, 34px); font-weight: 700; color: var(--fg); }
+
+        .caveat {
+            margin-top: clamp(14px, 2.2vw, 20px);
+            font-size: clamp(12px, 1.5vw, 15px);
+            color: var(--muted);
+            max-width: 44ch;
+            line-height: 1.5;
+        }
+
+        /* Sources slide */
+        .sources-body { max-width: 60ch; line-height: 1.6; }
+        .sources-body p { margin-bottom: 10px; color: var(--muted); }
+        .sources-body ul { margin: 8px 0 8px 20px; }
+        .sources-body li { margin-bottom: 8px; color: var(--muted); }
+        .sources-body code {
+            font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+            background: #05050a;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-size: 0.9em;
+            color: var(--accent);
+            word-break: break-word;
+        }
+        .sources-body strong { color: var(--fg); }
+
+        .status-badge {
+            display: inline-block;
+            font-size: clamp(11px, 1.4vw, 13px);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            padding: 5px 14px;
+            margin-top: clamp(20px, 4vw, 36px);
+        }
+
+        /* Navigation dots */
         .nav {
             position: fixed;
-            bottom: clamp(20px, 3vw, 32px);
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 28px;
+            right: 28px;
             display: flex;
-            gap: 8px;
+            gap: 9px;
             z-index: 100;
         }
         .nav-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px; height: 9px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.22);
             cursor: pointer;
-            transition: all 0.25s;
+            transition: background 0.3s, transform 0.3s;
         }
-        .nav-dot.active {
-            background: var(--accent);
-            box-shadow: 0 0 8px var(--accent-glow);
-        }
+        .nav-dot.active { background: var(--accent); transform: scale(1.3); }
 
         .slide-counter {
             position: fixed;
-            bottom: clamp(20px, 3vw, 32px);
-            right: clamp(20px, 3vw, 32px);
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
+            bottom: 28px;
+            left: 28px;
+            font-size: clamp(11px, 1.5vw, 13px);
+            color: var(--muted);
             z-index: 100;
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; }
+            .slide.center { justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .slide * { animation: none !important; transition: none !important; }
         }
 
         .more-stories {
             position: fixed;
-            bottom: clamp(20px, 3vw, 32px);
-            left: clamp(20px, 3vw, 32px);
-            font-size: var(--fs-small);
-            color: var(--text-tertiary);
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(11px, 1.5vw, 12px);
+            color: rgba(255,255,255,0.3);
             text-decoration: none;
             z-index: 100;
-            transition: color 0.2s;
         }
-        .more-stories:hover { color: var(--accent); }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
     </style>
     <link rel="stylesheet" href="shared-variables.css">
     <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
+<!--
+SPINE
+ABT: AND Canvas Specialists chains domain-expert AI agents so a user gets one finished, sourced document instead of the raw machinery behind it; BUT the coordinator kept quitting at the researcher and dumping raw research blocks roughly 40% of the time, breaking the whole promise; THEREFORE the fix was instruction design, not code — a routing decision table plus one tiebreaker sentence took chain reliability from ~40% to >90% with zero lines of logic.
+Payoff: The one-sentence fix — "When in doubt, chain." — the moment clearer instructions, not a routing engine, closed the last loophole and lifted the chain past 90%.
+Beats:
+  1. frame     — Canvas Specialists chains domain-expert AI agents so you get one finished, sourced document, not raw machine output.  advances: Orients the audience on the AND — what the system is, the promise it makes, why a trustworthy sourced brief matters.
+  2. proof     — It's real and shipping: 12 specialist agents run in the bundle today, anchored by a researcher whose sourced JSON is the single source of truth.  advances: Establishes the AND as concrete — verifiable agents exist and the researcher enforces sourced, no-fabrication output.
+  3. tension   — But the chain kept quitting early — ~40% of the time the coordinator halted at the researcher and dumped raw research blocks instead of finishing to the writer.  advances: Establishes the BUT — the failure mode that breaks the finished-document promise.
+  4. setup     — The obvious fix — routing logic, validation layers, retries — was on the table, but the team reached for instructions instead.  advances: Frames the pivot from AND to THEREFORE by naming the code-heavy path the team deliberately did not take.
+  5. mechanism — The change lived entirely in one natural-language instruction file — 129 insertions, 16 deletions, zero lines of application logic.  advances: Shows HOW the fix works: the leverage was words in a spec, not new code paths.
+  6. turn      — A five-scenario smoke test still scored 4/5 — the coordinator found a loophole on casual phrasing like "tell me about X".  advances: Sharpens the THEREFORE — instructions alone weren't enough until the ambiguity was closed, setting up the payoff.
+  7. payoff    — A routing decision table plus one tiebreaker sentence — "When in doubt, chain." — closed the loophole and lifted assessed reliability from ~40% to >90%.  advances: Lands the THEREFORE as the climax — the smallest possible instruction change delivered the reliability jump.
+  8. takeaway  — When an agent chain misbehaves, teach it — the most impactful change often isn't code, it's clearer instructions (kept honest with qualitative, not A/B, caveats).  advances: Generalizes the point the audience keeps and preserves the deck's own honesty about the estimates.
+-->
 
-    <!-- ============ SLIDE 1: TITLE ============ -->
-    <div class="slide center active">
-        <div class="section-label">Canvas Specialists &middot; Session Story</div>
-        <h1 class="headline">Teaching AI<br>to Follow Through</h1>
-        <div class="spacer-sm"></div>
-        <p class="subhead">How instruction design took specialist chain reliability from ~40% to &gt;90%&thinsp;&mdash;&thinsp;without writing a single line of code.</p>
-        <div class="spacer-sm"></div>
-        <span class="badge badge-active">Active &middot; Shipped in PR #16</span>
-        <div class="spacer-sm"></div>
-        <p class="small-text">March 2026 &middot; canvas-specialists</p>
+    <!-- Title cover (before beat 1) -->
+    <div class="slide title-slide active">
+        <h1>Teaching AI to Follow Through</h1>
+        <p class="subtitle">When clearer instructions beat code</p>
+        <p class="title-kicker">A Canvas Specialists case study</p>
     </div>
 
-    <!-- ============ SLIDE 2: THE PROBLEM ============ -->
-    <div class="slide">
-        <div class="section-label">The Problem</div>
-        <h2 class="medium-headline">The chain kept breaking.</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">Canvas Specialists is a bundle of domain-expert AI agents&thinsp;&mdash;&thinsp;researcher, writer, data-analyzer, competitive-analysis, storyteller&thinsp;&mdash;&thinsp;designed to chain together and produce trustworthy, sourced documents.</p>
-        <div class="spacer-sm"></div>
-        <p class="body-text">The problem: the coordinator LLM would stop at the researcher and dump raw structured output instead of completing the chain through to the writer.</p>
-        <div class="spacer"></div>
-
-        <p class="body-text" style="color: var(--text-tertiary); margin-bottom: var(--space-sm);">What users expected:</p>
-        <div class="flow">
-            <span class="flow-step active-step">Researcher</span>
-            <span class="flow-arrow">&rarr;</span>
-            <span class="flow-step active-step">Writer</span>
-            <span class="flow-arrow">&rarr;</span>
-            <span class="flow-step active-step">Polished Brief</span>
-        </div>
-
-        <div class="spacer-sm"></div>
-
-        <p class="body-text" style="color: var(--text-tertiary); margin-bottom: var(--space-sm);">What users got ~40% of the time:</p>
-        <div class="flow">
-            <span class="flow-step broken">Researcher</span>
-            <span class="flow-arrow broken-arrow">&rarr;</span>
-            <span class="flow-step broken">RESEARCH OUTPUT {raw block}</span>
-            <span class="flow-arrow broken-arrow">&times;</span>
-        </div>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Note: The ~40% failure rate is an observed estimate from repeated use, not a controlled measurement.</p>
-    </div>
-
-    <!-- ============ SLIDE 3: RAW OUTPUT ============ -->
-    <div class="slide">
-        <div class="section-label">What Broke</div>
-        <h2 class="medium-headline">Users got machine output,<br>not finished documents.</h2>
-        <div class="spacer"></div>
-        <div class="before-after">
-            <div class="before-panel">
-                <div class="panel-label">What users received</div>
-                <div class="code-block" style="background: transparent; border: none; padding: 0; margin-top: var(--space-xs);">
-<span class="code-fail">RESEARCH OUTPUT</span>
-<span class="code-dim">Topic: Pomodoro Technique</span>
-<span class="code-dim">Confidence: 0.82</span>
-<span class="code-dim">Sources: [S1] wikipedia.org...</span>
-<span class="code-dim">EVIDENCE_BLOCK_START</span>
-<span class="code-dim">  claim: "25-minute intervals"</span>
-<span class="code-dim">  confidence: HIGH</span>
-<span class="code-dim">  source_tier: secondary</span>
-<span class="code-dim">EVIDENCE_BLOCK_END</span>
-<span class="code-dim">...</span></div>
-            </div>
-            <div class="after-panel">
-                <div class="panel-label">What users wanted</div>
-                <div class="code-block" style="background: transparent; border: none; padding: 0; margin-top: var(--space-xs);">
-<span class="code-green">The Pomodoro Technique</span>
-
-<span style="color: var(--text-secondary);">A time management method developed</span>
-<span style="color: var(--text-secondary);">by Francesco Cirillo in the late</span>
-<span style="color: var(--text-secondary);">1980s, using 25-minute focused work</span>
-<span style="color: var(--text-secondary);">intervals separated by short breaks.</span>
-
-<span style="color: var(--text-secondary);">Sources: [1] [2] [3]</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============ SLIDE 4: THE DISCOVERY ============ -->
-    <div class="slide">
-        <div class="section-label">Act 1 &middot; The Discovery</div>
-        <h2 class="medium-headline">The tool&rsquo;s weakness was exposed<br>by using it on itself.</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">During a competitive analysis session, the product owner ran Canvas Specialists against its own competitors&thinsp;&mdash;&thinsp;Claude Skills, Custom GPTs, Gemini Gems, CrewAI.</p>
-        <div class="spacer-sm"></div>
-        <p class="body-text">Afterward, they asked: <em>&ldquo;What specialists did you use?&rdquo;</em></p>
-        <div class="spacer-sm"></div>
-        <p class="body-text">Two problems surfaced immediately:</p>
-        <div class="spacer-sm"></div>
-        <div class="halves" style="max-width: 800px;">
-            <div class="card">
-                <div class="card-icon">&#x1F6AB;</div>
-                <h4>No visibility</h4>
-                <p>Zero indication of which specialists ran. The chain was a black box.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">&#x1F4E6;</div>
-                <h4>Raw intermediate output</h4>
-                <p>Received machine-readable research blocks instead of a polished document.</p>
-            </div>
-        </div>
-        <div class="spacer"></div>
-        <div class="quote-block warm">
-            <p class="quote-text">&ldquo;If our own competitive analysis of our product reveals our product&rsquo;s weakness&thinsp;&mdash;&thinsp;that&rsquo;s the most honest feedback loop possible.&rdquo;</p>
-        </div>
-    </div>
-
-    <!-- ============ SLIDE 5: THE DESIGN ============ -->
-    <div class="slide">
-        <div class="section-label">Act 2 &middot; The Design</div>
-        <h2 class="medium-headline">Ruthless simplicity.</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">Instead of building complex routing logic, validation layers, or retry mechanisms, the solution was <strong style="color: var(--text-primary);">instruction design</strong>. Five rules added to one file:</p>
-        <div class="spacer-sm"></div>
-        <div class="code-block" style="max-width: 500px;">
-<span class="code-dim"># File changed:</span>
-<span class="code-accent">context/specialists-instructions.md</span>
-
-<span class="code-dim"># Approach:</span>
-<span class="code-green">Natural language rules for the coordinator LLM</span>
-<span class="code-green">Two core behaviors, three supporting rules</span>
-<span class="code-green">No conditional routing code</span>
-<span class="code-green">No validation layers</span>
-<span class="code-green">No retry logic</span></div>
-        <div class="spacer"></div>
-        <p class="body-text">The key design decision: <strong style="color: var(--text-primary);">simplicity over edge-case coverage.</strong> Two core behaviors (always chain, escape hatch) instead of complex conditional routing.</p>
-    </div>
-
-    <!-- ============ SLIDE 6: THE FIVE RULES ============ -->
-    <div class="slide">
-        <div class="section-label">The Five Rules</div>
-        <h2 class="medium-headline">The complete instruction set.</h2>
-        <div class="spacer-sm"></div>
-        <div class="thirds">
-            <div class="card" style="border-color: rgba(94, 92, 230, 0.3);">
-                <h4 style="color: var(--accent);">Rule 1 &mdash; Chain Completion</h4>
-                <p>Always complete through to the writer. Default format = brief. Never surface raw structured blocks.</p>
-            </div>
-            <div class="card" style="border-color: rgba(94, 92, 230, 0.3);">
-                <h4 style="color: var(--accent);">Rule 2 &mdash; Narration</h4>
-                <p>Emit status lines at each handoff. BEFORE, HANDOFF, and FINAL narration points.</p>
-            </div>
-            <div class="card" style="border-color: rgba(94, 92, 230, 0.3);">
-                <h4 style="color: var(--accent);">Rule 3 &mdash; Escape Hatch</h4>
-                <p>&ldquo;Just run the researcher&rdquo; stops the chain. Raw output, no narration. User override.</p>
-            </div>
-        </div>
-        <div class="spacer-sm"></div>
-        <div class="halves" style="max-width: 740px;">
-            <div class="card" style="border-color: rgba(94, 92, 230, 0.3);">
-                <h4 style="color: var(--accent);">Rule 4 &mdash; Analysis Signal</h4>
-                <p>&ldquo;Analysis&rdquo; or &ldquo;insights&rdquo; keywords route through researcher &rarr; formatter &rarr; data-analyzer &rarr; writer.</p>
-            </div>
-            <div class="card" style="border-color: rgba(94, 92, 230, 0.3);">
-                <h4 style="color: var(--accent);">Rule 5 &mdash; Formatter Always</h4>
-                <p>Researcher output always goes through the formatter first. Normalizes inconsistent format (~1 in 3 topics).</p>
-            </div>
-        </div>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Rules are verbatim from <code class="code-inline">context/specialists-instructions.md</code> as of commit 9bbb3ba.</p>
-    </div>
-
-    <!-- ============ SLIDE 7: NARRATION DEMO ============ -->
-    <div class="slide">
-        <div class="section-label">Rule 2 in Action</div>
-        <h2 class="medium-headline">What the user sees now.</h2>
-        <div class="spacer"></div>
-        <div class="narration-demo">
-            <span class="narration-line"><span style="color: var(--accent);">&#x1F50D; Running researcher...</span></span>
-            <span class="narration-line" style="color: var(--text-tertiary); font-style: italic; font-size: var(--fs-small);">&nbsp;&nbsp;&nbsp;(researcher does its work)</span>
-            <span class="narration-line"><span style="color: var(--green);">&#x2705; Research complete &mdash; normalizing format...</span></span>
-            <span class="narration-line" style="color: var(--text-tertiary); font-style: italic; font-size: var(--fs-small);">&nbsp;&nbsp;&nbsp;(formatter normalizes output)</span>
-            <span class="narration-line"><span style="color: var(--green);">&#x2705; Format normalized &mdash; passing to writer...</span></span>
-            <span class="narration-line" style="color: var(--text-tertiary); font-style: italic; font-size: var(--fs-small);">&nbsp;&nbsp;&nbsp;(writer produces the brief)</span>
-            <span class="narration-line"><span style="color: var(--accent);">&#x270F;&#xFE0F; Done. Here&rsquo;s your brief.</span></span>
-        </div>
-        <div class="spacer"></div>
-        <p class="body-text">No extra text between narration lines. No coordinator commentary. The narration <em>is</em> the commentary.</p>
-    </div>
-
-    <!-- ============ SLIDE 8: THE SMOKE TEST ============ -->
-    <div class="slide">
-        <div class="section-label">Act 3 &middot; The Smoke Test</div>
-        <h2 class="medium-headline">Five scenarios. Five judgment calls.</h2>
-        <div class="spacer-sm"></div>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Scenario</th>
-                    <th>Prompt</th>
-                    <th>Expected Chain</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td style="color: var(--text-primary);">Happy path</td>
-                    <td>&ldquo;Research the Pomodoro technique&rdquo;</td>
-                    <td>researcher &rarr; writer</td>
-                    <td class="pass">PASS</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td style="color: var(--text-primary);">Analysis signal</td>
-                    <td>&ldquo;Give me an analysis of microservices vs monoliths&rdquo;</td>
-                    <td>researcher &rarr; formatter &rarr; analyzer &rarr; writer</td>
-                    <td class="pass">PASS</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td style="color: var(--text-primary);">Competitive</td>
-                    <td>&ldquo;Compare Notion vs Obsidian&rdquo;</td>
-                    <td>competitive-analysis &rarr; writer</td>
-                    <td class="pass">PASS</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td style="color: var(--text-primary);">Escape hatch</td>
-                    <td>&ldquo;Just run the researcher on the Feynman technique&rdquo;</td>
-                    <td>researcher only, raw</td>
-                    <td class="pass">PASS</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td style="color: var(--text-primary);">Ambiguous</td>
-                    <td>&ldquo;Tell me about spaced repetition&rdquo;</td>
-                    <td>researcher &rarr; writer</td>
-                    <td class="debatable">DEBATABLE</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="spacer-sm"></div>
-        <p class="body-text"><strong style="color: var(--text-primary);">Score: 4/5 PASS, 1 DEBATABLE.</strong> The coordinator followed the rules when intent was clear, but exercised &ldquo;judgment&rdquo; on casual phrasing and decided the pipeline was overkill.</p>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Results from <code class="code-inline">docs/test-log/chains/2026-03-05-chain-reliability-smoke-test.md</code></p>
-    </div>
-
-    <!-- ============ SLIDE 9: THE GAP ============ -->
     <div class="slide center">
-        <div class="section-label">The Gap</div>
-        <div class="spacer"></div>
-        <div class="code-block" style="text-align: left; max-width: 600px;">
-<span class="code-dim">User:</span> <span style="color: var(--text-primary);">&ldquo;Tell me about spaced repetition&rdquo;</span>
-
-<span class="code-dim">Expected:</span> <span class="code-green">researcher &rarr; formatter &rarr; writer</span>
-
-<span class="code-dim">Actual:</span>  <span class="code-warn">Conversational response. No specialists called.</span>
-
-<span class="code-dim">Coordinator reasoning:</span>
-<span class="code-warn">&ldquo;Casual phrasing, general knowledge topic,</span>
-<span class="code-warn"> deploying a multi-agent pipeline would</span>
-<span class="code-warn"> over-engineer it.&rdquo;</span></div>
-        <div class="spacer"></div>
-        <p class="body-text" style="max-width: 600px;">The coordinator found a loophole. Rule 1 said &ldquo;always chain&rdquo; but also &ldquo;when applicable.&rdquo; The model decided &ldquo;tell me about&rdquo; wasn&rsquo;t applicable.</p>
-        <div class="spacer-sm"></div>
-        <p class="body-text" style="max-width: 600px;">This is the most common prompt pattern. If it bypasses the pipeline, the reliability number is meaningless.</p>
+        <!-- beat 1: frame -->
+        <div class="section-label">The Promise</div>
+        <h1>You should get a finished brief, not the machinery</h1>
+        <p class="body">Canvas Specialists chains domain-expert AI agents — researcher, writer, and more — so a user receives one finished, sourced document instead of the raw machine output behind it.</p>
+        <p class="handoff">The whole value rides on that chain running end to end. So does it?</p>
     </div>
 
-    <!-- ============ SLIDE 10: THE FIX ============ -->
-    <div class="slide">
-        <div class="section-label">Act 4 &middot; The Fix</div>
-        <h2 class="medium-headline">A routing decision table.</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">Instead of adding more rules, one table was added after Rule 1:</p>
-        <div class="spacer-sm"></div>
-        <table class="routing-table">
-            <thead>
-                <tr>
-                    <th>User&rsquo;s message is about...</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>A factual topic, person, company, product, technology, or concept</td>
-                    <td><strong style="color: var(--green);">Chain.</strong> Even casual phrasing (&ldquo;tell me about X&rdquo;) gets the pipeline.</td>
-                </tr>
-                <tr>
-                    <td>A comparison of two or more things</td>
-                    <td><strong style="color: var(--green);">Chain</strong> via competitive-analysis &rarr; writer.</td>
-                </tr>
-                <tr>
-                    <td>Analysis, insights, or investigation</td>
-                    <td><strong style="color: var(--green);">Chain</strong> via researcher &rarr; analyzer &rarr; writer.</td>
-                </tr>
-                <tr>
-                    <td>The system itself, meta-questions, follow-ups</td>
-                    <td><strong style="color: var(--text-secondary);">Answer directly.</strong></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="spacer-sm"></div>
-        <p class="body-text">The table is verbatim from the committed file. It closes the loophole by making casual phrasing an explicit example in the &ldquo;Chain&rdquo; row.</p>
+    <div class="slide split">
+        <!-- beat 2: proof -->
+        <div class="col-main">
+            <div class="section-label">It's Real and Shipping</div>
+            <h2>Twelve specialist agents run in the bundle today</h2>
+            <p class="body">The chain is realized as concrete agent files — anchored by a researcher whose structured JSON is the single source of truth, required upstream and forbidden to fabricate.</p>
+            <p class="handoff">A trustworthy sourced brief only works if the chain finishes. It didn't always.</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">specialist agent files, incl. story-researcher, technical-writer, case-study-writer</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">researcher: REQUIRED upstream; its JSON is the single source of truth</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">fabricated metrics — missing evidence is reported, never invented</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- ============ SLIDE 11: WHEN IN DOUBT ============ -->
+    <div class="slide split">
+        <!-- beat 3: tension -->
+        <div class="col-main">
+            <div class="section-label">The Break</div>
+            <h2>The chain kept quitting at the researcher</h2>
+            <p class="body">Roughly 40% of the time the coordinator halted at the researcher and surfaced raw structured research blocks instead of completing the chain to the writer.</p>
+            <p class="handoff">Which broke the whole promise: users got the machinery, not the document.</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-number danger">~40%</div>
+                    <div class="stat-label">of runs: coordinator halted early and dumped raw research blocks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number danger">Raw</div>
+                    <div class="stat-label">machine output surfaced instead of a finished, written brief</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 4: setup -->
+        <div class="col-main">
+            <div class="section-label">The Path Not Taken</div>
+            <h2>The obvious fix was code — the team reached for instructions instead</h2>
+            <p class="body">Routing logic, validation layers, retry mechanisms were all on the table. Instead of building machinery, the team decided to fix the words the coordinator reads.</p>
+            <p class="handoff">So where did the change actually live?</p>
+        </div>
+        <div class="col-aside">
+            <ul class="steps">
+                <li><strong>Considered:</strong> routing logic</li>
+                <li><strong>Considered:</strong> validation layers</li>
+                <li><strong>Considered:</strong> retry mechanisms</li>
+                <li><strong>Chosen:</strong> clearer instructions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 5: mechanism -->
+        <div class="col-main">
+            <div class="section-label">Where the Fix Lived</div>
+            <h2>One natural-language instruction file — zero lines of logic</h2>
+            <p class="body">The entire change was 129 insertions and 16 deletions of instruction text. No application logic, no routing engine, no validation code.</p>
+            <p class="handoff">The leverage was words in a spec. But words alone still left a gap.</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="comment"># the whole change</span>
+<span class="big">129 insertions</span>
+<span class="big">16 deletions</span>
+<span class="comment"># zero lines of</span>
+<span class="comment"># application logic</span></div>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 6: turn -->
+        <div class="col-main">
+            <div class="section-label">The Loophole</div>
+            <h2>Instructions alone scored 4 out of 5</h2>
+            <p class="body">A five-scenario smoke test still failed one case: the coordinator found a loophole on casual phrasing like "tell me about X" and quit early anyway.</p>
+            <p class="handoff">The ambiguity had to be closed — and that took one more sentence.</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-number">4/5</div>
+                    <div class="stat-label">smoke-test scenarios passed after the first instruction rewrite</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number danger">"tell me<br>about X"</div>
+                    <div class="stat-label">casual phrasing the coordinator exploited to quit early</div>
+                </div>
+            </div>
+            <p class="caveat">Smoke-test scores are deck-attested from a test log that is not present locally; treat as directional.</p>
+        </div>
+    </div>
+
+    <div class="slide split">
+        <!-- beat 7: payoff -->
+        <div class="col-main">
+            <div class="section-label">The One-Sentence Fix</div>
+            <h2>"When in doubt, chain." closed the last loophole</h2>
+            <p class="body">A routing decision table with concrete examples plus that single tiebreaker sentence took the smoke test to 5/5 and lifted assessed chain reliability from ~40% to >90%.</p>
+            <p class="handoff">Not a routing engine. A sentence.</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-number danger">~40%</div>
+                    <div class="stat-label">assessed reliability before the fix</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number up">&gt;90%</div>
+                    <div class="stat-label">assessed reliability after the fix</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number up">5/5</div>
+                    <div class="stat-label">smoke-test scenarios passing post-fix</div>
+                </div>
+            </div>
+            <p class="caveat">~40% and &gt;90% are qualitative assessments from repeated use, not controlled A/B tests — the deck's own caveat.</p>
+        </div>
+    </div>
+
     <div class="slide center">
-        <div class="spacer-xl"></div>
-        <div class="quote-block" style="border-left: none; text-align: center; padding-left: 0;">
-            <p style="font-size: clamp(28px, 6vw, 56px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--text-primary);">&ldquo;When in doubt, chain.&rdquo;</p>
-        </div>
-        <div class="spacer"></div>
-        <p class="body-text" style="text-align: center; max-width: 600px;">The user can always ask for a shorter answer; they can&rsquo;t retroactively ask for better sourcing. Err on the side of using specialists.</p>
-        <div class="spacer-sm"></div>
-        <p class="small-text">One sentence. Added to <code class="code-inline">specialists-instructions.md</code> directly below the routing table.</p>
+        <!-- beat 8: takeaway -->
+        <div class="section-label">The Pattern</div>
+        <h1>When an agent chain misbehaves, teach it</h1>
+        <p class="body">The most impactful change often isn't code — it's clearer instructions. A routing table and one tiebreaker sentence did what a routing engine would have.</p>
+        <p class="caveat">Kept honest: the reliability figures are qualitative assessments from repeated use, not controlled A/B tests.</p>
     </div>
 
-    <!-- ============ SLIDE 12: THE CONTRADICTION ============ -->
-    <div class="slide">
-        <div class="section-label">The Hidden Bug</div>
-        <h2 class="medium-headline">A stub that contradicted itself.</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">The smoke test also revealed a second problem: the instructions told the coordinator <em>not</em> to emit narration because &ldquo;the hook handles it.&rdquo; But the hook was a stub&thinsp;&mdash;&thinsp;its <code class="code-inline">mount()</code> function was a no-op.</p>
-        <div class="spacer"></div>
-        <div class="before-after">
-            <div class="before-panel">
-                <div class="panel-label">Before (contradiction)</div>
-                <div class="code-block" style="background: transparent; border: none; padding: 0; margin-top: var(--space-xs);">
-<span class="code-fail">Note: narration is now emitted</span>
-<span class="code-fail">automatically via the hook; the</span>
-<span class="code-fail">coordinator should not rely on</span>
-<span class="code-fail">emitting narration itself.</span>
-
-<span class="code-dim"># But the hook was:</span>
-<span class="code-warn">def mount(): pass  # no-op</span></div>
-            </div>
-            <div class="after-panel">
-                <div class="panel-label">After (clarity)</div>
-                <div class="code-block" style="background: transparent; border: none; padding: 0; margin-top: var(--space-xs);">
-<span class="code-green">No extra text between narration</span>
-<span class="code-green">lines. Do not insert commentary,</span>
-<span class="code-green">explanations, or filler between</span>
-<span class="code-green">narration lines and specialist</span>
-<span class="code-green">delegations. The narration IS</span>
-<span class="code-green">the commentary.</span></div>
-            </div>
-        </div>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Exact diff from commit 521c1a0 in PR #16.</p>
-    </div>
-
-    <!-- ============ SLIDE 13: VALIDATION ============ -->
-    <div class="slide center">
-        <div class="section-label">Act 5 &middot; Validation</div>
-        <div class="spacer"></div>
-        <div class="big-number-green">5/5</div>
-        <div class="spacer-sm"></div>
-        <h2 class="medium-headline">All scenarios passing.</h2>
-        <div class="spacer"></div>
-        <div class="halves" style="max-width: 800px; text-align: left;">
-            <div class="card" style="border-color: rgba(48, 209, 88, 0.3);">
-                <h4 style="color: var(--green);">&#x2705; &ldquo;Tell me about spaced repetition&rdquo;</h4>
-                <p>Now chains through researcher &rarr; formatter &rarr; writer. Coordinator cited the routing table: &ldquo;factual topic... even casual phrasing gets the pipeline.&rdquo;</p>
-            </div>
-            <div class="card" style="border-color: rgba(48, 209, 88, 0.3);">
-                <h4 style="color: var(--green);">&#x2705; Happy path narration</h4>
-                <p>Clean narration lines with no extra coordinator commentary between handoffs.</p>
-            </div>
-        </div>
-        <div class="spacer"></div>
-        <p class="body-text" style="text-align: center; max-width: 600px;">The coordinator explicitly referenced the routing table in its reasoning. The table didn&rsquo;t just constrain behavior&thinsp;&mdash;&thinsp;it gave the model a framework for making decisions.</p>
-    </div>
-
-    <!-- ============ SLIDE 14: THE HOOK QUESTION ============ -->
-    <div class="slide">
-        <div class="section-label">Act 6 &middot; The Honest Assessment</div>
-        <h2 class="medium-headline">Should we build the real hook?</h2>
-        <div class="spacer-sm"></div>
-        <p class="body-text">The narration stub raised a question: should we build a code-level narration hook to replace prompt-level enforcement?</p>
-        <div class="spacer"></div>
-        <div class="halves" style="max-width: 900px;">
-            <div class="card">
-                <h4 style="color: var(--green);">Technically feasible</h4>
-                <p>The Amplifier kernel exposes <code class="code-inline">tool:pre</code> / <code class="code-inline">tool:post</code> hook events and a <code class="code-inline">user_message</code> display channel. A real hook could intercept specialist delegations and emit narration automatically.</p>
-            </div>
-            <div class="card">
-                <h4 style="color: var(--accent-warm);">Not worth it right now</h4>
-                <p>The prompt-level fix is at &gt;90% reliability. The backlog has higher-leverage items: writer word budgets, audience calibration, URL-per-claim trustworthiness scoring.</p>
-            </div>
-        </div>
-        <div class="spacer"></div>
-        <div class="quote-block">
-            <p class="quote-text">&ldquo;Good enough is good enough. Ship it and move on to what matters more.&rdquo;</p>
-            <p class="quote-attr">Decision: close the hook item. Prompt-level narration stays.</p>
-        </div>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Note: &ldquo;&gt;90% reliability&rdquo; is the team&rsquo;s qualitative assessment based on repeated use, not a controlled measurement with a defined sample size.</p>
-    </div>
-
-    <!-- ============ SLIDE 15: WHAT CHANGED ============ -->
-    <div class="slide">
-        <div class="section-label">The Diff</div>
-        <h2 class="medium-headline">What actually shipped.</h2>
-        <div class="spacer-sm"></div>
-        <div class="code-block" style="max-width: 700px;">
-<span class="code-accent">PR #16</span> <span class="code-dim">&mdash; Fix: harden specialist chain reliability</span>
-<span class="code-dim">Commit: 9bbb3ba &middot; Merged: 2026-03-06</span>
-
-<span class="code-green"> 5 files changed</span>
-<span class="code-green"> 129 insertions(+), 16 deletions(-)</span>
-
-<span class="code-dim"> context/specialists-instructions.md   </span><span class="code-green">| 36 +++++----</span>
-<span class="code-dim"> docs/BACKLOG.md                       </span><span class="code-green">|  6 +-</span>
-<span class="code-dim"> docs/test-log/chains/...smoke-test.md </span><span class="code-green">| 65 ++++++++++</span>
-<span class="code-dim"> specialists/competitive-analysis/...  </span><span class="code-green">|  7 ++-</span>
-<span class="code-dim"> specialists/writer/index.md           </span><span class="code-green">| 31 ++++++-</span></div>
-        <div class="spacer"></div>
-        <p class="body-text">Every file is a <code class="code-inline">.md</code> instruction file. Zero lines of application logic, routing code, or validation code were written. The entire fix lives in natural language.</p>
-    </div>
-
-    <!-- ============ SLIDE 16: IMPACT ============ -->
-    <div class="slide center">
-        <div class="section-label">Impact</div>
-        <div class="spacer-sm"></div>
-        <div class="stat-grid" style="max-width: 900px;">
-            <div class="stat-cell">
-                <div class="stat-number green">&gt;90<span class="unit">%</span></div>
-                <div class="stat-label">Chain reliability<br><span style="color: var(--text-tertiary);">up from ~40% (estimated)</span></div>
-            </div>
-            <div class="stat-cell">
-                <div class="stat-number">5/5</div>
-                <div class="stat-label">Smoke test scenarios<br><span style="color: var(--text-tertiary);">all passing</span></div>
-            </div>
-            <div class="stat-cell">
-                <div class="stat-number warm">0</div>
-                <div class="stat-label">Lines of logic code<br><span style="color: var(--text-tertiary);">instructions only</span></div>
-            </div>
-        </div>
-        <div class="spacer"></div>
-        <div class="halves" style="max-width: 800px; text-align: left;">
-            <div class="card">
-                <h4>Files changed</h4>
-                <p>5 files, all <code class="code-inline">.md</code> instruction text. 129 insertions, 16 deletions.</p>
-            </div>
-            <div class="card">
-                <h4>Primary contributor</h4>
-                <p>Chris Park (product direction, all decisions) with Amplifier AI (analysis, implementation, testing).</p>
-            </div>
-        </div>
-        <div class="spacer-sm"></div>
-        <p class="small-text">Reliability numbers are qualitative assessments from repeated use, not controlled A/B tests. The baseline ~40% and target &gt;90% reflect observed behavior before and after the instruction changes.</p>
-    </div>
-
-    <!-- ============ SLIDE 17: THE LESSON ============ -->
-    <div class="slide">
-        <div class="section-label">The Lesson</div>
-        <h2 class="medium-headline">The right abstraction layer for fixing AI behavior is sometimes natural language.</h2>
-        <div class="spacer"></div>
-        <div class="thirds">
-            <div class="card">
-                <div class="card-icon">&#x1F4CB;</div>
-                <h4>Decision tables beat rules</h4>
-                <p>A routing table with concrete examples closed the loophole that five abstract rules left open. Models follow examples better than principles.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">&#x1F3AF;</div>
-                <h4>One sentence beats ten</h4>
-                <p>&ldquo;When in doubt, chain&rdquo; resolved the ambiguity that an entire paragraph of caveats created. Shorter instructions, clearer behavior.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">&#x1F6E0;</div>
-                <h4>Good enough beats perfect</h4>
-                <p>A code-level hook would be more reliable than prompt-level narration. But &gt;90% is good enough when the backlog has higher-leverage work.</p>
-            </div>
-        </div>
-        <div class="spacer"></div>
-        <p class="body-text">The most impactful change wasn&rsquo;t code&thinsp;&mdash;&thinsp;it was writing clearer instructions. A routing decision table and one sentence eliminated the main failure mode.</p>
-    </div>
-
-    <!-- ============ SLIDE 18: SOURCES ============ -->
+    <!-- Sources & Methodology -->
     <div class="slide">
         <div class="section-label">Sources</div>
-        <h2 class="medium-headline">Sources &amp; Methodology</h2>
-        <div class="spacer-sm"></div>
-        <div class="sources-content">
-            <p><strong>Data as of:</strong> March 6, 2026</p>
-            <p><strong>Type:</strong> Session narrative from iterative Amplifier development session</p>
-            <p><strong>Repository:</strong> canvas-specialists (private, Chris Park / Amplifier)</p>
-            <p><strong>Feature status:</strong> Active &mdash; shipped in PR #16 to main</p>
-            <div class="spacer-sm"></div>
-            <p><strong>Git evidence:</strong></p>
+        <h2>Research Methodology</h2>
+        <div class="sources-body">
+            <p><strong>Subject:</strong> The "Canvas Specialists" bundle case study, as documented in the amplifier-stories bundle (ramparte/amplifier-stories).</p>
+            <p><strong>Feature status:</strong> Shipped / documented as a case study; the specialist-agent chain is present and active in the bundle.</p>
+            <p><strong>Research performed:</strong></p>
             <ul>
-                <li>PR #16: commit 9bbb3ba, merged 2026-03-06 &mdash; 5 files, 129 insertions, 16 deletions</li>
-                <li>Commit 0993cee: initial chain hardening (Rules 1&ndash;5)</li>
-                <li>Commit 521c1a0: routing heuristic table + narration fix</li>
-                <li>Commit 66badd2: writer story-output consumption fix</li>
-                <li>All files changed are .md instruction files &mdash; zero application logic code</li>
+                <li>Deck existence &amp; size: <code>wc -l docs/story-teaching-ai-to-follow-through.html</code> → 917 lines</li>
+                <li>History &amp; authorship: <code>git log --format='%h %an %ad %s' --date=short -- docs/story-teaching-ai-to-follow-through.html</code> → added 2026-03-06 by cpark4x; scrubbed 2026-03-11; regenerated 2026-07-14</li>
+                <li>Agent inventory: <code>for f in agents/*.md; do grep -m1 'name:' "$f"; done ; ls agents/*.md | wc -l</code> → 12 specialist agent files</li>
+                <li>Researcher contract: <code>head -40 agents/story-researcher.md ; grep -niE 'REQUIRED|single source of truth|never fabricate' agents/story-researcher.md</code></li>
+                <li>Claim extraction: <code>grep -oiE '(~40%|>90|routing decision table|tiebreaker|zero lines)[^&lt;]*' docs/story-teaching-ai-to-follow-through.html</code></li>
+                <li>Source-repo scan: <code>git cat-file -t 9bbb3ba / 521c1a0</code> across all local .git dirs → NOT FOUND</li>
             </ul>
-            <div class="spacer-sm"></div>
-            <p><strong>Smoke test:</strong></p>
-            <ul>
-                <li>5 scenarios executed as independent self-delegations after commit 0993cee</li>
-                <li>Results: 4 PASS, 1 DEBATABLE (test log uses &ldquo;debatable,&rdquo; not &ldquo;fail&rdquo;)</li>
-                <li>Re-test after routing table: 5/5 passing (not independently re-verified)</li>
-                <li>Full log: <code class="code-inline">docs/test-log/chains/2026-03-05-chain-reliability-smoke-test.md</code></li>
-            </ul>
-            <div class="spacer-sm"></div>
-            <p><strong>Reliability numbers:</strong></p>
-            <ul>
-                <li>~40% baseline: qualitative estimate from repeated use, not a controlled measurement</li>
-                <li>&gt;90% current: qualitative assessment post-fix, not a controlled A/B test</li>
-                <li>No statistical confidence intervals are claimed</li>
-            </ul>
-            <div class="spacer-sm"></div>
-            <p><strong>Primary contributor:</strong> Chris Park (product direction, all decisions) with Amplifier AI (analysis, implementation, testing)</p>
+            <p><strong>Gaps:</strong> The underlying "canvas-specialists" source repo (context/specialists-instructions.md, PR #16, commits 9bbb3ba/521c1a0) and the smoke-test log are not checked out locally. The ~40%/&gt;90% reliability figures and 4/5 &amp; 5/5 smoke-test scores are deck-attested qualitative estimates, not independently measured.</p>
+            <p><strong>Primary contributors:</strong> Chris Park (cpark4x) — product direction and the case-study deck; Michael J. Jabbour — introduced the specialist agent architecture; Sam Schillace — regenerated the deck spine-first.</p>
         </div>
-    </div>
-
-    <!-- ============ SLIDE 19: CTA ============ -->
-    <div class="slide center">
-        <p class="closing-lead">
-            Sometimes the right tool<br>
-            for fixing AI behavior<br>
-            is a better sentence.
-        </p>
-        <div class="spacer-xl"></div>
-        <p class="closing-line">
-            A routing table.<br>
-            One tiebreaker rule.<br>
-            Zero lines of code.<br><br>
-            From ~40% to &gt;90%.<br><br>
-            Not because the model got smarter.<br>
-            Because the instructions got clearer.
-        </p>
-        <div class="spacer-xl"></div>
-        <p class="body-text" style="text-align: center; color: var(--text-tertiary);">
-            Read the instructions: <code class="code-inline">context/specialists-instructions.md</code><br>
-            Read the test log: <code class="code-inline">docs/test-log/chains/2026-03-05-chain-reliability-smoke-test.md</code>
-        </p>
+        <span class="status-badge">Active · Shipped as a case study</span>
     </div>
 
     <!-- Navigation -->
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
 
-        <a href="/stories" class="more-stories">More Amplifier Stories</a>
+    <!-- More stories link -->
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
 
     <script>
-        var slides = document.querySelectorAll('.slide');
-        var currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        let transitioning = false;
 
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            slides[currentSlide].scrollTop = 0;
+        function goTo(n) {
+            n = ((n % total) + total) % total;
+            if (transitioning || n === current) return;
+            transitioning = true;
+            var direction = n > current ? 1 : -1;
+            var prev = slides[current];
+            var next = slides[n];
+
+            prev.classList.remove('active');
+            prev.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+            prev.style.opacity = '0';
+
+            next.style.transition = 'none';
+            next.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+            next.style.opacity = '0';
+
+            void next.offsetWidth;
+
+            next.style.transition = '';
+            next.style.transform = 'translateX(0)';
+            next.style.opacity = '1';
+            next.classList.add('active');
+
+            current = n;
             updateNav();
+
+            setTimeout(function() {
+                prev.style.transform = '';
+                prev.style.opacity = '';
+                next.style.transform = '';
+                next.style.opacity = '';
+                transitioning = false;
+            }, 500);
         }
 
         function updateNav() {
-            var nav = document.getElementById('nav');
-            var counter = document.getElementById('counter');
+            const nav = document.getElementById('nav');
+            const counter = document.getElementById('counter');
             nav.innerHTML = '';
-            slides.forEach(function(_, i) {
-                var dot = document.createElement('div');
-                dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
-                dot.onclick = function(e) { e.stopPropagation(); showSlide(i); };
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === current ? ' active' : '');
+                dot.onclick = () => goTo(i);
                 nav.appendChild(dot);
             });
-            counter.textContent = (currentSlide + 1) + ' / ' + slides.length;
+            counter.textContent = `${current + 1} / ${total}`;
         }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(currentSlide + 1); }
-            if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(currentSlide - 1); }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
         });
 
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.nav') || e.target.closest('a')) return;
-            if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
-            else showSlide(currentSlide - 1);
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav')) return;
+            if (e.clientX > window.innerWidth / 2) goTo(current + 1);
+            else goTo(current - 1);
         });
 
-        var touchStartX = 0;
-        var SWIPE_THRESHOLD = 50;
+        let touchStartX = 0;
+        const SWIPE_THRESHOLD = 50;
 
-        document.addEventListener('touchstart', function(e) {
+        document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        document.addEventListener('touchend', function(e) {
-            var diff = touchStartX - e.changedTouches[0].screenX;
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > SWIPE_THRESHOLD) {
-                if (diff > 0) showSlide(currentSlide + 1);
-                else showSlide(currentSlide - 1);
+                if (diff > 0) goTo(current + 1);
+                else goTo(current - 1);
             }
         }, { passive: true });
 
