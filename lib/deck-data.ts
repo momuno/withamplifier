@@ -114,8 +114,8 @@ export const decks: Deck[] = [
   },
   {
     id: '20260709-context-compaction-performance-fix',
-    title: 'You\'re About to Become the Bottleneck Again',
-    description: 'Good news: this time, it\'s not the agent\'s fault.',
+    title: 'You\'re Not the Bottleneck',
+    description: 'Automatic context compaction in Amplifier',
     category: 'platform',
     href: '/stories/decks/20260709-context-compaction-performance-fix.html',
   },
@@ -1437,4 +1437,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-07-23T18:55:19.273Z'
+export const lastSynced = '2026-07-24T01:21:40.961Z'
