@@ -134,6 +134,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260729-mcp-2026-07-28-conformance.html',
   },
   {
+    id: '20260730-goal-command',
+    title: '/goal — autonomous continuation in Amplifier',
+    description: 'Set a completion condition. Amplifier keeps taking turns until it\'s actually met.',
+    category: 'platform',
+    href: '/stories/decks/20260730-goal-command.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'AI that found its own way in',
@@ -1458,4 +1465,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-07-30T08:02:29.176Z'
+export const lastSynced = '2026-07-30T13:21:07.400Z'
