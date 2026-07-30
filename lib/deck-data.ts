@@ -127,6 +127,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260728-monitor-skill.html',
   },
   {
+    id: '20260729-mcp-2026-07-28-conformance',
+    title: 'MCP Tool Module — Three Silent Failures, Fixed',
+    description: 'The MCP client now works on the SDK you actually have installed, speaks the protocol you think it does, and stops losing tools mid-list.',
+    category: 'tool',
+    href: '/stories/decks/20260729-mcp-2026-07-28-conformance.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'AI that found its own way in',
@@ -1451,4 +1458,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-07-29T18:49:15.140Z'
+export const lastSynced = '2026-07-30T01:12:49.654Z'
