@@ -141,6 +141,20 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260730-goal-command.html',
   },
   {
+    id: '20260731-product-council',
+    title: 'The Product Development Council — Announcement',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260731-product-council.html',
+  },
+  {
+    id: '20260731-simulated-user-research',
+    title: 'amplifier-simulated-user-research — Announcement',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260731-simulated-user-research.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'AI that found its own way in',
@@ -1465,4 +1479,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-08-01T01:26:51.516Z'
+export const lastSynced = '2026-08-01T07:57:29.549Z'
