@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>amplifier-work-tracker — a shared work queue for coding agents</title>
+<style>
+:root {
+  --accent: #7C6BFF;
+  --accent-2: #34D399;
+  --warn: #FBBF24;
+  --bad: #FB7185;
+
+  --surface-1: rgba(255,255,255,0.06);
+  --surface-2: rgba(255,255,255,0.10);
+  --surface-3: rgba(255,255,255,0.15);
+  --border-subtle: rgba(255,255,255,0.12);
+  --border-visible: rgba(255,255,255,0.20);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.72);
+  --text-tertiary: rgba(255,255,255,0.52);
+
+  --font-headline: clamp(34px, 7vw, 68px);
+  --font-medium-headline: clamp(24px, 4.6vw, 44px);
+  --font-subhead: clamp(16px, 2.8vw, 28px);
+  --font-big-number: clamp(52px, 14vw, 140px);
+  --fs-body: clamp(15px, 2vw, 18px);
+  --fs-small: clamp(12px, 1.7vw, 14px);
+
+  --padding-slide: clamp(20px, 5vw, 80px);
+  --gap-grid: clamp(14px, 2.5vw, 32px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: #000;
+  color: var(--text-primary);
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  display: none;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(56px, 9vw, 110px) var(--padding-slide) clamp(78px, 11vw, 100px);
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.slide.active { display: flex; }
+
+.center {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .slide { padding: 16px var(--padding-slide) 58px; }
+  .slide.center { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- typography ---------- */
+.section-label {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: clamp(10px, 1.6vw, 18px);
+}
+.headline {
+  font-size: var(--font-headline);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  margin: 0 0 clamp(12px, 2vw, 24px);
+}
+.medium-headline {
+  font-size: var(--font-medium-headline);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 clamp(12px, 2vw, 24px);
+}
+.subhead {
+  font-size: var(--font-subhead);
+  color: var(--text-secondary);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 clamp(14px, 2vw, 22px);
+  max-width: 34ch;
+}
+.subhead.wide { max-width: 52ch; }
+.body-text {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 68ch;
+  margin: 0 0 clamp(10px, 1.5vw, 16px);
+}
+.small-text {
+  font-size: var(--fs-small);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+.lead-in {
+  font-size: clamp(17px, 2.4vw, 22px);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 60ch;
+  margin: 0 0 clamp(18px, 2.6vw, 30px);
+}
+strong { color: var(--text-primary); font-weight: 650; }
+.accent { color: var(--accent); }
+.good { color: var(--accent-2); }
+.bad { color: var(--bad); }
+.warn { color: var(--warn); }
+
+.badge {
+  display: inline-block;
+  font-size: var(--fs-small);
+  font-weight: 650;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-visible);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+}
+.badge.live { color: var(--accent-2); border-color: rgba(52,211,153,0.45); }
+
+/* ---------- layout ---------- */
+.thirds, .split, .quarters {
+  display: grid;
+  gap: var(--gap-grid);
+  width: 100%;
+}
+.thirds { grid-template-columns: repeat(auto-fit, minmax(min(260px,100%), 1fr)); }
+.split  { grid-template-columns: repeat(auto-fit, minmax(min(320px,100%), 1fr)); }
+.quarters { grid-template-columns: repeat(auto-fit, minmax(min(230px,100%), 1fr)); }
+
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: clamp(12px, 2vw, 16px);
+  padding: clamp(16px, 3.2vw, 26px);
+}
+.card h3 {
+  color: var(--text-primary);
+  font-size: clamp(17px, 2.3vw, 21px);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.card p { color: var(--text-secondary); font-size: var(--fs-body); line-height: 1.55; margin: 0; }
+.card .icon-card { font-size: clamp(28px, 5vw, 44px); display: block; margin-bottom: 10px; line-height: 1; }
+.card.accented { border-color: rgba(124,107,255,0.45); background: var(--surface-2); }
+
+.code-block {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: clamp(12px, 3vw, 20px) clamp(14px, 4vw, 26px);
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, 'Courier New', monospace;
+  font-size: clamp(12px, 1.9vw, 15px);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  color: var(--text-primary);
+  max-width: 100%;
+}
+.code-comment { color: var(--text-tertiary); }
+.code-key { color: var(--accent-2); }
+
+.figure {
+  width: 100%;
+  margin: clamp(6px, 1.4vw, 14px) 0 clamp(10px, 1.6vw, 16px);
+}
+.figure svg { width: 100%; height: auto; display: block; }
+.caption {
+  font-size: var(--fs-small);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  max-width: 84ch;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px,100%), 1fr));
+  gap: var(--gap-grid);
+  width: 100%;
+}
+.stat { }
+.stat-number {
+  font-size: clamp(38px, 7vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-primary);
+}
+.stat-label {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.data-table th {
+  color: var(--accent);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  text-align: left;
+  padding: clamp(8px,1.5vw,12px);
+  border-bottom: 1px solid var(--border-visible);
+  white-space: nowrap;
+}
+.data-table td {
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+  padding: clamp(8px,1.5vw,12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.data-table td:first-child { color: var(--text-primary); }
+
+.pill-list { list-style: none; padding: 0; margin: 0; }
+.pill-list li {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding: 10px 0 10px 26px;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.pill-list li:before {
+  content: "";
+  position: absolute;
+  left: 4px; top: 19px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- chrome ---------- */
+.nav {
+  position: fixed;
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 9px;
+  z-index: 120;
+  max-width: 80vw;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nav-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.24);
+  cursor: pointer;
+  transition: background .18s, transform .18s;
+}
+.nav-dot:hover { background: rgba(255,255,255,0.5); }
+.nav-dot.active { background: var(--accent); transform: scale(1.35); }
+
+.slide-counter {
+  position: fixed;
+  bottom: 26px; right: 26px;
+  font-size: var(--fs-small);
+  color: var(--text-tertiary);
+  z-index: 120;
+  font-variant-numeric: tabular-nums;
+}
+.hint {
+  position: fixed;
+  bottom: 26px; left: 26px;
+  font-size: var(--fs-small);
+  color: rgba(255,255,255,0.28);
+  z-index: 120;
+}
+@media (max-width: 640px) { .hint { display: none; } }
+</style>
+    <link rel="stylesheet" href="shared-variables.css">
+    <link rel="stylesheet" href="withamplifier-overrides.css">
+</head>
+<body>
+
+<!-- 1 — TITLE -->
+<div class="slide active center">
+  <div class="section-label">Amplifier &nbsp;·&nbsp; New Bundle</div>
+  <h1 class="headline">amplifier-<wbr>work-tracker</h1>
+  <p class="subhead wide">A shared work queue your coding-agent sessions pull from.<br>One item, one agent. Nothing done twice, nothing dropped.</p>
+  <div style="margin:10px 0 22px"><span class="badge live">● Active</span> &nbsp; <span class="badge">github.com/microsoft/amplifier-work-tracker</span></div>
+  <p class="small-text">August 2026 &nbsp;·&nbsp; Storage and issue graph by <strong>Beads</strong></p>
+</div>
+
+<!-- 2 — HOOK -->
+<div class="slide">
+  <div class="section-label">The moment you recognize</div>
+  <h2 class="headline">Two sessions.<br>One job. Twice.</h2>
+  <p class="lead-in">Ever had two agent sessions quietly redo each other&rsquo;s work?</p>
+  <p class="lead-in">Or closed your laptop and lost whatever one of them was halfway through?</p>
+  <div class="card accented" style="max-width:64ch">
+    <p>Neither of those throws an error. That&rsquo;s the whole problem &mdash; <strong>every failure mode here is silent.</strong> You find out later, in the diff, or not at all.</p>
+  </div>
+</div>
+
+<!-- 3 — WHAT IT UNLOCKS -->
+<div class="slide">
+  <div class="section-label">What it unlocks</div>
+  <h2 class="medium-headline">Fire off five sessions. Let them sort it out.</h2>
+  <div class="quarters">
+    <div class="card">
+      <span class="icon-card">🧵</span>
+      <h3>Real parallelism</h3>
+      <p>Three or five sessions on one project. Each grabs a different piece. Nothing gets done twice.</p>
+    </div>
+    <div class="card">
+      <span class="icon-card">🌙</span>
+      <h3>Park half-formed ideas</h3>
+      <p>Drop &ldquo;search feels slow lately&rdquo; in at midnight. A session picks it up tomorrow, specs it properly, works it.</p>
+    </div>
+    <div class="card accented">
+      <span class="icon-card">✂️</span>
+      <h3>Scope creep stops eating your diff</h3>
+      <p>An agent notices three other things wrong mid-fix &mdash; and <strong>files</strong> them, instead of quietly fixing them all or forgetting them.</p>
+    </div>
+    <div class="card">
+      <span class="icon-card">🚶</span>
+      <h3>Walk away</h3>
+      <p>A session waiting six hours on your answer keeps its claim. One that actually died gives its work back.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 4 — MANY SESSIONS, ONE QUEUE -->
+<div class="slide">
+  <div class="section-label">The shape of it</div>
+  <h2 class="medium-headline">Many sessions, one queue</h2>
+  <div class="figure">
+    <svg viewBox="0 0 1000 380" role="img" aria-label="Four agent sessions each pulling a different item from one shared queue">
+      <defs>
+        <marker id="ar1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#7C6BFF"/>
+        </marker>
+      </defs>
+
+      <!-- agents -->
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="16">
+        <g>
+          <rect x="20" y="34" width="210" height="52" rx="12" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+          <text x="46" y="65" fill="#fff">session A</text>
+        </g>
+        <g>
+          <rect x="20" y="114" width="210" height="52" rx="12" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+          <text x="46" y="145" fill="#fff">session B</text>
+        </g>
+        <g>
+          <rect x="20" y="194" width="210" height="52" rx="12" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+          <text x="46" y="225" fill="#fff">session C</text>
+        </g>
+        <g>
+          <rect x="20" y="274" width="210" height="52" rx="12" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+          <text x="46" y="305" fill="#fff">session D</text>
+        </g>
+      </g>
+
+      <!-- arrows -->
+      <g stroke="#7C6BFF" stroke-width="2.5" fill="none" marker-end="url(#ar1)" opacity="0.9">
+        <path d="M234,60 C330,60 340,74 424,80"/>
+        <path d="M234,140 C330,140 340,144 424,146"/>
+        <path d="M234,220 C330,220 340,214 424,212"/>
+        <path d="M234,300 C330,300 340,284 424,278"/>
+      </g>
+
+      <!-- queue -->
+      <text x="444" y="16" fill="#7C6BFF" font-family="-apple-system, Segoe UI, sans-serif" font-size="14" font-weight="700" letter-spacing="2">SHARED QUEUE</text>
+      <rect x="440" y="26" width="520" height="336" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="15">
+        <g>
+          <rect x="466" y="56" width="468" height="48" rx="10" fill="rgba(124,107,255,0.18)" stroke="rgba(124,107,255,0.55)"/>
+          <text x="488" y="86" fill="#fff">#014 &nbsp; fix pagination off-by-one</text>
+          <text x="908" y="86" fill="#7C6BFF" text-anchor="end">A</text>
+        </g>
+        <g>
+          <rect x="466" y="122" width="468" height="48" rx="10" fill="rgba(124,107,255,0.18)" stroke="rgba(124,107,255,0.55)"/>
+          <text x="488" y="152" fill="#fff">#021 &nbsp; add retry to upload path</text>
+          <text x="908" y="152" fill="#7C6BFF" text-anchor="end">B</text>
+        </g>
+        <g>
+          <rect x="466" y="188" width="468" height="48" rx="10" fill="rgba(124,107,255,0.18)" stroke="rgba(124,107,255,0.55)"/>
+          <text x="488" y="218" fill="#fff">#027 &nbsp; index missing on lookups</text>
+          <text x="908" y="218" fill="#7C6BFF" text-anchor="end">C</text>
+        </g>
+        <g>
+          <rect x="466" y="254" width="468" height="48" rx="10" fill="rgba(124,107,255,0.18)" stroke="rgba(124,107,255,0.55)"/>
+          <text x="488" y="284" fill="#fff">#033 &nbsp; &ldquo;search feels slow lately&rdquo;</text>
+          <text x="908" y="284" fill="#7C6BFF" text-anchor="end">D</text>
+        </g>
+        <g opacity="0.6">
+          <rect x="466" y="318" width="468" height="32" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.14)" stroke-dasharray="5 5"/>
+          <text x="488" y="340" fill="rgba(255,255,255,0.62)" font-size="13.5">&hellip; still ready, waiting for the next session</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <p class="caption">Every session asks the same question &mdash; <em>&ldquo;what should I work on?&rdquo;</em> &mdash; and each one gets a different answer. That property is the whole product.</p>
+</div>
+
+<!-- 5 — PROBLEM 1 DIAGRAM -->
+<div class="slide">
+  <div class="section-label">Problem 1 &nbsp;·&nbsp; Silent double-claims</div>
+  <h2 class="medium-headline">The obvious way is the broken way</h2>
+  <div class="figure">
+    <svg viewBox="0 0 1000 470" role="img" aria-label="Left: three agents list ready work, all pick the same item, all get exit code zero, only one truly holds it. Right: one atomic claim call, one winner, the others correctly told there is nothing for them.">
+      <defs>
+        <marker id="arR" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#FB7185"/></marker>
+        <marker id="arG" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#34D399"/></marker>
+        <marker id="arN" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="rgba(255,255,255,0.45)"/></marker>
+      </defs>
+
+      <!-- ============ LEFT: broken ============ -->
+      <rect x="4" y="4" width="474" height="462" rx="18" fill="rgba(251,113,133,0.06)" stroke="rgba(251,113,133,0.35)"/>
+      <text x="28" y="38" fill="#FB7185" font-family="-apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700" letter-spacing="1.6">TWO STEPS &nbsp;— &nbsp;LIST, THEN CLAIM BY ID</text>
+
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="14">
+        <rect x="28" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="52" y="85" fill="#fff">agent 1</text>
+        <rect x="180" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="204" y="85" fill="#fff">agent 2</text>
+        <rect x="332" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="356" y="85" fill="#fff">agent 3</text>
+      </g>
+
+      <g stroke="rgba(255,255,255,0.45)" stroke-width="2" fill="none" marker-end="url(#arN)">
+        <path d="M84,102 L84,130"/>
+        <path d="M236,102 L236,130"/>
+        <path d="M388,102 L388,130"/>
+      </g>
+
+      <rect x="28" y="136" width="416" height="46" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"/>
+      <text x="48" y="164" fill="rgba(255,255,255,0.85)" font-family="ui-monospace, SF Mono, monospace" font-size="14">1. list ready work &nbsp;→&nbsp; [ #014, #021, … ]</text>
+
+      <g stroke="#FB7185" stroke-width="2.5" fill="none" marker-end="url(#arR)">
+        <path d="M84,184 C84,214 200,206 220,226"/>
+        <path d="M236,184 L236,226"/>
+        <path d="M388,184 C388,214 272,206 252,226"/>
+      </g>
+
+      <rect x="120" y="232" width="232" height="46" rx="10" fill="rgba(251,113,133,0.16)" stroke="rgba(251,113,133,0.6)"/>
+      <text x="146" y="260" fill="#fff" font-family="ui-monospace, SF Mono, monospace" font-size="14">2. claim #014 &nbsp;×3</text>
+
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="13.5">
+        <rect x="28" y="308" width="128" height="62" rx="10" fill="rgba(52,211,153,0.10)" stroke="rgba(52,211,153,0.4)"/>
+        <text x="48" y="333" fill="#34D399">exit 0 ✓</text>
+        <text x="48" y="356" fill="#FB7185" font-size="12.5">not the holder</text>
+
+        <rect x="174" y="308" width="128" height="62" rx="10" fill="rgba(52,211,153,0.10)" stroke="rgba(52,211,153,0.4)"/>
+        <text x="194" y="333" fill="#34D399">exit 0 ✓</text>
+        <text x="194" y="356" fill="#fff" font-size="12.5">actual holder</text>
+
+        <rect x="320" y="308" width="128" height="62" rx="10" fill="rgba(52,211,153,0.10)" stroke="rgba(52,211,153,0.4)"/>
+        <text x="340" y="333" fill="#34D399">exit 0 ✓</text>
+        <text x="340" y="356" fill="#FB7185" font-size="12.5">not the holder</text>
+      </g>
+
+      <text x="28" y="404" fill="#FB7185" font-family="-apple-system, Segoe UI, sans-serif" font-size="15" font-weight="650">Everybody got a green light.</text>
+      <text x="28" y="428" fill="rgba(255,255,255,0.72)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14">Two of them now do real work on an item</text>
+      <text x="28" y="449" fill="rgba(255,255,255,0.72)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14">they don&rsquo;t own — and are never told.</text>
+
+      <!-- ============ RIGHT: atomic ============ -->
+      <rect x="522" y="4" width="474" height="462" rx="18" fill="rgba(52,211,153,0.06)" stroke="rgba(52,211,153,0.35)"/>
+      <text x="546" y="38" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700" letter-spacing="1.6">ONE STEP &nbsp;— &nbsp;ATOMIC CLAIM</text>
+
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="14">
+        <rect x="546" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="570" y="85" fill="#fff">agent 1</text>
+        <rect x="698" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="722" y="85" fill="#fff">agent 2</text>
+        <rect x="850" y="58" width="112" height="42" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.22)"/>
+        <text x="874" y="85" fill="#fff">agent 3</text>
+      </g>
+
+      <g stroke="#34D399" stroke-width="2.5" fill="none" marker-end="url(#arG)">
+        <path d="M602,102 C602,150 700,150 736,158"/>
+        <path d="M754,102 L754,158"/>
+        <path d="M906,102 C906,150 808,150 772,158"/>
+      </g>
+
+      <rect x="604" y="164" width="300" height="52" rx="11" fill="rgba(52,211,153,0.16)" stroke="rgba(52,211,153,0.6)"/>
+      <text x="630" y="196" fill="#fff" font-family="ui-monospace, SF Mono, monospace" font-size="14">work_claim(project)  ← the only tool</text>
+
+      <g stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" marker-end="url(#arN)">
+        <path d="M700,218 C660,250 620,262 604,290"/>
+        <path d="M754,218 L754,290"/>
+        <path d="M808,218 C848,250 888,262 904,290"/>
+      </g>
+
+      <g font-family="ui-monospace, SF Mono, monospace" font-size="13.5">
+        <rect x="546" y="296" width="128" height="62" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.20)"/>
+        <text x="560" y="322" fill="rgba(255,255,255,0.85)" font-size="12.5">claimed: null</text>
+        <text x="560" y="344" fill="rgba(255,255,255,0.6)" font-size="12">normal, not error</text>
+
+        <rect x="692" y="296" width="128" height="62" rx="10" fill="rgba(52,211,153,0.16)" stroke="rgba(52,211,153,0.65)"/>
+        <text x="712" y="322" fill="#34D399">claimed: #014</text>
+        <text x="712" y="344" fill="#fff" font-size="12.5">holder</text>
+
+        <rect x="838" y="296" width="128" height="62" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.20)"/>
+        <text x="852" y="322" fill="rgba(255,255,255,0.85)" font-size="12.5">claimed: null</text>
+        <text x="852" y="344" fill="rgba(255,255,255,0.6)" font-size="12">normal, not error</text>
+      </g>
+
+      <text x="546" y="398" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="15" font-weight="650">Exactly one winner, always.</text>
+      <text x="546" y="422" fill="rgba(255,255,255,0.72)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14">The other two are told the truth immediately</text>
+      <text x="546" y="443" fill="rgba(255,255,255,0.72)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14">and go ask again for something else.</text>
+    </svg>
+  </div>
+  <p class="caption">The fix isn&rsquo;t documentation telling agents to be careful. <strong>There is no claim-by-id tool.</strong> The tool surface deliberately makes the broken shape unreachable.</p>
+</div>
+
+<!-- 6 — PROBLEM 1 NUMBERS -->
+<div class="slide">
+  <div class="section-label">Problem 1 &nbsp;·&nbsp; Measured, not theorized</div>
+  <h2 class="medium-headline">Measured under real contention</h2>
+  <p class="body-text">Agents racing for the same item, using the two-step shape. Runs that produced a double-claim, across three batches:</p>
+  <div class="stat-row" style="margin: clamp(8px,2vw,20px) 0 clamp(16px,2.4vw,28px)">
+    <div class="stat"><div class="stat-number bad">5<span style="font-size:.5em;color:var(--text-tertiary)">/6</span></div><div class="stat-label">runs double-claimed</div></div>
+    <div class="stat"><div class="stat-number bad">3<span style="font-size:.5em;color:var(--text-tertiary)">/6</span></div><div class="stat-label">runs double-claimed</div></div>
+    <div class="stat"><div class="stat-number bad">2<span style="font-size:.5em;color:var(--text-tertiary)">/8</span></div><div class="stat-label">runs double-claimed</div></div>
+    <div class="stat"><div class="stat-number good" style="font-size:clamp(24px,4vw,38px);line-height:1.25">clean in<br>every trial</div><div class="stat-label">the single atomic claim</div></div>
+  </div>
+  <div class="split">
+    <div class="card">
+      <h3 class="bad">What &ldquo;double-claimed&rdquo; means</h3>
+      <p>In those runs, <strong>2&ndash;3 agents each got exit code 0</strong> on the same item. Only one was really the holder. The losers get no error &mdash; they go do real work on something they don&rsquo;t own.</p>
+    </div>
+    <div class="card accented">
+      <h3 class="good">Why it can&rsquo;t happen now</h3>
+      <p>One call decides the winner. Everyone else is told plainly there&rsquo;s nothing for them. There is no second step to get wrong, and no id-shaped door to walk through.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 7 — PROBLEM 2: HEARTBEAT -->
+<div class="slide">
+  <div class="section-label">Problem 2 &nbsp;·&nbsp; Long-running sessions</div>
+  <h2 class="medium-headline">Custody is a heartbeat, not a countdown</h2>
+  <div class="figure">
+    <svg viewBox="0 0 1000 400" role="img" aria-label="Two timelines. A twelve-hour hold that keeps renewing stays safe. A fifteen-minute hold that stops renewing is released at the TTL.">
+      <defs>
+        <marker id="arW" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="rgba(255,255,255,0.5)"/></marker>
+      </defs>
+
+      <!-- rule -->
+      <rect x="4" y="4" width="992" height="66" rx="14" fill="rgba(124,107,255,0.12)" stroke="rgba(124,107,255,0.45)"/>
+      <text x="30" y="35" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="17" font-weight="650">Renewed every 120s &nbsp;·&nbsp; released after 900s without a renewal</text>
+      <text x="30" y="58" fill="rgba(255,255,255,0.7)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14.5">The clock never asks how long you&rsquo;ve held it. Only whether you&rsquo;re still alive.</text>
+
+      <!-- TIMELINE A -->
+      <text x="30" y="112" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">A · HOLDING 12 HOURS, IDLE, STILL RENEWING</text>
+      <line x1="30" y1="150" x2="930" y2="150" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <g fill="#34D399">
+        <circle cx="60" cy="150" r="6"/><circle cx="118" cy="150" r="6"/><circle cx="176" cy="150" r="6"/>
+        <circle cx="234" cy="150" r="6"/><circle cx="292" cy="150" r="6"/><circle cx="350" cy="150" r="6"/>
+        <circle cx="408" cy="150" r="6"/><circle cx="466" cy="150" r="6"/><circle cx="524" cy="150" r="6"/>
+        <circle cx="582" cy="150" r="6"/><circle cx="640" cy="150" r="6"/><circle cx="698" cy="150" r="6"/>
+        <circle cx="756" cy="150" r="6"/><circle cx="814" cy="150" r="6"/><circle cx="872" cy="150" r="6"/>
+      </g>
+      <path d="M60,150 L930,150" stroke="#34D399" stroke-width="3" opacity="0.5"/>
+      <text x="60" y="182" fill="rgba(255,255,255,0.6)" font-family="ui-monospace, SF Mono, monospace" font-size="12.5">renew · renew · renew · renew · renew · renew &hellip; every 120s</text>
+      <rect x="700" y="98" width="252" height="36" rx="10" fill="rgba(52,211,153,0.16)" stroke="rgba(52,211,153,0.6)"/>
+      <text x="722" y="122" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="14" font-weight="650">claim never touched ✓</text>
+
+      <!-- TIMELINE B -->
+      <text x="30" y="238" fill="#FB7185" font-family="-apple-system, Segoe UI, sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">B · HELD 15 MINUTES, PROCESS DIED, NO RENEWALS</text>
+      <line x1="30" y1="286" x2="930" y2="286" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <g fill="#34D399">
+        <circle cx="60" cy="286" r="6"/><circle cx="118" cy="286" r="6"/>
+      </g>
+      <path d="M60,286 L146,286" stroke="#34D399" stroke-width="3" opacity="0.5"/>
+      <path d="M146,286 L470,286" stroke="#FB7185" stroke-width="3" stroke-dasharray="8 7"/>
+      <line x1="146" y1="264" x2="146" y2="308" stroke="#FB7185" stroke-width="2"/>
+      <text x="152" y="260" fill="#FB7185" font-family="-apple-system, Segoe UI, sans-serif" font-size="13">last heartbeat</text>
+      <line x1="470" y1="258" x2="470" y2="312" stroke="#FB7185" stroke-width="2.5"/>
+      <circle cx="470" cy="286" r="9" fill="#FB7185"/>
+      <text x="252" y="312" fill="rgba(255,255,255,0.6)" font-family="ui-monospace, SF Mono, monospace" font-size="12.5">silence &hellip; 900s</text>
+      <rect x="490" y="266" width="284" height="40" rx="10" fill="rgba(251,113,133,0.16)" stroke="rgba(251,113,133,0.6)"/>
+      <text x="512" y="292" fill="#FB7185" font-family="-apple-system, Segoe UI, sans-serif" font-size="14" font-weight="650">released back to the queue</text>
+      <path d="M782,286 L860,286" stroke="rgba(255,255,255,0.5)" stroke-width="2" marker-end="url(#arW)"/>
+      <text x="872" y="291" fill="rgba(255,255,255,0.75)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">ready</text>
+
+      <!-- punchline -->
+      <rect x="4" y="344" width="992" height="52" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)"/>
+      <text x="500" y="376" text-anchor="middle" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="19" font-weight="700">Idle never costs you a claim. Being dead does.</text>
+    </svg>
+  </div>
+  <p class="caption">A session that works autonomously for hours and then sits waiting on your answer looks exactly like a healthy session &mdash; because it is one. A session whose process is gone stops renewing, and its work goes back so somebody else can pick it up.</p>
+</div>
+
+<!-- 8 — PROBLEM 3: ROUND TRIP -->
+<div class="slide">
+  <div class="section-label">Problem 3 &nbsp;·&nbsp; The reply that never comes</div>
+  <h2 class="medium-headline">Feedback that finds its way home</h2>
+  <div class="figure">
+    <svg viewBox="0 0 1000 300" role="img" aria-label="A user report becomes a triaged engineering item, the work ships, and the original reporter is notified after a long gap.">
+      <defs>
+        <marker id="arP" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#7C6BFF"/></marker>
+      </defs>
+
+      <g font-family="-apple-system, Segoe UI, sans-serif" font-size="15">
+        <rect x="16" y="70" width="180" height="76" rx="13" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.24)"/>
+        <text x="40" y="102" fill="#fff" font-weight="650">user report</text>
+        <text x="40" y="126" fill="rgba(255,255,255,0.65)" font-size="13.5">&ldquo;export drops rows&rdquo;</text>
+
+        <rect x="256" y="70" width="170" height="76" rx="13" fill="rgba(124,107,255,0.16)" stroke="rgba(124,107,255,0.55)"/>
+        <text x="280" y="102" fill="#fff" font-weight="650">triage</text>
+        <text x="280" y="126" fill="rgba(255,255,255,0.65)" font-size="13.5">linked, not copied</text>
+
+        <rect x="486" y="70" width="184" height="76" rx="13" fill="rgba(124,107,255,0.16)" stroke="rgba(124,107,255,0.55)"/>
+        <text x="510" y="102" fill="#fff" font-weight="650">engineering item</text>
+        <text x="510" y="126" fill="rgba(255,255,255,0.65)" font-size="13.5">claimed, worked</text>
+
+        <rect x="730" y="70" width="254" height="76" rx="13" fill="rgba(52,211,153,0.14)" stroke="rgba(52,211,153,0.55)"/>
+        <text x="754" y="102" fill="#34D399" font-weight="650">ships</text>
+        <text x="754" y="126" fill="rgba(255,255,255,0.7)" font-size="13.5">reporter gets told</text>
+      </g>
+
+      <g stroke="#7C6BFF" stroke-width="2.5" fill="none" marker-end="url(#arP)">
+        <path d="M200,108 L246,108"/>
+        <path d="M430,108 L476,108"/>
+        <path d="M674,108 L720,108"/>
+      </g>
+
+      <!-- time gap -->
+      <path d="M857,152 C857,196 640,196 500,196 C360,196 120,196 108,152"
+            stroke="rgba(255,255,255,0.35)" stroke-width="2" fill="none" stroke-dasharray="9 7" marker-end="url(#arP)"/>
+      <rect x="366" y="176" width="268" height="40" rx="10" fill="rgba(0,0,0,0.9)" stroke="rgba(255,255,255,0.2)"/>
+      <text x="500" y="202" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="-apple-system, Segoe UI, sans-serif" font-size="14.5">months later · a different session</text>
+
+      <text x="500" y="266" text-anchor="middle" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="18" font-weight="650">The report and the fix are the same thread — so the loop can close itself.</text>
+    </svg>
+  </div>
+  <p class="caption">A report and its engineering issue are linked objects, not two notes that happen to say similar things. Nobody has to remember who asked.</p>
+</div>
+
+<!-- 9 — BEADS CREDIT -->
+<div class="slide center">
+  <div class="section-label">Standing on</div>
+  <h2 class="medium-headline">Built on Beads</h2>
+  <p class="subhead wide">Steve Yegge&rsquo;s <strong>Beads</strong> is a git-native issue tracker designed for AI agents. It does the storage and the issue-graph work &mdash; the hard, unglamorous parts that everything here rests on.</p>
+  <div class="split" style="max-width:900px">
+    <div class="card">
+      <h3>Beads brings</h3>
+      <p>Git-native storage and the issue graph &mdash; the hard, unglamorous layer everything here sits on.</p>
+    </div>
+    <div class="card accented">
+      <h3>work-tracker adds</h3>
+      <p>The agent-facing surface: atomic claiming, liveness-based custody, the feedback round trip &mdash; and a tool shape that makes the wrong move unreachable.</p>
+    </div>
+  </div>
+  <p class="small-text" style="margin-top:22px">github.com/gastownhall/beads &nbsp;·&nbsp; thank you, genuinely</p>
+</div>
+
+<!-- 10 — HOW IT WAS PROVEN -->
+<div class="slide">
+  <div class="section-label">How we know it holds up</div>
+  <h2 class="medium-headline">Five cold starts, one generic prompt</h2>
+  <p class="body-text">Each run: a brand-new container with nothing installed &mdash; no <code>bd</code>, no <code>dolt</code>, no CLI, no state &mdash; composing only the bundle. Each run exposed defects. Each was fixed. Raw storage-layer calls, per run:</p>
+  <div class="figure" style="max-width:840px">
+    <svg viewBox="0 0 840 260" role="img" aria-label="Raw storage-layer calls per run: 12, then 6, then 4, then 0, then 0.">
+      <line x1="70" y1="200" x2="810" y2="200" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+
+      <g>
+        <rect x="90" y="40" width="86" height="160" rx="8" fill="rgba(251,113,133,0.55)" stroke="rgba(251,113,133,0.85)"/>
+        <text x="133" y="30" text-anchor="middle" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">12</text>
+        <text x="133" y="226" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">run 1</text>
+      </g>
+      <g>
+        <rect x="238" y="120" width="86" height="80" rx="8" fill="rgba(251,146,60,0.5)" stroke="rgba(251,146,60,0.85)"/>
+        <text x="281" y="110" text-anchor="middle" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">6</text>
+        <text x="281" y="226" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">run 2</text>
+      </g>
+      <g>
+        <rect x="386" y="147" width="86" height="53" rx="8" fill="rgba(251,191,36,0.5)" stroke="rgba(251,191,36,0.85)"/>
+        <text x="429" y="137" text-anchor="middle" fill="#fff" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">4</text>
+        <text x="429" y="226" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">run 3</text>
+      </g>
+      <g>
+        <rect x="534" y="192" width="86" height="8" rx="4" fill="rgba(52,211,153,0.75)"/>
+        <text x="577" y="180" text-anchor="middle" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">0</text>
+        <text x="577" y="226" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">run 4</text>
+      </g>
+      <g>
+        <rect x="682" y="192" width="86" height="8" rx="4" fill="rgba(52,211,153,0.75)"/>
+        <text x="725" y="180" text-anchor="middle" fill="#34D399" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">0</text>
+        <text x="725" y="226" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13.5">run 5</text>
+      </g>
+
+      <text x="70" y="256" fill="rgba(255,255,255,0.5)" font-family="-apple-system, Segoe UI, sans-serif" font-size="13">raw storage-layer calls — the last two runs needed zero</text>
+    </svg>
+  </div>
+  <table class="data-table" style="max-width:840px">
+    <tr><th>&nbsp;</th><th>Run 1</th><th>Run 2</th><th>Run 3</th><th>Run 4</th><th>Run 5</th></tr>
+    <tr><td>Raw storage calls</td><td>12</td><td>6</td><td>4</td><td class="good">0</td><td class="good">0</td></tr>
+    <tr><td>Cost per run</td><td>$3.63</td><td>$1.32</td><td>$1.30</td><td>$0.62</td><td>$0.56</td></tr>
+    <tr><td>Turns</td><td>51</td><td>27</td><td>28</td><td>13</td><td>12</td></tr>
+  </table>
+</div>
+
+<!-- 11 — GETTING STARTED -->
+<div class="slide">
+  <div class="section-label">Try it</div>
+  <h2 class="medium-headline">One line, then just ask</h2>
+  <div class="code-block" style="max-width:900px"><span class="code-comment"># compose the bundle into yours</span>
+amplifier bundle add git+https://github.com/microsoft/amplifier-work-tracker@main --app</div>
+  <p class="body-text" style="margin-top:22px">Then say to a session:</p>
+  <div class="code-block" style="max-width:900px"><span class="code-key">"use work-tracker to set up a project called demo</span>
+<span class="code-key"> and file a task for X, then claim it."</span></div>
+  <p class="body-text" style="margin-top:22px">The session installs whatever it needs and sets itself up. That&rsquo;s the whole onboarding &mdash; it&rsquo;s what those five cold-start containers did, with nothing preinstalled.</p>
+  <ul class="pill-list" style="max-width:70ch">
+    <li>Repo &mdash; github.com/microsoft/amplifier-work-tracker</li>
+    <li>Beads &mdash; github.com/gastownhall/beads</li>
+  </ul>
+</div>
+
+<!-- 12 — SOURCES -->
+<div class="slide">
+  <div class="section-label">Sources</div>
+  <h2 class="medium-headline">Where these numbers came from</h2>
+  <div class="split">
+    <div class="card">
+      <h3>Data as of</h3>
+      <p>August 2026. Feature status: <strong class="good">Active</strong>. Repository: <strong>microsoft/amplifier-work-tracker</strong> (public, main green).</p>
+    </div>
+    <div class="card">
+      <h3>How it was measured</h3>
+      <p>Contention figures come from deliberate races against the two-step claim shape. Cost, turn, and storage-call figures come from five cold-start container runs, each composing only the bundle from one generic prompt.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:var(--gap-grid)">
+    <h3>Stated precisely</h3>
+    <p style="margin-bottom:10px">Every figure in this deck is reported exactly as measured &mdash; nothing rounded for effect, nothing extrapolated:</p>
+    <p>Double-claims: <strong>5-of-6, 3-of-6, 2-of-8</strong> trial runs, with <strong>2&ndash;3 agents each receiving exit code 0</strong>. Atomic claim: clean in every trial. Custody: renewal every <strong>120s</strong> against a <strong>900s</strong> TTL. Storage calls: <strong>12 → 6 → 4 → 0 → 0</strong>. Cost: <strong>$3.63 → $1.32 → $1.30 → $0.62 → $0.56</strong>. Turns: <strong>51 → 27 → 28 → 13 → 12</strong>.</p>
+  </div>
+  <div class="card" style="margin-top:var(--gap-grid)">
+    <h3>Gaps, stated plainly</h3>
+    <p>No commit counts, contributor breakdown, line counts, or adoption numbers are claimed here &mdash; those weren&rsquo;t measured, so they aren&rsquo;t shown. The five cold-start runs measure onboarding from zero; they are not a benchmark of sustained multi-week use.</p>
+  </div>
+</div>
+
+<div class="nav" id="nav"></div>
+<div class="slide-counter" id="counter"></div>
+<div class="hint">← → to navigate</div>
+
+    <a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+    <script>
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+
+function showSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  slides[currentSlide].scrollTop = 0;
+  updateNav();
+}
+
+function updateNav() {
+  const nav = document.getElementById('nav');
+  const counter = document.getElementById('counter');
+  nav.innerHTML = '';
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
+    dot.setAttribute('role', 'button');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.onclick = (e) => { e.stopPropagation(); showSlide(i); };
+    nav.appendChild(dot);
+  });
+  counter.textContent = (currentSlide + 1) + ' / ' + slides.length;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); showSlide(currentSlide + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); showSlide(currentSlide - 1); }
+  if (e.key === 'Home') showSlide(0);
+  if (e.key === 'End') showSlide(slides.length - 1);
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.nav')) return;
+  if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
+  else showSlide(currentSlide - 1);
+});
+
+let touchStartX = 0;
+const SWIPE_THRESHOLD = 50;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > SWIPE_THRESHOLD) {
+    if (diff > 0) showSlide(currentSlide + 1);
+    else showSlide(currentSlide - 1);
+  }
+}, { passive: true });
+
+updateNav();
+</script>
+</body>
+</html>

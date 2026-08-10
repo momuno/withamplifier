@@ -176,6 +176,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260809-ios-tester-announcement.html',
   },
   {
+    id: '20260810-work-tracker-announcement',
+    title: 'amplifier-work-tracker — a shared work queue for coding agents',
+    description: 'A shared work queue your coding-agent sessions pull from. One item, one agent. Nothing done twice, nothing dropped.',
+    category: 'platform',
+    href: '/stories/decks/20260810-work-tracker-announcement.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'AI that found its own way in',
@@ -1500,4 +1507,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-08-10T12:38:26.845Z'
+export const lastSynced = '2026-08-10T18:38:46.797Z'
