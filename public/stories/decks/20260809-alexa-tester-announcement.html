@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>alexa-tester — Amplifier can now build and test Alexa skills</title>
+<style>
+    :root {
+        --accent-color: #5E5CE6;
+        --accent-soft: rgba(94,92,230,0.16);
+
+        --font-headline: clamp(34px, 7vw, 68px);
+        --font-medium-headline: clamp(24px, 5vw, 44px);
+        --font-subhead: clamp(16px, 2.6vw, 26px);
+        --font-body: clamp(14px, 2vw, 17px);
+        --font-small: clamp(12px, 1.6vw, 14px);
+        --font-big-number: clamp(48px, 14vw, 110px);
+
+        --padding-slide: clamp(20px, 5vw, 80px);
+        --gap-grid: clamp(14px, 3vw, 32px);
+
+        --surface-1: rgba(255,255,255,0.06);
+        --surface-2: rgba(255,255,255,0.10);
+        --surface-3: rgba(255,255,255,0.15);
+        --border-subtle: rgba(255,255,255,0.12);
+        --border-visible: rgba(255,255,255,0.20);
+
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255,255,255,0.7);
+        --text-tertiary: rgba(255,255,255,0.5);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+        margin: 0; padding: 0;
+        background: #000;
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        overscroll-behavior: none;
+    }
+
+    .slide {
+        display: none;
+        width: 100vw;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: clamp(56px, 9vw, 110px) var(--padding-slide) clamp(72px, 10vw, 100px);
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .slide.active { display: flex; }
+
+    .center { text-align: center; align-items: center; justify-content: center; }
+
+    @media (max-height: 520px) and (orientation: landscape) {
+        .slide { padding: 16px var(--padding-slide) 60px; }
+        .slide.center { justify-content: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .slide, .slide * { animation: none !important; transition: none !important; }
+    }
+
+    .section-label {
+        font-size: var(--font-small);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent-color);
+        margin-bottom: clamp(10px, 2vw, 18px);
+    }
+
+    .headline {
+        font-size: var(--font-headline);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.08;
+        margin: 0 0 clamp(12px, 2.5vw, 22px) 0;
+        max-width: 980px;
+    }
+
+    .medium-headline {
+        font-size: var(--font-medium-headline);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        margin: 0 0 clamp(16px, 3vw, 28px) 0;
+        max-width: 900px;
+    }
+
+    .subhead {
+        font-size: var(--font-subhead);
+        color: var(--text-secondary);
+        font-weight: 400;
+        line-height: 1.4;
+        max-width: 780px;
+        margin: 0 0 clamp(10px, 2vw, 16px) 0;
+    }
+
+    .body-text {
+        font-size: var(--font-body);
+        color: var(--text-secondary);
+        line-height: 1.65;
+        max-width: 760px;
+    }
+
+    .small-text { font-size: var(--font-small); color: var(--text-tertiary); }
+
+    .badge {
+        display: inline-block;
+        font-size: var(--font-small);
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-color);
+        border: 1px solid rgba(94,92,230,0.4);
+        margin-bottom: clamp(18px, 4vw, 32px);
+    }
+
+    .thirds {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+        gap: var(--gap-grid);
+        width: 100%;
+        max-width: 1100px;
+        margin-top: clamp(16px, 3vw, 28px);
+    }
+
+    .split {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+        gap: var(--gap-grid);
+        width: 100%;
+        max-width: 1100px;
+        margin-top: clamp(16px, 3vw, 28px);
+    }
+
+    .card {
+        background: var(--surface-1);
+        border: 1px solid var(--border-subtle);
+        border-radius: clamp(12px, 2vw, 16px);
+        padding: clamp(18px, 4vw, 30px);
+    }
+    .card h3 {
+        color: var(--text-primary);
+        font-size: clamp(17px, 2.6vw, 21px);
+        margin: 0 0 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .card p { color: var(--text-secondary); font-size: var(--font-body); line-height: 1.55; margin: 0; }
+    .card .tag {
+        display: inline-block;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: var(--accent-color);
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .icon-card { font-size: clamp(28px, 5vw, 40px); line-height: 1; }
+
+    .code-block {
+        background: var(--surface-1);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: clamp(14px, 3vw, 22px) clamp(16px, 4vw, 26px);
+        font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+        font-size: clamp(11px, 1.8vw, 14px);
+        line-height: 1.7;
+        color: #b8f0c8;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
+        width: 100%;
+        max-width: 1000px;
+        margin-top: clamp(14px, 3vw, 22px);
+    }
+    .code-comment { color: rgba(255,255,255,0.4); }
+
+    .quote-box {
+        border-left: 3px solid var(--accent-color);
+        background: var(--surface-1);
+        border-radius: 0 12px 12px 0;
+        padding: clamp(18px, 4vw, 30px) clamp(20px, 4vw, 36px);
+        max-width: 880px;
+        margin-top: clamp(10px, 2vw, 18px);
+    }
+    .quote-box p {
+        font-size: clamp(17px, 3vw, 24px);
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .velocity-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+        gap: var(--gap-grid);
+        width: 100%;
+        max-width: 900px;
+        margin-top: clamp(20px, 4vw, 36px);
+    }
+    .velocity-stat { text-align: center; }
+    .velocity-number {
+        font-size: clamp(40px, 9vw, 72px);
+        font-weight: 700;
+        color: var(--accent-color);
+        line-height: 1;
+    }
+    .velocity-label {
+        font-size: var(--font-small);
+        color: var(--text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 8px;
+    }
+
+    .finding-card {
+        background: var(--surface-2);
+        border: 1px solid var(--border-visible);
+        border-radius: clamp(12px, 2vw, 16px);
+        padding: clamp(18px, 4vw, 28px);
+        display: flex;
+        gap: clamp(14px, 3vw, 20px);
+        align-items: flex-start;
+    }
+    .finding-card .icon-card { flex-shrink: 0; }
+    .finding-card h3 { margin: 0 0 6px 0; font-size: clamp(16px, 2.4vw, 20px); }
+    .finding-card p { margin: 0; color: var(--text-secondary); font-size: var(--font-body); line-height: 1.55; }
+    .finding-card .verdict {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #30D158;
+    }
+
+    .family-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(10px, 2vw, 18px);
+        justify-content: center;
+        max-width: 1000px;
+        margin-top: clamp(20px, 4vw, 34px);
+    }
+    .family-pill {
+        border: 1px solid var(--border-subtle);
+        background: var(--surface-1);
+        border-radius: 999px;
+        padding: clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px);
+        font-size: clamp(13px, 2vw, 16px);
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .family-pill.new {
+        border-color: var(--accent-color);
+        background: var(--accent-soft);
+        color: var(--text-primary);
+        font-weight: 700;
+    }
+    .family-arrow { color: var(--text-tertiary); font-size: clamp(14px, 2vw, 18px); }
+
+    .boundary-col {
+        background: var(--surface-1);
+        border: 1px solid var(--border-subtle);
+        border-radius: clamp(12px, 2vw, 16px);
+        padding: clamp(18px, 4vw, 28px);
+    }
+    .boundary-col h3 {
+        font-size: clamp(15px, 2.2vw, 18px);
+        margin: 0 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .boundary-col.can h3 { color: #30D158; }
+    .boundary-col.cannot h3 { color: #FF9F0A; }
+    .boundary-col ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--text-secondary);
+        font-size: var(--font-body);
+        line-height: 1.7;
+    }
+    .boundary-col li { margin-bottom: 6px; }
+
+    a.link { color: var(--accent-color); text-decoration: none; }
+    a.link:hover { text-decoration: underline; }
+
+    /* Navigation */
+    .nav {
+        position: fixed;
+        bottom: clamp(14px, 2.5vw, 22px);
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 100;
+    }
+    .nav-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.25);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .nav-dot.active { background: var(--accent-color); }
+
+    .slide-counter {
+        position: fixed;
+        bottom: clamp(14px, 2.5vw, 22px);
+        right: clamp(16px, 3vw, 28px);
+        font-size: 12px;
+        color: var(--text-tertiary);
+        font-variant-numeric: tabular-nums;
+        z-index: 100;
+    }
+
+    .repo-tag {
+        font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+        font-size: clamp(12px, 1.8vw, 14px);
+        color: var(--text-tertiary);
+        margin-top: 10px;
+    }
+
+    .more-stories {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: clamp(11px, 1.5vw, 12px);
+        color: rgba(255,255,255,0.3);
+        text-decoration: none;
+        z-index: 100;
+    }
+    .more-stories:hover { color: rgba(255,255,255,0.5); }
+</style>
+    <link rel="stylesheet" href="shared-variables.css">
+    <link rel="stylesheet" href="withamplifier-overrides.css">
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active center">
+    <div class="badge">New Bundle · Active</div>
+    <div class="section-label">Amplifier Ecosystem</div>
+    <h1 class="headline">alexa-tester</h1>
+        <p class="body-text">Amplifier can now build and test Alexa skills — the same discipline that already exists for android, iOS, browser, and terminal, now extended to voice.</p>
+    <p class="small-text" style="margin-top: 28px;">August 9, 2026</p>
+</div>
+
+<!-- Slide 2: The Gap -->
+<div class="slide">
+    <div class="section-label">The Gap</div>
+    <h2 class="headline">Amplifier could test everything except the sound of a voice</h2>
+    <p class="body-text">Every other surface already had a specialist tester — driving the real thing, not just the code behind it.</p>
+    <div class="family-row" style="justify-content: flex-start;">
+        <div class="family-pill">📱 android-tester</div>
+        <div class="family-pill">🍎 ios-tester</div>
+        <div class="family-pill">🌐 browser-tester</div>
+        <div class="family-pill">⌨️ terminal-tester</div>
+        <div class="family-arrow">＋</div>
+        <div class="family-pill new">🔊 voice — nothing, until today</div>
+    </div>
+    <div class="quote-box" style="margin-top: clamp(24px, 5vw, 40px);">
+        <p>You could build an Alexa skill. You just couldn't know it worked — until you said it out loud to a device.</p>
+    </div>
+</div>
+
+<!-- Slide 3: What Now Exists -->
+<div class="slide">
+    <div class="section-label">What Now Exists</div>
+    <h2 class="medium-headline">A tester bundle for Alexa skills — three agents, one tool</h2>
+    <div class="thirds">
+        <div class="card">
+            <h3><span class="icon-card">🎯</span> alexa-operator</h3>
+            <p>Drives your skill end-to-end against a live endpoint — launches it, carries multi-turn dialogs, and confirms the backend actually changed state, not just that the response claimed it did.</p>
+            <div class="tag">Primary</div>
+        </div>
+        <div class="card">
+            <h3><span class="icon-card">🗣️</span> alexa-voice-tester</h3>
+            <p>Judges how it sounds: the "car test" — would a person understand this by ear, with no way to scroll back — plus every documented size and timing limit.</p>
+            <div class="tag">Critique</div>
+        </div>
+        <div class="card">
+            <h3><span class="icon-card">🔍</span> alexa-debugger</h3>
+            <p>Root-causes it when something misbehaves — telling apart a routing gap, a handler bug, a signature failure, and a lost session, which all look identical from outside.</p>
+            <div class="tag">Reasoning</div>
+        </div>
+    </div>
+    <p class="body-text" style="margin-top: clamp(20px, 4vw, 32px);">Underneath all three: <strong style="color:#fff;">alexa_inspector</strong>, a single tool that builds, signs, sends, and validates real Alexa Skill requests and responses — the actual wire boundary, not a hand-built dict passed to a function.</p>
+    <div class="velocity-grid">
+        <div class="velocity-stat">
+            <div class="velocity-number">3</div>
+            <div class="velocity-label">Specialist Agents</div>
+        </div>
+        <div class="velocity-stat">
+            <div class="velocity-number">18</div>
+            <div class="velocity-label">Tool Operations</div>
+        </div>
+        <div class="velocity-stat">
+            <div class="velocity-number">316</div>
+            <div class="velocity-label">Tests</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: The Hard Problem -->
+<div class="slide">
+    <div class="section-label">The Hard Problem</div>
+    <h2 class="medium-headline">Local testing can prove your code wrong. It can never prove your phrases right.</h2>
+    <p class="body-text">You can unit-test a handler all day and still not know: when someone actually says "what's next," does Alexa send it where you expect — or somewhere else entirely?</p>
+    <div class="quote-box">
+        <p>The response envelope is the sensor. Local NLU is an approximation — it can prove your handlers wrong, but it can never prove your utterances right.</p>
+    </div>
+    <p class="body-text" style="margin-top: clamp(20px, 4vw, 32px);">Traditionally, answering that question means a human, a real phrase, and a speaker in the room. This bundle asks Amazon's own routing engine directly — no Echo required — and reports back exactly where the local guess and the real answer agree or disagree.</p>
+</div>
+
+<!-- Slide 5: Proof It Works -->
+<div class="slide">
+    <div class="section-label">Proof It Works</div>
+    <h2 class="medium-headline">It earned its keep on day one</h2>
+    <p class="body-text">Testing a real skill, it found two things that ordinary testing missed — both invisible from the outside, both fixed before they shipped further.</p>
+    <div class="split">
+        <div class="finding-card">
+            <span class="icon-card">🚫</span>
+            <div>
+                <h3>A certification-blocking bug</h3>
+                <p>The endpoint rejected a bad signature with the wrong HTTP status — a defect that would have failed Amazon's certification review.</p>
+                <span class="verdict">Found → Fixed</span>
+            </div>
+        </div>
+        <div class="finding-card">
+            <span class="icon-card">⚠️</span>
+            <div>
+                <h3>A phrase pointed at the wrong action</h3>
+                <p>A phrase that was meant to be harmless quietly triggered a destructive action instead — the exact kind of routing mismatch local testing cannot see.</p>
+                <span class="verdict">Found → Fixed</span>
+            </div>
+        </div>
+    </div>
+    <p class="small-text" style="margin-top: clamp(22px, 4vw, 34px);">Neither was visible from ordinary testing.</p>
+</div>
+
+<!-- Slide 6: The Honest Boundary -->
+<div class="slide">
+    <div class="section-label">The Honest Boundary</div>
+    <h2 class="medium-headline">It verifies routing and behavior — not the experience of a voice in a room</h2>
+    <p class="body-text">The whole thesis of this bundle is not overclaiming. Here's exactly where the line sits.</p>
+    <div class="split">
+        <div class="boundary-col can">
+            <h3>✅ Proven</h3>
+            <ul>
+                <li>Real request/response envelope conformance</li>
+                <li>Signature and every documented response limit</li>
+                <li>Session continuity across multi-turn dialogs</li>
+                <li>Whether Alexa's real routing agrees with your model — asked directly, no device</li>
+            </ul>
+        </div>
+        <div class="boundary-col cannot">
+            <h3>🔶 Not Proven</h3>
+            <ul>
+                <li>The end-to-end spoken experience on a physical device</li>
+                <li>Device-only behavior: reprompt timing, timers, proactive events</li>
+                <li>Granted permissions and real hardware quirks</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Try It -->
+<div class="slide">
+    <div class="section-label">Try It</div>
+    <h2 class="medium-headline">Get started</h2>
+    <div class="code-block"><span class="code-comment"># Add it as an app bundle</span>
+amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-alexa-tester@main#subdirectory=behaviors/alexa-tester.yaml --app</div>
+    <p class="body-text" style="margin-top: clamp(20px, 4vw, 32px);">Start with <strong style="color:#fff;">README.md</strong>, then <strong style="color:#fff;">docs/ADDING-ALEXA-TO-YOUR-APP.md</strong> if you want to give an existing app a voice.</p>
+    <p class="repo-tag">github.com/microsoft/amplifier-bundle-alexa-tester</p>
+    <p class="small-text" style="margin-top: 6px;">Now listed in docs/MODULES.md.</p>
+</div>
+
+<!-- Slide 8: The Family -->
+<div class="slide center">
+    <div class="section-label">The Through-Line</div>
+    <h2 class="medium-headline">Every surface, covered</h2>
+    <div class="family-row">
+        <div class="family-pill">📱 android</div>
+        <div class="family-arrow">·</div>
+        <div class="family-pill">🍎 ios</div>
+        <div class="family-arrow">·</div>
+        <div class="family-pill">🌐 browser</div>
+        <div class="family-arrow">·</div>
+        <div class="family-pill">⌨️ terminal</div>
+        <div class="family-arrow">·</div>
+        <div class="family-pill new">🔊 voice</div>
+    </div>
+    <p class="body-text" style="margin-top: clamp(24px, 5vw, 40px); text-align:center;">and Amplifier's testers cover screens, terminals, and voice alike.</p>
+</div>
+
+<!-- Navigation -->
+<div class="nav" id="nav"></div>
+<div class="slide-counter" id="counter"></div>
+
+
+<!-- More stories link - REQUIRED -->
+<a href="/stories" class="more-stories">More Amplifier Stories</a>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        updateNav();
+    }
+
+    function updateNav() {
+        const nav = document.getElementById('nav');
+        const counter = document.getElementById('counter');
+        nav.innerHTML = '';
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
+            dot.onclick = () => showSlide(i);
+            nav.appendChild(dot);
+        });
+        counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') showSlide(currentSlide + 1);
+        if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.nav')) return;
+        if (e.target.closest('a.link')) return;
+        if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
+        else showSlide(currentSlide - 1);
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const SWIPE_THRESHOLD = 50;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+            if (diff > 0) showSlide(currentSlide + 1);
+            else showSlide(currentSlide - 1);
+        }
+    }, { passive: true });
+
+    updateNav();
+</script>
+</body>
+</html>

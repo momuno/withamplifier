@@ -155,6 +155,27 @@ export const decks: Deck[] = [
     href: '/stories/decks/20260731-simulated-user-research.html',
   },
   {
+    id: '20260809-alexa-tester-announcement',
+    title: 'alexa-tester — Amplifier can now build and test Alexa skills',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260809-alexa-tester-announcement.html',
+  },
+  {
+    id: '20260809-android-tester-announcement',
+    title: 'android-tester — agents that actually see the emulator screen',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260809-android-tester-announcement.html',
+  },
+  {
+    id: '20260809-ios-tester-announcement',
+    title: 'ios-tester — the iOS counterpart to android-tester',
+    description: '',
+    category: 'platform',
+    href: '/stories/decks/20260809-ios-tester-announcement.html',
+  },
+  {
     id: '400-tabs-to-100',
     title: '400 Tabs to 100: How Amplifier Manages Your Browser',
     description: 'AI that found its own way in',
@@ -1479,4 +1500,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-08-09T18:20:42.076Z'
+export const lastSynced = '2026-08-10T00:45:09.787Z'
