@@ -442,6 +442,13 @@ export const decks: Deck[] = [
     href: '/stories/decks/attractor-nlspec-deck.html',
   },
   {
+    id: 'attractor-story',
+    title: 'The graph is the workflow &mdash; a field report on convergence pipelines',
+    description: 'How we stopped writing recipes with a convergence tool: corrective back-edges, evidence gates, a pipeline pointed at its own repository, and the scars that produced each rule.',
+    category: 'platform',
+    href: '/stories/decks/attractor-story.html',
+  },
+  {
     id: 'azure-zap-story',
     title: 'Fail Closed — Azure ZAP',
     description: 'A safety-gated pipeline for Azure deployment',
@@ -1507,4 +1514,4 @@ export const decks: Deck[] = [
   }
 ]
 
-export const lastSynced = '2026-08-18T18:17:57.271Z'
+export const lastSynced = '2026-08-19T00:29:42.252Z'
