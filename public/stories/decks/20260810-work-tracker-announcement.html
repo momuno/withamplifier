@@ -299,8 +299,6 @@ strong { color: var(--text-primary); font-weight: 650; }
 }
 @media (max-width: 640px) { .hint { display: none; } }
 </style>
-    <link rel="stylesheet" href="shared-variables.css">
-    <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
 
@@ -772,9 +770,7 @@ amplifier bundle add git+https://github.com/microsoft/amplifier-work-tracker@mai
 <div class="slide-counter" id="counter"></div>
 <div class="hint">← → to navigate</div>
 
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
-    <script>
+<script>
 const slides = document.querySelectorAll('.slide');
 let currentSlide = 0;
 
