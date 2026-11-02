@@ -367,8 +367,6 @@ ul.clean li::marker { color: var(--accent); }
     .slide, .slide *, .nav-dot { animation: none !important; transition: none !important; }
 }
 </style>
-    <link rel="stylesheet" href="shared-variables.css">
-    <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
 
@@ -779,9 +777,7 @@ ul.clean li::marker { color: var(--accent); }
 <div class="slide-counter" id="counter"></div>
 <div class="hint">← → to navigate · S for scroll view</div>
 
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
-
-    <script>
+<script>
 (function () {
     var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
     var nav = document.getElementById('nav');
