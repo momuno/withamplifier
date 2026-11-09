@@ -3,537 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Amplifier SDK - Building Just Got Easier</title>
+    <title>Seven Lines</title>
+    <script>document.documentElement.classList.add('js')</script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --accent: #0A84FF;
-            --accent-glow: rgba(10, 132, 255, 0.3);
-            --bg: #000;
-            --text: #fff;
-            --text-dim: rgba(255,255,255,0.6);
-            --card-bg: rgba(255,255,255,0.05);
-            --card-border: rgba(255,255,255,0.1);
-            
-            --font-headline: clamp(36px, 8vw, 72px);
-            --font-medium-headline: clamp(28px, 5vw, 48px);
-            --font-subhead: clamp(18px, 3vw, 28px);
-            --font-body: clamp(14px, 2vw, 18px);
-            --font-small: clamp(12px, 1.5vw, 14px);
-            --font-big-number: clamp(48px, 12vw, 120px);
-            
-            --padding-slide: clamp(20px, 5vw, 80px);
-            --gap-grid: clamp(16px, 3vw, 32px);
+            --bg: #0a0e14;
+            --bg2: #10151f;
+            --fg: #f2f5f9;
+            --muted: #aeb7c4;
+            --accent: #5ec8ff;
+            --accent2: #7ef0c0;
+            --line: rgba(255,255,255,0.10);
+            --card: rgba(255,255,255,0.045);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        html, body {
             background: var(--bg);
-            color: var(--text);
-            overflow: hidden;
-            overscroll-behavior: none;
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         .slide {
-            display: none;
+            display: flex;
             width: 100vw;
             min-height: 100vh;
             min-height: 100dvh;
-            padding: clamp(60px, 10vw, 120px) var(--padding-slide) clamp(80px, 12vw, 100px);
+            padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(80px, 12vw, 100px);
             flex-direction: column;
+            justify-content: flex-start;
             overflow-y: auto;
             overflow-x: hidden;
+            background:
+                radial-gradient(1100px 600px at 78% -8%, rgba(94,200,255,0.10), transparent 60%),
+                radial-gradient(900px 520px at 12% 108%, rgba(126,240,192,0.07), transparent 60%),
+                var(--bg);
         }
 
-        .slide.active {
-            display: flex;
+        .slide.active { display: flex; }
+
+        /* No-JS fallback: all slides visible + scrollable */
+        html:not(.js) .slide {
+            display: flex !important;
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            transform: none !important;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
-        .slide.center {
+        /* JS-only slide mode */
+        html.js { overflow: hidden; }
+        html.js body { overflow: hidden; overscroll-behavior: none; }
+        html.js .slide { display: none; }
+        html.js .slide.active { display: flex; }
+        /* Fit-safe: cap slides to viewport and scroll if needed */
+        html.js .slide { max-height: 100dvh; overflow-y: auto; }
+
+        html.js .slide {
+            transition: transform 0.5s cubic-bezier(0.22,0.61,0.36,1), opacity 0.5s ease;
+        }
+
+        .center {
             text-align: center;
             align-items: center;
             justify-content: center;
         }
 
+        /* Conservative type scale */
+        h1 { font-size: clamp(32px, 7vw, 76px); line-height: 1.06; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(22px, 4vw, 40px); line-height: 1.14; max-width: 24ch; letter-spacing: -0.01em; }
+        p, li { font-size: clamp(14px, 1.9vw, 19px); line-height: 1.45; color: var(--muted); }
+        .title-slide h1 { font-size: clamp(40px, 10vw, 104px); }
+        .subtitle { font-size: clamp(16px, 2.4vw, 24px); color: var(--muted); margin-top: clamp(14px,2vw,22px); max-width: 30ch; }
+
         .section-label {
-            font-size: var(--font-small);
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-
-        .headline {
-            font-size: var(--font-headline);
+            letter-spacing: 0.22em;
+            font-size: clamp(11px, 1.4vw, 13px);
             font-weight: 700;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 24px;
-        }
-
-        .medium-headline {
-            font-size: var(--font-medium-headline);
-            font-weight: 600;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .subhead {
-            font-size: var(--font-subhead);
-            color: var(--text-dim);
-            max-width: 700px;
-            line-height: 1.5;
-        }
-
-        .body-text {
-            font-size: var(--font-body);
-            color: var(--text-dim);
-            line-height: 1.6;
-        }
-
-        .small-text {
-            font-size: var(--font-small);
-            color: var(--text-dim);
-            margin-top: 24px;
-        }
-
-        .thirds {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: var(--gap-grid);
-            margin-top: 32px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .halves {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-            gap: var(--gap-grid);
-            margin-top: 32px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: clamp(20px, 4vw, 32px);
-        }
-
-        .card-title {
-            font-size: clamp(18px, 2.5vw, 22px);
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        .card-desc {
-            font-size: var(--font-body);
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        .card-icon {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .accent-text {
             color: var(--accent);
+            margin-bottom: clamp(14px, 2vw, 22px);
         }
 
-        .quote-block {
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.1) 0%, rgba(10, 132, 255, 0.05) 100%);
-            border-left: 4px solid var(--accent);
-            border-radius: 0 16px 16px 0;
-            padding: clamp(20px, 4vw, 32px);
-            margin: 32px 0;
-            max-width: 900px;
+        h1, h2 { color: var(--fg); }
+        .body { margin-top: clamp(14px, 2vw, 20px); max-width: 46ch; }
+        .handoff {
+            margin-top: clamp(18px, 2.6vw, 26px);
+            color: var(--accent2);
+            font-size: clamp(13px, 1.7vw, 17px);
+            max-width: 46ch;
+        }
+        .body + .body { margin-top: 0.7em; }
+
+        .accent { color: var(--accent); }
+        .mono { font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
+
+        /* Title slide extras */
+        .title-slide .kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: clamp(11px, 1.5vw, 14px);
+            color: var(--accent);
+            margin-bottom: clamp(18px, 3vw, 30px);
+            font-weight: 700;
+        }
+        .title-slide .stamp {
+            margin-top: clamp(24px, 4vw, 40px);
+            font-size: clamp(12px, 1.6vw, 15px);
+            color: var(--muted);
+            letter-spacing: 0.04em;
         }
 
-        .quote-text {
-            font-size: clamp(16px, 2.5vw, 22px);
-            font-style: italic;
-            line-height: 1.6;
-            color: var(--text);
+        /* Split layout */
+        .slide.split { flex-direction: column; }
+        @media (min-width: 880px) and (min-height: 480px) {
+            .slide.split {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(32px, 5vw, 84px);
+            }
+            html.js .slide.split.active { display: flex; }
+            .slide.split > .col-main  { flex: 1 1 0; min-width: 0; max-width: 48%; }
+            .slide.split > .col-aside { flex: 1 1 0; min-width: 0; max-width: 52%; }
+            .slide.split .col-aside > * { margin-top: 0; }
+            .slide.split .col-aside .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
         }
+        .col-main > *:first-child, .col-aside > *:first-child { margin-top: 0; }
 
-        .code-block {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: clamp(16px, 3vw, 24px);
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: clamp(13px, 1.8vw, 16px);
-            line-height: 1.7;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
-            margin-top: 24px;
-            max-width: 900px;
+        /* Stat grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(12px, 1.6vw, 18px);
             width: 100%;
         }
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(16px, 2.2vw, 26px);
+        }
+        .stat-value {
+            font-size: clamp(30px, 5vw, 52px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+        }
+        .stat-value .unit { font-size: 0.5em; color: var(--muted); font-weight: 600; }
+        .stat-label {
+            margin-top: 8px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--muted);
+            line-height: 1.35;
+        }
 
-        .code-block .keyword { color: #FF79C6; }
-        .code-block .string { color: #F1FA8C; }
-        .code-block .comment { color: #6272A4; }
-        .code-block .function { color: #50FA7B; }
-        .code-block .type { color: #8BE9FD; }
-
-        /* Architecture Diagram */
-        .arch-container {
+        /* Steps / rules list */
+        .steps { list-style: none; display: flex; flex-direction: column; gap: clamp(10px,1.4vw,16px); width: 100%; }
+        .steps li {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            margin-top: 40px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .arch-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            gap: 14px;
+            align-items: flex-start;
+            background: var(--card);
+            border: 1px solid var(--line);
             border-radius: 12px;
-            padding: 20px;
-            width: 100%;
-            text-align: center;
-            position: relative;
+            padding: clamp(12px,1.6vw,18px);
+            color: var(--fg);
         }
-
-        .arch-box.highlight {
-            border-color: var(--accent);
-            background: rgba(10, 132, 255, 0.1);
-        }
-
-        .arch-title {
-            font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .arch-desc {
+        .steps li .n {
+            flex: 0 0 auto;
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: rgba(94,200,255,0.15);
+            color: var(--accent);
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
             font-size: 14px;
-            color: var(--text-dim);
+        }
+        .steps li .t { font-size: clamp(13px,1.7vw,17px); line-height: 1.4; }
+        .steps li .t b { color: var(--fg); }
+        .steps li .t span { color: var(--muted); }
+
+        /* Code block */
+        .code-block {
+            background: #05080d;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: clamp(16px, 2vw, 26px);
+            width: 100%;
+            font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+            font-size: clamp(11px, 1.5vw, 15px);
+            line-height: 1.6;
+            color: #d7e3f0;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .code-block .c { color: #6f8296; }
+        .code-block .k { color: var(--accent); }
+        .code-block .s { color: var(--accent2); }
+        .code-cap {
+            font-size: clamp(11px,1.4vw,13px);
+            color: var(--muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
         }
 
-        .arch-arrow {
-            color: var(--text-dim);
-            font-size: 24px;
+        .badge {
+            display: inline-block;
+            border: 1px solid rgba(126,240,192,0.4);
+            color: var(--accent2);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-size: clamp(11px,1.4vw,13px);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin-bottom: clamp(14px,2vw,20px);
         }
+
+        /* Sources slide */
+        .sources-body { max-width: 60ch; }
+        .sources-body p { margin-top: 10px; color: var(--muted); }
+        .sources-body ul { margin: 10px 0 0 18px; }
+        .sources-body li { margin-top: 7px; color: var(--muted); }
+        .sources-body code {
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            background: rgba(255,255,255,0.06);
+            border-radius: 5px;
+            padding: 1px 6px;
+            font-size: 0.88em;
+            color: #cfe6ff;
+        }
+        .sources-body strong { color: var(--fg); }
 
         /* Navigation */
         .nav {
             position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 26px;
+            right: 30px;
             display: flex;
-            gap: 8px;
+            gap: 9px;
             z-index: 100;
         }
-
         .nav-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px; height: 9px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.22);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.25s, transform 0.25s;
         }
-
-        .nav-dot:hover {
-            background: rgba(255,255,255,0.5);
-        }
-
-        .nav-dot.active {
-            background: var(--accent);
-            box-shadow: 0 0 12px var(--accent-glow);
-        }
-
+        .nav-dot.active { background: var(--accent); transform: scale(1.35); }
         .slide-counter {
             position: fixed;
             bottom: 24px;
-            right: 24px;
-            font-size: 14px;
-            color: var(--text-dim);
+            left: 30px;
+            font-size: clamp(11px,1.5vw,13px);
+            color: var(--muted);
+            letter-spacing: 0.1em;
             z-index: 100;
         }
 
-        /* CTA Links */
-        .cta-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 32px;
-            justify-content: center;
-        }
-
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 32px;
-            background: var(--accent);
-            color: #fff;
+        .more-stories {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(11px, 1.5vw, 12px);
+            color: rgba(255,255,255,0.3);
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: var(--font-body);
-            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 100;
+        }
+        .more-stories:hover { color: rgba(255,255,255,0.5); }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { padding: 16px clamp(20px, 5vw, 80px) 60px; }
+            .slide.center { justify-content: flex-start; }
         }
 
-        .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--accent-glow);
-        }
-
-        .cta-link.secondary {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-        }
-
-        @media (max-width: 768px) {
-            .headline { font-size: 40px; }
-            .medium-headline { font-size: 32px; }
+        @media (prefers-reduced-motion: reduce) {
+            .slide, .slide * { animation: none !important; transition: none !important; }
         }
     </style>
-    <link rel="stylesheet" href="shared-variables.css">
-    <link rel="stylesheet" href="withamplifier-overrides.css">
 </head>
 <body>
-    <!-- Slide 1: Title -->
-    <div class="slide active center">
-        <div class="section-label">Announcement</div>
-        <h1 class="headline">Amplifier SDK</h1>
-        <p class="subhead">Building on Amplifier just got a whole lot easier.<br>TypeScript & Python.</p>
-        <div class="small-text">January 2026</div>
+<!--
+SPINE
+ABT: AND Amplifier's runtime behavior is exposed as a stable, versioned JSONL event stream any host can build on (the same normalized UIEvent surface the TUI renders); BUT consuming that raw stream by hand is protocol archaeology (re-parsing JSON, re-checking the schema version, guarding sequence drift, and rebuilding typed records and error modes yourself); THEREFORE the Amplifier SDK hands you the same runtime power as ~7 lines of idiomatic, fully-typed code, in TypeScript or Python, over that one shared behavior surface.
+Payoff: The quickstart -- ~7 non-blank lines of fully-typed, dependency-free code streams typed events and runs a turn, in either language, while the SDK does the protocol archaeology for you.
+Beats:
+  beat 1 (frame):     Amplifier's runtime speaks one versioned JSONL stream -- the same UIEvent surface the TUI renders -- and now anyone can build on it.  advances: orients the audience on the AND -- one shared, stable behavior surface worth building on, and sets up why an SDK matters.
+  beat 2 (proof):     A Python and a TypeScript client landed together in one commit (5aa358d, 2026-07-20, +859 lines across 10 files) -- shipped v0.1.0.  advances: establishes the AND with hard evidence early -- the parallel typed clients exist and shipped, so the promise is concrete.
+  beat 3 (tension):   Consuming the raw stream by hand is protocol archaeology -- re-parse JSON, re-check the schema version, guard sequence drift, rebuild typed records and errors yourself.  advances: establishes the BUT -- the raw surface is powerful but hostile to use directly.
+  beat 4 (setup):     The SDK wraps ONE shared surface: the runtime's normalized UIEvent queue, serialized as versioned JSONL -- the same records the TUI and CI consume.  advances: names the behavior surface the whole argument leans on -- bridges AND to THEREFORE.
+  beat 5 (mechanism): It's a subprocess bridge: one CLI process per run, prompt over stdin, versioned JSONL over stdout as the only API surface -- no duplicated runtime logic.  advances: shows HOW the SDK reaches the surface without reinventing it.
+  beat 6 (mechanism): The client does the archaeology for you: validates schema_version==1, enforces monotonic sequence numbers, raises typed errors.  advances: shows HOW the SDK dissolves the BUT -- a validated, typed contract the caller can trust.
+  beat 7 (payoff):    The result: ~7 non-blank lines of fully-typed, zero-runtime-dependency code stream typed records and run a turn -- identically in Python or TypeScript.  advances: lands the THEREFORE as the climax.
+  beat 8 (takeaway):  One versioned behavior surface, two idiomatic clients, zero dependencies -- the TUI, CI, and your app build on the same runtime, no protocol archaeology required.  advances: generalizes the throughline -- a shared surface plus thin typed clients as the reusable win.
+-->
+
+    <!-- Title cover -->
+    <div class="slide title-slide active center">
+        <p class="kicker">Amplifier SDK</p>
+        <h1>Seven Lines</h1>
+        <p class="subtitle">A typed client for Amplifier's runtime stream</p>
+        <p class="stamp">amplifier-app-newtui &middot; sdk/python + sdk/typescript &middot; v0.1.0</p>
     </div>
 
-    <!-- Slide 2: The Problem -->
-    <div class="slide center">
-        <div class="section-label">The Problem</div>
-        <h2 class="headline">Raw APIs Are Nobody's Friend</h2>
-        
-        <p class="subhead" style="margin-bottom: 40px;">
-            We've all been there. You want to build an app, but you end up wrestling with plumbing.
-        </p>
+    <!-- Beat 1 -->
+    <div class="slide split">
+        <!-- beat 1: frame -->
+        <div class="col-main">
+            <div class="section-label">The surface</div>
+            <h2>Amplifier's runtime speaks one versioned JSONL stream anyone can build on</h2>
+            <p class="body">The <b class="accent">amplifier-app-newtui</b> repo &mdash; a full-screen Textual TUI for the Amplifier platform, built on amplifier-core and amplifier-foundation &mdash; serializes its normalized UIEvent queue as JSONL. The same surface the TUI renders is now a stable stream any host can consume.</p>
+            <p class="handoff">And it just gained a first-class client &rarr;</p>
+        </div>
+        <div class="col-aside">
+            <ul class="steps">
+                <li><span class="n">1</span><span class="t"><b>session.started</b> <span>&mdash; the run begins</span></span></li>
+                <li><span class="n">2</span><span class="t"><b>runtime.event</b> <span>&mdash; a typed UIEvent with a <span class="mono">kind</span></span></span></li>
+                <li><span class="n">3</span><span class="t"><b>turn.completed</b> <span>&mdash; the terminal result</span></span></li>
+                <li><span class="n">4</span><span class="t"><b>error</b> <span>&mdash; a structured failure record</span></span></li>
+            </ul>
+        </div>
+    </div>
 
-        <div class="thirds">
-            <div class="card">
-                <div class="card-icon">🤯</div>
-                <div class="card-title">Type Chaos</div>
-                <div class="card-desc">No IntelliSense, no autocomplete. Just string soup and crossed fingers.</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌊</div>
-                <div class="card-title">Streaming Headaches</div>
-                <div class="card-desc">SSE parsing, connection management, and error recovery—all on you.</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">🧩</div>
-                <div class="card-title">Protocol Complexity</div>
-                <div class="card-desc">Session lifecycle, event types, approval flows. Learn it all from scratch.</div>
+    <!-- Beat 2 -->
+    <div class="slide split">
+        <!-- beat 2: proof -->
+        <div class="col-main">
+            <span class="badge">SHIPPED &middot; v0.1.0</span>
+            <div class="section-label">The proof</div>
+            <h2>Two idiomatic clients landed together in a single commit</h2>
+            <p class="body">On 2026-07-20, Michael J. Jabbour committed <b class="accent mono">5aa358d</b>, "Implement priority-zero TUI hardening and SDKs" &mdash; the Python and TypeScript SDKs added side by side. The promise is concrete, not aspirational.</p>
+            <p class="handoff">So why build a client at all? &rarr;</p>
+        </div>
+        <div class="col-aside">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-value mono">5aa358d</div>
+                    <div class="stat-label">Single commit, both SDKs</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">+859</div>
+                    <div class="stat-label">Insertions across 10 sdk/ files</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Parallel clients: Python &amp; TypeScript</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0.1.0</div>
+                    <div class="stat-label">Declared version, both packages</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 3: The Solution -->
-    <div class="slide center">
-        <div class="section-label">The Solution</div>
-        <h2 class="headline">Meet the Amplifier SDK</h2>
-        <p class="subhead">Idiomatic, fully-typed client libraries that feel like home.</p>
-
-        <div class="halves">
-            <div class="card" style="border-color: var(--accent); background: rgba(10, 132, 255, 0.08);">
-                <div class="card-title accent-text">Type Safety</div>
-                <div class="card-desc">Full types. Your IDE knows what <code>event.type</code> can be. Bugs caught at compile time.</div>
-            </div>
-            <div class="card">
-                <div class="card-title">Streaming Built-In</div>
-                <div class="card-desc">Async iterators make streaming feel natural. No manual SSE parsing.</div>
-            </div>
-            <div class="card">
-                <div class="card-title">Ergonomic APIs</div>
-                <div class="card-desc">Python gets <code>async with</code>. TypeScript gets Promises. The SDK speaks your language.</div>
-            </div>
-            <div class="card">
-                <div class="card-title">Session Management</div>
-                <div class="card-desc">Create, prompt, clean up. The SDK handles the lifecycle for you.</div>
-            </div>
+    <!-- Beat 3 -->
+    <div class="slide split">
+        <!-- beat 3: tension -->
+        <div class="col-main">
+            <div class="section-label">The complication</div>
+            <h2>Consuming the raw stream by hand is protocol archaeology</h2>
+            <p class="body">The stream is powerful but hostile to use directly. Without a client you re-parse JSON lines, re-check the schema version, guard against sequence drift, and rebuild every typed record and error mode yourself.</p>
+            <p class="handoff">The SDK exists to remove exactly this &rarr;</p>
+        </div>
+        <div class="col-aside">
+            <ul class="steps">
+                <li><span class="n">1</span><span class="t"><b>Re-parse JSON</b> <span>on every line by hand</span></span></li>
+                <li><span class="n">2</span><span class="t"><b>Re-check the schema version</b> <span>on each record</span></span></li>
+                <li><span class="n">3</span><span class="t"><b>Guard sequence drift</b> <span>&mdash; are records in order?</span></span></li>
+                <li><span class="n">4</span><span class="t"><b>Rebuild typed records &amp; errors</b> <span>yourself</span></span></li>
+            </ul>
         </div>
     </div>
 
-    <!-- Slide 4: TypeScript Example -->
-    <div class="slide center">
-        <div class="section-label">TypeScript</div>
-        <h2 class="medium-headline">It Just Works</h2>
+    <!-- Beat 4 -->
+    <div class="slide split">
+        <!-- beat 4: setup -->
+        <div class="col-main">
+            <div class="section-label">One shared surface</div>
+            <h2>The SDK wraps the runtime's normalized UIEvent queue &mdash; nothing more</h2>
+            <p class="body">Per <span class="mono">kernel/jsonl.py</span>, the wire envelope "only adds a stable, sequenced wire envelope around those events; it never reconstructs events or reaches into amplifier-core." The TUI, CI, and SDK therefore share one runtime behavior surface.</p>
+            <p class="handoff">Here's how the SDK reaches it &rarr;</p>
+        </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="c"># kernel/jsonl.py &mdash; schema_version 1</span>
+<span class="k">SCHEMA_VERSION</span> = <span class="s">1</span>
 
-        <div class="code-block" style="text-align: left;"><pre><code><span class="keyword">import</span> { <span class="type">AmplifierClient</span> } <span class="keyword">from</span> <span class="string">"amplifier-sdk"</span>;
-
-<span class="keyword">const</span> client = <span class="keyword">new</span> <span class="function">AmplifierClient</span>();
-
-<span class="comment">// Create a session</span>
-<span class="keyword">const</span> session = <span class="keyword">await</span> client.<span class="function">createSession</span>({ bundle: <span class="string">"foundation"</span> });
-
-<span class="comment">// Stream a response</span>
-<span class="keyword">for await</span> (<span class="keyword">const</span> event <span class="keyword">of</span> client.<span class="function">prompt</span>(session.id, <span class="string">"Write a haiku about coding"</span>)) {
-  <span class="keyword">if</span> (event.type === <span class="string">"content.delta"</span>) {
-    process.stdout.<span class="function">write</span>(event.data.delta <span class="keyword">as</span> <span class="type">string</span>);
-  }
-}
-
-<span class="comment">// Clean up</span>
-<span class="keyword">await</span> client.<span class="function">deleteSession</span>(session.id);</code></pre></div>
-    </div>
-
-    <!-- Slide 5: Python Example -->
-    <div class="slide center">
-        <div class="section-label">Python</div>
-        <h2 class="medium-headline">Feels Like Home</h2>
-
-        <div class="code-block" style="text-align: left;"><pre><code><span class="keyword">import</span> asyncio
-<span class="keyword">from</span> amplifier_sdk <span class="keyword">import</span> <span class="type">AmplifierClient</span>
-
-<span class="keyword">async def</span> <span class="function">main</span>():
-    <span class="keyword">async with</span> <span class="function">AmplifierClient</span>() <span class="keyword">as</span> client:
-        <span class="comment"># Create a session</span>
-        session = <span class="keyword">await</span> client.<span class="function">create_session</span>(bundle=<span class="string">"foundation"</span>)
-        
-        <span class="comment"># Stream a response</span>
-        <span class="keyword">async for</span> event <span class="keyword">in</span> client.<span class="function">prompt</span>(session.id, <span class="string">"Write a haiku"</span>):
-            <span class="keyword">if</span> event.type == <span class="string">"content.delta"</span>:
-                <span class="function">print</span>(event.data.get(<span class="string">"delta"</span>, <span class="string">""</span>), end=<span class="string">""</span>, flush=<span class="type">True</span>)
-        
-        <span class="comment"># Clean up handled automatically by context manager</span>
-
-asyncio.<span class="function">run</span>(<span class="function">main</span>())</code></pre></div>
-    </div>
-
-    <!-- Slide 6: Architecture -->
-    <div class="slide center">
-        <div class="section-label">Architecture</div>
-        <h2 class="medium-headline">Clean Separation</h2>
-        <p class="subhead">The SDK sits between your app and the runtime, handling the protocol details.</p>
-
-        <div class="arch-container">
-            <div class="arch-box">
-                <div class="arch-title">Your Application</div>
-                <div class="arch-desc">Chat apps, automation tools, custom integrations</div>
-            </div>
-            
-            <div class="arch-arrow">↓</div>
-            
-            <div class="arch-box highlight">
-                <div class="arch-title">Amplifier SDK</div>
-                <div class="arch-desc">Type-safe methods, Streaming abstraction, Lifecycle management</div>
-            </div>
-            
-            <div class="arch-arrow">↓</div>
-            
-            <div class="arch-box">
-                <div class="arch-title">amplifier-app-runtime</div>
-                <div class="arch-desc">REST API + SSE, Protocol handling (localhost:4096)</div>
-            </div>
+<span class="c"># the four record types on the wire</span>
+session.started
+runtime.event   <span class="c"># event: UIEvent</span>
+turn.completed
+error</div>
         </div>
     </div>
 
-    <!-- Slide 7: Patterns -->
-    <div class="slide center">
-        <div class="section-label">Patterns</div>
-        <h2 class="medium-headline">Real-World Usage</h2>
-
-        <div class="halves" style="text-align: left;">
-            <div>
-                <h3 class="card-title">One-Shot Execution</h3>
-                <div class="code-block" style="margin-top: 12px;"><pre><code><span class="keyword">async with</span> <span class="function">AmplifierClient</span>() <span class="keyword">as</span> client:
-    resp = <span class="keyword">await</span> client.<span class="function">run</span>(<span class="string">"Weather in Paris?"</span>)
-    <span class="function">print</span>(resp.content)</code></pre></div>
-            </div>
-            
-            <div>
-                <h3 class="card-title">Handling Tool Calls</h3>
-                <div class="code-block" style="margin-top: 12px;"><pre><code><span class="keyword">if</span> (event.type === <span class="string">"tool.call"</span>) {
-  console.<span class="function">log</span>(<span class="string">`Using: ${event.data.tool_name}`</span>);
-}</code></pre></div>
-            </div>
+    <!-- Beat 5 -->
+    <div class="slide split">
+        <!-- beat 5: mechanism -->
+        <div class="col-main">
+            <div class="section-label">The mechanism</div>
+            <h2>It's a subprocess bridge: stdout JSONL is the only API surface</h2>
+            <p class="body">The client spawns one CLI process per run &mdash; Python uses <span class="mono">subprocess.Popen(shell=False)</span>, TypeScript uses <span class="mono">node:child_process</span> spawn. The prompt goes over stdin; versioned JSONL comes back over stdout. No duplicated runtime logic.</p>
+            <p class="handoff">And on the way back, it validates everything &rarr;</p>
         </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="code-cap" style="display:block"></span><span class="c"># the SDK invokes the CLI's jsonl mode</span>
+&lt;cmd&gt; <span class="k">run</span> --output-format <span class="s">jsonl</span> [--bundle X]
 
-        <div class="quote-block" style="margin-top: 40px;">
-            <p class="quote-text">Approval Flows? Just check for <code>approval.required</code> events and call <code>respond_approval()</code>.</p>
+<span class="c"># prompt -&gt; stdin, JSONL -&gt; stdout</span>
+child.stdin.end(prompt)</div>
         </div>
     </div>
 
-    <!-- Slide 8: Getting Started -->
-    <div class="slide center">
-        <div class="section-label">Getting Started</div>
-        <h2 class="headline">Start Building in Seconds</h2>
-
-        <div class="thirds" style="margin-top: 40px; text-align: left;">
-            <div class="card">
-                <div class="big-number" style="font-size: 64px; color: var(--accent);">1</div>
-                <div class="card-title">Start Runtime</div>
-                <div class="code-block" style="margin-top: 12px; padding: 12px;"><pre><code>uv run python -m \
-amplifier_app_runtime.cli \
---port 4096</code></pre></div>
-            </div>
-            <div class="card">
-                <div class="big-number" style="font-size: 64px; color: var(--accent);">2</div>
-                <div class="card-title">Install SDK</div>
-                <div class="code-block" style="margin-top: 12px; padding: 12px;"><pre><code>npm install amplifier-sdk
-<span class="comment"># or</span>
-pip install amplifier-sdk</code></pre></div>
-            </div>
-            <div class="card">
-                <div class="big-number" style="font-size: 64px; color: var(--accent);">3</div>
-                <div class="card-title">Build</div>
-                <div class="code-block" style="margin-top: 12px; padding: 12px;"><pre><code><span class="keyword">import</span> { <span class="type">AmplifierClient</span> }...
-<span class="keyword">const</span> client = <span class="keyword">new</span>...</code></pre></div>
-            </div>
+    <!-- Beat 6 -->
+    <div class="slide split">
+        <!-- beat 6: mechanism -->
+        <div class="col-main">
+            <div class="section-label">The mechanism</div>
+            <h2>The client does the archaeology for you &mdash; and raises typed errors</h2>
+            <p class="body"><span class="mono">_validate_record</span> rejects any <span class="mono">schema_version != 1</span>, enforces monotonic sequence numbers ("expected JSONL sequence N, got M"), and rejects unknown record types &mdash; converting a hostile stream into a validated, typed contract.</p>
+            <p class="handoff">Which is what makes the payoff possible &rarr;</p>
+        </div>
+        <div class="col-aside">
+            <ul class="steps">
+                <li><span class="n">1</span><span class="t"><b>ProtocolError</b> <span>&mdash; malformed / incompatible JSONL</span></span></li>
+                <li><span class="n">2</span><span class="t"><b>ProcessError</b> <span>&mdash; no valid terminal record (carries returncode + stderr)</span></span></li>
+                <li><span class="n">3</span><span class="t"><b>AmplifierRunError</b> <span>&mdash; a valid terminal "error" record</span></span></li>
+            </ul>
         </div>
     </div>
 
-    <!-- Slide 9: CTA -->
-    <div class="slide center">
-        <div class="section-label">What's Next</div>
-        <h2 class="headline">Build Something Cool</h2>
-        <p class="subhead">The SDK is ready. What will you create?</p>
-
-        <div class="cta-links">
-            <a href="https://github.com/manojp99/amplifier-sdk" class="cta-link" target="_blank">GitHub Repo</a>
-            <a href="https://github.com/manojp99/amplifier-sdk/tree/main/examples" class="cta-link secondary" target="_blank">View Examples</a>
+    <!-- Beat 7 -->
+    <div class="slide split">
+        <!-- beat 7: payoff -->
+        <div class="col-main">
+            <div class="section-label">The payoff</div>
+            <h2>The same runtime power, in ~7 fully-typed lines &mdash; either language</h2>
+            <p class="body">Each README quickstart is 7 non-blank lines of idiomatic, zero-runtime-dependency code. <span class="mono">stream()</span> yields typed records; <span class="mono">run()</span> returns a typed <span class="mono">RunResult</span>. Python <span class="mono">dependencies = []</span>; TypeScript ships only dev deps.</p>
+            <p class="handoff">One pattern, generalized &rarr;</p>
         </div>
+        <div class="col-aside">
+            <div class="code-block"><span class="c"># python quickstart &mdash; 7 non-blank lines</span>
+<span class="k">for</span> record <span class="k">in</span> client.stream(prompt, bundle=<span class="s">"newtui"</span>):
+    <span class="k">if</span> record[<span class="s">"type"</span>] == <span class="s">"runtime.event"</span>:
+        <span class="k">print</span>(record[<span class="s">"event"</span>][<span class="s">"kind"</span>])
 
-        <div class="small-text" style="margin-top: 48px;">
-            Coming soon: Go/Rust SDKs, Webhooks, and UI Components.
+result = client.run(prompt, bundle=<span class="s">"newtui"</span>)
+<span class="k">print</span>(result.response)</div>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Beat 8 -->
+    <div class="slide center">
+        <!-- beat 8: takeaway -->
+        <div class="section-label">The takeaway</div>
+        <h2 style="max-width:28ch">One versioned surface, two idiomatic clients, zero dependencies</h2>
+        <p class="body" style="max-width:56ch">The TUI, CI, and your own app all build on the same runtime behavior surface. The SDK &mdash; <span class="mono">AmplifierClient</span> with <span class="mono">stream()</span> and <span class="mono">run()</span> over a 4-member typed record union &mdash; means no protocol archaeology required.</p>
+        <p class="handoff">Shared surface + thin typed clients: the reusable win.</p>
+    </div>
+
+    <!-- Sources -->
+    <div class="slide">
+        <div class="section-label">Sources</div>
+        <h2>Research Methodology</h2>
+        <div class="sources-body">
+            <p><strong>Primary source:</strong> michaeljabbour/amplifier-app-newtui (public GitHub), branch main, HEAD 19a0589. SDKs under sdk/python and sdk/typescript; wire protocol in src/amplifier_app_newtui/kernel/jsonl.py.</p>
+            <p><strong>Feature status:</strong> SHIPPED &mdash; both packages declare v0.1.0; landed 2026-07-20 in commit 5aa358d.</p>
+            <p><strong>Commands run:</strong></p>
+            <ul>
+                <li><code>gh repo view michaeljabbour/amplifier-app-newtui --json name,description,isPrivate,pushedAt,url</code></li>
+                <li><code>git log --format='%h %ai %an %s' -- sdk/ ; git show 5aa358d --stat -- sdk/</code> (single commit, +859 across 10 files)</li>
+                <li><code>wc -l sdk/python/src/amplifier_newtui_sdk/__init__.py</code> (288) and <code>wc -l sdk/typescript/src/index.ts</code> (285), <code>test/client.test.ts</code> (117, 3 node:test cases)</li>
+                <li><code>cat sdk/python/pyproject.toml ; cat sdk/typescript/package.json</code> (Python dependencies=[]; TS devDependencies only)</li>
+                <li><code>cat src/amplifier_app_newtui/kernel/jsonl.py</code> (SCHEMA_VERSION 1; four record types)</li>
+                <li><code>grep -n 'output-format' src/amplifier_app_newtui/main.py</code> (click.Choice includes 'jsonl')</li>
+                <li><code>grep -rin -E 'http server|fastapi|uvicorn|websocket|event-stream|EventSource'</code> &rarr; zero matches (transport is subprocess + JSONL, not HTTP/SSE)</li>
+            </ul>
+            <p><strong>Gaps:</strong> Publication to PyPI ("amplifier-newtui-sdk") / npm ("@amplifier/newtui-sdk") was not verified &mdash; no registry lookup was run. GitHub last push (2026-07-22) is after the local clone's HEAD.</p>
+            <p><strong>Primary contributor:</strong> Michael J. Jabbour &mdash; sole author of SDK commit 5aa358d and repo HEAD. Python pyproject.toml declares author "Microsoft MADE:Explorations Team".</p>
+        </div>
+    </div>
+
     <div class="nav" id="nav"></div>
     <div class="slide-counter" id="counter"></div>
-
-    <a href="/stories" class="more-stories">More Amplifier Stories</a>
+    <a href="index.html" class="more-stories">More Amplifier Stories</a>
 
     <script>
         const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+        const total = slides.length;
+        let current = 0;
+        let transitioning = false;
 
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
+        function goTo(n) {
+            n = ((n % total) + total) % total;
+            if (transitioning || n === current) return;
+            transitioning = true;
+            var direction = n > current ? 1 : -1;
+            var prev = slides[current];
+            var next = slides[n];
+
+            prev.classList.remove('active');
+            prev.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+            prev.style.opacity = '0';
+
+            next.style.transition = 'none';
+            next.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+            next.style.opacity = '0';
+
+            void next.offsetWidth;
+
+            next.style.transition = '';
+            next.style.transform = 'translateX(0)';
+            next.style.opacity = '1';
+            next.classList.add('active');
+
+            current = n;
             updateNav();
+
+            setTimeout(function() {
+                prev.style.transform = '';
+                prev.style.opacity = '';
+                next.style.transform = '';
+                next.style.opacity = '';
+                transitioning = false;
+            }, 500);
         }
 
         function updateNav() {
@@ -542,41 +548,34 @@ pip install amplifier-sdk</code></pre></div>
             nav.innerHTML = '';
             slides.forEach((_, i) => {
                 const dot = document.createElement('div');
-                dot.className = 'nav-dot' + (i === currentSlide ? ' active' : '');
-                dot.onclick = (e) => { e.stopPropagation(); showSlide(i); };
+                dot.className = 'nav-dot' + (i === current ? ' active' : '');
+                dot.onclick = () => goTo(i);
                 nav.appendChild(dot);
             });
-            counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            counter.textContent = `${current + 1} / ${total}`;
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(currentSlide + 1); }
-            if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(currentSlide - 1); }
+            if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
         });
 
-        // Click navigation
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.nav') || e.target.closest('.cta-link')) return;
-            if (e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
-            else showSlide(currentSlide - 1);
+            if (e.target.closest('.nav')) return;
+            if (e.clientX > window.innerWidth / 2) goTo(current + 1);
+            else goTo(current - 1);
         });
 
-        // Touch/swipe navigation
         let touchStartX = 0;
-        let touchEndX = 0;
         const SWIPE_THRESHOLD = 50;
-
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
-
         document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
+            const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > SWIPE_THRESHOLD) {
-                if (diff > 0) showSlide(currentSlide + 1);
-                else showSlide(currentSlide - 1);
+                if (diff > 0) goTo(current + 1);
+                else goTo(current - 1);
             }
         }, { passive: true });
 
